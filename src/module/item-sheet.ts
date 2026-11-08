@@ -65,7 +65,8 @@ export const onItemSheetRender = (
       const change = item.changes.get(changeID);
       if (change == null) return;
 
-      if (!change.data.target.startsWith("spherecl")) {
+      // @ts-expect-error ItemChange DataModels now have immediate properties; wait for DataModel types
+      if (!change.target?.startsWith("spherecl")) {
         $(element).find('option[value="sphereCLCap"]').remove();
       }
     });

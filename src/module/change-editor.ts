@@ -14,15 +14,15 @@ import { ItemChange, ItemPF } from "./item-data";
  */
 export const onChangeEditorRender = (
   app: ChangeEditor,
-  html: JQuery<HTMLElement>,
+  html: HTMLElement,
   _data: Record<string, unknown>,
 ) => {
   // Remove "Sphere Caster Level Capped at HD" bonus modifier choice from non-Sphere CL changes
   // @ts-expect-error ItemChange DataModels now have immediate properties; wait for DataModel types
-  if (!app.change.type.startsWith("spherecl"))
-    html[0]
+  if (!app.change.target?.startsWith("spherecl"))
+    html
       .querySelector("select.change-type")
-      ?.querySelector(`option[value="sphereCLCap`)
+      ?.querySelector(`option[value="sphereCLCap"]`)
       ?.remove();
 };
 

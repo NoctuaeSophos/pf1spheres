@@ -4,6 +4,9 @@ SPDX-FileCopyrightText: 2022 Ethaks <ethaks@pm.me>
 SPDX-License-Identifier: EUPL-1.2
 -->
 
+> [!NOTE]
+> This is an unofficial fork of [Ethaks/pf1spheres](https://github.com/Ethaks/pf1spheres) with fixes for Foundry VTT 13 and pf1 11.11. Install it with the manifest URL `https://github.com/NoctuaeSophos/pf1spheres/releases/latest/download/module.json`. All credit for the module belongs to its original authors.
+
 <h1 style="text-align: center" align="center">
   Spheres for Pathfinder 1e
 </h1>

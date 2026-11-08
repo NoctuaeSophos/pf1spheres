@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.9.1](https://github.com/NoctuaeSophos/pf1spheres/compare/v0.9.0...v0.9.1) (2026-11-08)
+
+Unofficial fork for Foundry VTT 13 and pf1 11.11, pending an upstream release.
+
+### Bug Fixes
+
+* change editor hook works with pf1 11's ApplicationV2 ChangeEditor, checks the change target instead of its type, and no longer throws on a malformed option selector
+* item sheet hook reads `change.target` instead of the removed `change.data.target`
+* manifest and download URLs point at this fork
+
 ## [0.9.0](https://github.com/Ethaks/pf1spheres/compare/v0.8.0...v0.9.0) (2025-02-03)
 
 
