@@ -315,6 +315,45 @@
       flex: 0 0 10em;
     }
   }
+  .spheres-traditions {
+    margin: 0.25em 0 0.5em;
+    .block-header {
+      gap: 0.6em;
+      align-items: center;
+      span {
+        flex: 1;
+      }
+      a {
+        flex: 0 0 auto;
+        font-size: 0.85em;
+      }
+    }
+    .tradition {
+      align-items: center;
+      gap: 0.5em;
+      padding: 2px 0;
+      .tradition-img {
+        flex: 0 0 24px;
+        width: 24px;
+        height: 24px;
+        border: none;
+      }
+      .tradition-name {
+        flex: 0 0 auto;
+      }
+      .tradition-kind {
+        flex: 0 0 auto;
+        opacity: 0.7;
+        font-size: 0.85em;
+      }
+      .tradition-members {
+        flex: 1;
+      }
+    }
+  }
+  .spheres-imbue p {
+    margin: 0.2em 0;
+  }
   .spheres-effects {
     margin: 0.25em 0 0.5em;
     .sphere-effect {

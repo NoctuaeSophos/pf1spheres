@@ -84,6 +84,23 @@ SPDX-License-Identifier: EUPL-1.2
         <button type="button" class="pf1s-clear-marks">{{ localize "PF1SPHERES.Auto.ClearMarks" }}</button>
     </div>
     {{/if }}
+    <div class="spheres-traditions">
+        <h4 class="block-header flexrow">
+            <span>{{ localize "PF1SPHERES.Traditions" }}</span>
+            <a class="pf1s-tradition-new" data-kind="martial" data-tooltip="PF1SPHERES.NewMartialTradition"><i class="fas fa-plus"></i> {{ localize "PF1SPHERES.MartialTradition" }}</a>
+            <a class="pf1s-tradition-new" data-kind="casting" data-tooltip="PF1SPHERES.NewCastingTradition"><i class="fas fa-plus"></i> {{ localize "PF1SPHERES.CastingTradition" }}</a>
+        </h4>
+        <ol class="item-list">
+        {{#each traditions as |t| }}
+            <li class="flexrow tradition">
+                <img src="{{ t.img }}" alt="" class="tradition-img">
+                <a class="pf1s-open-item tradition-name" data-item-id="{{ t.id }}"><strong>{{ t.name }}</strong></a>
+                <span class="tradition-kind">{{ t.kindLabel }}</span>
+                <span class="tradition-members">{{#each t.members as |m| }}<a class="pf1s-open-item" data-item-id="{{ m.id }}">{{ m.name }}</a>{{#unless @last }}, {{/unless }}{{else }}<em>{{ localize "PF1SPHERES.TraditionEmpty" }}</em>{{/each }}</span>
+            </li>
+        {{/each }}
+        </ol>
+    </div>
     <!-- Spheres with their name, talent count, CL, and talent collabpsible -->
     <ol class="spheres-list">
         {{#each allSpheres as |sphere|}}

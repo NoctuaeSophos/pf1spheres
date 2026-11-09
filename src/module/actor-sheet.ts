@@ -79,6 +79,12 @@ export const onActorSheetRender: (
   const renderedTemplate = getRenderedSpheresTab(renderData);
   const spheresBody = body.append($(renderedTemplate));
   activateListeners(app, spheresBody, actor);
+  // Traditions and their members are shown on the Spheres tab instead of crowding the Features list
+  for (const t of renderData.traditions) {
+    for (const id of [t.id, ...t.members.map((m: { id: string }) => m.id)]) {
+      html.find(`.tab[data-tab='feats'] .item[data-item-id='${id}']`).remove();
+    }
+  }
 
   // Re-focus spheres tab
   // NOTE: Can be expanded for multiple tabs
@@ -104,6 +110,57 @@ const addNavTab = (app: ActorSheetPF, html: JQuery<HTMLElement>) => {
     const isSpheresTab = ev.target.dataset?.tab === "spheres";
     app.spheresTab.activateTab = isSpheresTab ? "spheres" : false;
   });
+};
+
+/**
+ * Martial and casting traditions: features flagged pf1spheres.tradition, whose members are their pf1
+ * "children" links (added by dragging items into the tradition's Links tab).
+ *
+ * @param actor - The actor
+ */
+const getTraditions = (actor: ActorPF) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const items = (actor as any).items.contents as any[];
+  return items
+    .filter((i) => ["martial", "casting"].includes(i.flags?.pf1spheres?.tradition))
+    .map((t) => ({
+      id: t.id,
+      name: t.name,
+      img: t.img,
+      kind: t.flags.pf1spheres.tradition,
+      kindLabel: localize(
+        t.flags.pf1spheres.tradition === "martial" ? "MartialTradition" : "CastingTradition",
+      ),
+      members: (t.system.links?.children ?? [])
+        .map((l: { uuid: string }) => items.find((i) => i.id === l.uuid.split(".").pop()))
+        .filter(Boolean)
+        .map((i: { id: string; name: string; img: string }) => ({
+          id: i.id,
+          name: i.name,
+          img: i.img,
+        })),
+    }));
+};
+
+const createTradition = async (actor: ActorPF, kind: "martial" | "casting") => {
+  const name = localize(kind === "martial" ? "MartialTradition" : "CastingTradition");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [item] = await (actor as any).createEmbeddedDocuments("Item", [
+    {
+      name,
+      type: "feat",
+      img:
+        kind === "martial"
+          ? "icons/skills/melee/weapons-crossed-swords-white-blue.webp"
+          : "icons/magic/symbols/runes-star-pentagon-blue.webp",
+      system: {
+        subType: "classFeat",
+        description: { value: `<p>${localize("TraditionHint")}</p>` },
+      },
+      flags: { pf1spheres: { tradition: kind } },
+    },
+  ]);
+  item?.sheet?.render(true);
 };
 
 const normaliseSphere = (s: string) => s.toLowerCase().replace(/[^a-z]/g, "");
@@ -284,6 +341,7 @@ const getSpheresData = (app: ActorSheetPF, actor: ActorPF): SpheresTemplateData 
             ...imbueChoices(actor, getSequence(actor).imbue ?? ""),
           }
         : null,
+    traditions: getTraditions(actor),
     sphereCLs,
     sphereBabs,
     allSpheres: [...sphereCLs, ...sphereBabs].sort((a, b) => a.sphere.localeCompare(b.sphere)),
@@ -317,6 +375,22 @@ const activateListeners = (app: ActorSheetPF, html: JQuery<HTMLElement>, actor: 
     setSpellPoints(actor, Number((ev.currentTarget as HTMLInputElement).value) || 0);
   });
   html.find(".pf1s-control-weather").on("click", () => openCasterWeather(actor));
+  html
+    .find(".pf1s-tradition-new")
+    .on("click", (ev) =>
+      createTradition(
+        actor,
+        (ev.currentTarget as HTMLElement).dataset.kind as "martial" | "casting",
+      ),
+    );
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  html
+    .find(".pf1s-open-item")
+    .on("click", (ev) =>
+      (actor as any).items
+        .get((ev.currentTarget as HTMLElement).dataset.itemId)
+        ?.sheet?.render(true),
+    );
   html.find(".pf1s-prepare-formulae").on("click", () => openFormulae(actor));
   html.find(".pf1s-build-blasts").on("click", () => buildBlastActions(actor));
   html.find(".pf1s-msb-vs").on("click", () => rollMsbVsTargets(actor));
@@ -459,6 +533,7 @@ export declare class ActorSheetPF extends ActorSheet {
 
 interface SpheresTemplateData {
   dataGroup: string;
+  traditions: ReturnType<typeof getTraditions>;
   attributeGrid: AttributeData[];
   spellPoints: { value: number; max: number };
   martialFocus: boolean;
