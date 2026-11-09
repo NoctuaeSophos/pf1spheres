@@ -214,6 +214,15 @@ export const effectLabel = (itemName: string, actionName: string | undefined): s
   return `${itemName}: ${actionName}`;
 };
 
+/** A mark's note without a leading copy of the mark's label ("Focused fire: ...") */
+export const withoutLabel = (note: string, label: string): string => {
+  const n = (note ?? "").trimStart();
+  const l = (label ?? "").trim();
+  return l && n.toLowerCase().startsWith(`${l.toLowerCase()}:`)
+    ? n.slice(l.length + 1).trimStart()
+    : n;
+};
+
 /** Which way a move crosses an area's edge, if it does and the area watches that direction */
 export const edgeCrossing = (
   wasInside: boolean,

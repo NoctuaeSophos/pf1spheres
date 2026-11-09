@@ -42,6 +42,7 @@ import {
   edgeCrossing,
   effectLabel,
   pinCasterLevels,
+  withoutLabel,
 } from "../src/module/automation/logic";
 import type { Grant } from "../src/module/automation/logic";
 import {
@@ -381,6 +382,10 @@ describe("wards and totems", () => {
     expect(edgeCrossing(true, false, "both")).toBe("leave");
     expect(edgeCrossing(true, true, "both")).toBe(null);
     expect(edgeCrossing(false, true, "")).toBe(null);
+  });
+  it("drops a mark note's repeated label", () => {
+    expect(withoutLabel("Focused fire: +1 per hit", "Focused fire")).toBe("+1 per hit");
+    expect(withoutLabel("+1 per hit", "Focused fire")).toBe("+1 per hit");
   });
   it("names effects without repeating the talent", () => {
     expect(effectLabel("Totem Of Stability", "Totem of Stability")).toBe("Totem of Stability");

@@ -17,6 +17,7 @@ import {
   distanceFt,
   edgeCrossing,
   effectLabel,
+  withoutLabel,
   durationSeconds,
   fillNote,
   hasAutomation,
@@ -58,7 +59,14 @@ export const evalFormula = (formula, rollData): number => {
     );
     return Number.isFinite(v) ? v : 0;
   } catch {
-    return 0;
+    // pf1's formula helpers (gte, lt, ifelse...) exist only in its rolls, not in plain evaluation
+    try {
+      const roll = new Roll(String(formula), rollData ?? {});
+      roll.evaluateSync();
+      return Number.isFinite(roll.total) ? roll.total : 0;
+    } catch {
+      return 0;
+    }
   }
 };
 
@@ -698,13 +706,14 @@ function onPreActionUse(au) {
       const mine =
         m.sourceUuid === actor.uuid ||
         (m.squadron && isInoculated(m.sourceUuid, squadronOf(m.sourceUuid), actor.uuid));
-      if (mine && m.attackerNote) notes.push({ text: `${m.label} (${t.name}): ${m.attackerNote}` });
+      if (mine && m.attackerNote)
+        notes.push({ text: `${m.label} (${t.name}): ${withoutLabel(m.attackerNote, m.label)}` });
     }
   }
   const attacker = au.token?.document ?? au.token ?? actor.getActiveTokens?.(false, true)?.[0];
   for (const m of attacker?.getFlag?.(MODULE_ID, "marks") ?? []) {
     if (m.defenderNote && targets.some((t) => t.actor?.uuid === m.sourceUuid))
-      notes.push({ text: `${m.label}: ${m.defenderNote}` });
+      notes.push({ text: `${m.label}: ${withoutLabel(m.defenderNote, m.label)}` });
   }
 
   const auto = getAutomation(item, action.id);
@@ -786,6 +795,8 @@ async function onPostActionUse(au) {
   if (auto.threatNext) {
     const c = game.combat?.started ? game.combat : null;
     await actor.setFlag(MODULE_ID, "threatNext", {
+      // Each finisher's threat is its own, even on a frozen clock or twice in one turn
+      id: foundry.utils.randomID(),
       combatId: c?.id ?? null,
       round: c?.round ?? 0,
       turn: c?.turn ?? 0,
@@ -1193,10 +1204,13 @@ async function applyFailedSave(msg, user) {
           1,
           (sphere ? rd.spheres?.cl?.[sphere]?.total : null) ?? rd.spheres?.cl?.total ?? 1,
         );
-    const data = buffCopy(source, level, `${source.name} (${caster.name})`, {
-      failBuff: { casterUuid: caster.uuid },
-      expiresAt: now + rounds * 6,
-    });
+    const data = buffCopy(
+      source,
+      level,
+      `${source.name} (${caster.name})`,
+      { failBuff: { casterUuid: caster.uuid }, expiresAt: now + rounds * 6 },
+      caster,
+    );
     foundry.utils.setProperty(data, "system.duration.value", String(rounds));
     foundry.utils.setProperty(data, "system.duration.units", "round");
     await target.createEmbeddedDocuments("Item", [data]);
@@ -1258,7 +1272,7 @@ function onPreAttackRoll(action, _config, _rollData, rollOptions) {
   const actor = action?.actor;
   const flag = actor?.flags?.[MODULE_ID]?.threatNext;
   if (!flag || !actor.isOwner) return;
-  const key = `${actor.uuid}:${flag.time}:${flag.round}:${flag.turn}`;
+  const key = `${actor.uuid}:${flag.id ?? `${flag.time}:${flag.round}:${flag.turn}`}`;
   if (threatSpent.has(key)) return;
   threatSpent.add(key);
   // The next attack roll threatens on any hit; the confirmation roll is made as normal

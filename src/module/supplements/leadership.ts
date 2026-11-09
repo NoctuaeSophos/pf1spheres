@@ -18,6 +18,7 @@ import {
   cohortMaxLevel,
   followersAllowed,
   leadershipScores,
+  mythicFollowers,
 } from "./leadership-logic";
 
 const loc = (k: string) => localize(`Leadership.${k}`);
