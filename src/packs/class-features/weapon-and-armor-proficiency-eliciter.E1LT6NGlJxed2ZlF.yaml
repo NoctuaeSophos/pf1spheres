@@ -17,7 +17,9 @@ system:
   abilityType: na
   acquired: false
   actions: []
-  armorProf: []
+  armorProf:
+    - "lgt"
+    - "shl"
   associations:
     classes: []
   attackBonus: ""
@@ -94,5 +96,13 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "simple"
+    - "Longsword"
+    - "Rapier"
+    - "Sap"
+    - "Short Sword"
+    - "Shortsword"
+    - "Shortbow"
+    - "Whip"
 type: feat

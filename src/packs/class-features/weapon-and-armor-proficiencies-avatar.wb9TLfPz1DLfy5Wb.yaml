@@ -1,5 +1,5 @@
 _id: wb9TLfPz1DLfy5Wb
-_key: '!items!wb9TLfPz1DLfy5Wb'
+_key: "!items!wb9TLfPz1DLfy5Wb"
 effects: []
 flags:
   pf1: {}
@@ -19,11 +19,13 @@ system:
   abilityType: na
   acquired: false
   actions: []
-  armorProf: []
+  armorProf:
+    - "lgt"
+    - "Buckler"
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,15 +41,15 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p>Proficient with simple weapons, light armor and bucklers.</p><p>If
       this is the character''s first level in any class, she may also choose one martial
       tradition.</p><p><strong>Replaces:</strong> Weapon and Armor Proficiency (alters).</p><p><em>Source:
@@ -55,18 +57,18 @@ system:
       text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -77,27 +79,28 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Avatar
-  - Sphere Druid
+    - Avatar
+    - Sphere Druid
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "simple"
 type: feat

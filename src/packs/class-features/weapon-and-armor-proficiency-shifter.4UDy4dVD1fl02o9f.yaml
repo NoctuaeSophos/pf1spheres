@@ -17,7 +17,8 @@ system:
   abilityType: na
   acquired: false
   actions: []
-  armorProf: []
+  armorProf:
+    - "lgt"
   associations:
     classes: []
   attackBonus: ""
@@ -92,5 +93,6 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "simple"
 type: feat

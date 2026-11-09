@@ -1,5 +1,5 @@
 _id: xvprpNqWjkKBybQQ
-_key: '!items!xvprpNqWjkKBybQQ'
+_key: "!items!xvprpNqWjkKBybQQ"
 effects: []
 flags:
   pf1: {}
@@ -19,11 +19,14 @@ system:
   abilityType: na
   acquired: false
   actions: []
-  armorProf: []
+  armorProf:
+    - "lgt"
+    - "med"
+    - "shl"
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,15 +42,15 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p>Weapons: club, dagger, dart, quarterstaff, scimitar, scythe, sickle,
       shortspear, sling, spear, plus the natural attacks of any form she assumes.</p><p>Armor:
       light and medium, but no metal armor (padded, leather, hide, or ironwood-treated
@@ -58,18 +61,18 @@ system:
       text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -80,26 +83,36 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Sphere Druid
+    - Sphere Druid
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Club"
+    - "Dagger"
+    - "Dart"
+    - "Quarterstaff"
+    - "Scimitar"
+    - "Scythe"
+    - "Sickle"
+    - "Shortspear"
+    - "Sling"
+    - "Spear"
 type: feat
