@@ -488,23 +488,32 @@ const refreshWindows = (scene) => {
  * Adds the token's scene weather to an actor's roll data as @spheres.weather: the severities,
  * whether there is a storm, and the lightning formula (maximized when the caster is the controller).
  */
-const onGetRollData = (doc, result) => {
-  if (!(doc instanceof Actor)) return;
-  const token = doc.token ?? doc.getActiveTokens?.(false, true)?.[0];
+const weatherRollData = (actor) => {
+  const token = actor.token ?? actor.getActiveTokens?.(false, true)?.[0];
   const scene = token?.parent ?? canvas?.scene;
-  if (!scene) return;
   const weather = getSceneWeather(scene);
   const effects = getWeatherEffects(weather);
   const bolt = getLightning(weather, effects);
-  result.spheres ??= {};
-  result.spheres.weather = {
+  return {
     ...effects.severities,
     storm: bolt ? 1 : 0,
     lightningDice: effects.lightningDice,
     lightning: bolt ? bolt.formula : "0",
-    mine: weather.controller?.actorUuid === doc.uuid ? 1 : 0,
+    mine: weather.controller?.actorUuid === actor.uuid ? 1 : 0,
     dc: bolt?.dc ?? 0,
   };
+};
+
+// pf1 caches roll data at data prep and skips this hook on cached reads, so a snapshot would miss
+// weather set later (or a canvas that wasn't ready at load); a getter reads the scene on each use
+const onGetRollData = (doc, result) => {
+  if (!(doc instanceof Actor)) return;
+  result.spheres ??= {};
+  Object.defineProperty(result.spheres, "weather", {
+    get: () => weatherRollData(doc),
+    enumerable: true,
+    configurable: true,
+  });
 };
 
 /** Registers the token-tools button, roll data, the GM socket and the sync hooks */
