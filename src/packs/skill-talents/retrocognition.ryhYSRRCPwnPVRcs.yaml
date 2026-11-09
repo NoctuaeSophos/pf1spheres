@@ -1,0 +1,107 @@
+_id: ryhYSRRCPwnPVRcs
+_key: '!items!ryhYSRRCPwnPVRcs'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    sphere: study
+folder: null
+img: icons/svg/item-bag.svg
+name: Retrocognition
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: su
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p><strong>Prerequisites:</strong> Study sphere, Knowledge (any) 10 ranks.</p><p>When
+      recalling information, spend 1 skill leverage to do so from the viewpoint of
+      another creature you know of, even one you have never met. This can lower the
+      DC if the subject mattered in that creature''s life, or allow a check only that
+      creature''s experience would make possible. It can reveal lost or forgotten
+      knowledge, but not anything the creature deliberately kept secret or obscured.</p><p><em>Source:
+      Diamond Spheres: Thaumic Potential.</em> <a href="http://spheresofpower.wikidot.com/study#toc46">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: skillTalent
+  summons: false
+  tag: ''
+  tags:
+  - Exceptional
+  - Utility
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

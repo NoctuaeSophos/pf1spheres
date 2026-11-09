@@ -1,0 +1,164 @@
+_id: SEQsRjhWbJnETahv
+_key: '!items!SEQsRjhWbJnETahv'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Academic Knowledge
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: ex
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes:
+  - _id: h2whtjxfcnqao6mw
+    formula: max(1, floor(@classes.scholar.level / 2))
+    operator: add
+    priority: 0
+    target: skill.kar
+    type: untyped
+  - _id: pq2nwrkrudzj3een
+    formula: max(1, floor(@classes.scholar.level / 2))
+    operator: add
+    priority: 0
+    target: skill.kdu
+    type: untyped
+  - _id: zmx8r2scx9elders
+    formula: max(1, floor(@classes.scholar.level / 2))
+    operator: add
+    priority: 0
+    target: skill.ken
+    type: untyped
+  - _id: anfz0dpcxttwqrom
+    formula: max(1, floor(@classes.scholar.level / 2))
+    operator: add
+    priority: 0
+    target: skill.kge
+    type: untyped
+  - _id: icbbmmmlbzbkjo7n
+    formula: max(1, floor(@classes.scholar.level / 2))
+    operator: add
+    priority: 0
+    target: skill.khi
+    type: untyped
+  - _id: mh7ajwn75iniszn0
+    formula: max(1, floor(@classes.scholar.level / 2))
+    operator: add
+    priority: 0
+    target: skill.klo
+    type: untyped
+  - _id: gvkmbsvqhtgersip
+    formula: max(1, floor(@classes.scholar.level / 2))
+    operator: add
+    priority: 0
+    target: skill.kna
+    type: untyped
+  - _id: sg7tjr03c0ez8xhe
+    formula: max(1, floor(@classes.scholar.level / 2))
+    operator: add
+    priority: 0
+    target: skill.kno
+    type: untyped
+  - _id: odamccxxmq9puave
+    formula: max(1, floor(@classes.scholar.level / 2))
+    operator: add
+    priority: 0
+    target: skill.kpl
+    type: untyped
+  - _id: qu9c8qgyuvcfnygq
+    formula: max(1, floor(@classes.scholar.level / 2))
+    operator: add
+    priority: 0
+    target: skill.kre
+    type: untyped
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>Add half your scholar level (minimum +1) to every Knowledge check,
+      and you can attempt any Knowledge check untrained.</p><p>When you succeed on
+      a Knowledge check to identify a creature you have already successfully scouted,
+      you can spend a move action to brief your allies. For 1 minute they gain a +2
+      bonus on combat maneuver checks against that creature and +2 to the DCs of abilities
+      they use against it.</p><p><em>Source: Spheres of Might.</em> <a href="http://spheresofpower.wikidot.com/scholar#toc7">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: classFeat
+  summons: false
+  tag: ''
+  tags:
+  - Scholar's Knack
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

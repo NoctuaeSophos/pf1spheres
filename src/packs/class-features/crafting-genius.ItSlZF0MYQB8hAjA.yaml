@@ -1,0 +1,109 @@
+_id: ItSlZF0MYQB8hAjA
+_key: '!items!ItSlZF0MYQB8hAjA'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Crafting Genius
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: ex
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p><strong>Prerequisites:</strong> Amateur Arcanist.</p><p>Gain one of
+      Brew Potion, Craft Rod, Craft Staff, Craft Wand, Craft Wondrous Item, or Forge
+      Ring. Your scholar level counts as your caster level for it, but you must meet
+      every other prerequisite (so Craft Rod is unavailable before 9th level).</p><p>You
+      also gain a bonus equal to half your scholar level on skill checks made as part
+      of crafting. For potions, spell-trigger, and spell-completion items, you can
+      skip a spell prerequisite by adding 3 + the spell''s level (or 3 + half the
+      caster level of a sphere effect) to the crafting DC. Your scholar level counts
+      as caster level for the effects of items you craft yourself.</p><p>You can take
+      this knack more than once; each extra selection grants only another feat from
+      the list.</p><p><em>Source: Scholar wiki page [CS].</em> <a href="http://spheresofpower.wikidot.com/scholar#toc18">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: classFeat
+  summons: false
+  tag: ''
+  tags:
+  - Scholar's Knack
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

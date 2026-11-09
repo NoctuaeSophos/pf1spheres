@@ -1,0 +1,124 @@
+_id: J0ypHD4MMqbofeAX
+_key: '!items!J0ypHD4MMqbofeAX'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Vampiric Casting
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>Each time the caster rests and regains spell points, her caster level
+      in every sphere drops to 1 (applied after bonuses, before penalties); a caster
+      level already at 1 or less becomes 0. She can''t use a sphere in which her caster
+      level is 0.</p><p><strong>Draining:</strong> as a full-round action she drains
+      the blood of a helpless or willing creature within reach. The victim takes a
+      −2 penalty to Constitution for 24 hours that nothing can cure, reduce or ignore.
+      She can''t drain creatures with fewer Hit Dice than half her magic skill bonus,
+      her own subordinates, or creatures without a Constitution score, and can''t
+      drain the same creature more than once per 48 hours. Her first drain of the
+      day sets her caster level to half its normal value instead (minimum 1, after
+      bonuses, before penalties); the second removes the penalty entirely. Further
+      drains after that pre-pay against the penalty from her next rest at the same
+      rate, but never beyond that next rest.</p><p><strong>Taken twice:</strong> the
+      penalty instead steps from 1/3 caster level (one drain) to 2/3 (two drains)
+      to none (three drains). If she uses magic without having drained anyone, or
+      a whole day passes with no drain, she must save (Will, DC 5 + 1/2 magic skill
+      bonus + 2 per save against this berserk in the past week, maximum 20 + magic
+      skill bonus) or go berserk for 1 hour or until she next drains, her body doing
+      everything it can to reach and drain a suitable creature (any magic she uses
+      while berserk ignores the caster level penalty). Three failed saves in a row
+      make the berserk permanent, and draining no longer ends it. The berserk is a
+      magical emotion effect with an MSD of her MSD + 5; Break Enchantment or similar
+      ends it, but the Counterspell feat can''t dispel it. With two copies, extra
+      drains no longer pre-pay the next rest''s penalty.</p><p>Counts as 2 drawbacks
+      for bonus spell points, or 3 if taken twice.</p><p><em>Source: Casting Traditions
+      (wiki), [CrimDan] content.</em> <a href="http://spheresofpower.wikidot.com/casting-traditions#toc62">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: classFeat
+  summons: false
+  tag: ''
+  tags:
+  - Casting Drawback
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

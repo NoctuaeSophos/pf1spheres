@@ -1,0 +1,116 @@
+_id: nhRtQJ0ikTNWTsO4
+_key: '!items!nhRtQJ0ikTNWTsO4'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    sphere: study
+folder: null
+img: icons/svg/item-bag.svg
+name: Deduce Positioning
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: ex
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>Subject must be a creature. You are not flat-footed when it surprises
+      you, and you keep your Dex bonus to AC against it when it is invisible or you
+      are otherwise unaware of it (you still lose it if immobilized or successfully
+      feinted by it). Any miss chance the subject has is reduced by 5% per notion
+      on this theory.</p><p><strong>Notions:</strong> the subject damages a creature
+      that cannot perceive it or is denied its Dex bonus to AC; another creature pinpoints
+      or reveals the subject while it has total concealment; the subject attacks with
+      a positional advantage (higher ground, flanking, etc.) or is attacked by a creature
+      that has one; another creature misses the subject because of miss chance.</p><p><strong>Breakthrough:</strong>
+      When you miss because of concealment, spend 1 notion as a free action, even
+      off-turn, to reroll the miss chance.</p><p><strong>Breakthrough:</strong> As
+      a swift action, spend any number of notions to gain blindsense 30 ft. that works
+      only against the subject, lasting 1 round per notion.</p><p><strong>Breakthrough:</strong>
+      As a swift action, spend any number of notions to gain a +3 insight bonus on
+      opposed Perception checks for 1 round per notion, +1 per 4 ranks in the associated
+      skill.</p><p><strong>Associated feat:</strong> Blind-Fight.</p><p><em>Source:
+      Spheres of Guile.</em> <a href="http://spheresofpower.wikidot.com/study#toc30">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: skillTalent
+  summons: false
+  tag: ''
+  tags:
+  - Theory
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

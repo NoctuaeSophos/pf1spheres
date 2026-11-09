@@ -1,0 +1,110 @@
+_id: ewk31OwFZoFz2qdG
+_key: '!items!ewk31OwFZoFz2qdG'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Destructive Curse
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: su
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>On taking this hex, pick one basic (blast type) talent from the Destruction
+      sphere that costs no spell point.</p><p>Curses one creature within 30 ft. (Will
+      negates). On a failed save it takes 1 damage per witch level, of the blast type''s
+      damage type, plus that blast type''s extra effects. The curse lasts for rounds
+      equal to her casting ability modifier, repeating the damage and effects at the
+      end of each of the creature''s turns unless it succeeds on a Will save, which
+      ends the curse. Either way, the creature can''t be targeted by this hex again
+      for 1 day. Curse effect.</p><p><strong>Special:</strong> with the Destruction
+      sphere she counts as having the chosen (blast type) talent for all purposes.
+      If she has or later takes the Energy Focus drawback, the chosen blast type must
+      be re-picked from that drawback''s group if it falls outside it.</p><p><em>Source:
+      Blood and Portents (wiki tag [BaP]).</em> <a href="http://spheresofpower.wikidot.com/witch-hexes#toc5">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: classFeat
+  summons: false
+  tag: ''
+  tags:
+  - Hex
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

@@ -1,0 +1,146 @@
+_id: K3ixqSlNOyLLbixE
+_key: '!items!K3ixqSlNOyLLbixE'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    casterProgression: high
+folder: null
+img: icons/svg/item-bag.svg
+name: Tempestarii
+sort: 0
+system:
+  alignment: ''
+  armorProf: []
+  bab: low
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills:
+    acr: false
+    apr: false
+    art: false
+    blf: false
+    clm: false
+    crf: false
+    dev: false
+    dip: false
+    dis: false
+    esc: false
+    fly: true
+    han: false
+    hea: false
+    int: true
+    kar: false
+    kdu: false
+    ken: false
+    kge: true
+    khi: false
+    klo: false
+    kna: true
+    kno: false
+    kpl: false
+    kre: false
+    lin: false
+    lor: false
+    per: true
+    prf: false
+    pro: true
+    rid: false
+    sen: false
+    slt: false
+    spl: true
+    ste: false
+    sur: true
+    swm: false
+    umd: false
+  contextNotes: []
+  customHD: ''
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>Prestige class for weather mages who command the skies, from speeding
+      an airship along to tearing an enemy vessel down.</p><p><strong>Requirements:</strong>
+      caster level 5 with the Weather sphere; the Weather sphere; 5 ranks in Knowledge
+      (nature).</p><p><strong>Alignment:</strong> any. <strong>Hit Die:</strong> d6.</p><p><strong>Class
+      skills:</strong> Fly, Intimidate, Knowledge (geography), Knowledge (nature),
+      Perception, Profession, Spellcraft, Survival. <strong>Skill ranks per level:</strong>
+      4 + Int modifier.</p><p><strong>Progression (5 levels):</strong> half BAB (+2
+      at 5th); good Will (+3), poor Fort and Reflex (+2). +1 caster level and 1 magic
+      talent every level. 1st rapid weather; 2nd ship smasher; 3rd grand weather;
+      4th ship killer; 5th deadly weather and instant weather.</p><p><strong>Proficiencies:</strong>
+      none.</p><p><em>Source: Woodfaring Adventures.</em> <a href="http://spheresofpower.wikidot.com/tempestarii">Full
+      text</a></p>'
+  fc:
+    alt:
+      notes: ''
+      value: 0
+    hp:
+      value: 0
+    skill:
+      value: 0
+  flags:
+    boolean: {}
+    dictionary: {}
+  hd: 6
+  hp: 6
+  languages: []
+  level: 1
+  links:
+    children: []
+    classAssociations:
+    - level: 1
+      name: Weapon and Armor Proficiency (Tempestarii)
+      uuid: Compendium.pf1spheres.class-features.Item.DEfxgcjfgCV87gCV
+    - level: 1
+      name: Casting (Tempestarii)
+      uuid: Compendium.pf1spheres.class-features.Item.P366bWRFy75gpLja
+    - level: 1
+      name: Spell Pool (Tempestarii)
+      uuid: Compendium.pf1spheres.class-features.Item.hXuYPM4VR8HW5Vkj
+    - level: 1
+      name: Magic Talents (Tempestarii)
+      uuid: Compendium.pf1spheres.class-features.Item.FKKofm6dvkMFEwp1
+    - level: 1
+      name: Rapid Weather
+      uuid: Compendium.pf1spheres.class-features.Item.NsrvLhJvRwXMHPT0
+    - level: 2
+      name: Ship Smasher
+      uuid: Compendium.pf1spheres.class-features.Item.W0ZdaURSS0nIhpsO
+    - level: 3
+      name: Grand Weather
+      uuid: Compendium.pf1spheres.class-features.Item.zIzE6kHNiYwQF2jt
+    - level: 4
+      name: Ship Killer
+      uuid: Compendium.pf1spheres.class-features.Item.KPM7PIKGqIQIPj2K
+    - level: 5
+      name: Deadly Weather
+      uuid: Compendium.pf1spheres.class-features.Item.jldEGg3BEQy7uL1h
+    - level: 5
+      name: Instant Weather
+      uuid: Compendium.pf1spheres.class-features.Item.BSrgIXqxtkxwCbVJ
+  savingThrows:
+    fort:
+      value: low
+    ref:
+      value: low
+    will:
+      value: high
+  scriptCalls: []
+  skillsPerLevel: 4
+  subType: prestige
+  tag: ''
+  tags:
+  - Tempestarii
+  wealth: ''
+  weaponProf: []
+type: class

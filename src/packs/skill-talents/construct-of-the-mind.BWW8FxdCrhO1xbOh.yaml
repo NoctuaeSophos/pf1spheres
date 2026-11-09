@@ -1,0 +1,112 @@
+_id: BWW8FxdCrhO1xbOh
+_key: '!items!BWW8FxdCrhO1xbOh'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    sphere: study
+folder: null
+img: icons/svg/item-bag.svg
+name: Construct Of The Mind
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: ex
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p><strong>Prerequisites:</strong> Associated skill 7 ranks, Study sphere
+      (Flawless Recall).</p><p>You build a mental archive of your memories. Entering
+      it means concentrating as a full-round action, and you are blinded and deafened
+      while inside. With Collaborative Understanding you can touch a willing creature
+      to bring it in with you.</p><p>Inside, you can view memories stored with Flawless
+      Recall, gaining a +2 insight bonus on checks to notice new details, and you
+      can use senses or abilities you lacked when the memory was made. You may retry
+      noticing details in a stored memory each time you gain a level.</p><p>For 1
+      skill leverage, move stored memories into permanent storage, up to your operative
+      ability modifier (minimum 1) per use. Archived memories no longer count against
+      your stored-memory limit, have no cap on their number, and can still be recalled
+      or deliberately forgotten as normal.</p><p><em>Source: Spheres of Guile.</em>
+      <a href="http://spheresofpower.wikidot.com/study#toc40">Full text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: skillTalent
+  summons: false
+  tag: ''
+  tags:
+  - Exceptional
+  - Utility
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

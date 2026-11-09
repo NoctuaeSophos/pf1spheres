@@ -1,0 +1,109 @@
+_id: Wall2j7O2tMGN0HD
+_key: '!items!Wall2j7O2tMGN0HD'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Touch of Corruption
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: su
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>From 2nd level, can fill a target with negative energy by touch, a
+      number of times per day equal to ½ her soul weaver level + casting ability modifier.</p><p>Standard
+      action that doesn''t provoke (swift action on herself). Unwilling targets need
+      a melee touch attack. Deals 1d6 damage per 2 soul weaver levels, or heals undead
+      by the same amount.</p><p>Counts as lay on hands for any feat, spell or effect
+      that specifically works with it (e.g. Extra Lay On Hands adds 2 uses). She may
+      spend a feat to gain one antipaladin cruelty, using her soul weaver level as
+      antipaladin level.</p><p>Spending 2 uses lets her channel negative energy as
+      a cleric, with soul weaver level as cleric level. Channel DC is based on her
+      casting ability.</p><p><strong>Replaces:</strong> Blessing/Blight.</p><p><em>Source:
+      Ultimate Spheres of Power.</em> <a href="http://spheresofpower.wikidot.com/lichling#toc1">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: classFeat
+  summons: false
+  tag: ''
+  tags:
+  - Lichling
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: floor(@classes.soulWeaver.level / 2) + @spheres.cam
+    per: day
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

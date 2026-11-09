@@ -1,0 +1,124 @@
+_id: fhM9yEJJMEADtc54
+_key: '!items!fhM9yEJJMEADtc54'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Gifted Mythic Path
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p><strong>Overview:</strong> The mythic path for practitioners (characters
+      with expert, adept or proficient martial talent progression, and champion classes
+      mixing magic and martial spheres). It pairs well with the Dual Path mythic feat.</p><p><strong>Bonus
+      hit points:</strong> +4 hit points per gifted tier. They do not change Hit Dice
+      and do not stack with the hit points granted by a Dual Path choice.</p><p><strong>Path
+      abilities:</strong> One Gifted path ability at every tier (1st through 10th),
+      chosen from the Gifted list or the universal list, subject to each ability''s
+      minimum tier.</p><p><strong>Sphere Mastery (1st tier):</strong> Gain one mythic
+      sphere mastery. You must know the base sphere it belongs to.</p><p><strong>Martial
+      Mastery (10th tier):</strong> Pick three base sphere effects and/or specific
+      talents that normally require expending martial focus. Once per minute you can
+      use one of them without expending martial focus.</p><p><strong>Mythic sphere
+      talents (general rule):</strong> Mythic sphere masteries and other mythic sphere
+      talents count as 1st-tier universal path abilities unless stated otherwise,
+      and each mastery requires its base sphere. If a mythic sphere talent changes
+      which talents you know, effects you already created persist for their normal
+      duration, and you may keep concentrating on them or pay to maintain them as
+      usual even after losing the talent.</p><p><strong>Cross-path class abilities:</strong>
+      A mythic practitioner may take any path ability or mythic class ability from
+      any path or class if it affects a class feature they have (one listed in their
+      class table''s Special column), as long as they meet its other requirements
+      such as minimum tier. With GM permission, universal path abilities that grant
+      spell-like abilities may be taken unchanged.</p><p><strong>Utility abilities:</strong>
+      Under the page''s utility rule, a mythic character gains one extra utility path
+      ability (one tagged [Utility]) at 2nd tier and every even tier after.</p><p><em>Source:
+      Mythic Spheres.</em> <a href="http://spheresofpower.wikidot.com/mythic-spheres#toc131">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: classFeat
+  summons: false
+  tag: ''
+  tags:
+  - Gifted
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

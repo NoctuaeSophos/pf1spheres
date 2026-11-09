@@ -1,0 +1,115 @@
+_id: BULS8FlDAeVFQgJP
+_key: '!items!BULS8FlDAeVFQgJP'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Irori Evangelist Boons
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>These are the boons for evangelists of Irori.</p><p><strong>1. Expansive
+      Knowledge (Sp):</strong> identify 3/day, fox''s cunning 2/day, or secret page
+      1/day.</p><p><strong>2. Inevitable Fist (Su):</strong> you have rounds per day
+      equal to your Hit Dice in which your unarmed strikes use the damage of a creature
+      one size category bigger and gain the axiomatic property. Activating or ending
+      it costs a free action; spend the rounds in any increments.</p><p><strong>3.
+      Runic Form (Sp and Su):</strong> you gain nine runic tattoos, three each for
+      mind, body and spirit. Discharging one is a standard action unless noted. A
+      spent tattoo recharges over 1 week.<br>Body: two hold cure serious wounds and
+      one holds restoration (spell-like).<br>Mind: two each let you reroll a save
+      against an enchantment as a swift action, declared before you learn the result,
+      and you must keep the new roll. The third grants a +4 sacred bonus to Wisdom
+      for 1 minute.<br>Spirit: two each make you ethereal for 1 minute, as etherealness.
+      The third grants spell resistance of 10 + your Hit Dice for 1 minute.</p><p><em>Source:
+      Inner Sea Gods pg. 84.</em> <a href="https://www.aonprd.com/DeityDisplay.aspx?ItemName=Irori">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: classFeat
+  summons: false
+  tag: ''
+  tags:
+  - Deific Obedience
+  - Irori
+  - Boon
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

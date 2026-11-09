@@ -1,0 +1,114 @@
+_id: bUW7IHpFEN35BKll
+_key: '!items!bUW7IHpFEN35BKll'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    sphere: study
+folder: null
+img: icons/svg/item-bag.svg
+name: Conflict Of Wits
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: su
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p><strong>Prerequisites:</strong> Associated skill 7 ranks, Study sphere.</p><p>Subject
+      must be a creature. As a standard action, aim a torrent of near-nonsense at
+      the subject, which must be able to hear you; it must make a Will save or be
+      confused or dumbfounded (your choice) until the end of its next turn. This is
+      a supernatural, mind-affecting, language-dependent disorientation effect.</p><p><strong>Notions:</strong>
+      a creature succeeds on a Cha-, Int-, or Wis-based skill check against the subject;
+      the subject fails a Will save; the subject uses Linguistics to find a loophole
+      in an effect.</p><p><strong>Breakthrough:</strong> Spend 2 notions to make the
+      base ability''s condition last a number of rounds equal to your operative modifier
+      (minimum 1).</p><p><strong>Breakthrough:</strong> When using the base ability,
+      spend 2 notions to also deal 1d8 nonlethal damage + 1d8 per 3 ranks in the associated
+      skill (half on a successful save). Spend 2 more notions to also deal 1 point
+      of Cha, Int, or Wis damage (your choice) per die rolled (Will halves).</p><p><em>Source:
+      Spheres of Guile.</em> <a href="http://spheresofpower.wikidot.com/study#toc39">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: skillTalent
+  summons: false
+  tag: ''
+  tags:
+  - Exceptional
+  - Theory
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

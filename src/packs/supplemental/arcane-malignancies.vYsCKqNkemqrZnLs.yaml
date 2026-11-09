@@ -1,0 +1,137 @@
+_id: vYsCKqNkemqrZnLs
+_key: '!items!vYsCKqNkemqrZnLs'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Arcane Malignancies
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p><strong>How it works:</strong> a changeling may accept a malignancy
+      as a drawback to earn one additional trait at character creation. The malignancy
+      is rolled randomly on a d% table and is a physical deformity that comes from
+      the changeling''s inherited arcane power.</p><p><strong>Results (mechanics only):</strong>
+      1-2: -2 Acrobatics, Climb, Perform (dance). 3-4: eating takes twice as long,
+      and drinking a potion or eating magical food is a full-round action. 5-7: -2
+      Craft, Disable Device, Sleight of Hand. 8-10: must apply a gallon of water to
+      your scales each day or take 1d3 damage per hour until you do. 11-13: -2 Bluff
+      and Disguise. 14-16: -2 saves against light-based effects; bright light or sunlight
+      dazzles you for 1d6 rounds. 17-19: hustling for more than half an hour fatigues
+      you, and each 4 hours of overland walking per day deals 1 Con damage. 20-22:
+      more than 1 hour in direct sunlight leaves you sickened for 24 hours. 23-25:
+      -2 on Bluff, Diplomacy and Disguise checks to persuade or deceive. 26-28: -2
+      on combat maneuver checks and on Escape Artist to escape a grapple or pin. 29-31:
+      +1 damage from sonic damage, and deafened 1 minute whenever a sonic effect damages
+      you. 32-33: -2 Handle Animal and Ride.</p><p>34-35: armor check penalty +1 on
+      armor, and ordinary clothing has a -1 armor check penalty (avoided with tailored
+      gear at +50 gp). 36-37: -2 on concentration checks and saves against pain effects.
+      38-40: armor check penalty +1, and -1 AC in medium or heavy armor. 41-42: -2
+      Diplomacy and Perform (act, oratory, sing). 43-45: -2 saves against disease.
+      46-48: -2 Reflex saves. 49-51: slashing hits that deal damage also cause 1 bleed.
+      52-54: -4 Disguise, and people always remember you. 55-57: groom for 1 hour
+      every 48 hours, or take -2 AC, attack and Stealth outdoors near foliage. 58-60:
+      -2 CMD against disarm, grapple and trip. 61-63: +2 damage from each bludgeoning
+      weapon hit. 64-65: -4 on two-handed skill checks and on attacks with two-handed
+      weapons or two-weapon fighting.</p><p>66-67: the GM picks one witch spell per
+      spell level that you are allergic to. Casting one or being targeted by one deals
+      1d4 damage per spell level and a Charisma penalty equal to the spell''s level,
+      lasting that many hours. 68-69: 10% chance to drop any stored item you retrieve.
+      70-72: -2 Climb and Swim, and you run at only 3 times your speed. 73-75: -2
+      saves against poison. 76-77: -2 on ranged attack and damage rolls. 78-80: -4
+      Diplomacy and Perform when 5 or more creatures are present. 81-83: -2 on hearing-based
+      Perception. 84-86: -2 Escape Artist and Sleight of Hand. 87-89: -2 CMD against
+      bull rush and trip. 90-92: -2 on sight-based Perception. 93-96: -4 on checks
+      and saves against environmental heat. 97-98: -2 Disguise and Stealth. 99-100:
+      recovering from fatigue takes 12 hours of complete rest, and going from exhausted
+      to fatigued takes 2 hours.</p><p><em>Source: Blood of the Coven pg. 10.</em>
+      <a href="https://www.aonprd.com/TraitDisplay.aspx?ItemName=Arcane%20Malignancies">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: trait
+  summons: false
+  tag: ''
+  tags:
+  - Drawback
+  - Changeling
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

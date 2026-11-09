@@ -1,0 +1,117 @@
+_id: XfbqHlFDPlqhwMIX
+_key: '!items!XfbqHlFDPlqhwMIX'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    sphere: study
+folder: null
+img: icons/svg/item-bag.svg
+name: Build a Case
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: ex
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>Research topic must be a creature, event, or group. When you learn
+      a new piece of information, or meet a creature that seems connected to the topic,
+      you can spend 1 minute in contemplation to learn whether it is inconsequential
+      to the topic. With 3 or more notions on the research, arriving somewhere new
+      instantly draws your eye to whatever person or thing there is unusual and relevant
+      to the topic (or tells you there is none).</p><p><strong>Notions:</strong> you
+      find a hidden object whose DC to find exceeds 15 + your character level; you
+      discover the motivation of a significant creature; you reach a revelation or
+      learn something that changes your view of a goal you are pursuing (GM''s call).</p><p><strong>Breakthrough:</strong>
+      When using the base ability, spend 1 notion to learn how important the information
+      is to the topic, judged by how central it is to uncovering the truth and how
+      closely it is tied to the topic.</p><p><strong>Breakthrough:</strong> As a standard
+      action, spend any number of notions to gain an equal insight bonus on Appraise,
+      Linguistics, Perception, Sense Motive, and Survival checks for 1 hour, and unlock
+      skill leverage with those skills for that hour.</p><p><em>Source: Diamond Spheres:
+      Thaumic Potential.</em> <a href="http://spheresofpower.wikidot.com/study#toc28">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: skillTalent
+  summons: false
+  tag: ''
+  tags:
+  - Research
+  - Theory
+  - Utility
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

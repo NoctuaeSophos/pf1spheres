@@ -1,0 +1,129 @@
+_id: oIav0i7uw46m9kv4
+_key: '!items!oIav0i7uw46m9kv4'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Spheremaster Mythic Path
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p><strong>Overview:</strong> The mythic path for spherecasters and champions.
+      Mid- and high-casters benefit most; low-casters and champions may prefer to
+      split tiers with another path (champion, guardian, trickster) through the Dual
+      Path mythic feat.</p><p><strong>Bonus hit points:</strong> +4 hit points per
+      spheremaster tier. They stack across tiers and do not change Hit Dice or any
+      other statistic.</p><p><strong>Path abilities:</strong> One path ability at
+      every tier (1st through 10th), chosen from the spheremaster list or the universal
+      list, subject to each ability''s minimum tier.</p><p><strong>Sphere Mastery
+      (1st tier):</strong> Gain one mythic sphere mastery. You must know the base
+      sphere it belongs to.</p><p><strong>True Magic (10th tier):</strong> Non-mythic
+      creatures targeted by your sphere effects roll their saves against them twice
+      and keep the worse result. You also gain spell resistance of 15 + your caster
+      level that applies only to sphere effects; once per round, when it stops a sphere
+      or spell effect cast by a hostile mythic creature, you regain 1 mythic power.</p><p><strong>Cross-path
+      class abilities:</strong> A mythic spherecaster may take any path ability or
+      mythic class ability from any path or class if it affects a class feature they
+      have (one listed in their class table''s Special column), provided they meet
+      its other requirements such as minimum tier. With GM permission, universal path
+      abilities that grant spell-like abilities may be taken unchanged.</p><p><strong>Retraining:</strong>
+      Mythic feats and path abilities are normally permanent but can be retrained
+      with GM approval (GM sets time, cost and trainer, generally at least 1 week).
+      If you permanently lose a regular feat or class ability, the mythic options
+      tied to it may be retrained at once.</p><p><strong>Mythic sphere talents (general
+      rule):</strong> Mythic sphere masteries and other mythic sphere talents count
+      as 1st-tier universal path abilities unless stated otherwise, and each mastery
+      requires its base sphere. If a mythic sphere talent changes which talents you
+      know, effects you already created persist for their normal duration, and you
+      may keep concentrating on them or pay to maintain them as usual even after losing
+      the talent.</p><p><strong>Utility abilities:</strong> Under the page''s utility
+      rule, a mythic character gains one extra utility path ability (one tagged [Utility])
+      at 2nd tier and every even tier after.</p><p><em>Source: Mythic Spheres.</em>
+      <a href="http://spheresofpower.wikidot.com/mythic-spheres#toc69">Full text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: classFeat
+  summons: false
+  tag: ''
+  tags:
+  - Spheremaster
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

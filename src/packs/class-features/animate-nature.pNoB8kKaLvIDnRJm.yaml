@@ -1,0 +1,110 @@
+_id: pNoB8kKaLvIDnRJm
+_key: '!items!pNoB8kKaLvIDnRJm'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Animate Nature
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: sp
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>From 2nd level, as a full-round action she spends 1 spell point and
+      targets suitable material within her Nature sphere geomancing range, matching
+      one of her Nature packages, to create a primal elemental of that package. It
+      is friendly and does specific tasks she communicates to it, though she has no
+      special link to it. It lasts 1 minute per class level; she can have only one
+      at a time, and making a new one returns the old one to inert material.</p><p><strong>Size
+      by level (material needed):</strong> 2nd Small (5-ft. cube, or a Small metal
+      object); 5th Medium (10-ft. cube or Medium metal object); 8th Large (15-ft.
+      cube or Large metal object); 11th Huge (20-ft. cube or Huge metal object); 14th
+      greater (25-ft. cube or Gargantuan metal object; costs 1 extra spell point);
+      17th elder (same material; takes 1 round and costs 2 extra spell points instead).</p><p><strong>Replaces:</strong>
+      Wild Shape; A Thousand Faces.</p><p><em>Source: The Warden.</em> <a href="http://spheresofpower.wikidot.com/avatar#toc8">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: classFeat
+  summons: false
+  tag: ''
+  tags:
+  - Avatar
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

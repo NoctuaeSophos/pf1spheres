@@ -26,7 +26,8 @@ const getTemplatePath = (template: string): string =>
  * @returns The promise created by the loadTemplates call
  */
 export const preloadTemplates = async (): Promise<Handlebars.TemplateDelegate[]> =>
-  loadTemplates(templates.map(getTemplatePath));
+  // @ts-expect-error The v13 namespace is missing from the bundled v9 types; the global was deprecated in v13
+  (foundry.applications?.handlebars?.loadTemplates ?? loadTemplates)(templates.map(getTemplatePath));
 
 /**
  * Synchronously renders an already preloaded template, throwing an error if the template is not found.

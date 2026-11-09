@@ -1,0 +1,118 @@
+_id: urRyyETtywZoL7YH
+_key: '!items!urRyyETtywZoL7YH'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    sphere: study
+folder: null
+img: icons/svg/item-bag.svg
+name: Triangulate Teleportation
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: ex
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>Research topic must concern teleportation or the planes; topics that
+      call for Knowledge (geography) or (planes) begin with 1 notion. One minute of
+      study of an area reveals a landmark within 100 miles of it, which counts as
+      a reliable description for effects that need one (such as greater teleport)
+      or as a carefully studied location for familiarity-based effects (such as teleport).
+      The 100-mile distance drops by 25 miles per notion on the research (minimum
+      1 mile).</p><p><strong>Notions:</strong> a creature teleports at least 1 mile
+      or to another plane; a creature travels through a portal or similar structure
+      (each structure only once); you learn a substantial, new fact about the topic
+      from a source other than yourself; you succeed on a Knowledge (geography) or
+      Knowledge (planes) check with a DC above 20.</p><p><strong>Breakthrough:</strong>
+      When casting a teleportation effect on willing targets, spend any number of
+      notions to treat your caster level as that much higher for distance.</p><p><strong>Breakthrough:</strong>
+      Spend 2 notions when using the base ability for planar travel to arrive 5d20
+      miles off target instead of 5d%; 3 notions makes it 5d10 miles, 4 notions 5d6
+      miles.</p><p><strong>Associated feats:</strong> Cartogramancer, Planar Wanderer.</p><p><em>Source:
+      Diamond Spheres: Thaumic Potential.</em> <a href="http://spheresofpower.wikidot.com/study#toc35">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: skillTalent
+  summons: false
+  tag: ''
+  tags:
+  - Research
+  - Theory
+  - Utility
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

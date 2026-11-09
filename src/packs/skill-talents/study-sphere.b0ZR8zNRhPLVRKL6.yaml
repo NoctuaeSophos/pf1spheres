@@ -1,0 +1,132 @@
+_id: b0ZR8zNRhPLVRKL6
+_key: '!items!b0ZR8zNRhPLVRKL6'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    sphere: study
+folder: null
+img: icons/svg/item-bag.svg
+name: Study Sphere
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: ex
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p><strong>Associated skill:</strong> one Knowledge or Lore skill of your
+      choice.</p><p>On gaining the sphere you get 5 ranks in the associated skill,
+      plus 5 more per additional Study talent (maximum ranks equal to your Hit Dice);
+      you may immediately retrain ranks you already had in that skill. You unlock
+      skill leverage with the associated skill and one other Knowledge or Lore skill
+      of your choice. You also gain one bonus (theory) talent that is not an exceptional
+      talent; if it has the [utility] tag, you may take the Study base sphere as a
+      [utility] talent.</p><p><strong>Knowledgeable (Ex):</strong> You can attempt
+      Knowledge checks untrained as though trained.</p><p><strong>Prescient Study
+      [plan] (Ex):</strong> Revealing this plan (for example, by producing an old
+      note) is a full-round action that lets you take 10 on a Knowledge or Lore check
+      despite combat or distraction. With 5+ ranks in the associated skill, spend
+      1 skill leverage to treat the die as a natural 20. With Ultimate Intrigue research
+      rules, you instead pick a library you have visited and resolve a research check
+      as though you had worked there for 8 hours; the plan then cannot be revealed
+      again until you have had 8 hours of free access to an adequate library.</p><p><strong>Theorize
+      (Ex):</strong> As an immediate action, start a theory on a creature, object,
+      or area you have successfully recalled information about, applying one (theory)
+      talent. The theory covers every instance of the subject (all dire wolves, not
+      other wolves); creatures that differ only in size or subtype count as the same
+      instance. An active theory gains notions when the actions listed by its talent
+      are observed; each listed action grants at most one notion per round unless
+      stated otherwise. Maximum notions equal twice your operative ability modifier
+      (minimum 1); extras are lost. Notions are spent on the talent''s breakthroughs.
+      You can have only one active theory; starting another means choosing which to
+      keep. A theory lasts until you change subjects (indefinitely while your memory
+      is intact) and loses all notions when it ends. You can always spend 3 notions
+      to outwit the subject.</p><p><strong>Talent types:</strong> (theory) talents
+      add theorize options. (complication) talents modify a plan when you reveal it
+      in exchange for risk. (research) talents are (theory) talents begun while researching
+      at a library or similar source, normally taking 1d4 hours; you can have one
+      research active alongside your one theory, and notions from one cannot be spent
+      on the other''s breakthroughs.</p><p><em>Source: Spheres of Guile.</em> <a href="http://spheresofpower.wikidot.com/study#toc0">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: skillTalent
+  summons: false
+  tag: ''
+  tags:
+  - Base Sphere
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

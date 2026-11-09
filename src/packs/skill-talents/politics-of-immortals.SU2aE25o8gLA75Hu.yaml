@@ -1,0 +1,116 @@
+_id: SU2aE25o8gLA75Hu
+_key: '!items!SU2aE25o8gLA75Hu'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    sphere: study
+folder: null
+img: icons/svg/item-bag.svg
+name: Politics of Immortals
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: ex
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p><strong>Prerequisites:</strong> Study sphere (Speculate Affairs).</p><p>When
+      your Speculate Affairs research topic is a group that includes otherworldly
+      beings (outsiders, fey, gods, and the like), it gains these extras. With 3+
+      notions, entering a new location tells you the group''s decrees, pacts, or taboos
+      about that area. Learning a creature''s strength tier also reveals its alignment,
+      type, subtypes, and planar ties. Learning of groups that regard the topic highly
+      or poorly lets you name the planes they come from (if such groups exist there)
+      or learn which planes they are tied to.</p><p><strong>Breakthrough:</strong>
+      When negotiating with a creature under a (calling) effect (such as planar binding
+      or Call Planar Creature), spend any number of notions; each either treats it
+      as 1 HD lower for its payment or grants +1 on your Charisma check to persuade
+      it. If you are the one bound by such an effect, each notion instead grants +1
+      on Charisma checks to escape.</p><p><strong>Breakthrough:</strong> When researching
+      or speaking an outsider''s true name, or researching an infernal contract or
+      similar document, spend any number of notions for +1 per notion on the Knowledge
+      (planes) or Linguistics check.</p><p><em>Source: Baron''s Uncanny Gateway.</em>
+      <a href="http://spheresofpower.wikidot.com/study#toc45">Full text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: skillTalent
+  summons: false
+  tag: ''
+  tags:
+  - Exceptional
+  - Utility
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

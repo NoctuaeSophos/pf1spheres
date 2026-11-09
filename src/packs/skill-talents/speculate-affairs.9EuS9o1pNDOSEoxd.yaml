@@ -1,0 +1,119 @@
+_id: 9EuS9o1pNDOSEoxd
+_key: '!items!9EuS9o1pNDOSEoxd'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    sphere: study
+folder: null
+img: icons/svg/item-bag.svg
+name: Speculate Affairs
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: ex
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>Research topic must be a specific group, such as a district, faction,
+      or cult. You can spend 10 minutes questioning locals or investigating to learn
+      whether any member of the group has been in the area and roughly what they did.</p><p><strong>Notions:</strong>
+      you perceive or deal with something or someone the group holds in high regard
+      (a shrine, statue, patron, etc.); you learn a substantial, new fact about the
+      group from a source other than yourself; you take part in an action that shifts
+      the group''s balance of power (saving or killing a leader, stealing or recovering
+      a key item or person, repairing or destroying a monument).</p><p><strong>Breakthrough:</strong>
+      As a swift action, spend 1 notion to choose a creature in the group (or learn
+      of a random significant one) and learn its tier: trivial (HD no more than half
+      your level), weak (HD = your level - 4), competent (HD = your level), strong
+      (HD = your level + 5), or powerful (HD = your level + 10).</p><p><strong>Breakthrough:</strong>
+      When using the base ability, spend 2 notions to also learn of one group that
+      holds the topic in high regard and one that holds it in low regard.</p><p><strong>Breakthrough:</strong>
+      When using the base ability, spend 3 notions to learn a major legend tied to
+      the topic, current or half-forgotten but not wholly lost or restricted, usually
+      about one creature or small group and a momentous event.</p><p><em>Source: Spheres
+      of Guile.</em> <a href="http://spheresofpower.wikidot.com/study#toc34">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: skillTalent
+  summons: false
+  tag: ''
+  tags:
+  - Research
+  - Theory
+  - Utility
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

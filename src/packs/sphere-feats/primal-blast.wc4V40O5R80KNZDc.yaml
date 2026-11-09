@@ -1,0 +1,111 @@
+_id: wc4V40O5R80KNZDc
+_key: '!items!wc4V40O5R80KNZDc'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Primal Blast
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p><strong>Prerequisites:</strong> Destruction sphere (any (blast type)
+      talent), Nature sphere (any package).</p><p>When the caster''s destructive blast
+      uses a (blast type) talent from a category that matches a Nature geomancing
+      package she has, she may add her casting ability modifier to the blast''s attack
+      and damage rolls. If she does, no other ability modifier (Strength, Dexterity
+      or any other she could normally use) applies to those rolls. If the blast rides
+      on a weapon or natural attack (Energy Strike and the like), the feat applies
+      to that attack''s attack and damage rolls instead, replacing their ability modifiers.</p><p>Matching
+      categories: (air) package: air, electric, sonic; (earth): crystal, stone; (fire):
+      fire, light; (metal): acid, electric; (plant): acid, force; (water): cold, crystal.</p><p>The
+      casting modifier is added as its own flat bonus rather than swapped into the
+      normal ability slot, so it isn''t multiplied (for example, no 1.5× for a two-handed
+      weapon with Energy Strike).</p><p><em>Source: Ultimate Spheres of Power.</em>
+      <a href="http://spheresofpower.wikidot.com/destruction#toc138">Full text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: feat
+  summons: false
+  tag: ''
+  tags:
+  - Dual Sphere
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

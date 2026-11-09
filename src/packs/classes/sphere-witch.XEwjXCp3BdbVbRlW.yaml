@@ -1,0 +1,146 @@
+_id: XEwjXCp3BdbVbRlW
+_key: '!items!XEwjXCp3BdbVbRlW'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    casterProgression: high
+folder: null
+img: icons/svg/item-bag.svg
+name: Sphere Witch
+sort: 0
+system:
+  alignment: ''
+  armorProf: []
+  bab: low
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills:
+    acr: false
+    apr: false
+    art: false
+    blf: false
+    clm: false
+    crf: true
+    dev: false
+    dip: false
+    dis: false
+    esc: false
+    fly: true
+    han: false
+    hea: true
+    int: true
+    kar: true
+    kdu: false
+    ken: false
+    kge: false
+    khi: true
+    klo: false
+    kna: true
+    kno: false
+    kpl: true
+    kre: false
+    lin: false
+    lor: false
+    per: false
+    prf: false
+    pro: true
+    rid: false
+    sen: false
+    slt: false
+    spl: true
+    ste: false
+    sur: false
+    swm: false
+    umd: true
+  contextNotes: []
+  customHD: ''
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>Spherecasting conversion of the Paizo witch: a High-Caster who draws
+      power from a mysterious patron through her familiar and keeps the witch''s hexes.</p><p><strong>Role:</strong>
+      versatile caster whose hexes debuff foes or support allies, while patron talents
+      steer her toward one sphere.</p><p><strong>Alignment:</strong> any. <strong>Hit
+      Die:</strong> d6. <strong>Starting wealth:</strong> 3d6 × 10 gp (avg. 105 gp).</p><p><strong>Class
+      skills:</strong> Craft, Fly, Heal, Intimidate, Knowledge (arcana, history, nature,
+      planes), Profession, Spellcraft, Use Magic Device. <strong>Skill ranks per level:</strong>
+      2 + Int modifier.</p><p><strong>Progression:</strong> half BAB; good Will, poor
+      Fort and Reflex. 1st: casting, spell pool, a magic talent every level, a hex,
+      familiar, patron (bonus patron-sphere talent at 1st and every odd level). A
+      new hex at 2nd and every even level after; major hexes become selectable at
+      10th and grand hexes at 18th.</p><p><strong>Proficiencies:</strong> simple weapons;
+      no armor or shields.</p><p><em>Source: Ultimate Spheres of Power.</em> <a href="http://spheresofpower.wikidot.com/sphere-witch">Full
+      text</a></p>'
+  fc:
+    alt:
+      notes: ''
+      value: 0
+    hp:
+      value: 0
+    skill:
+      value: 0
+  flags:
+    boolean: {}
+    dictionary: {}
+  hd: 6
+  hp: 6
+  languages: []
+  level: 1
+  links:
+    children: []
+    classAssociations:
+    - level: 1
+      name: Weapon and Armor Proficiency (Sphere Witch)
+      uuid: Compendium.pf1spheres.class-features.Item.pSwytbzTp42PnbXe
+    - level: 1
+      name: Casting (Sphere Witch)
+      uuid: Compendium.pf1spheres.class-features.Item.iquNxUTrDhYWx2QH
+    - level: 1
+      name: Spell Pool (Sphere Witch)
+      uuid: Compendium.pf1spheres.class-features.Item.n9uxMieDOtGw0fIG
+    - level: 1
+      name: Magic Talents (Sphere Witch)
+      uuid: Compendium.pf1spheres.class-features.Item.qLkatWsniMHdYAsv
+    - level: 1
+      name: Hexes (Sphere Witch)
+      uuid: Compendium.pf1spheres.class-features.Item.HtkapZiS2yka686t
+    - level: 1
+      name: Witch's Familiar (Sphere Witch)
+      uuid: Compendium.pf1spheres.class-features.Item.3KmNQHHUJOTfgmZ5
+    - level: 1
+      name: Patron Magic
+      uuid: Compendium.pf1spheres.class-features.Item.LcJ9jwVM9vxPY2se
+    - level: 10
+      name: Major Hex (Sphere Witch)
+      uuid: Compendium.pf1spheres.class-features.Item.FsE9dYjDMYDcJ6aj
+    - level: 18
+      name: Grand Hex (Sphere Witch)
+      uuid: Compendium.pf1spheres.class-features.Item.jCOf2qcdnXCxVtj4
+  savingThrows:
+    fort:
+      value: low
+    ref:
+      value: low
+    will:
+      value: high
+  scriptCalls: []
+  skillsPerLevel: 2
+  subType: base
+  tag: ''
+  tags:
+  - Sphere Witch
+  wealth: ''
+  weaponProf:
+  - simple
+type: class

@@ -1,0 +1,115 @@
+_id: kMlxfK4X3p11t36W
+_key: '!items!kMlxfK4X3p11t36W'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Aeronautics
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: ex
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>You can build a collapsible glider in 1 hour. It has hit points equal
+      to your scholar level, hardness equal to twice your Int bonus (minimum 2), and
+      weighs 10 lb. Attaching it to yourself or an ally is a standard action; a creature
+      can wear only one.</p><p>A wearer can make a DC 15 Fly check to fall any distance
+      without falling damage, and during such a fall a second DC 15 Fly check to glide
+      5 ft. sideways per 10 ft. dropped. An ally''s glider gives one use lasting up
+      to 1 + your Int modifier rounds, then breaks. You can use your own this way
+      a number of times per day equal to your Int bonus (minimum 1), each for the
+      same duration. Going past either limit makes the attempt fail and breaks the
+      glider; a new one takes another hour to build.</p><p><strong>6th level:</strong>
+      The glider grants you and equipped allies a fly speed of 30 ft. (average maneuverability),
+      and one use lasts 1 + your Int bonus minutes. Besides safe falls, you can fly
+      with it 1 + your Int bonus times per day; exceeding that, or staying aloft past
+      the duration, fails and breaks it. Allies'' gliders still break after one use.</p><p><strong>10th
+      level:</strong> Fly speed becomes 60 ft. (good maneuverability), and one use
+      can last up to half your scholar level in hours (rounded down).</p><p><em>Source:
+      Spheres of Might.</em> <a href="http://spheresofpower.wikidot.com/scholar#toc8">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: classFeat
+  summons: false
+  tag: ''
+  tags:
+  - Scholar's Knack
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

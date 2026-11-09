@@ -1,0 +1,110 @@
+_id: 8xiT6cXnfU4wUKFj
+_key: '!items!8xiT6cXnfU4wUKFj'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Nautical Exploration
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: ex
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>You can build a collapsible underwater craft; assembling or taking
+      it apart takes 1 hour. It has hit points equal to your scholar level, hardness
+      equal to twice your Int bonus (minimum 2), and weighs 40 lb. It carries up to
+      2 + your Int bonus Medium creatures (a Small creature counts as half, a Large
+      one as two) at a swim speed of 60 ft., with air for a full load for 1 hour per
+      scholar level. Opening or sealing it is a move action.</p><p><strong>7th level:</strong>
+      You can treat the craft so it works safely in almost any liquid, including acid
+      or lava; occupants are protected from that substance while inside.</p><p>Only
+      you can pilot it reliably. Anyone else must make a DC 15 Intelligence or Profession
+      (sailor) check each round or the craft sinks 10 ft. (or to the nearest surface
+      that can hold it, if closer) instead of moving as intended, and it takes 1 damage
+      for each round someone else pilots it.</p><p><em>Source: Spheres of Might.</em>
+      <a href="http://spheresofpower.wikidot.com/scholar#toc29">Full text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: classFeat
+  summons: false
+  tag: ''
+  tags:
+  - Scholar's Knack
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

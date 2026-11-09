@@ -1,0 +1,119 @@
+_id: hCECA0sSQmC8I97B
+_key: '!items!hCECA0sSQmC8I97B'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    sphere: study
+folder: null
+img: icons/svg/item-bag.svg
+name: Observational Learning
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: ex
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p><strong>Prerequisites:</strong> Study sphere.</p><p>Subject must be
+      a creature. You can use the Knowledge skill that identifies the subject to identify
+      any class feature, feat, or talent you see it use (DC 10 + its HD) or to assess
+      its proficiency as with Appraise (for example, identifying a dragon''s combat
+      talent with Knowledge (arcana) instead of Knowledge (local)).</p><p><strong>Notions:</strong>
+      you identify a class feature, talent, or feat as the subject uses it; a creature
+      fails a save or opposed check against the subject''s talent or feat; the subject
+      succeeds on a skill check that takes at least a swift action; you assess the
+      subject''s proficiency in a skill.</p><p><strong>Breakthrough:</strong> As a
+      swift action, spend 2 notions to copy one skill you saw the subject use, or
+      an associated skill of a sphere you identified it having: for 1 round per associated
+      skill rank you have, you have ranks in it equal to your associated skill ranks.
+      Spend 4 notions to make it 1 minute per rank.</p><p><strong>Breakthrough:</strong>
+      As a move action, spend 2 notions to copy one feat or talent you identified
+      the subject having or using (you must meet its prerequisites) for 1 round per
+      associated skill rank; spend 5 notions for 1 minute per rank.</p><p>Only one
+      instance of each breakthrough can be active at a time; each additional time
+      you take this talent allows one more concurrent instance of each.</p><p><strong>Associated
+      feat:</strong> Barroom Brawler.</p><p><em>Source: Baron''s Imposing Mausoleum.</em>
+      <a href="http://spheresofpower.wikidot.com/study#toc44">Full text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: skillTalent
+  summons: false
+  tag: ''
+  tags:
+  - Exceptional
+  - Theory
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

@@ -1,0 +1,114 @@
+_id: i7R18umP2gkVpLGB
+_key: '!items!i7R18umP2gkVpLGB'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Mythic Sphere Mastery (Protection)
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p><strong>Prerequisites:</strong> Protection sphere.</p><p>Choose one
+      of the following options:</p><p><strong>Instant defense:</strong> As an immediate
+      action, spend 1 mythic power to put up one of your known wards or aegises on
+      a legal target, applying any talents you could normally add (such as Mass Aegis).
+      This can be done before a declared action resolves, e.g. in response to a breath
+      weapon.</p><p><strong>Ward control:</strong> When one of your wards would stop
+      a non-ally from acting (blocked by Impedance, teleport prevented by Quantum
+      Lock, spell stopped by Spell Ward, and so on), you may let the action happen
+      instead. If you do, spend 1 mythic power as an immediate action to make that
+      action''s choices yourself (where it teleports, whom the spell targets, how
+      it moves).</p><p><strong>Fortifying aegis:</strong> Creatures under your aegis
+      have a 50% chance to negate critical hits and sneak attacks (treated as normal
+      hits), like medium fortification. Spend 1 mythic power when casting the aegis
+      to raise this to 100% for 10 minutes per tier.</p><p>You may take this mastery
+      multiple times, choosing a new option each time.</p><p><em>Source: Mythic Spheres.</em>
+      <a href="http://spheresofpower.wikidot.com/mythic-spheres#toc371">Full text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: classFeat
+  summons: false
+  tag: ''
+  tags:
+  - Gifted
+  - Mythic Sphere Mastery
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

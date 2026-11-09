@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.9.2](https://github.com/NoctuaeSophos/pf1spheres/compare/v0.9.1...v0.9.2) (2026-11-08)
+
+### Features
+
+* base sphere items for all 24 magic and 25 combat spheres (tag "Base Sphere"), linking each sphere's rules page; add one to a character to take the sphere without a talent ([#3](https://github.com/Ethaks/pf1spheres/issues/3))
+* new compendiums: Skill Talents (the Study sphere from Spheres of Guile: base sphere and 36 talents), Spheres Drawbacks (casting tradition and sphere drawbacks) and Mythic Spheres (the Gifted path, Mythic Sphere Mastery, Gifted path abilities, mythic class features and mythic traditions)
+* every Scholar's Knack, the Doctor scholar archetype, and the Marshal Controller mageknight archetype with its mystic combats
+* classes: Sphere Witch, Sphere Druid and Sphere Arcanist (base) and Tempestarii (prestige), with their class features linked by level, plus the witch hexes, arcanist exploits, and the Avatar (druid) and Lichling (soul weaver) archetypes
+* traditions and drawbacks: 12 more sphere drawbacks, 7 casting drawbacks and 3 casting boons; two homebrew traditions tagged "Homebrew"; the Drawbacks compendium is now "Traditions and Drawbacks"
+* Mythic Spheres: the Spheremaster path, Battlemagic Sense, Mythic Magic Talents, Mythic Casting, Mythic Rapid Weather and four more mythic traditions
+* feats: Primal Blast and Atmospheric Imbuement (dual sphere) and Extra Skill Talent
+* Supplemental (non-Spheres) compendium: Paizo mythic base abilities, universal path abilities and mythic feats, Deific Obedience (with Irori's obedience and boons), traits and drawbacks, half-elf and changeling options, the Legalistic oracle curse, and a Hero Points summary
+* Flashbangs has throw actions with range, Fortitude DC and both damage tiers; Academic Knowledge and Expert Healing apply their skill bonuses
+
+New item descriptions are rules summaries with a link to the full text on the Spheres wiki.
+
+### Bug Fixes
+
+* manifest verified for Foundry 13.351 and pf1 11.11
+* templates load through Foundry 13's `foundry.applications.handlebars.loadTemplates` instead of the deprecated global
+
 ## [0.9.1](https://github.com/NoctuaeSophos/pf1spheres/compare/v0.9.0...v0.9.1) (2026-11-08)
 
 Unofficial fork for Foundry VTT 13 and pf1 11.11, pending an upstream release.

@@ -1,0 +1,183 @@
+_id: aCTM2zZRJfHeZtjM
+_key: '!items!aCTM2zZRJfHeZtjM'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    casterProgression: high
+folder: null
+img: icons/svg/item-bag.svg
+name: Sphere Druid
+sort: 0
+system:
+  alignment: ''
+  armorProf:
+  - lgt
+  - med
+  - shl
+  bab: med
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills:
+    acr: false
+    apr: false
+    art: false
+    blf: false
+    clm: true
+    crf: true
+    dev: false
+    dip: false
+    dis: false
+    esc: false
+    fly: true
+    han: true
+    hea: true
+    int: false
+    kar: false
+    kdu: false
+    ken: false
+    kge: true
+    khi: false
+    klo: false
+    kna: true
+    kno: false
+    kpl: false
+    kre: false
+    lin: false
+    lor: false
+    per: true
+    prf: false
+    pro: true
+    rid: true
+    sen: false
+    slt: false
+    spl: true
+    ste: false
+    sur: true
+    swm: true
+    umd: false
+  contextNotes: []
+  customHD: ''
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>Spherecasting conversion of the Paizo druid: a High-Caster guardian
+      of the wild who leans on the Nature, Weather and Alteration spheres in place
+      of druid spells and wild shape.</p><p><strong>Role:</strong> flexible nature
+      caster who can fight through companions, terrain magic or her own shapeshifting.</p><p><strong>Alignment:</strong>
+      any neutral. <strong>Hit Die:</strong> d8. <strong>Starting wealth:</strong>
+      2d6 × 10 gp (avg. 70 gp).</p><p><strong>Class skills:</strong> Climb, Craft,
+      Fly, Handle Animal, Heal, Knowledge (geography), Knowledge (nature), Perception,
+      Profession, Ride, Spellcraft, Survival, Swim. <strong>Skill ranks per level:</strong>
+      4 + Int modifier.</p><p><strong>Progression:</strong> ¾ BAB; good Fort and Will,
+      poor Reflex. 1st: casting, spell pool, natural magic, nature bond, nature sense,
+      wild empathy, Druidic. Magic talent every even level. Bonus Nature/Weather talents
+      at 1st, 3rd, 7th, 11th, 15th and 19th. 2nd woodland stride; 3rd trackless step;
+      4th resist nature''s lure and wild heart (Alteration bonus at 4th, 10th, 16th);
+      9th venom immunity; 13th a thousand faces; 15th timeless body; 20th permanent
+      self-shapeshift.</p><p><strong>Proficiencies:</strong> club, dagger, dart, quarterstaff,
+      scimitar, scythe, sickle, shortspear, sling, spear; light and medium armor (nonmetal);
+      wooden shields (no tower shields).</p><p><em>Source: Ultimate Spheres of Power.</em>
+      <a href="http://spheresofpower.wikidot.com/sphere-druid">Full text</a></p>'
+  fc:
+    alt:
+      notes: ''
+      value: 0
+    hp:
+      value: 0
+    skill:
+      value: 0
+  flags:
+    boolean: {}
+    dictionary: {}
+  hd: 8
+  hp: 8
+  languages: []
+  level: 1
+  links:
+    children: []
+    classAssociations:
+    - level: 1
+      name: Weapon and Armor Proficiency (Sphere Druid)
+      uuid: Compendium.pf1spheres.class-features.Item.xvprpNqWjkKBybQQ
+    - level: 1
+      name: Casting (Sphere Druid)
+      uuid: Compendium.pf1spheres.class-features.Item.7KjcCCNeRBlTV9le
+    - level: 1
+      name: Spell Pool (Sphere Druid)
+      uuid: Compendium.pf1spheres.class-features.Item.xaGoceAI0kkYqFyM
+    - level: 1
+      name: Natural Magic
+      uuid: Compendium.pf1spheres.class-features.Item.81otPeLC5qCUpGD2
+    - level: 1
+      name: Bonus Languages (Sphere Druid)
+      uuid: Compendium.pf1spheres.class-features.Item.OHYXFPhzrC4swZSN
+    - level: 1
+      name: Nature Bond (Sphere Druid)
+      uuid: Compendium.pf1spheres.class-features.Item.jyAYcLZ6qVFh5dkT
+    - level: 1
+      name: Nature Sense (Sphere Druid)
+      uuid: Compendium.pf1spheres.class-features.Item.7X7CxRJIq7qW3zle
+    - level: 1
+      name: Wild Empathy (Sphere Druid)
+      uuid: Compendium.pf1spheres.class-features.Item.49BsepHutnopugK3
+    - level: 2
+      name: Magic Talents (Sphere Druid)
+      uuid: Compendium.pf1spheres.class-features.Item.jUSeS9DR1kaNZxbb
+    - level: 2
+      name: Woodland Stride (Sphere Druid)
+      uuid: Compendium.pf1spheres.class-features.Item.ixGLN7642dDTa6gm
+    - level: 3
+      name: Trackless Step (Sphere Druid)
+      uuid: Compendium.pf1spheres.class-features.Item.eAfLtskLlDNdhhrd
+    - level: 4
+      name: Resist Nature's Lure (Sphere Druid)
+      uuid: Compendium.pf1spheres.class-features.Item.JMaANCOydLHEdYWD
+    - level: 4
+      name: Wild Heart
+      uuid: Compendium.pf1spheres.class-features.Item.1ruZeR4SkfPQZ0RP
+    - level: 9
+      name: Venom Immunity (Sphere Druid)
+      uuid: Compendium.pf1spheres.class-features.Item.hHE8CASBEmGVSt1l
+    - level: 13
+      name: A Thousand Faces (Sphere Druid)
+      uuid: Compendium.pf1spheres.class-features.Item.VY3oPXc2kImUekYx
+    - level: 15
+      name: Timeless Body (Sphere Druid)
+      uuid: Compendium.pf1spheres.class-features.Item.coVriaA8u648c3Fg
+  savingThrows:
+    fort:
+      value: high
+    ref:
+      value: low
+    will:
+      value: high
+  scriptCalls: []
+  skillsPerLevel: 4
+  subType: base
+  tag: ''
+  tags:
+  - Sphere Druid
+  wealth: ''
+  weaponProf:
+  - club
+  - dagger
+  - dart
+  - quarterstaff
+  - scimitar
+  - scythe
+  - sickle
+  - shortspear
+  - sling
+  - spear
+type: class

@@ -1,0 +1,107 @@
+_id: g8cEPxe74kJYdQq1
+_key: '!items!g8cEPxe74kJYdQq1'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Mythic Casting
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p><strong>Prerequisites:</strong> Mythic spherecaster or champion.</p><p>Pick
+      two spheres. You gain a +1 mythic bonus to caster level for those spheres, rising
+      by +1 at 3rd tier and every odd tier after (+1 at 1st-2nd, +2 at 3rd-4th, +3
+      at 5th-6th, +4 at 7th-8th, +5 at 9th-10th). Determine its effects as you would
+      an implement''s caster level bonus; it stacks with implement bonuses.</p><p>This
+      is a universal mythic spherecaster class ability, usable by any mythic spherecaster
+      or champion. A mythic class ability counts as a 1st-tier universal path ability
+      and can also be taken in place of a mythic feat; it can be taken only once.</p><p><em>Source:
+      Mythic Spheres.</em> <a href="http://spheresofpower.wikidot.com/mythic-spheres#toc412">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: feat
+  summons: false
+  tag: ''
+  tags:
+  - Mythic Feat
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

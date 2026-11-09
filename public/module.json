@@ -2,7 +2,7 @@
   "id": "pf1spheres",
   "title": "Spheres for Pathfinder 1e",
   "description": "Adds Spheres of Power/Might content packs and mechanics to Pathfinder 1e",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "authors": [
     {
       "name": "Ethaks",
@@ -12,9 +12,9 @@
     },
     { "name": "Xavion", "discord": "Xavion#9504" }
   ],
-  "compatibility": { "minimum": "12", "verified": "12" },
+  "compatibility": { "minimum": "12", "verified": "13.351" },
   "relationships": {
-    "systems": [{ "id": "pf1", "compatibility": { "minimum": "11.0", "verified": "11.0" } }]
+    "systems": [{ "id": "pf1", "compatibility": { "minimum": "11.0", "verified": "11.11" } }]
   },
   "scripts": [],
   "esmodules": ["pf1spheres.js"],
@@ -30,6 +30,15 @@
       "system": "pf1",
       "type": "Item"
     },
+    { "name": "skill-talents", "label": "Skill Talents", "system": "pf1", "type": "Item" },
+    { "name": "drawbacks", "label": "Traditions and Drawbacks", "system": "pf1", "type": "Item" },
+    { "name": "mythic", "label": "Mythic Spheres", "system": "pf1", "type": "Item" },
+    {
+      "name": "supplemental",
+      "label": "Supplemental (non-Spheres)",
+      "system": "pf1",
+      "type": "Item"
+    },
     { "name": "rules", "label": "Spheres Rules", "type": "JournalEntry" }
   ],
   "dependencies": [],
@@ -37,7 +46,7 @@
   "socket": false,
   "url": "https://github.com/NoctuaeSophos/pf1spheres",
   "manifest": "https://github.com/NoctuaeSophos/pf1spheres/releases/latest/download/module.json",
-  "download": "https://github.com/NoctuaeSophos/pf1spheres/releases/download/v0.9.1/module.zip",
+  "download": "https://github.com/NoctuaeSophos/pf1spheres/releases/download/v0.9.2/module.zip",
   "license": "EUPL-1.2",
   "readme": "https://github.com/NoctuaeSophos/pf1spheres/blob/foundry13/README.md",
   "bugs": "https://github.com/NoctuaeSophos/pf1spheres/issues",

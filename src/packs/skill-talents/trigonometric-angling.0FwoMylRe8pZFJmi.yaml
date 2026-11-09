@@ -1,0 +1,118 @@
+_id: 0FwoMylRe8pZFJmi
+_key: '!items!0FwoMylRe8pZFJmi'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    sphere: study
+folder: null
+img: icons/svg/item-bag.svg
+name: Trigonometric Angling
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: ex
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>Research topic must concern ranged or siege weapons or physics. Wind
+      and similar weather penalties (such as from rain) on your ranged attack rolls
+      are reduced by the research''s current notions.</p><p><strong>Notions:</strong>
+      only in tense situations, and both creatures involved must have a CR of at least
+      half your associated skill ranks: an ally hits a hostile creature with a ranged
+      weapon attack (or vice versa) despite concealment, cover, strong wind, or range
+      beyond the first increment; an ally fully negates a hostile creature''s attack
+      (or vice versa) with an ability such as Deflect Arrows or the Ray Deflection
+      Protection talent.</p><p><strong>Breakthrough:</strong> When making a ranged
+      weapon attack, spend 1 notion to ricochet it off a solid 5-ft. surface, which
+      becomes the new point of origin; this can let you shoot around corners or past
+      cover, but a target you have no line of sight to still has total concealment.
+      Each extra notion adds another bounce. Surfaces take no damage; range penalties
+      use the total path length.</p><p><strong>Breakthrough:</strong> When making
+      a ranged weapon attack, spend 1 notion to ignore range and weather penalties.
+      An attack that weather or deflection would otherwise make impossible becomes
+      possible at a -5 penalty (not counted as a weather penalty).</p><p><em>Source:
+      Diamond Spheres: Thaumic Potential.</em> <a href="http://spheresofpower.wikidot.com/study#toc36">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: skillTalent
+  summons: false
+  tag: ''
+  tags:
+  - Research
+  - Theory
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

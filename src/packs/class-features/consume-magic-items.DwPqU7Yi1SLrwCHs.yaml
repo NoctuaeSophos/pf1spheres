@@ -1,0 +1,106 @@
+_id: DwPqU7Yi1SLrwCHs
+_key: '!items!DwPqU7Yi1SLrwCHs'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Consume Magic Items
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: su
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p>As the Paizo exploit: a number of times per day equal to her Charisma
+      modifier (minimum 1), as a move action that provokes, she drains a potion, scroll,
+      wand or staff into her arcane reservoir (½ the contained spell''s level; potions
+      and scrolls destroyed; wands lose 5 charges; staves lose 1 charge for points
+      equal to the highest 1-charge spell, once per day). Other item types are unaffected.</p><p><strong>Sphere
+      change:</strong> an item made with the Spheres of Power system gives points
+      equal to ¼ of its caster level. A spell engine is drained the way an implement
+      would be.</p><p><em>Source: Ultimate Spheres of Power.</em> <a href="http://spheresofpower.wikidot.com/sphere-arcanist#toc7">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: classFeat
+  summons: false
+  tag: ''
+  tags:
+  - Arcanist Exploit
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: max(1, @abilities.cha.mod)
+    per: day
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

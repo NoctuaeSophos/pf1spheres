@@ -1,0 +1,109 @@
+_id: ja0AIeSclAFhsN6A
+_key: '!items!ja0AIeSclAFhsN6A'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Deific Obedience
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p><strong>Prerequisites:</strong> Knowledge (religion) 3 ranks; must
+      worship a deity.</p><p><strong>Obedience:</strong> perform your deity''s daily
+      obedience, which takes at most 1 hour. Once it is done, you gain the benefit
+      listed in your deity''s Obedience entry.</p><p><strong>Boons by Hit Dice:</strong>
+      first boon at 12 HD, second at 16 HD, third at 20 HD. A boon is constant unless
+      it lists a duration or uses per day.</p><p><strong>Which boons:</strong> with
+      no evangelist, exalted or sentinel levels you use the exalted boons. Levels
+      in one of those prestige classes grant boons sooner. If you later take sentinel
+      or evangelist levels, you swap the exalted boons for that class''s boons.</p><p><strong>Missed
+      obedience:</strong> if you skip a day''s obedience, every benefit and boon from
+      this feat stops working until you perform it again.</p><p><em>Source: Inner
+      Sea Gods pg. 210.</em> <a href="https://www.aonprd.com/FeatDisplay.aspx?ItemName=Deific%20Obedience">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: feat
+  summons: false
+  tag: ''
+  tags: []
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat
