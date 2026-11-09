@@ -51,8 +51,17 @@ flags:
             type: untyped
             operator: add
     grantItems:
-      - combat-instincts
       - combat-instincts-aftermath
+    automation:
+      aKSk1xbtsjSwaXSe:
+        effect:
+          enabled: true
+          duration: "3"
+          units: round
+        buff:
+          itemId: tpl:combat-instincts
+          self: true
+          level: "@details.mythicTier"
 folder: null
 img: icons/svg/item-bag.svg
 name: Combat Instincts
@@ -66,7 +75,21 @@ system:
     damageMult: 1
   abilityType: ex
   acquired: false
-  actions: []
+  actions:
+    - _id: aKSk1xbtsjSwaXSe
+      name: Combat Instincts
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      duration:
+        value: "3"
+        units: round
+      notes:
+        effect:
+          - When it ends, turn on Combat Instincts (Aftermath) until you rest 8 hours.
   armorProf: []
   associations:
     classes: []

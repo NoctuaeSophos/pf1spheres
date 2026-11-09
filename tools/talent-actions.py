@@ -124,7 +124,37 @@ def write(f, a, auto):
     yaml.load(src, Loader=yaml.CSafeLoader)
     open(f, "w").write(src)
 
+LIMITED = "--limited" in sys.argv
+
+def build_limited(d):
+    """A plain action for an item with limited uses and none: it spends the item's own charges."""
+    t = text(d)
+    act, _ = own_activation(sentences(t))
+    a = {"_id": new_id(), "name": d["name"], "actionType": "other", "activation": {"type": act or "special"}}
+    if act in UNCHAINED:
+        cost, kind = UNCHAINED[act]
+        a["activation"]["unchained"] = {"cost": cost, "type": kind}
+    m = DUR_FIX.search(t)
+    if m:
+        n = WORDNUM.get(m.group(1).lower(), None) or int(m.group(1))
+        a["duration"] = {"value": str(n), "units": m.group(2).lower()}
+    return a
+
+def main_limited():
+    """--limited: every pack item with limited uses (system.uses.per) and no actions gets one."""
+    count = collections.Counter()
+    for f in sorted(glob.glob(f"{REPO}/src/packs/*/*.yaml")):
+        d = load(f)
+        if ONLY and d["name"] not in ONLY: continue
+        if "system" not in d or d.get("type") in ("class", "race") or d["system"].get("actions") or not (d["system"].get("uses") or {}).get("per"): continue
+        a = build_limited(d)
+        count[a["activation"]["type"]] += 1
+        print(f"{d['name']}: {a['activation']['type']}" + (f", {a['duration']['value']} {a['duration']['units']}" if "duration" in a else ""))
+        if WRITE: write(f, a, None)
+    print(dict(count))
+
 def main():
+    if LIMITED: return main_limited()
     random.seed(7)
     stats = collections.Counter()
     out = []

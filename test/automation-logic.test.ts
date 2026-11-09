@@ -17,6 +17,7 @@ import {
   buildGrantedAction,
   hasFailEffects,
   mergeGrantAutomation,
+  parseImbuements,
   pickVariant,
   stableId,
   templateToItemData,
@@ -169,7 +170,11 @@ describe("granted actions", () => {
     key: "explosive:dispelling-detonations",
     target: "Flashbangs",
     variants: [
-      { requires: ["Silver", "Circle of Salt"], name: "Greater", automation: { onFail: { note: "greater" } } },
+      {
+        requires: ["Silver", "Circle of Salt"],
+        name: "Greater",
+        automation: { onFail: { note: "greater" } },
+      },
       { name: "Plain", automation: { onFail: { note: "plain" } } },
     ],
   };
@@ -188,7 +193,12 @@ describe("granted actions", () => {
   it("builds on the base action: extra damage, DC bonus and notes", () => {
     const a = buildGrantedAction(
       throwAction,
-      { name: "Sonic", addDamage: [{ formula: "(@classes.scholar.level)d6", types: ["sonic"] }], dcBonus: "1", notes: ["Sonic."] },
+      {
+        name: "Sonic",
+        addDamage: [{ formula: "(@classes.scholar.level)d6", types: ["sonic"] }],
+        dcBonus: "1",
+        notes: ["Sonic."],
+      },
       "explosive:sonic",
     );
     expect(a._id).toBe(stableId("explosive:sonic"));
@@ -200,10 +210,17 @@ describe("granted actions", () => {
   });
 
   it("merges automation: keeps the base's on-fail, adds a condition group and a template buff", () => {
-    const base = { onFail: { conditions: "blind, deaf", conditionRounds: "1d4+1", regainFocus: true } };
+    const base = {
+      onFail: { conditions: "blind, deaf", conditionRounds: "1d4+1", regainFocus: true },
+    };
     const merged = mergeGrantAutomation(base, {
       focus: "expend",
-      onFail: { conditions: "staggered", conditionRounds: "1", buffTemplate: "inhibited", buffRounds: "1d4" },
+      onFail: {
+        conditions: "staggered",
+        conditionRounds: "1",
+        buffTemplate: "inhibited",
+        buffRounds: "1d4",
+      },
     });
     expect(merged.focus).toBe("expend");
     expect(merged.onFail).toEqual({
@@ -218,8 +235,32 @@ describe("granted actions", () => {
   });
 
   it("turns a buff template into buff item data", () => {
-    const data = templateToItemData({ name: "Inhibited", changes: [{ formula: "-2", target: "cl" }] });
+    const data = templateToItemData({
+      name: "Inhibited",
+      changes: [{ formula: "-2", target: "cl" }],
+    });
     expect(data.type).toBe("buff");
-    expect(data.system.changes[0]).toMatchObject({ formula: "-2", target: "cl", type: "untyped", operator: "add" });
+    expect(data.system.changes[0]).toMatchObject({
+      formula: "-2",
+      target: "cl",
+      type: "untyped",
+      operator: "add",
+    });
+  });
+});
+
+describe("prodigy imbuements", () => {
+  const html =
+    "<p>Intro.</p><h3 id='a'>Creation</h3><p><strong>Breaker (imbue) (requires alter):</strong> Ignore hardness.</p>" +
+    "<p><strong>Shatter (finish):</strong> Break things.</p><h3>Fallen Fey</h3><p><strong>Fey Step (imbue):</strong> Teleport&#8217;s cousin.</p>";
+
+  it("reads each sphere's imbue and finish entries", () => {
+    const groups = parseImbuements(html);
+    expect(groups.map((g) => g.sphere)).toEqual(["Creation", "Fallen Fey"]);
+    expect(groups[0].entries).toEqual([
+      { name: "Breaker", kind: "imbue", requires: "alter", text: "Ignore hardness." },
+      { name: "Shatter", kind: "finish", requires: null, text: "Break things." },
+    ]);
+    expect(groups[1].entries[0].text).toBe("Teleport\u2019s cousin.");
   });
 });

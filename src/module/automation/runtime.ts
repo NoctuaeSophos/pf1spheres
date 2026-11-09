@@ -8,6 +8,7 @@
 // @ts-nocheck
 
 import { MODULE_ID, localize } from "../util";
+import { setSpellPoints } from "../actor";
 import { isGMWriter, registerSocketHandler, requestGM, serialised, userOwns } from "../socket";
 import {
   SEQUENCE_BREAKERS,
@@ -43,7 +44,9 @@ export const setAutomation = (item, actionId, data: ActionAutomation) =>
 export const evalFormula = (formula, rollData): number => {
   if (formula === undefined || formula === null || String(formula).trim() === "") return 0;
   try {
-    const v = Roll.safeEval(Roll.replaceFormulaData(String(formula), rollData ?? {}, { missing: 0 }));
+    const v = Roll.safeEval(
+      Roll.replaceFormulaData(String(formula), rollData ?? {}, { missing: 0 }),
+    );
     return Number.isFinite(v) ? v : 0;
   } catch {
     return 0;
@@ -58,14 +61,15 @@ const tokenCenter = (doc) => {
 /** Every actor that could hold applied buffs: world actors and unlinked token actors on all scenes */
 function* allActors() {
   yield* game.actors;
-  for (const scene of game.scenes) for (const t of scene.tokens) if (!t.actorLink && t.actor) yield t.actor;
+  for (const scene of game.scenes)
+    for (const t of scene.tokens) if (!t.actorLink && t.actor) yield t.actor;
 }
 
 /* ---------- spell points and martial focus ---------- */
 
 export const spendResources = async (actor, { sp = 0, focus = "" } = {}) => {
   const upd = {};
-  if (sp > 0) upd[`flags.${MODULE_ID}.spellPoints`] = Math.max(0, (actor.system.spheres?.spellPoints?.value ?? 0) - sp);
+  if (sp > 0) await setSpellPoints(actor, (actor.system.spheres?.spellPoints?.value ?? 0) - sp);
   if (focus === "expend") upd[`flags.${MODULE_ID}.martialFocus`] = false;
   if (focus === "restore") upd[`flags.${MODULE_ID}.martialFocus`] = true;
   if (Object.keys(upd).length) await actor.update(upd);
@@ -90,13 +94,15 @@ export interface TrackedEffect {
   concentration: boolean;
 }
 
-export const getEffects = (actor): TrackedEffect[] => foundry.utils.deepClone(actor?.flags?.[MODULE_ID]?.activeEffects ?? []);
+export const getEffects = (actor): TrackedEffect[] =>
+  foundry.utils.deepClone(actor?.flags?.[MODULE_ID]?.activeEffects ?? []);
 
 /** Seconds (or rounds in the same combat) left on an effect */
 export const effectRemaining = (e: TrackedEffect): number | null => {
   if (e.concentration || e.seconds === null) return null;
   const combat = e.combatId ? game.combats.get(e.combatId) : null;
-  if (combat?.started && e.units === "round") return Math.max(0, e.durationValue - (combat.round - e.round)) * 6;
+  if (combat?.started && e.units === "round")
+    return Math.max(0, e.durationValue - (combat.round - e.round)) * 6;
   return remainingSeconds(e.startTime, e.seconds, game.time.worldTime);
 };
 
@@ -113,7 +119,8 @@ export const persistEffect = async (actor, effectId: string) => {
   const list = getEffects(actor);
   const e = list.find((x) => x.id === effectId);
   if (!e?.concentration || !e.persistSeconds) return;
-  if ((actor.system.spheres?.spellPoints?.value ?? 0) < 1) return ui.notifications.warn(fmt("NotEnoughSP", { cost: 1 }));
+  if ((actor.system.spheres?.spellPoints?.value ?? 0) < 1)
+    return ui.notifications.warn(fmt("NotEnoughSP", { cost: 1 }));
   await spendResources(actor, { sp: 1 });
   Object.assign(e, {
     concentration: false,
@@ -137,12 +144,17 @@ async function cleanupEffect(msg, user) {
   for (const scene of game.scenes) {
     const zones = getZones(scene);
     const gone = zones.filter((z) => z.effectId === msg.effectId);
-    if (gone.length) await removeZones(scene, gone.map((z) => z.id));
+    if (gone.length)
+      await removeZones(
+        scene,
+        gone.map((z) => z.id),
+      );
     const tokenUpdates = [];
     for (const t of scene.tokens) {
       const marks = t.getFlag(MODULE_ID, "marks") ?? [];
       const kept = marks.filter((m) => m.effectId !== msg.effectId);
-      if (kept.length !== marks.length) tokenUpdates.push({ _id: t.id, [`flags.${MODULE_ID}.marks`]: kept });
+      if (kept.length !== marks.length)
+        tokenUpdates.push({ _id: t.id, [`flags.${MODULE_ID}.marks`]: kept });
     }
     if (tokenUpdates.length) await scene.updateEmbeddedDocuments("Token", tokenUpdates);
   }
@@ -177,13 +189,17 @@ export const resolveBuff = (actor, item, ref: string | undefined) => {
  * fills it in on updates, so a copied start would make the new buff look already expired.
  */
 const buffCopy = (source, level: number, name: string, flags: object) => {
-  const data = typeof source.toObject === "function" ? source.toObject() : foundry.utils.deepClone(source);
+  const data =
+    typeof source.toObject === "function" ? source.toObject() : foundry.utils.deepClone(source);
   delete data._id;
   data.name = name;
   data.system.level = level;
   data.system.active = true;
   foundry.utils.setProperty(data, "system.duration.start", game.time.worldTime);
-  foundry.utils.setProperty(data, `flags.${MODULE_ID}`, { ...(data.flags?.[MODULE_ID] ?? {}), ...flags });
+  foundry.utils.setProperty(data, `flags.${MODULE_ID}`, {
+    ...(data.flags?.[MODULE_ID] ?? {}),
+    ...flags,
+  });
   return data;
 };
 
@@ -196,7 +212,9 @@ async function applyBuff(msg, user) {
     const target = fromUuidSync(uuid);
     if (!target) continue;
     const name = target.uuid === caster.uuid ? source.name : `${source.name} (${caster.name})`;
-    const data = buffCopy(source, msg.level, name, { appliedBy: { casterUuid: caster.uuid, effectId: msg.effectId } });
+    const data = buffCopy(source, msg.level, name, {
+      appliedBy: { casterUuid: caster.uuid, effectId: msg.effectId },
+    });
     await target.createEmbeddedDocuments("Item", [data]);
   }
 }
@@ -219,7 +237,8 @@ export interface Zone {
   regionId: string | null;
 }
 
-export const getZones = (scene): Zone[] => foundry.utils.deepClone(scene?.getFlag(MODULE_ID, "zones") ?? []);
+export const getZones = (scene): Zone[] =>
+  foundry.utils.deepClone(scene?.getFlag(MODULE_ID, "zones") ?? []);
 
 async function createZone(msg, user) {
   const caster = fromUuidSync(msg.casterUuid);
@@ -259,7 +278,11 @@ async function removeZones(scene, ids: string[]) {
   const gone = zones.filter((z) => ids.includes(z.id));
   const regions = gone.map((z) => z.regionId).filter((id) => id && scene.regions?.has(id));
   if (regions.length) await scene.deleteEmbeddedDocuments("Region", regions);
-  await scene.setFlag(MODULE_ID, "zones", zones.filter((z) => !ids.includes(z.id)));
+  await scene.setFlag(
+    MODULE_ID,
+    "zones",
+    zones.filter((z) => !ids.includes(z.id)),
+  );
 }
 
 /** Gives each creature inside a zone that zone's buff, and takes it away when they leave */
@@ -282,14 +305,20 @@ export async function syncZones(scene) {
         .filter((z) => distanceFt(center, z, scene.grid.size, scene.grid.distance) <= z.radius)
         .map((z) => z.id),
     );
-    const held = actor.items.filter((i) => i.type === "buff" && i.flags?.[MODULE_ID]?.zoneBuff?.sceneId === scene.id);
-    const drop = held.filter((i) => !inside.has(i.flags[MODULE_ID].zoneBuff.zoneId)).map((i) => i.id);
+    const held = actor.items.filter(
+      (i) => i.type === "buff" && i.flags?.[MODULE_ID]?.zoneBuff?.sceneId === scene.id,
+    );
+    const drop = held
+      .filter((i) => !inside.has(i.flags[MODULE_ID].zoneBuff.zoneId))
+      .map((i) => i.id);
     if (drop.length) await actor.deleteEmbeddedDocuments("Item", drop);
     const have = new Set(held.map((i) => i.flags[MODULE_ID].zoneBuff.zoneId));
     for (const z of zones.filter((z) => inside.has(z.id) && !have.has(z.id))) {
       const source = z.buffData ?? fromUuidSync(z.buffUuid);
       if (!source) continue;
-      const data = buffCopy(source, z.level, `${source.name} (${z.name})`, { zoneBuff: { sceneId: scene.id, zoneId: z.id } });
+      const data = buffCopy(source, z.level, `${source.name} (${z.name})`, {
+        zoneBuff: { sceneId: scene.id, zoneId: z.id },
+      });
       await actor.createEmbeddedDocuments("Item", [data]);
     }
   }
@@ -300,8 +329,15 @@ const zoneQueues = new Map();
 const queueZones = (scene) => {
   if (!scene) return;
   clearTimeout(zoneTimers.get(scene.id));
-  if (!zoneQueues.has(scene.id)) zoneQueues.set(scene.id, serialised(() => syncZones(game.scenes.get(scene.id))));
-  zoneTimers.set(scene.id, setTimeout(() => zoneQueues.get(scene.id)(), 300));
+  if (!zoneQueues.has(scene.id))
+    zoneQueues.set(
+      scene.id,
+      serialised(() => syncZones(game.scenes.get(scene.id))),
+    );
+  zoneTimers.set(
+    scene.id,
+    setTimeout(() => zoneQueues.get(scene.id)(), 300),
+  );
 };
 
 /** The GM moved, resized or deleted a zone's Region: the zone follows it, or ends with it */
@@ -314,11 +350,19 @@ async function onRegionChanged(region, deleted: boolean) {
   const zone = zones.find((z) => z.id === zoneId);
   if (!zone) return;
   if (deleted) {
-    await scene.setFlag(MODULE_ID, "zones", zones.filter((z) => z.id !== zoneId));
+    await scene.setFlag(
+      MODULE_ID,
+      "zones",
+      zones.filter((z) => z.id !== zoneId),
+    );
   } else {
     const circle = region.shapes?.find((sh) => sh.type === "circle");
     if (!circle) return;
-    Object.assign(zone, { x: circle.x, y: circle.y, radius: (circle.radius / scene.grid.size) * scene.grid.distance });
+    Object.assign(zone, {
+      x: circle.x,
+      y: circle.y,
+      radius: (circle.radius / scene.grid.size) * scene.grid.distance,
+    });
     await scene.setFlag(MODULE_ID, "zones", zones);
   }
   queueZones(scene);
@@ -334,7 +378,10 @@ async function markTokens(msg, user) {
   const updates = (msg.tokenIds ?? [])
     .map((id) => scene.tokens.get(id))
     .filter(Boolean)
-    .map((t) => ({ _id: t.id, [`flags.${MODULE_ID}.marks`]: [...(t.getFlag(MODULE_ID, "marks") ?? []), msg.mark] }));
+    .map((t) => ({
+      _id: t.id,
+      [`flags.${MODULE_ID}.marks`]: [...(t.getFlag(MODULE_ID, "marks") ?? []), msg.mark],
+    }));
   if (updates.length) await scene.updateEmbeddedDocuments("Token", updates);
 }
 
@@ -346,7 +393,8 @@ async function clearMarks(msg, user) {
     for (const t of scene.tokens) {
       const marks = t.getFlag(MODULE_ID, "marks") ?? [];
       const kept = marks.filter((m) => m.sourceUuid !== msg.sourceUuid);
-      if (kept.length !== marks.length) updates.push({ _id: t.id, [`flags.${MODULE_ID}.marks`]: kept });
+      if (kept.length !== marks.length)
+        updates.push({ _id: t.id, [`flags.${MODULE_ID}.marks`]: kept });
     }
     if (updates.length) await scene.updateEmbeddedDocuments("Token", updates);
   }
@@ -357,7 +405,9 @@ export const marksPlacedBy = (actor) => {
   const scene = canvas?.scene;
   if (!scene) return [];
   return scene.tokens.contents.flatMap((t) =>
-    (t.getFlag(MODULE_ID, "marks") ?? []).filter((m) => m.sourceUuid === actor.uuid).map((m) => ({ ...m, token: t.name })),
+    (t.getFlag(MODULE_ID, "marks") ?? [])
+      .filter((m) => m.sourceUuid === actor.uuid)
+      .map((m) => ({ ...m, token: t.name })),
   );
 };
 
@@ -368,23 +418,29 @@ function onPreActionUse(au) {
   const item = au.item;
   const action = au.shared?.action ?? au.action;
   if (!actor || !item || !action) return;
-  const notes = (au.shared.templateData ??= {}).footnotes ??= [];
+  const notes = ((au.shared.templateData ??= {}).footnotes ??= []);
 
   // Mark reminders: on attacks against a creature you marked, and on a marked creature's attacks against you
   const targets = au.shared.targets ?? [];
   for (const t of targets) {
     for (const m of t.document?.getFlag(MODULE_ID, "marks") ?? []) {
-      if (m.sourceUuid === actor.uuid && m.attackerNote) notes.push({ text: `${m.label} (${t.name}): ${m.attackerNote}` });
+      if (m.sourceUuid === actor.uuid && m.attackerNote)
+        notes.push({ text: `${m.label} (${t.name}): ${m.attackerNote}` });
     }
   }
   const attacker = au.token?.document ?? au.token ?? actor.getActiveTokens?.(false, true)?.[0];
   for (const m of attacker?.getFlag?.(MODULE_ID, "marks") ?? []) {
-    if (m.defenderNote && targets.some((t) => t.actor?.uuid === m.sourceUuid)) notes.push({ text: `${m.label}: ${m.defenderNote}` });
+    if (m.defenderNote && targets.some((t) => t.actor?.uuid === m.sourceUuid))
+      notes.push({ text: `${m.label}: ${m.defenderNote}` });
   }
 
   const auto = getAutomation(item, action.id);
   if (!hasAutomation(auto)) return;
-  const sp = totalSpCost(evalFormula(auto.sp, au.shared.rollData), auto.condSp, au.shared.conditionals ?? []);
+  const sp = totalSpCost(
+    evalFormula(auto.sp, au.shared.rollData),
+    auto.condSp,
+    au.shared.conditionals ?? [],
+  );
   const pool = actor.system.spheres?.spellPoints?.value ?? 0;
   if (sp > pool) {
     ui.notifications.warn(fmt("NotEnoughSP", { cost: sp, value: pool }));
@@ -417,7 +473,8 @@ async function onPostActionUse(au) {
   const rd = au.shared.rollData ?? actor.getRollData();
   await spendResources(actor, { sp: state.sp, focus: state.focus });
 
-  const wantsEffect = auto.effect?.enabled || auto.buff?.itemId || auto.zone?.enabled || auto.mark?.label;
+  const wantsEffect =
+    auto.effect?.enabled || auto.buff?.itemId || auto.zone?.enabled || auto.mark?.label;
   if (!wantsEffect) return;
   const durationValue = Math.max(0, evalFormula(auto.effect?.duration, rd));
   const units = auto.effect?.units ?? "round";
@@ -496,7 +553,8 @@ async function onPostActionUse(au) {
   }
 }
 
-const attackerDoc = (au, actor) => au.token?.document ?? au.token ?? actor.getActiveTokens?.(false, true)?.[0] ?? null;
+const attackerDoc = (au, actor) =>
+  au.token?.document ?? au.token ?? actor.getActiveTokens?.(false, true)?.[0] ?? null;
 
 /* ---------- time: expiry, turn prompts, sequences, formulae ---------- */
 
@@ -507,7 +565,10 @@ async function sweep() {
     for (const e of getEffects(actor)) {
       if (effectRemaining(e) === 0) {
         await cleanupEffect({ casterUuid: actor.uuid, effectId: e.id }, game.user);
-        await setEffects(actor, getEffects(actor).filter((x) => x.id !== e.id));
+        await setEffects(
+          actor,
+          getEffects(actor).filter((x) => x.id !== e.id),
+        );
         await ChatMessage.create({
           whisper: game.users.filter((u) => actor.testUserPermission(u, "OWNER")).map((u) => u.id),
           speaker: ChatMessage.getSpeaker({ actor }),
@@ -516,10 +577,16 @@ async function sweep() {
       }
     }
     const stale = actor.items
-      .filter((i) => (i.flags?.[MODULE_ID]?.formulaeExpires ?? Infinity) <= now || (i.flags?.[MODULE_ID]?.expiresAt ?? Infinity) <= now)
+      .filter(
+        (i) =>
+          (i.flags?.[MODULE_ID]?.formulaeExpires ?? Infinity) <= now ||
+          (i.flags?.[MODULE_ID]?.expiresAt ?? Infinity) <= now,
+      )
       .map((i) => i.id);
     if (stale.length) await actor.deleteEmbeddedDocuments("Item", stale);
-    const expired = actor.effects.filter((e) => (e.flags?.[MODULE_ID]?.expiresAt ?? Infinity) <= now).map((e) => e.id);
+    const expired = actor.effects
+      .filter((e) => (e.flags?.[MODULE_ID]?.expiresAt ?? Infinity) <= now)
+      .map((e) => e.id);
     if (expired.length) await actor.deleteEmbeddedDocuments("ActiveEffect", expired);
   }
   await sweepOrphans();
@@ -527,10 +594,13 @@ async function sweep() {
 
 /** True if a linked actor has a token on the scene, or an unlinked actor's token is on it */
 const actorOnScene = (actor, scene) =>
-  actor.token ? actor.token.parent?.id === scene.id : scene.tokens.some((t) => t.actorLink && t.actorId === actor.id);
+  actor.token
+    ? actor.token.parent?.id === scene.id
+    : scene.tokens.some((t) => t.actorLink && t.actorId === actor.id);
 
 /** Linked actors only take a scene's buffs while that scene is active (or nothing is) */
-const actorInScene = (actor, scene) => actorOnScene(actor, scene) && (Boolean(actor.token) || scene.active || !game.scenes.active);
+const actorInScene = (actor, scene) =>
+  actorOnScene(actor, scene) && (Boolean(actor.token) || scene.active || !game.scenes.active);
 
 /**
  * Removes what nothing will ever clean up: buffs and marks from casters whose actor or token is gone,
@@ -546,7 +616,8 @@ async function sweepOrphans() {
     for (const t of scene.tokens) {
       const marks = t.getFlag(MODULE_ID, "marks") ?? [];
       const kept = marks.filter((m) => fromUuidSync(m.sourceUuid));
-      if (kept.length !== marks.length) tokenUpdates.push({ _id: t.id, [`flags.${MODULE_ID}.marks`]: kept });
+      if (kept.length !== marks.length)
+        tokenUpdates.push({ _id: t.id, [`flags.${MODULE_ID}.marks`]: kept });
     }
     if (tokenUpdates.length) await scene.updateEmbeddedDocuments("Token", tokenUpdates);
   }
@@ -561,7 +632,11 @@ async function sweepOrphans() {
         }
         if (f.zoneBuff) {
           const scene = game.scenes.get(f.zoneBuff.sceneId);
-          return !scene || !getZones(scene).some((z) => z.id === f.zoneBuff.zoneId) || !actorInScene(actor, scene);
+          return (
+            !scene ||
+            !getZones(scene).some((z) => z.id === f.zoneBuff.zoneId) ||
+            !actorInScene(actor, scene)
+          );
         }
         if (f.weatherBuff) {
           const scene = game.scenes.get(f.weatherBuff);
@@ -623,9 +698,11 @@ export const changeSequence = async (actor, n: number) => {
   await actor.update({ [`flags.${MODULE_ID}.sequence`]: next });
 };
 
-export const endSequence = (actor) => actor.update({ [`flags.${MODULE_ID}.sequence`]: { length: 0, linked: false, imbue: "" } });
+export const endSequence = (actor) =>
+  actor.update({ [`flags.${MODULE_ID}.sequence`]: { length: 0, linked: false, imbue: "" } });
 
-export const setImbue = (actor, imbue: string) => actor.update({ [`flags.${MODULE_ID}.sequence.imbue`]: imbue });
+export const setImbue = (actor, imbue: string) =>
+  actor.update({ [`flags.${MODULE_ID}.sequence.imbue`]: imbue });
 
 /** Dazed, stunned, unconscious and the like end a sequence, unless Unbroken Sequence is holding it */
 function onConditionAdded(effect) {
@@ -663,7 +740,11 @@ async function onRollSave(actor, result) {
   const item = message?.itemSource;
   const action = message?.actionSource;
   if (!item || !action || !hasFailEffects(getAutomation(item, action.id).onFail)) return;
-  await requestGM({ action: "auto.failedSave", messageUuid: pending.reference, targetUuid: actor.uuid });
+  await requestGM({
+    action: "auto.failedSave",
+    messageUuid: pending.reference,
+    targetUuid: actor.uuid,
+  });
 }
 
 const rollTotal = async (formula, rollData): Promise<number> => {
@@ -708,10 +789,15 @@ async function applyFailedSave(msg, user) {
   const lines = [];
   // The main conditions, plus groups with their own duration (an [explosive] adding to a flashbang's);
   // a condition in several groups lasts the longest of them, since pf1 won't stack one on itself
-  const groups = [{ conditions: fail.conditions, rounds: fail.conditionRounds }, ...(fail.more ?? [])];
+  const groups = [
+    { conditions: fail.conditions, rounds: fail.conditionRounds },
+    ...(fail.more ?? []),
+  ];
   const longest = new Map<string, number>();
   for (const group of groups) {
-    const conditions = parseConditions(group.conditions).filter((id) => pf1.registry.conditions.get(id));
+    const conditions = parseConditions(group.conditions).filter((id) =>
+      pf1.registry.conditions.get(id),
+    );
     if (!conditions.length) continue;
     const rounds = Math.max(1, await rollTotal(group.rounds || "1", rd));
     for (const id of conditions) longest.set(id, Math.max(longest.get(id) ?? 0, rounds));
@@ -728,14 +814,18 @@ async function applyFailedSave(msg, user) {
       },
       flags: { [MODULE_ID]: { expiresAt: now + rounds * 6 } },
     };
-    await target.setConditions(Object.fromEntries(conditions.map((id) => [id, foundry.utils.deepClone(data)])));
+    await target.setConditions(
+      Object.fromEntries(conditions.map((id) => [id, foundry.utils.deepClone(data)])),
+    );
     const names = conditions.map((id) => pf1.registry.conditions.get(id).name).join(", ");
     lines.push(fmt("FailConditionsApplied", { conditions: names, rounds }));
   }
   const source = resolveBuff(caster, item, fail.buffId);
   if (source) {
     const rounds = Math.max(1, await rollTotal(fail.buffRounds || "1", rd));
-    const level = fail.buffLevel?.trim() ? Math.max(1, evalFormula(fail.buffLevel, rd)) : Math.max(1, rd.spheres?.cl?.total ?? 1);
+    const level = fail.buffLevel?.trim()
+      ? Math.max(1, evalFormula(fail.buffLevel, rd))
+      : Math.max(1, rd.spheres?.cl?.total ?? 1);
     const data = buffCopy(source, level, `${source.name} (${caster.name})`, {
       failBuff: { casterUuid: caster.uuid },
       expiresAt: now + rounds * 6,
@@ -751,7 +841,8 @@ async function applyFailedSave(msg, user) {
     fail.regainFocus && !focused
       ? `<p>${loc("RegainFocusPrompt")}</p><button type="button" data-pf1s-regain-focus="${caster.uuid}"><i class="fas fa-bullseye"></i> ${loc("RegainFocus")}</button>`
       : "";
-  const sourceName = action.name && action.name !== item.name ? `${item.name}: ${action.name}` : item.name;
+  const sourceName =
+    action.name && action.name !== item.name ? `${item.name}: ${action.name}` : item.name;
   const whisper = game.users
     .filter((u) => caster.testUserPermission(u, "OWNER") || target.testUserPermission(u, "OWNER"))
     .map((u) => u.id);
@@ -803,7 +894,11 @@ export const registerAutomation = () => {
     if (!(doc instanceof Actor)) return;
     const seq = getSequence(doc);
     result.spheres ??= {};
-    result.spheres.sequence = { length: seq.length, active: seq.length > 0 ? 1 : 0, max: sequenceMax(prodigyLevel(doc)) };
+    result.spheres.sequence = {
+      length: seq.length,
+      active: seq.length > 0 ? 1 : 0,
+      max: sequenceMax(prodigyLevel(doc)),
+    };
   });
   Hooks.on("updateWorldTime", () => {
     queueSweep();
@@ -832,9 +927,14 @@ export const registerAutomation = () => {
   });
   Hooks.on("deleteScene", () => queueSweep());
   Hooks.on("updateRegion", (region, changed) => {
-    if ("shapes" in changed) onRegionChanged(region, false).catch((err) => console.error(`${MODULE_ID} | zone region`, err));
+    if ("shapes" in changed)
+      onRegionChanged(region, false).catch((err) =>
+        console.error(`${MODULE_ID} | zone region`, err),
+      );
   });
-  Hooks.on("deleteRegion", (region) => onRegionChanged(region, true).catch((err) => console.error(`${MODULE_ID} | zone region`, err)));
+  Hooks.on("deleteRegion", (region) =>
+    onRegionChanged(region, true).catch((err) => console.error(`${MODULE_ID} | zone region`, err)),
+  );
   Hooks.on("pf1PreActorRollSave", onPreRollSave);
   Hooks.on("pf1ActorRollSave", (actor, result) => {
     onRollSave(actor, result).catch((err) => console.error(`${MODULE_ID} | failed save`, err));
@@ -850,4 +950,5 @@ function refreshEffectSheets() {
   }
 }
 
-export const clearMyMarks = (actor) => requestGM({ action: "auto.clearMarks", sourceUuid: actor.uuid });
+export const clearMyMarks = (actor) =>
+  requestGM({ action: "auto.clearMarks", sourceUuid: actor.uuid });

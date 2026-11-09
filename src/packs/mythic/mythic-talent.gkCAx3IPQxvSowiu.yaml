@@ -1,5 +1,5 @@
 _id: gkCAx3IPQxvSowiu
-_key: '!items!gkCAx3IPQxvSowiu'
+_key: "!items!gkCAx3IPQxvSowiu"
 effects: []
 flags:
   pf1: {}
@@ -18,12 +18,17 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: PUThWMYLegSMZVMc
+      name: Mythic Talent
+      actionType: other
+      activation:
+        type: special
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,15 +44,15 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p>Pick a single known talent, or a set of known talents that combine
       into one effect, as your mythic talent. Three times per day you can cast it
       without paying spell points, whatever it would normally cost; its casting time
@@ -61,18 +66,18 @@ system:
       text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -83,27 +88,27 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Mythic Sphere Talent
-  - Path Ability
+    - Mythic Sphere Talent
+    - Path Ability
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: '3'
+    autoDeductChargesCost: "1"
+    maxFormula: "3"
     per: day
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

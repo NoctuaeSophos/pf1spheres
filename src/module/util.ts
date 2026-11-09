@@ -62,7 +62,8 @@ export const localize = (
  */
 export const getGame = (): Game => {
   // Foundry 13 namespaces the class and warns on the global; the fallback only runs on older cores
-  const GameClass = (globalThis as unknown as { foundry?: { Game?: typeof Game } }).foundry?.Game ?? Game;
+  const GameClass =
+    (globalThis as unknown as { foundry?: { Game?: typeof Game } }).foundry?.Game ?? Game;
   if (!(game instanceof GameClass)) throw new Error("Game not initialised");
   return game;
 };

@@ -8,6 +8,7 @@
 // @ts-nocheck
 
 import { MODULE_ID, localize } from "../util";
+import { setSpellPoints } from "../actor";
 import { DEFAULT_WEATHER, getWeatherEffects, normaliseWeather } from "./conditions";
 import type { WeatherEffects, WeatherState } from "./conditions";
 import { castCost, getWeatherCaster, reduceWeather, validateCast } from "./caster";
@@ -68,10 +69,16 @@ export const getLightning = (weather: SceneWeather, effects = getWeatherEffects(
 /** Only one client (the active GM) writes weather, so updates never race */
 export const isWeatherWriter = isGMWriter;
 
-const hasAtmospheric = (actor) => actor.items.some((i) => i.type === "feat" && i.name === "Atmospheric Imbuement");
+const hasAtmospheric = (actor) =>
+  actor.items.some((i) => i.type === "feat" && i.name === "Atmospheric Imbuement");
 
-const buffData = (effects: WeatherEffects, scene, extra: { mantle?; atmospheric?: boolean; controller? }) => {
-  const list = (items: string[]) => (items.length ? `<ul>${items.map((i) => `<li>${i}</li>`).join("")}</ul>` : "");
+const buffData = (
+  effects: WeatherEffects,
+  scene,
+  extra: { mantle?; atmospheric?: boolean; controller? },
+) => {
+  const list = (items: string[]) =>
+    items.length ? `<ul>${items.map((i) => `<li>${i}</li>`).join("")}</ul>` : "";
   const contextNotes = [...effects.contextNotes];
   const notes = [...effects.notes];
   if (extra.atmospheric) {
@@ -82,9 +89,17 @@ const buffData = (effects: WeatherEffects, scene, extra: { mantle?; atmospheric?
     notes.unshift(text);
   }
   const lines = [];
-  if (extra.controller) lines.push(game.i18n.format("PF1SPHERES.Weather.ControlledBy", { name: extra.controller.name }));
+  if (extra.controller)
+    lines.push(
+      game.i18n.format("PF1SPHERES.Weather.ControlledBy", { name: extra.controller.name }),
+    );
   if (extra.mantle) {
-    lines.push(game.i18n.format("PF1SPHERES.Weather.MantleLine", { steps: extra.mantle.steps, name: extra.mantle.casterName }));
+    lines.push(
+      game.i18n.format("PF1SPHERES.Weather.MantleLine", {
+        steps: extra.mantle.steps,
+        name: extra.mantle.casterName,
+      }),
+    );
   }
   return {
     name: localize("Weather.BuffName"),
@@ -94,7 +109,11 @@ const buffData = (effects: WeatherEffects, scene, extra: { mantle?; atmospheric?
     system: {
       subType: "temp",
       active: true,
-      changes: effects.changes.map((c, i) => ({ _id: `pf1sweather${String(i).padStart(4, "0")}`, operator: "add", ...c })),
+      changes: effects.changes.map((c, i) => ({
+        _id: `pf1sweather${String(i).padStart(4, "0")}`,
+        operator: "add",
+        ...c,
+      })),
       contextNotes,
       description: {
         value:
@@ -140,21 +159,33 @@ export async function syncSceneWeather(scene) {
     const key = token.actorLink ? actor.uuid : token.uuid;
     if (seen.has(key)) continue;
     seen.add(key);
-    const existing = actor.items.filter((i) => i.type === "buff" && i.getFlag(MODULE_ID, BUFF_FLAG) === scene.id);
+    const existing = actor.items.filter(
+      (i) => i.type === "buff" && i.getFlag(MODULE_ID, BUFF_FLAG) === scene.id,
+    );
     // A linked actor is only "in" the active scene; tokens left on other maps don't bring their weather along
     const here = !token.actorLink || scene.active || !game.scenes.active;
     const mantle = token.getFlag(MODULE_ID, MANTLE_FLAG);
     const effects = effectsFor(Math.max(0, Number(mantle?.steps) || 0));
     const atmospheric = storm && hasAtmospheric(actor);
-    const hasEffects = atmospheric || effects.changes.length + effects.contextNotes.length + effects.notes.length > 0;
+    const hasEffects =
+      atmospheric ||
+      effects.changes.length + effects.contextNotes.length + effects.notes.length > 0;
     const wanted = here && weather.apply && hasEffects && !token.getFlag(MODULE_ID, SHELTER_FLAG);
     if (!wanted) {
-      if (existing.length) await actor.deleteEmbeddedDocuments("Item", existing.map((i) => i.id));
+      if (existing.length)
+        await actor.deleteEmbeddedDocuments(
+          "Item",
+          existing.map((i) => i.id),
+        );
       continue;
     }
     const data = buffData(effects, scene, { mantle, atmospheric, controller: weather.controller });
     const [first, ...extra] = existing;
-    if (extra.length) await actor.deleteEmbeddedDocuments("Item", extra.map((i) => i.id));
+    if (extra.length)
+      await actor.deleteEmbeddedDocuments(
+        "Item",
+        extra.map((i) => i.id),
+      );
     if (!first) await actor.createEmbeddedDocuments("Item", [data]);
     else if (!sameBuff(first, data)) {
       await first.update({
@@ -176,9 +207,19 @@ async function clearTokenWeather(token) {
   if (!actor) return;
   const sceneId = token.parent?.id;
   // A linked actor may still have other tokens on the scene
-  if (token.actorLink && token.parent?.tokens.some((t) => t.id !== token.id && t.actorId === token.actorId)) return;
-  const existing = actor.items.filter((i) => i.type === "buff" && i.getFlag(MODULE_ID, BUFF_FLAG) === sceneId);
-  if (existing.length) await actor.deleteEmbeddedDocuments("Item", existing.map((i) => i.id));
+  if (
+    token.actorLink &&
+    token.parent?.tokens.some((t) => t.id !== token.id && t.actorId === token.actorId)
+  )
+    return;
+  const existing = actor.items.filter(
+    (i) => i.type === "buff" && i.getFlag(MODULE_ID, BUFF_FLAG) === sceneId,
+  );
+  if (existing.length)
+    await actor.deleteEmbeddedDocuments(
+      "Item",
+      existing.map((i) => i.id),
+    );
 }
 
 const pending = new Map();
@@ -212,19 +253,28 @@ async function handleRequest(msg, user) {
     if (!caster) return;
     const next = normaliseWeather(msg.state);
     const refuse = (reason) =>
-      ChatMessage.create({ whisper: [user.id], content: `<p>${localize("Weather.Refused")}: ${reason}</p>` });
+      ChatMessage.create({
+        whisper: [user.id],
+        content: `<p>${localize("Weather.Refused")}: ${reason}</p>`,
+      });
     const problems = validateCast(caster, weather, next, msg.opts);
     if (problems.length) return refuse(problems[0]);
     const cost = castCost(caster, msg.opts);
-    const mythic = msg.opts?.mythicTalent && caster.mythicTalent?.uses > 0 ? actor.items.get(caster.mythicTalent.id) : null;
+    const mythic =
+      msg.opts?.mythicTalent && caster.mythicTalent?.uses > 0
+        ? actor.items.get(caster.mythicTalent.id)
+        : null;
     const pool = actor.system.spheres?.spellPoints?.value ?? 0;
-    if (!mythic && cost > pool) return refuse(game.i18n.format("PF1SPHERES.Weather.NotEnoughSP", { cost, value: pool }));
+    if (!mythic && cost > pool)
+      return refuse(game.i18n.format("PF1SPHERES.Weather.NotEnoughSP", { cost, value: pool }));
     if (mythic) await mythic.update({ "system.uses.value": mythic.system.uses.value - 1 });
-    else if (cost) await actor.update({ [`flags.${MODULE_ID}.spellPoints`]: pool - cost });
+    else if (cost) await setSpellPoints(actor, pool - cost);
     if (msg.chat) {
       await ChatMessage.create({
         speaker: ChatMessage.getSpeaker({ actor }),
-        content: msg.chat + `<p>${mythic ? localize("Weather.PaidMythic") : game.i18n.format("PF1SPHERES.Weather.PaidSP", { cost })}</p>`,
+        content:
+          msg.chat +
+          `<p>${mythic ? localize("Weather.PaidMythic") : game.i18n.format("PF1SPHERES.Weather.PaidSP", { cost })}</p>`,
       });
     }
     await scene.setFlag(MODULE_ID, WEATHER_FLAG, {
@@ -259,10 +309,17 @@ async function handleRequest(msg, user) {
     if (msg.mantle && msg.cost && caster) {
       const pool = caster.system.spheres?.spellPoints?.value ?? 0;
       if (msg.cost > pool) {
-        return ChatMessage.create({ whisper: [user.id], content: `<p>${game.i18n.format("PF1SPHERES.Weather.NotEnoughSP", { cost: msg.cost, value: pool })}</p>` });
+        return ChatMessage.create({
+          whisper: [user.id],
+          content: `<p>${game.i18n.format("PF1SPHERES.Weather.NotEnoughSP", { cost: msg.cost, value: pool })}</p>`,
+        });
       }
-      await caster.update({ [`flags.${MODULE_ID}.spellPoints`]: pool - msg.cost });
-      if (msg.chat) await ChatMessage.create({ speaker: ChatMessage.getSpeaker({ actor: caster }), content: msg.chat });
+      await setSpellPoints(caster, pool - msg.cost);
+      if (msg.chat)
+        await ChatMessage.create({
+          speaker: ChatMessage.getSpeaker({ actor: caster }),
+          content: msg.chat,
+        });
     }
     const updates = (msg.tokenIds ?? [])
       .filter((id) => scene.tokens.has(id))
@@ -281,7 +338,8 @@ async function handleRequest(msg, user) {
  * @param msg - The request: action "control", "release" or "mantle"
  * @returns Whether it could be sent
  */
-export const requestWeather = (msg) => requestGM({ ...msg, action: "weather", weatherAction: msg.action });
+export const requestWeather = (msg) =>
+  requestGM({ ...msg, action: "weather", weatherAction: msg.action });
 
 /* -------------------------------------------- */
 /*  GM panel                                    */
@@ -330,7 +388,9 @@ export class WeatherApp extends foundry.applications.api.HandlebarsApplicationMi
       effects,
       conditions: effects.labels.length ? effects.labels.join(", ") : localize("Weather.Calm"),
       changes: describeChanges(effects),
-      sheltered: this.scene?.tokens.filter((t) => t.getFlag(MODULE_ID, SHELTER_FLAG)).map((t) => t.name) ?? [],
+      sheltered:
+        this.scene?.tokens.filter((t) => t.getFlag(MODULE_ID, SHELTER_FLAG)).map((t) => t.name) ??
+        [],
       mantled:
         this.scene?.tokens
           .filter((t) => t.getFlag(MODULE_ID, MANTLE_FLAG))
@@ -418,7 +478,11 @@ export const weatherSliders = (weather: WeatherState, effects: WeatherEffects, b
       min: bounds.signed[0],
       max: bounds.signed[1],
       value: weather.humidity,
-      display: signed(weather.humidity, localize("Weather.Aridity"), localize("Weather.Precipitation")),
+      display: signed(
+        weather.humidity,
+        localize("Weather.Aridity"),
+        localize("Weather.Precipitation"),
+      ),
     },
   ];
 };
@@ -447,7 +511,9 @@ export async function rollLightning(scene) {
   if (weather.controller?.shipKiller) extras.push(localize("Weather.ShipKiller"));
   else if (weather.controller?.shipSmasher) extras.push(localize("Weather.ShipSmasher"));
   await roll.toMessage({
-    speaker: weather.controller ? { alias: weather.controller.name } : { alias: localize("Weather.Title") },
+    speaker: weather.controller
+      ? { alias: weather.controller.name }
+      : { alias: localize("Weather.Title") },
     flavor:
       `${localize("Weather.Lightning")} (${pf1.registry.damageTypes.get("electric")?.name ?? "electric"}), ` +
       `${localize("Weather.ReflexHalf")} DC ${bolt.dc}: ${targets.map((t) => t.name).join(", ")}` +
@@ -456,7 +522,13 @@ export async function rollLightning(scene) {
   const mine = targets.filter((t) => t.actor.isOwner);
   for (const t of mine) await t.actor.rollSavingThrow("ref", { skipDialog: true, dc: bolt.dc });
   const others = targets.filter((t) => !t.actor.isOwner);
-  if (others.length) await requestGM({ action: "weather.saves", sceneId: scene.id, tokenIds: others.map((t) => t.id), dc: bolt.dc });
+  if (others.length)
+    await requestGM({
+      action: "weather.saves",
+      sceneId: scene.id,
+      tokenIds: others.map((t) => t.id),
+      dc: bolt.dc,
+    });
 }
 
 /** The GM rolls Reflex saves against lightning for tokens the striking player doesn't own */
@@ -480,7 +552,12 @@ export const openWeather = (scene: unknown = null) => {
 /** Re-renders open weather windows for a scene */
 const refreshWindows = (scene) => {
   for (const w of foundry.applications.instances.values()) {
-    if ((w instanceof WeatherApp || w.constructor?.name === "CasterWeatherApp") && w.rendered && w.scene?.id === scene.id) w.render();
+    if (
+      (w instanceof WeatherApp || w.constructor?.name === "CasterWeatherApp") &&
+      w.rendered &&
+      w.scene?.id === scene.id
+    )
+      w.render();
   }
 };
 
@@ -549,10 +626,12 @@ export const registerWeather = () => {
   registerSocketHandler("weather.saves", rollSavesForUser);
   Hooks.on("updateScene", (scene, changed) => {
     // The active scene changed: linked actors swap which scene's weather they carry
-    if ("active" in changed) for (const s of game.scenes) if (s.getFlag(MODULE_ID, WEATHER_FLAG)) queueSceneWeather(s);
+    if ("active" in changed)
+      for (const s of game.scenes) if (s.getFlag(MODULE_ID, WEATHER_FLAG)) queueSceneWeather(s);
   });
   Hooks.on("updateScene", (scene, changed) => {
-    if (foundry.utils.hasProperty(changed, `flags.${MODULE_ID}.${WEATHER_FLAG}`)) queueSceneWeather(scene);
+    if (foundry.utils.hasProperty(changed, `flags.${MODULE_ID}.${WEATHER_FLAG}`))
+      queueSceneWeather(scene);
     refreshWindows(scene);
   });
   Hooks.on("createToken", (token) => queueSceneWeather(token.parent));

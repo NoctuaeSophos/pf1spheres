@@ -197,6 +197,30 @@ const getBlankSphereData = (): PF1ActorSpheresData => {
 };
 
 /**
+ * The actor's "Spell Points" item: a daily-use pf1 resource the module keeps, which abilities with a
+ * spell point cost draw their charges from.
+ *
+ * @param actor - The actor
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const spellPoolItem = (actor: any) =>
+  actor?.items?.find?.((i: any) => i.flags?.pf1spheres?.spellPool === true) ?? null;
+
+/**
+ * Sets the spell pool's current value, on the Spell Points item when there is one.
+ *
+ * @param actor - The actor
+ * @param value - The new value, clamped at 0
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const setSpellPoints = async (actor: any, value: number): Promise<void> => {
+  const v = Math.max(0, Math.floor(value));
+  const item = spellPoolItem(actor);
+  if (item) await item.update({ "system.uses.value": v });
+  else await actor.update({ "flags.pf1spheres.spellPoints": v });
+};
+
+/**
  * Finishes spell pool and martial focus data once Changes (and with them the CAM) are applied.
  *
  * @param actor - The actor whose data is being prepared
@@ -207,7 +231,9 @@ export const onActorDerivedPreparation = (actor: ActorPF): void => {
   const pool = sphereData.spellPoints;
   const casting = pool.base > 0 ? Math.max(1, pool.base + sphereData.cam) : 0;
   pool.max = Math.max(0, casting + pool.bonus);
-  const stored = actor.flags.pf1spheres?.spellPoints;
+  // The "Spell Points" item is the pool once the module has created it; before that, the actor flag
+  const item = spellPoolItem(actor);
+  const stored = item ? item.system.uses?.value : actor.flags.pf1spheres?.spellPoints;
   pool.value = Math.min(pool.max, Math.max(0, typeof stored === "number" ? stored : pool.max));
   sphereData.martialFocus = actor.flags.pf1spheres?.martialFocus === true ? 1 : 0;
 };
@@ -221,6 +247,8 @@ export const onActorDerivedPreparation = (actor: ActorPF): void => {
 export const onActorRest = (actor: ActorPF, options: { restoreDailyUses?: boolean }): void => {
   if (options.restoreDailyUses === false) return;
   if (!actor.isOwner) return;
+  // pf1 refills the Spell Points item itself, as a daily-use item
+  if (spellPoolItem(actor)) return;
   const max = actor.system.spheres?.spellPoints.max ?? 0;
   if (max > 0 && actor.flags.pf1spheres?.spellPoints !== max) {
     actor.update({ "flags.pf1spheres.spellPoints": max });

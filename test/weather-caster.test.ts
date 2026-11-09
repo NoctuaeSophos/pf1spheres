@@ -71,16 +71,29 @@ describe("Weather caster profile", () => {
   test("validation enforces severity and category limits", () => {
     const calm = { wind: 1, temperature: 0, humidity: 0 };
     // Two categories: allowed with Mythic Rapid Weather's free extra
-    expect(validateCast(c, calm, { wind: 5, temperature: 0, humidity: 4 }, DEFAULT_CAST)).toEqual([]);
+    expect(validateCast(c, calm, { wind: 5, temperature: 0, humidity: 4 }, DEFAULT_CAST)).toEqual(
+      [],
+    );
     // Severity 6 needs Severe Weather
-    expect(validateCast(c, calm, { wind: 6, temperature: 0, humidity: 0 }, DEFAULT_CAST)).toHaveLength(1);
-    expect(validateCast(c, calm, { wind: 6, temperature: 0, humidity: 0 }, { ...DEFAULT_CAST, severe: true })).toEqual([]);
+    expect(
+      validateCast(c, calm, { wind: 6, temperature: 0, humidity: 0 }, DEFAULT_CAST),
+    ).toHaveLength(1);
+    expect(
+      validateCast(
+        c,
+        calm,
+        { wind: 6, temperature: 0, humidity: 0 },
+        { ...DEFAULT_CAST, severe: true },
+      ),
+    ).toEqual([]);
     // Three categories need Greater Weather
     const three = { wind: 4, temperature: -3, humidity: 3 };
     expect(validateCast(c, calm, three, DEFAULT_CAST)).toHaveLength(1);
     expect(validateCast(c, calm, three, { ...DEFAULT_CAST, greater: 1 })).toEqual([]);
     // Natural weather beyond the limit can't be altered
-    expect(validateCast(c, { wind: 7, temperature: 0, humidity: 0 }, calm, DEFAULT_CAST)).toHaveLength(1);
+    expect(
+      validateCast(c, { wind: 7, temperature: 0, humidity: 0 }, calm, DEFAULT_CAST),
+    ).toHaveLength(1);
   });
 
   test("Clear Skies moves every category toward normal", () => {
@@ -89,6 +102,10 @@ describe("Weather caster profile", () => {
       temperature: -2,
       humidity: 0,
     });
-    expect(reduceWeather({ wind: 2, temperature: 1, humidity: -1 }, 0)).toEqual({ wind: 2, temperature: 1, humidity: -1 });
+    expect(reduceWeather({ wind: 2, temperature: 1, humidity: -1 }, 0)).toEqual({
+      wind: 2,
+      temperature: 1,
+      humidity: -1,
+    });
   });
 });

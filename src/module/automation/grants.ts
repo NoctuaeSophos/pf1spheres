@@ -7,9 +7,16 @@
 // Foundry 13 and pf1 11 runtime APIs are not covered by the bundled v9 types.
 // @ts-nocheck
 
-import { MODULE_ID } from "../util";
+import { MODULE_ID, localize } from "../util";
+import { spellPoolItem } from "../actor";
 import { isGMWriter } from "../socket";
-import { buildGrantedAction, mergeGrantAutomation, pickVariant, stableId, templateToItemData } from "./logic";
+import {
+  buildGrantedAction,
+  mergeGrantAutomation,
+  pickVariant,
+  stableId,
+  templateToItemData,
+} from "./logic";
 import type { Grant } from "./logic";
 
 /**
@@ -47,7 +54,117 @@ export const syncGrants = (actor): Promise<void> => {
   return next;
 };
 
+/** Spell point costs in an automation entry: the base formula or any per-conditional cost */
+const spCost = (auto) =>
+  Boolean(
+    (auto?.sp && String(auto.sp).trim() !== "" && String(auto.sp).trim() !== "0") ||
+      Object.values(auto?.condSp ?? {}).some((n) => Number(n) > 0),
+  );
+
+/**
+ * Makes the spell pool a pf1 resource: a daily-use "Spell Points" item whose maximum is the pool, and
+ * abilities with a spell point cost linked to it as charges. pf1 then shows the cost in the Charges
+ * column, deducts it, refuses when short and refills it on rest. Abilities with uses of their own keep
+ * the module's own spending, since linking would replace their uses.
+ */
+async function syncSpellPool(actor) {
+  const max = actor.system.spheres?.spellPoints?.max ?? 0;
+  let pool = spellPoolItem(actor);
+  const options = { [SKIP]: true };
+  if (!pool) {
+    if (max <= 0) return;
+    const stored = actor.flags?.[MODULE_ID]?.spellPoints;
+    [pool] = await actor.createEmbeddedDocuments(
+      "Item",
+      [
+        {
+          name: localize("SpellPoints"),
+          type: "feat",
+          img: "icons/magic/symbols/rune-sigil-black-pink.webp",
+          system: {
+            subType: "misc",
+            tag: "spellPoints",
+            useCustomTag: true,
+            description: { value: `<p>${localize("SpellPoolItemHint")}</p>` },
+            uses: {
+              per: "day",
+              maxFormula: "@spheres.spellPoints.max",
+              value: typeof stored === "number" ? stored : max,
+              autoDeductChargesCost: "1",
+            },
+          },
+          flags: { [MODULE_ID]: { spellPool: true } },
+        },
+      ],
+      options,
+    );
+  }
+  const linkable = actor.items.filter((i) => {
+    if (i === pool || i.system.uses?.per) return false;
+    const f = i.flags?.[MODULE_ID] ?? {};
+    return f.spellPointItem || Object.values(f.automation ?? {}).some(spCost);
+  });
+  // Move each cost into pf1's own fields: the action's charge cost, and a charges modifier per conditional
+  const updates = [];
+  for (const item of linkable) {
+    const auto = item.flags?.[MODULE_ID]?.automation ?? {};
+    if (!Object.values(auto).some(spCost) && item.flags[MODULE_ID].spellPointItem) continue;
+    const actions = (item.toObject().system.actions ?? []).map((a) => {
+      const entry = auto[a._id] ?? {};
+      const cost =
+        entry.sp && String(entry.sp).trim()
+          ? String(entry.sp)
+          : a.uses?.autoDeductChargesCost || "0";
+      const conditionals = (a.conditionals ?? []).map((c) => {
+        const n = Number(entry.condSp?.[c._id]) || 0;
+        if (!n || (c.modifiers ?? []).some((m) => m.target === "charges")) return c;
+        return {
+          ...c,
+          modifiers: [
+            ...(c.modifiers ?? []),
+            {
+              _id: stableId(`${c._id}:sp`),
+              formula: String(n),
+              target: "charges",
+              subTarget: "",
+              type: "",
+              critical: "normal",
+            },
+          ],
+        };
+      });
+      return { ...a, uses: { ...(a.uses ?? {}), autoDeductChargesCost: cost }, conditionals };
+    });
+    const u = {
+      _id: item.id,
+      "system.actions": actions,
+      "system.uses.autoDeductChargesCost": "0",
+      [`flags.${MODULE_ID}.spellPointItem`]: true,
+    };
+    for (const [id, entry] of Object.entries(auto)) {
+      if (entry.sp !== undefined) u[`flags.${MODULE_ID}.automation.${id}.-=sp`] = null;
+      if (entry.condSp !== undefined) u[`flags.${MODULE_ID}.automation.${id}.-=condSp`] = null;
+    }
+    updates.push(u);
+  }
+  if (updates.length) await actor.updateEmbeddedDocuments("Item", updates, options);
+  const links = linkable.map((i) => ({ uuid: i.getRelativeUUID(actor) }));
+  const current = (pool.system.links?.charges ?? [])
+    .map((l) => l.uuid)
+    .sort()
+    .join();
+  if (
+    current !==
+    links
+      .map((l) => l.uuid)
+      .sort()
+      .join()
+  )
+    await pool.update({ "system.links.charges": links }, options);
+}
+
 async function runSync(actor) {
+  await syncSpellPool(actor);
   const items = actor.items.contents;
   const names = new Set(items.map((i) => i.name.toLowerCase()));
   const wanted = new Map();
@@ -69,21 +186,39 @@ async function runSync(actor) {
     const granted = flags.granted ?? {};
     if (!want.length && !Object.keys(granted).length) continue;
     const own = (target.toObject().system.actions ?? []).filter((a) => !(a._id in granted));
-    const ownAuto = Object.fromEntries(Object.entries(flags.automation ?? {}).filter(([id]) => !(id in granted)));
+    const ownAuto = Object.fromEntries(
+      Object.entries(flags.automation ?? {}).filter(([id]) => !(id in granted)),
+    );
     const base = own[0];
     const baseAuto = base ? ownAuto[base._id] : undefined;
     const built = want.map((w) => {
       const action = buildGrantedAction(base, w.variant, w.key);
-      return { key: w.key, action, automation: mergeGrantAutomation(baseAuto, w.variant.automation), templates: w.templates };
+      return {
+        key: w.key,
+        action,
+        automation: mergeGrantAutomation(baseAuto, w.variant.automation),
+        templates: w.templates,
+      };
     });
     const sig = signature([base ?? null, baseAuto ?? null, built]);
     if (flags.grantSignature === sig) continue;
-    const templates = Object.assign({}, flags.buffTemplates ?? {}, ...built.map((b) => b.templates));
-    const automation = { ...ownAuto, ...Object.fromEntries(built.map((b) => [b.action._id, b.automation])) };
+    const templates = Object.assign(
+      {},
+      flags.buffTemplates ?? {},
+      ...built.map((b) => b.templates),
+    );
+    const automation = {
+      ...ownAuto,
+      ...Object.fromEntries(built.map((b) => [b.action._id, b.automation])),
+    };
     const options = { [SKIP]: true };
     // Replace the flag objects outright, so removed actions leave no settings behind
     await target.update(
-      { [`flags.${MODULE_ID}.-=automation`]: null, [`flags.${MODULE_ID}.-=granted`]: null, [`flags.${MODULE_ID}.-=buffTemplates`]: null },
+      {
+        [`flags.${MODULE_ID}.-=automation`]: null,
+        [`flags.${MODULE_ID}.-=granted`]: null,
+        [`flags.${MODULE_ID}.-=buffTemplates`]: null,
+      },
       options,
     );
     await target.update(
@@ -115,15 +250,26 @@ async function syncGrantedItems(actor) {
     }
   }
   const options = { [SKIP]: true };
-  const held = new Map(items.filter((i) => i.flags?.[MODULE_ID]?.grantedItem).map((i) => [i.flags[MODULE_ID].grantedItem, i]));
+  const held = new Map(
+    items
+      .filter((i) => i.flags?.[MODULE_ID]?.grantedItem)
+      .map((i) => [i.flags[MODULE_ID].grantedItem, i]),
+  );
   const drop = [...held].filter(([key]) => !wanted.has(key)).map(([, i]) => i.id);
   if (drop.length) await actor.deleteEmbeddedDocuments("Item", drop, options);
   const create = [];
   for (const [key, t] of wanted) {
     if (held.has(key)) continue;
-    const same = items.find((i) => i.type === "buff" && i.name === t.name && !i.flags?.[MODULE_ID]?.grantedItem);
+    const same = items.find(
+      (i) => i.type === "buff" && i.name === t.name && !i.flags?.[MODULE_ID]?.grantedItem,
+    );
     if (same) await same.update({ [`flags.${MODULE_ID}.grantedItem`]: key }, options);
-    else create.push(foundry.utils.mergeObject(templateToItemData(t), { flags: { [MODULE_ID]: { grantedItem: key } } }));
+    else
+      create.push(
+        foundry.utils.mergeObject(templateToItemData(t), {
+          flags: { [MODULE_ID]: { grantedItem: key } },
+        }),
+      );
   }
   if (create.length) await actor.createEmbeddedDocuments("Item", create, options);
 }
@@ -160,7 +306,11 @@ export const registerGrants = () => {
     if (!isGMWriter()) return;
     for (const actor of game.actors) {
       const f = (i) => i.flags?.[MODULE_ID] ?? {};
-      if (actor.items.some((i) => f(i).grants?.length || f(i).granted || f(i).grantItems?.length || f(i).grantedItem)) queueGrants(actor);
+      const grants = actor.items.some(
+        (i) => f(i).grants?.length || f(i).granted || f(i).grantItems?.length || f(i).grantedItem,
+      );
+      const pool = (actor.system.spheres?.spellPoints?.max ?? 0) > 0 || spellPoolItem(actor);
+      if (grants || pool) queueGrants(actor);
     }
   });
 };

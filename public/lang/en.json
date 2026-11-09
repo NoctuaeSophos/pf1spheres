@@ -19,6 +19,7 @@
     "SpherePlural": "Spheres",
     "NeedGM": "A GM must be logged in for this.",
     "SpellPoints": "Spell Points",
+    "SpellPoolItemHint": "Your spell pool, kept by the Spheres module: its maximum follows your casting classes and casting ability modifier. Abilities with a spell point cost draw their charges from it.",
     "MartialFocus": "Martial Focus",
 
     "CasterProgression": "Caster Level Progression",
@@ -163,6 +164,7 @@
       "MarkDefender": "Note on their attacks against you",
       "MarkHint": "[[formula]] in a note is filled with your numbers when the mark is placed.",
       "Template": "carried by this item",
+      "Finisher": "finish",
       "OnFail": "On a failed save",
       "OnFailHint": "When a creature fails the save rolled from this action's chat card, the GM's client applies these to it.",
       "FailConditions": "Conditions",

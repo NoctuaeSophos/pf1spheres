@@ -1,5 +1,5 @@
 _id: 0uzYYs2Y7aDIsvgg
-_key: '!items!0uzYYs2Y7aDIsvgg'
+_key: "!items!0uzYYs2Y7aDIsvgg"
 effects: []
 flags:
   pf1: {}
@@ -18,12 +18,17 @@ system:
     damageMult: 1
   abilityType: sp
   acquired: false
-  actions: []
+  actions:
+    - _id: 3lV0FLGhWh7nj2Bb
+      name: Sight Beyond Sight (Hex)
+      actionType: other
+      activation:
+        type: special
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,15 +44,15 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p>Spends 1 minute to glimpse her own fate: works as the Divination sphere''s
       Divine Future talent, with her witch level as Divination caster level for effect
       and duration.</p><p>Usable once per day, plus once more per 4 witch levels.
@@ -58,18 +63,18 @@ system:
       text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -80,26 +85,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Hex
+    - Hex
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
+    autoDeductChargesCost: "1"
     maxFormula: 1 + floor(@classes.sphereWitch.level / 4)
     per: day
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

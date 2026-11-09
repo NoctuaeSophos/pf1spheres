@@ -71,10 +71,26 @@ export const getSeverities = (state: WeatherState): WeatherSeverities => ({
   aridity: state.humidity < 0 ? 1 - state.humidity : 1,
 });
 
-const WIND = ["Light wind", "Moderate wind", "Strong wind", "Severe wind", "Windstorm", "Hurricane-force winds", "Tornado-force winds"];
+const WIND = [
+  "Light wind",
+  "Moderate wind",
+  "Strong wind",
+  "Severe wind",
+  "Windstorm",
+  "Hurricane-force winds",
+  "Tornado-force winds",
+];
 const COLD = ["Cool", "Chilled", "Cold", "Severe cold", "Extreme cold", "Arctic", "Killing cold"];
 const HEAT = ["Cool", "Warm", "Hot", "Severe heat", "Extreme heat", "Burning heat", "Boiling heat"];
-const RAIN = ["", "Mist", "Light rain or fog", "Moderate rain", "Heavy rain", "Flash flood", "Great flood"];
+const RAIN = [
+  "",
+  "Mist",
+  "Light rain or fog",
+  "Moderate rain",
+  "Heavy rain",
+  "Flash flood",
+  "Great flood",
+];
 const SNOW = ["", "Light frost", "Snow", "Heavy snow", "Blizzard", "Great blizzard", "Avalanche"];
 const STORM = ["", "Mist", "Light storm", "Storm", "Powerful storm", "Monsoon", "Typhoon"];
 const ARID = ["", "Dry", "Very dry", "Parched", "Drought", "Sere", "Desiccating"];
@@ -147,7 +163,10 @@ export const getWeatherEffects = (input: Partial<WeatherState>): WeatherEffects 
           ? "Ranged weapon attacks are impossible (siege weapons -8). Sound-based Perception checks are impossible."
           : "All ranged attacks are impossible, even siege weapons. Sound-based Perception checks are impossible.",
     );
-    contextNotes.push({ text: "Weather: ranged weapon attacks are impossible", target: "rangedWeapon" });
+    contextNotes.push({
+      text: "Weather: ranged weapon attacks are impossible",
+      target: "rangedWeapon",
+    });
   }
   if (sev.precipitation >= 4) {
     changes.push({ formula: "-4", target: "skill.per", type: "untyped" });
@@ -156,7 +175,11 @@ export const getWeatherEffects = (input: Partial<WeatherState>): WeatherEffects 
 
   // Fly penalty and wind movement
   if (FLY_PENALTY[sev.wind - 1]) {
-    changes.push({ formula: String(FLY_PENALTY[sev.wind - 1]), target: "skill.fly", type: "untyped" });
+    changes.push({
+      formula: String(FLY_PENALTY[sev.wind - 1]),
+      target: "skill.fly",
+      type: "untyped",
+    });
   }
   if (CHECKED[sev.wind - 1]) {
     notes.push(
@@ -189,7 +212,10 @@ export const getWeatherEffects = (input: Partial<WeatherState>): WeatherEffects 
     notes.push(
       `Heat: ${HEAT_EXPOSURE[sev.heat - 1]} Damaged creatures are fatigued (heatstroke) until cooled. Heavy clothing or armor: -4 on these saves.`,
     );
-    contextNotes.push({ text: "Weather: -4 on heat saves in heavy clothing or armor", target: "fort" });
+    contextNotes.push({
+      text: "Weather: -4 on heat saves in heavy clothing or armor",
+      target: "fort",
+    });
   }
 
   // Precipitation
@@ -202,9 +228,15 @@ export const getWeatherEffects = (input: Partial<WeatherState>): WeatherEffects 
     );
   }
   if (snowy) {
-    const hours = ["", "24 hours", "8 hours", "1 hour", "immediately", "immediately", "immediately"][
-      sev.precipitation - 1
-    ];
+    const hours = [
+      "",
+      "24 hours",
+      "8 hours",
+      "1 hour",
+      "immediately",
+      "immediately",
+      "immediately",
+    ][sev.precipitation - 1];
     notes.push(`Snow makes squares difficult terrain (after ${hours} at this severity).`);
     if (sev.precipitation >= 5) notes.push("Snow obscures vision as fog does.");
   }

@@ -1,5 +1,5 @@
 _id: sJmmR3eM6EDgCHgz
-_key: '!items!sJmmR3eM6EDgCHgz'
+_key: "!items!sJmmR3eM6EDgCHgz"
 effects: []
 flags:
   pf1: {}
@@ -18,12 +18,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Ra6bZYZwauoP8I6W
+      name: Legalistic
+      actionType: other
+      activation:
+        type: special
+      duration:
+        value: "24"
+        units: hour
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,15 +47,15 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p><strong>Penalty:</strong> whenever you break your word, deliberately
       or by accident, you are sickened for 24 hours or until you make good on the
       obligation, whichever comes first.</p><p><strong>Vow (1st):</strong> once per
@@ -63,18 +71,18 @@ system:
       text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -85,26 +93,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Oracle Curse
+    - Oracle Curse
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: '1'
+    autoDeductChargesCost: "1"
+    maxFormula: "1"
     per: day
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

@@ -8,6 +8,7 @@ import type { ActorPF, PF1ActorSpheresData, SpheresTalentsRecord } from "./actor
 import { SpheresActorSettings } from "./apps/SpheresActorSettings";
 import type { CombatSphere, ItemPF, MagicSphere, Sphere } from "./item-data";
 import { enforce, getGame, localize } from "./util";
+import { setSpellPoints } from "./actor";
 import { renderPf1sTemplate } from "./preloadTemplates";
 import { activateSphereTooltip } from "./sphere-tooltip";
 import { getWeatherCaster } from "./weather/caster";
@@ -25,11 +26,18 @@ import {
   prodigyLevel,
   setImbue,
 } from "./automation/runtime";
-import { buildBlastActions, isAlchemist, isBlaster, openFormulae, rollMsbVsTargets } from "./automation/features";
-import { formatRemaining, inspiredBonus, sequenceMax } from "./automation/logic";
+import {
+  buildBlastActions,
+  isAlchemist,
+  isBlaster,
+  openFormulae,
+  rollMsbVsTargets,
+} from "./automation/features";
+import { formatRemaining, inspiredBonus, parseImbuements, sequenceMax } from "./automation/logic";
 
 const effectIdOf = (ev: JQuery.ClickEvent) =>
-  (ev.currentTarget as HTMLElement).closest<HTMLElement>("[data-effect-id]")?.dataset.effectId ?? "";
+  (ev.currentTarget as HTMLElement).closest<HTMLElement>("[data-effect-id]")?.dataset.effectId ??
+  "";
 
 export const onActorSheetHeaderButtons = (
   sheet: ActorSheetPF,
@@ -86,12 +94,65 @@ export const onActorSheetRender: (
 const addNavTab = (app: ActorSheetPF, html: JQuery<HTMLElement>) => {
   // Handle tab in navigation TODO: Pure JS?
   const tabSelector = html.find("nav.sheet-navigation.tabs").first();
-  const spheresTabTitle = `<a class="item" data-tab="spheres">${localize("SpherePlural")}</a>`;
-  const newTab = tabSelector.append($(spheresTabTitle));
+  const spheresTabTitle = $(`<a class="item" data-tab="spheres">${localize("SpherePlural")}</a>`);
+  // Between Spells and Buffs; at the end if the sheet has no Buffs tab
+  const buffs = tabSelector.children("[data-tab='buffs']").first();
+  if (buffs.length) buffs.before(spheresTabTitle);
+  else tabSelector.append(spheresTabTitle);
+  const newTab = tabSelector;
   newTab.on("click", (ev: JQuery.ClickEvent<HTMLElement>) => {
     const isSpheresTab = ev.target.dataset?.tab === "spheres";
     app.spheresTab.activateTab = isSpheresTab ? "spheres" : false;
   });
+};
+
+const normaliseSphere = (s: string) => s.toLowerCase().replace(/[^a-z]/g, "");
+
+/**
+ * The imbuements a prodigy can choose: those listed in Imbue Sequence for each magic sphere she has,
+ * and for the current choice its text and the finishers it unlocks.
+ *
+ * @param actor - The prodigy
+ * @param current - The chosen imbuement, "Sphere: Name"
+ */
+const imbueChoices = (actor: ActorPF, current: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const items = (actor as any).items.contents as any[];
+  const feature = items.find((i) => i.name === "Imbue Sequence");
+  if (!feature) return { imbueOptions: [], imbueChosen: null };
+  const known = new Set(
+    items
+      .filter((i) => i.system.subType === "magicTalent")
+      .map((i) => i.flags?.pf1spheres?.sphere)
+      .filter(Boolean)
+      .map((k: string) => normaliseSphere(k)),
+  );
+  const groups = parseImbuements(feature.system.description?.value ?? "").filter((g) =>
+    known.has(normaliseSphere(g.sphere)),
+  );
+  const imbueOptions = groups.flatMap((g) =>
+    g.entries
+      .filter((e) => e.kind === "imbue")
+      .map((e) => {
+        const value = `${g.sphere}: ${e.name}`;
+        return {
+          value,
+          label: e.requires ? `${value} (${e.requires})` : value,
+          selected: value === current,
+        };
+      }),
+  );
+  const group = groups.find((g) =>
+    g.entries.some((e) => e.kind === "imbue" && `${g.sphere}: ${e.name}` === current),
+  );
+  const imbue = group?.entries.find(
+    (e) => e.kind === "imbue" && `${group.sphere}: ${e.name}` === current,
+  );
+  const imbueChosen =
+    group && imbue
+      ? { ...imbue, finishers: group.entries.filter((e) => e.kind === "finish") }
+      : null;
+  return { imbueOptions, imbueChosen };
 };
 
 const getSpheresData = (app: ActorSheetPF, actor: ActorPF): SpheresTemplateData => {
@@ -220,6 +281,7 @@ const getSpheresData = (app: ActorSheetPF, actor: ActorPF): SpheresTemplateData 
             ...getSequence(actor),
             max: sequenceMax(prodigyLevel(actor)),
             bonus: inspiredBonus(getSequence(actor).length),
+            ...imbueChoices(actor, getSequence(actor).imbue ?? ""),
           }
         : null,
     sphereCLs,
@@ -249,6 +311,11 @@ const activateListeners = (app: ActorSheetPF, html: JQuery<HTMLElement>, actor: 
   html.find(".talent .talent-icon").on("click", (event) => app._onItemRoll(event));
 
   html.find(".sphere-label").on("click", _openSphereJournal);
+  // The pool lives on the Spell Points item (or the actor flag before it exists), not in the sheet form
+  html.find("input.pf1s-spell-points").on("change", (ev) => {
+    ev.stopPropagation();
+    setSpellPoints(actor, Number((ev.currentTarget as HTMLInputElement).value) || 0);
+  });
   html.find(".pf1s-control-weather").on("click", () => openCasterWeather(actor));
   html.find(".pf1s-prepare-formulae").on("click", () => openFormulae(actor));
   html.find(".pf1s-build-blasts").on("click", () => buildBlastActions(actor));
@@ -259,7 +326,11 @@ const activateListeners = (app: ActorSheetPF, html: JQuery<HTMLElement>, actor: 
   html.find(".pf1s-seq-add").on("click", () => changeSequence(actor, 1));
   html.find(".pf1s-seq-sub").on("click", () => changeSequence(actor, -1));
   html.find(".pf1s-seq-end").on("click", () => endSequence(actor));
-  html.find(".pf1s-seq-imbue").on("change", (ev) => setImbue(actor, (ev.currentTarget as HTMLInputElement).value));
+  html
+    .find(".pf1s-seq-imbue")
+    .on("change", (ev) =>
+      setImbue(actor, (ev.currentTarget as HTMLInputElement | HTMLSelectElement).value),
+    );
 
   html
     // @ts-expect-error Incorrect types

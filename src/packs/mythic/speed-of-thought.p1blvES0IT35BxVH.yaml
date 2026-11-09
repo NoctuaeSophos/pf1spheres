@@ -1,5 +1,5 @@
 _id: p1blvES0IT35BxVH
-_key: '!items!p1blvES0IT35BxVH'
+_key: "!items!p1blvES0IT35BxVH"
 effects: []
 flags:
   pf1: {}
@@ -18,12 +18,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 3Tf5o5SJ2LaKGdvc
+      name: Speed of Thought
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,15 +47,15 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p><strong>Gifted, 1st tier.</strong> Once per encounter, as an immediate
       action after an opponent declares an action (an attack, a spell, etc.), expend
       your martial focus and 1 mythic power to take a full round of actions. You cannot
@@ -55,18 +63,18 @@ system:
       <a href="http://spheresofpower.wikidot.com/mythic-spheres#toc149">Full text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -77,26 +85,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Gifted
+    - Gifted
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: '1'
+    autoDeductChargesCost: "1"
+    maxFormula: "1"
     per: encounter
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

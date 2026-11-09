@@ -55,11 +55,7 @@ export interface WeatherCaster {
 }
 
 const norm = (s: string | null | undefined) =>
-  (s ?? "")
-    .toLowerCase()
-    .replace(/[’']/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
+  (s ?? "").toLowerCase().replace(/[’']/g, "").replace(/\s+/g, " ").trim();
 
 /**
  * Reads a caster's weather abilities, or null when they don't have the Weather sphere.
@@ -97,7 +93,9 @@ export const getWeatherCaster = (actor: WeatherCasterSource): WeatherCaster | nu
     shipKiller: count("Ship Killer") > 0,
     clearSkiesSteps: clearSkies ? clearSkies + Math.floor(casterLevel / 10) : 0,
     encompassing: count("Encompassing Weather") > 0,
-    extraMantleTargets: count("Encompassing Weather") ? Math.max(1, Math.floor(casterLevel / 2)) : 0,
+    extraMantleTargets: count("Encompassing Weather")
+      ? Math.max(1, Math.floor(casterLevel / 2))
+      : 0,
     mythicTalent: mythic?.id ? { id: mythic.id, uses: mythic.system?.uses?.value ?? 0 } : null,
   };
 };
@@ -115,7 +113,13 @@ export interface CastOptions {
   mythicTalent: boolean;
 }
 
-export const DEFAULT_CAST: CastOptions = { persist: true, severe: false, greater: 0, climate: false, mythicTalent: false };
+export const DEFAULT_CAST: CastOptions = {
+  persist: true,
+  severe: false,
+  greater: 0,
+  climate: false,
+  mythicTalent: false,
+};
 
 /** Spell points a control weather casting costs with these options */
 export const castCost = (caster: WeatherCaster, opts: CastOptions): number =>
@@ -124,7 +128,8 @@ export const castCost = (caster: WeatherCaster, opts: CastOptions): number =>
   (caster.greaterWeather ? Math.max(0, Math.min(2, opts.greater)) : 0) +
   (opts.climate && caster.climate ? 1 : 0);
 
-const severityOf = (key: keyof WeatherState, value: number) => (key === "wind" ? value : Math.abs(value) + 1);
+const severityOf = (key: keyof WeatherState, value: number) =>
+  key === "wind" ? value : Math.abs(value) + 1;
 
 /**
  * Checks a control weather casting against the caster's limits.
@@ -145,14 +150,21 @@ export const validateCast = (
   const max = Math.min(7, caster.maxSeverity + (opts.severe && caster.severeWeather ? 1 : 0));
   const keys = (["wind", "temperature", "humidity"] as const).filter((k) => current[k] !== next[k]);
   const allowed =
-    1 + (caster.greaterWeather ? Math.max(0, Math.min(2, opts.greater)) : 0) + caster.freeExtraCategories;
+    1 +
+    (caster.greaterWeather ? Math.max(0, Math.min(2, opts.greater)) : 0) +
+    caster.freeExtraCategories;
   if (keys.length > allowed) {
-    problems.push(`Changes ${keys.length} weather categories, but this casting can affect ${allowed}.`);
+    problems.push(
+      `Changes ${keys.length} weather categories, but this casting can affect ${allowed}.`,
+    );
   }
   for (const k of keys) {
-    if (severityOf(k, next[k]) > max) problems.push(`${k} severity ${severityOf(k, next[k])} is above your limit of ${max}.`);
+    if (severityOf(k, next[k]) > max)
+      problems.push(`${k} severity ${severityOf(k, next[k])} is above your limit of ${max}.`);
     if (severityOf(k, current[k]) > max) {
-      problems.push(`The current ${k} (severity ${severityOf(k, current[k])}) is beyond your control (limit ${max}).`);
+      problems.push(
+        `The current ${k} (severity ${severityOf(k, current[k])}) is beyond your control (limit ${max}).`,
+      );
     }
   }
   return problems;

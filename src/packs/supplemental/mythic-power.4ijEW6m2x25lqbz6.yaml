@@ -1,5 +1,5 @@
 _id: 4ijEW6m2x25lqbz6
-_key: '!items!4ijEW6m2x25lqbz6'
+_key: "!items!4ijEW6m2x25lqbz6"
 effects: []
 flags:
   pf1: {}
@@ -18,12 +18,17 @@ system:
     damageMult: 1
   abilityType: su
   acquired: false
-  actions: []
+  actions:
+    - _id: 5m0Kya4chVTSLNmj
+      name: Mythic Power
+      actionType: other
+      activation:
+        type: special
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,15 +44,15 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p><strong>Tier 1.</strong> The pool of points that fuels most mythic
       abilities.</p><p><strong>Daily pool:</strong> 3 + twice your mythic tier uses
       per day (5 at 1st tier, 7 at 2nd, and so on). This is also your cap: anything
@@ -56,18 +61,18 @@ system:
       text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -78,26 +83,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Mythic Ability
+    - Mythic Ability
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
+    autoDeductChargesCost: "1"
     maxFormula: 3 + 2 * @details.mythicTier
     per: day
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

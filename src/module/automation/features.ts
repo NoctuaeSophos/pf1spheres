@@ -20,8 +20,15 @@ import {
 
 const fmt = (key: string, data = {}) => game.i18n.format(`PF1SPHERES.Auto.${key}`, data);
 const loc = (key: string) => localize(`Auto.${key}`);
-const plain = (html) => (html ?? "").replace(/<[^>]+>/g, " ").replace(/&#8217;|&rsquo;/g, "'").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
-const hasTag = (item, tag) => (item.system?.tags ?? []).some((t) => t.toLowerCase() === tag.toLowerCase());
+const plain = (html) =>
+  (html ?? "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&#8217;|&rsquo;/g, "'")
+    .replace(/&amp;/g, "&")
+    .replace(/\s+/g, " ")
+    .trim();
+const hasTag = (item, tag) =>
+  (item.system?.tags ?? []).some((t) => t.toLowerCase() === tag.toLowerCase());
 const rid = () => foundry.utils.randomID(16);
 
 /* ---------- destructive blast builder ---------- */
@@ -34,7 +41,8 @@ const SAVE_TYPE = [
 ];
 
 /** True for actors with the Destruction sphere */
-export const isBlaster = (actor) => actor.items.some((i) => i.type === "feat" && i.name === "Destruction Sphere");
+export const isBlaster = (actor) =>
+  actor.items.some((i) => i.type === "feat" && i.name === "Destruction Sphere");
 
 /**
  * Builds destructive blast actions on the actor's Destruction Sphere item: a basic blast plus one
@@ -47,8 +55,12 @@ export const isBlaster = (actor) => actor.items.some((i) => i.type === "feat" &&
 export async function buildBlastActions(actor) {
   const sphere = actor.items.find((i) => i.type === "feat" && i.name === "Destruction Sphere");
   if (!sphere) return ui.notifications.warn(loc("NoDestruction"));
-  const feats = actor.items.filter((i) => i.type === "feat" && i.flags?.[MODULE_ID]?.sphere === "destruction");
-  const types = feats.filter((i) => hasTag(i, "Blast Type")).map((i) => parseBlastType(i.name, plain(i.system.description.value)));
+  const feats = actor.items.filter(
+    (i) => i.type === "feat" && i.flags?.[MODULE_ID]?.sphere === "destruction",
+  );
+  const types = feats
+    .filter((i) => hasTag(i, "Blast Type"))
+    .map((i) => parseBlastType(i.name, plain(i.system.description.value)));
   const shapes = feats.filter((i) => hasTag(i, "Blast Shape")).map((i) => i.name);
   const basic = { name: loc("BasicBlast"), die: 6, damageType: "bludgeoning", sp: 0, rider: "" };
 
@@ -73,7 +85,15 @@ export async function buildBlastActions(actor) {
       duration: { units: "inst" },
       ability: { attack: "dex", damage: "", critRange: 20, critMult: 2 },
       damage: { parts: [{ formula: `(ceil(${CL} / 2))d${t.die}`, types: [t.damageType] }] },
-      ...(saveType ? { save: { type: saveType, dc: `10 + floor(${CL} / 2) + @spheres.cam`, description: t.rider } } : {}),
+      ...(saveType
+        ? {
+            save: {
+              type: saveType,
+              dc: `10 + floor(${CL} / 2) + @spheres.cam`,
+              description: t.rider,
+            },
+          }
+        : {}),
       conditionals: [
         {
           _id: condId,
@@ -107,7 +127,12 @@ export async function buildBlastActions(actor) {
     [`flags.${MODULE_ID}.generatedBlasts`]: made.map((a) => a._id),
     [`flags.${MODULE_ID}.automation`]: automation,
   });
-  ui.notifications.info(fmt("BlastsBuilt", { count: made.length, dice: blastDice(actor.system.spheres?.cl?.destruction?.total ?? 1) }));
+  ui.notifications.info(
+    fmt("BlastsBuilt", {
+      count: made.length,
+      dice: blastDice(actor.system.spheres?.cl?.destruction?.total ?? 1),
+    }),
+  );
 }
 
 /* ---------- magic skill checks ---------- */
@@ -124,9 +149,16 @@ export async function rollMsbVsTargets(actor) {
   const roll = await new Roll(`1d20 + ${msb}`).evaluate();
   const rows = targets.map((t) => {
     const a = t.actor;
-    const books = Object.values(a.system.attributes?.spells?.spellbooks ?? {}).filter((b) => b.inUse);
+    const books = Object.values(a.system.attributes?.spells?.spellbooks ?? {}).filter(
+      (b) => b.inUse,
+    );
     const spellCl = Math.max(0, ...books.map((b) => b.cl?.total ?? 0));
-    const m = targetMsd(a.system.spheres?.msb?.total ?? 0, a.system.spheres?.msd?.total ?? 11, spellCl, a.system.attributes?.hd?.total ?? 0);
+    const m = targetMsd(
+      a.system.spheres?.msb?.total ?? 0,
+      a.system.spheres?.msd?.total ?? 11,
+      spellCl,
+      a.system.attributes?.hd?.total ?? 0,
+    );
     const ok = roll.total >= m.value;
     return `<li>${t.name}: MSD ${m.value}${m.estimate ? "*" : ""} — <strong>${loc(ok ? "Success" : "Failure")}</strong></li>`;
   });
@@ -148,12 +180,23 @@ export const alchemyRanks = (actor) => {
 };
 
 export const formulaeTalents = (actor) =>
-  actor.items.filter((i) => i.type === "feat" && i.flags?.[MODULE_ID]?.sphere === "alchemy" && hasTag(i, "Formulae"));
+  actor.items.filter(
+    (i) => i.type === "feat" && i.flags?.[MODULE_ID]?.sphere === "alchemy" && hasTag(i, "Formulae"),
+  );
 
 export const isAlchemist = (actor) => formulaeTalents(actor).length > 0;
 
-const PANACEA = { 20: "Deafened, fatigued, shaken, sickened", 30: "Diseased, exhausted, nauseated, poisoned, staggered", 40: "Frightened, blinded, paralyzed, stunned" };
-const AMBROSIA = { 25: "One curse", 35: "All temporary negative levels, or one permanent", 40: "Broken bones, severed parts, ruined organs, lost senses (10 minutes)", 50: "All negative levels and more (see talent)" };
+const PANACEA = {
+  20: "Deafened, fatigued, shaken, sickened",
+  30: "Diseased, exhausted, nauseated, poisoned, staggered",
+  40: "Frightened, blinded, paralyzed, stunned",
+};
+const AMBROSIA = {
+  25: "One curse",
+  35: "All temporary negative levels, or one permanent",
+  40: "Broken bones, severed parts, ruined organs, lost senses (10 minutes)",
+  50: "All negative levels and more (see talent)",
+};
 
 /** Consumable data for one prepared formulae */
 const formulaeItem = (talent, actor, opts) => {
@@ -169,7 +212,9 @@ const formulaeItem = (talent, actor, opts) => {
       subType: "potion",
       quantity: opts.quantity,
       uses: { per: "single" },
-      description: { value: `<p><em>${fmt("FormulaeExpires", { hours: 24 })}</em></p>${talent.system.description.value}` },
+      description: {
+        value: `<p><em>${fmt("FormulaeExpires", { hours: 24 })}</em></p>${talent.system.description.value}`,
+      },
       actions: [],
     },
   };
@@ -189,7 +234,12 @@ const formulaeItem = (talent, actor, opts) => {
         action(loc("Apply"), {
           actionType: "heal",
           damage: { parts: [{ formula: salveFormula(ranks, pam, opts.upgrades), types: [] }] },
-          notes: { footer: [fmt("PerCreature", { uses: formulaeDailyUses(ranks, pam) }), loc("SalveBleed")] },
+          notes: {
+            footer: [
+              fmt("PerCreature", { uses: formulaeDailyUses(ranks, pam) }),
+              loc("SalveBleed"),
+            ],
+          },
         }),
       );
       break;
@@ -198,30 +248,58 @@ const formulaeItem = (talent, actor, opts) => {
       base.system.actions.push(
         action(loc("Drink"), {
           activation: { type: "standard", unchained: { type: "action", cost: 2 } },
-          notes: { footer: [fmt("ElixirNote", { die }), fmt("PerCreature", { uses: formulaeDailyUses(ranks, pam) })] },
+          notes: {
+            footer: [
+              fmt("ElixirNote", { die }),
+              fmt("PerCreature", { uses: formulaeDailyUses(ranks, pam) }),
+            ],
+          },
         }),
       );
       break;
     }
     case "Panacea":
       base.name = `${talent.name} DC ${opts.dc} (${loc("Formulae")})`;
-      base.system.actions.push(action(loc("Drink"), { notes: { footer: [fmt("Removes", { list: PANACEA[opts.dc] ?? PANACEA[20] })] } }));
+      base.system.actions.push(
+        action(loc("Drink"), {
+          notes: { footer: [fmt("Removes", { list: PANACEA[opts.dc] ?? PANACEA[20] })] },
+        }),
+      );
       break;
     case "Ambrosia":
       base.name = `${talent.name} DC ${opts.dc} (${loc("Formulae")})`;
-      base.system.actions.push(action(loc("Drink"), { notes: { footer: [fmt("Cures", { list: AMBROSIA[opts.dc] ?? AMBROSIA[25] })] } }));
+      base.system.actions.push(
+        action(loc("Drink"), {
+          notes: { footer: [fmt("Cures", { list: AMBROSIA[opts.dc] ?? AMBROSIA[25] })] },
+        }),
+      );
       break;
     case "Neutralizer":
       base.system.subType = "misc";
       base.system.actions.push(
         action(loc("Apply"), {
-          notes: { footer: [fmt("NeutralizerNote", { er: neutralizerResistance(ranks), energy: opts.energy || loc("ChooseEnergy") })] },
+          notes: {
+            footer: [
+              fmt("NeutralizerNote", {
+                er: neutralizerResistance(ranks),
+                energy: opts.energy || loc("ChooseEnergy"),
+              }),
+            ],
+          },
         }),
       );
       break;
     case "Focusing Formula": {
-      const a = action(loc("Drink"), { activation: { type: "move", unchained: { type: "action", cost: 1 } }, range: { units: "personal" } });
-      base.system.uses = { per: "charges", maxFormula: String(1 + opts.upgrades), value: 1 + opts.upgrades, autoDeductChargesCost: "1" };
+      const a = action(loc("Drink"), {
+        activation: { type: "move", unchained: { type: "action", cost: 1 } },
+        range: { units: "personal" },
+      });
+      base.system.uses = {
+        per: "charges",
+        maxFormula: String(1 + opts.upgrades),
+        value: 1 + opts.upgrades,
+        autoDeductChargesCost: "1",
+      };
       base.system.actions.push(a);
       automation[a._id] = { focus: "restore" };
       break;
@@ -237,7 +315,9 @@ const formulaeItem = (talent, actor, opts) => {
  * Alchemy formulae preparation: pick formulae talents and how many of each, within the number that
  * can be held prepared; makes consumables that expire after 24 hours.
  */
-export class FormulaeApp extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.ApplicationV2) {
+export class FormulaeApp extends foundry.applications.api.HandlebarsApplicationMixin(
+  foundry.applications.api.ApplicationV2,
+) {
   static DEFAULT_OPTIONS = {
     tag: "form",
     classes: ["pf1spheres", "pf1spheres-formulae"],
@@ -265,12 +345,18 @@ export class FormulaeApp extends foundry.applications.api.HandlebarsApplicationM
       .filter((i) => (i.flags?.[MODULE_ID]?.formulaeExpires ?? 0) > now)
       .reduce((n, i) => n + (i.system.quantity ?? 1), 0);
     const rows = talents.map((t) => {
-      const c = (this.choices[t.id] ??= { quantity: 0, upgrades: 0, dc: t.name === "Ambrosia" ? 25 : 20, energy: "" });
+      const c = (this.choices[t.id] ??= {
+        quantity: 0,
+        upgrades: 0,
+        dc: t.name === "Ambrosia" ? 25 : 20,
+        energy: "",
+      });
       return {
         id: t.id,
         name: t.name,
         ...c,
-        dcChoices: t.name === "Panacea" ? [20, 30, 40] : t.name === "Ambrosia" ? [25, 35, 40, 50] : null,
+        dcChoices:
+          t.name === "Panacea" ? [20, 30, 40] : t.name === "Ambrosia" ? [25, 35, 40, 50] : null,
         upgradable: ["Salve", "Elixir", "Focusing Formula"].includes(t.name),
         hasEnergy: t.name === "Neutralizer",
       };
@@ -306,7 +392,10 @@ export class FormulaeApp extends foundry.applications.api.HandlebarsApplicationM
   static async #onPrepare() {
     const ctx = await this._prepareContext();
     if (!ctx.wanted) return ui.notifications.warn(loc("NothingToPrepare"));
-    if (ctx.over) return ui.notifications.warn(fmt("TooManyFormulae", { max: ctx.cap.max, prepared: ctx.prepared }));
+    if (ctx.over)
+      return ui.notifications.warn(
+        fmt("TooManyFormulae", { max: ctx.cap.max, prepared: ctx.prepared }),
+      );
     const items = ctx.rows
       .filter((r) => r.quantity > 0)
       .map((r) => formulaeItem(this.actor.items.get(r.id), this.actor, this.choices[r.id]));

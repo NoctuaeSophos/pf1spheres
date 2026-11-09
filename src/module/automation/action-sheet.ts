@@ -11,9 +11,15 @@ import { MODULE_ID, localize } from "../util";
 import { getAutomation, setAutomation } from "./runtime";
 
 const TAB = "pf1spheres";
-const esc = (s) => foundry.utils.escapeHTML?.(String(s ?? "")) ?? String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+const esc = (s) =>
+  foundry.utils.escapeHTML?.(String(s ?? "")) ??
+  String(s ?? "").replace(
+    /[&<>"]/g,
+    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+  );
 const loc = (k) => localize(`Auto.${k}`);
-const opt = (value, label, current) => `<option value="${value}" ${value === (current ?? "") ? "selected" : ""}>${label}</option>`;
+const opt = (value, label, current) =>
+  `<option value="${value}" ${value === (current ?? "") ? "selected" : ""}>${label}</option>`;
 
 /**
  * Adds a "Spheres" tab to pf1's action editor with this action's automation: spell point and
@@ -24,20 +30,30 @@ export const onRenderActionSheet = (app, html) => {
   const action = app.action;
   const item = app.item;
   if (!root || !action || !item) return;
-  const nav = root.querySelector("nav.tabs[data-group='primary']") ?? root.querySelector("nav.tabs");
+  const nav =
+    root.querySelector("nav.tabs[data-group='primary']") ?? root.querySelector("nav.tabs");
   const body = root.querySelector("section.primary-body");
   if (!nav || !body || nav.querySelector(`[data-tab='${TAB}']`)) return;
 
   const a = getAutomation(item, action.id);
   // Buffs on the actor, plus templates the item carries itself ("tpl:<key>"), which work from the compendium
-  const templates = Object.entries(item.flags?.[MODULE_ID]?.buffTemplates ?? {}).map(([k, t]) => ({ id: `tpl:${k}`, name: `${t.name} (${loc("Template")})` }));
-  const buffs = [...templates, ...(item.actor ? item.actor.items.filter((i) => i.type === "buff") : [])];
+  const templates = Object.entries(item.flags?.[MODULE_ID]?.buffTemplates ?? {}).map(([k, t]) => ({
+    id: `tpl:${k}`,
+    name: `${t.name} (${loc("Template")})`,
+  }));
+  const buffs = [
+    ...templates,
+    ...(item.actor ? item.actor.items.filter((i) => i.type === "buff") : []),
+  ];
   const spheres = Object.entries(pf1s.config.magicSpheres)
     .map(([k, v]) => [k, game.i18n.localize(v.label)])
     .sort((x, y) => x[1].localeCompare(y[1]));
   const conds = [...(action.conditionals ?? [])];
 
-  nav.insertAdjacentHTML("beforeend", `<a class="item" data-tab="${TAB}" data-group="primary">${localize("SpherePlural")}</a>`);
+  nav.insertAdjacentHTML(
+    "beforeend",
+    `<a class="item" data-tab="${TAB}" data-group="primary">${localize("SpherePlural")}</a>`,
+  );
   body.insertAdjacentHTML(
     "beforeend",
     `<div class="tab ${TAB}" data-group="primary" data-tab="${TAB}">
@@ -123,7 +139,12 @@ export const onRenderActionSheet = (app, html) => {
     ev.stopPropagation();
     const data = getAutomation(item, action.id);
     for (const el of tab.querySelectorAll("[data-pf1s]")) {
-      const v = el.type === "checkbox" ? el.checked : el.type === "number" ? Number(el.value) || 0 : el.value;
+      const v =
+        el.type === "checkbox"
+          ? el.checked
+          : el.type === "number"
+            ? Number(el.value) || 0
+            : el.value;
       foundry.utils.setProperty(data, el.dataset.pf1s, v);
     }
     setAutomation(item, action.id, data);

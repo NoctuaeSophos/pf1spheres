@@ -1,5 +1,5 @@
 _id: GWJU2yr7pCctxhHy
-_key: '!items!GWJU2yr7pCctxhHy'
+_key: "!items!GWJU2yr7pCctxhHy"
 effects: []
 flags:
   pf1: {}
@@ -18,12 +18,23 @@ system:
     damageMult: 1
   abilityType: ex
   acquired: false
-  actions: []
+  actions:
+    - _id: UjnlmYKXXbDBUbWp
+      name: When All Seems Lost
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      duration:
+        value: "3"
+        units: round
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,15 +50,15 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p>Once per day, as a free action usable even outside your turn, enter
       an empowered state for 3 rounds. While empowered:</p><ul><li>Your abilities
       cost no resources (spell points, mythic power, daily class-feature uses and
@@ -63,18 +74,18 @@ system:
       <a href="http://spheresofpower.wikidot.com/mythic-spheres#toc33">Full text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -85,26 +96,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Mythic Tradition Quality
+    - Mythic Tradition Quality
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: '1'
+    autoDeductChargesCost: "1"
+    maxFormula: "1"
     per: day
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

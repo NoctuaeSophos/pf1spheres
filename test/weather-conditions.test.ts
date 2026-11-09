@@ -4,7 +4,11 @@
  * SPDX-License-Identifier: EUPL-1.2
  */
 
-import { getSeverities, getWeatherEffects, normaliseWeather } from "../src/module/weather/conditions";
+import {
+  getSeverities,
+  getWeatherEffects,
+  normaliseWeather,
+} from "../src/module/weather/conditions";
 
 const changeFor = (target: string, effects = getWeatherEffects({})) =>
   effects.changes.filter((c) => c.target === target).reduce((sum, c) => sum + Number(c.formula), 0);
@@ -18,7 +22,10 @@ describe("Weather severities", () => {
       precipitation: 3,
       aridity: 1,
     });
-    expect(getSeverities({ wind: 1, temperature: 6, humidity: -6 })).toMatchObject({ heat: 7, aridity: 7 });
+    expect(getSeverities({ wind: 1, temperature: 6, humidity: -6 })).toMatchObject({
+      heat: 7,
+      aridity: 7,
+    });
   });
 
   test("stored values are clamped", () => {

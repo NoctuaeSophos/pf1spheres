@@ -49,11 +49,24 @@ export interface FailEffects {
 
 /** True when a failed save has anything to do */
 export const hasFailEffects = (f: FailEffects | undefined | null): boolean =>
-  Boolean(f && (f.conditions?.trim() || f.buffId || f.note?.trim() || f.regainFocus || f.more?.some((g) => g.conditions?.trim())));
+  Boolean(
+    f &&
+      (f.conditions?.trim() ||
+        f.buffId ||
+        f.note?.trim() ||
+        f.regainFocus ||
+        f.more?.some((g) => g.conditions?.trim())),
+  );
 
 /** Condition ids from "blind, deaf" or "blind deaf" */
-export const parseConditions = (text: string | undefined): string[] =>
-  [...new Set((text ?? "").split(/[\s,]+/).map((s) => s.trim()).filter(Boolean))];
+export const parseConditions = (text: string | undefined): string[] => [
+  ...new Set(
+    (text ?? "")
+      .split(/[\s,]+/)
+      .map((s) => s.trim())
+      .filter(Boolean),
+  ),
+];
 
 /**
  * Whether a saving throw failed: a natural 1 always fails and a natural 20 always succeeds.
@@ -95,8 +108,17 @@ export const hasAutomation = (a: ActionAutomation | undefined | null): boolean =
  * @param selected - Chosen conditional ids
  * @returns The cost, never negative
  */
-export const totalSpCost = (base: number, condSp: Record<string, number> | undefined, selected: string[]): number =>
-  Math.max(0, Math.floor((Number(base) || 0) + selected.reduce((s, id) => s + (Number(condSp?.[id]) || 0), 0)));
+export const totalSpCost = (
+  base: number,
+  condSp: Record<string, number> | undefined,
+  selected: string[],
+): number =>
+  Math.max(
+    0,
+    Math.floor(
+      (Number(base) || 0) + selected.reduce((s, id) => s + (Number(condSp?.[id]) || 0), 0),
+    ),
+  );
 
 /** Duration in seconds, or null for "until ended" */
 export const durationSeconds = (value: number, units: DurationUnit | undefined): number | null =>
@@ -110,8 +132,11 @@ export const durationSeconds = (value: number, units: DurationUnit | undefined):
  * @param now - Current world time
  * @returns Seconds left (0 when expired), or null for no limit
  */
-export const remainingSeconds = (startTime: number, seconds: number | null, now: number): number | null =>
-  seconds === null ? null : Math.max(0, startTime + seconds - now);
+export const remainingSeconds = (
+  startTime: number,
+  seconds: number | null,
+  now: number,
+): number | null => (seconds === null ? null : Math.max(0, startTime + seconds - now));
 
 /** Short human text for a remaining duration */
 export const formatRemaining = (secs: number | null): string => {
@@ -128,7 +153,11 @@ export const formatRemaining = (secs: number | null): string => {
  * @param casterDisposition - The caster's token disposition (1 friendly, 0 neutral, -1 hostile)
  * @param disposition - The creature's token disposition
  */
-export const zoneAffects = (who: ZoneWho | undefined, casterDisposition: number, disposition: number): boolean => {
+export const zoneAffects = (
+  who: ZoneWho | undefined,
+  casterDisposition: number,
+  disposition: number,
+): boolean => {
   if (!who || who === "all") return true;
   const same = disposition === casterDisposition;
   return who === "allies" ? same : !same && disposition !== 0;
@@ -180,10 +209,18 @@ export const sequenceTurnStart = (s: SequenceState): SequenceState => {
 };
 
 /** Inspired Sequence insight bonus: half the length (minimum 1) while a sequence is active */
-export const inspiredBonus = (length: number) => (length > 0 ? Math.max(1, Math.floor(length / 2)) : 0);
+export const inspiredBonus = (length: number) =>
+  length > 0 ? Math.max(1, Math.floor(length / 2)) : 0;
 
 /** Conditions that end a sequence at once */
-export const SEQUENCE_BREAKERS = ["dazed", "dead", "helpless", "paralyzed", "stunned", "unconscious"];
+export const SEQUENCE_BREAKERS = [
+  "dazed",
+  "dead",
+  "helpless",
+  "paralyzed",
+  "stunned",
+  "unconscious",
+];
 
 /* ---------- Alchemy formulae ---------- */
 
@@ -201,7 +238,8 @@ export const salveFormula = (craftRanks: number, pam: number, upgrades = 0) => {
 };
 
 /** Uses per creature per day for Salve and Elixir: half ranks (minimum 1) + practitioner modifier */
-export const formulaeDailyUses = (craftRanks: number, pam: number) => Math.max(1, Math.floor(craftRanks / 2)) + pam;
+export const formulaeDailyUses = (craftRanks: number, pam: number) =>
+  Math.max(1, Math.floor(craftRanks / 2)) + pam;
 
 /** Neutralizer energy resistance: 5 + 5 per 5 ranks */
 export const neutralizerResistance = (craftRanks: number) => 5 + 5 * Math.floor(craftRanks / 5);
@@ -239,9 +277,19 @@ const DAMAGE_WORDS: [RegExp, string][] = [
 export const parseBlastType = (name: string, text: string): BlastType => {
   const die = Number(/uses?\s+d(\d+)\s+instead of\s+d6/i.exec(text)?.[1] ?? 6);
   const first = text.split(/(?<=\.)\s/)[0] ?? "";
-  const damageType = DAMAGE_WORDS.find(([re]) => re.test(first))?.[1] ?? DAMAGE_WORDS.find(([re]) => re.test(text))?.[1] ?? "bludgeoning";
-  const sp = /spend (a|one|1) spell point/i.test(first) ? 1 : /spend (two|2) spell points/i.test(first) ? 2 : 0;
-  const rider = text.split(/(?<=\.)\s/).filter((s) => /save|saving throw/i.test(s)).join(" ");
+  const damageType =
+    DAMAGE_WORDS.find(([re]) => re.test(first))?.[1] ??
+    DAMAGE_WORDS.find(([re]) => re.test(text))?.[1] ??
+    "bludgeoning";
+  const sp = /spend (a|one|1) spell point/i.test(first)
+    ? 1
+    : /spend (two|2) spell points/i.test(first)
+      ? 2
+      : 0;
+  const rider = text
+    .split(/(?<=\.)\s/)
+    .filter((s) => /save|saving throw/i.test(s))
+    .join(" ");
   return { name, die, damageType, sp, rider };
 };
 
@@ -348,15 +396,18 @@ export const stableId = (text: string): string => {
       h1 = Math.imul(h1 ^ c, 0x01000193) >>> 0;
       h2 = Math.imul(h2 + c, 0x5bd1e995) >>> 0;
     }
-    out += ID_CHARS[h1 % 62] + ID_CHARS[h2 % 62] + ID_CHARS[(h1 >>> 8) % 62] + ID_CHARS[(h2 >>> 8) % 62];
+    out +=
+      ID_CHARS[h1 % 62] + ID_CHARS[h2 % 62] + ID_CHARS[(h1 >>> 8) % 62] + ID_CHARS[(h2 >>> 8) % 62];
   }
   return out.slice(0, 16);
 };
 
-const isObject = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null && !Array.isArray(v);
+const isObject = (v: unknown): v is Record<string, unknown> =>
+  typeof v === "object" && v !== null && !Array.isArray(v);
 const merge = (a: Record<string, unknown>, b: Record<string, unknown>): Record<string, unknown> => {
   const out = { ...a };
-  for (const [k, v] of Object.entries(b)) out[k] = isObject(v) && isObject(out[k]) ? merge(out[k] as Record<string, unknown>, v) : v;
+  for (const [k, v] of Object.entries(b))
+    out[k] = isObject(v) && isObject(out[k]) ? merge(out[k] as Record<string, unknown>, v) : v;
   return out;
 };
 
@@ -367,13 +418,23 @@ const merge = (a: Record<string, unknown>, b: Record<string, unknown>): Record<s
  * @param variant - The chosen variant
  * @param key - The grant key, which fixes the action id
  */
-export const buildGrantedAction = (base: Record<string, any> | undefined, variant: GrantVariant, key: string) => {
-  const a: Record<string, any> = merge(JSON.parse(JSON.stringify(base ?? {})), variant.action ?? {});
+export const buildGrantedAction = (
+  base: Record<string, any> | undefined,
+  variant: GrantVariant,
+  key: string,
+) => {
+  const a: Record<string, any> = merge(
+    JSON.parse(JSON.stringify(base ?? {})),
+    variant.action ?? {},
+  );
   a._id = stableId(key);
   a.name = variant.name;
-  if (variant.addDamage?.length) a.damage = { ...(a.damage ?? {}), parts: [...(a.damage?.parts ?? []), ...variant.addDamage] };
-  if (variant.dcBonus && a.save?.dc) a.save = { ...a.save, dc: `${a.save.dc} + ${variant.dcBonus}` };
-  if (variant.notes?.length) a.notes = { ...(a.notes ?? {}), effect: [...(a.notes?.effect ?? []), ...variant.notes] };
+  if (variant.addDamage?.length)
+    a.damage = { ...(a.damage ?? {}), parts: [...(a.damage?.parts ?? []), ...variant.addDamage] };
+  if (variant.dcBonus && a.save?.dc)
+    a.save = { ...a.save, dc: `${a.save.dc} + ${variant.dcBonus}` };
+  if (variant.notes?.length)
+    a.notes = { ...(a.notes ?? {}), effect: [...(a.notes?.effect ?? []), ...variant.notes] };
   return a;
 };
 
@@ -384,15 +445,69 @@ export const buildGrantedAction = (base: Record<string, any> | undefined, varian
  * @param base - The base action's automation
  * @param variant - The variant's automation
  */
-export const mergeGrantAutomation = (base: ActionAutomation = {}, variant: GrantVariant["automation"] = {}): ActionAutomation => {
+export const mergeGrantAutomation = (
+  base: ActionAutomation = {},
+  variant: GrantVariant["automation"] = {},
+): ActionAutomation => {
   const { onFail: vFail, ...rest } = variant ?? {};
   const out: ActionAutomation = { ...JSON.parse(JSON.stringify(base)), ...rest };
   if (vFail) {
     const { buffTemplate, conditions, conditionRounds, ...failRest } = vFail;
     const onFail: FailEffects = { ...(base.onFail ?? {}), ...failRest };
     if (buffTemplate) onFail.buffId = `tpl:${buffTemplate}`;
-    if (conditions?.trim()) onFail.more = [...(onFail.more ?? []), { conditions, rounds: conditionRounds || base.onFail?.conditionRounds || "1" }];
+    if (conditions?.trim())
+      onFail.more = [
+        ...(onFail.more ?? []),
+        { conditions, rounds: conditionRounds || base.onFail?.conditionRounds || "1" },
+      ];
     out.onFail = onFail;
+  }
+  return out;
+};
+
+/* ---------- prodigy imbuements ---------- */
+
+export interface ImbueEntry {
+  name: string;
+  kind: "imbue" | "finish";
+  /** A prerequisite named in the entry, like "alter" */
+  requires: string | null;
+  text: string;
+}
+
+/**
+ * Reads Imbue Sequence's description: one heading per magic sphere, each followed by entries whose bold
+ * lead names the ability and marks it (imbue) or (finish).
+ *
+ * @param html - The feature's description
+ * @returns Each sphere's entries, in description order
+ */
+export const parseImbuements = (html: string): { sphere: string; entries: ImbueEntry[] }[] => {
+  const out: { sphere: string; entries: ImbueEntry[] }[] = [];
+  const strip = (t: string) =>
+    t
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&nbsp;/g, " ")
+      .replace(/&#8217;|&rsquo;/g, "\u2019")
+      .replace(/&amp;/g, "&")
+      .replace(/\s+/g, " ")
+      .trim();
+  const parts = (html ?? "").split(/<h[2-4][^>]*>/i).slice(1);
+  for (const part of parts) {
+    const [head, body = ""] = part.split(/<\/h[2-4]>/i);
+    const entries: ImbueEntry[] = [];
+    for (const m of body.matchAll(/<p>\s*<(?:strong|b)>(.*?)<\/(?:strong|b)>(.*?)<\/p>/gis)) {
+      const lead = strip(m[1]);
+      const kind = /\(imbue\)/i.test(lead) ? "imbue" : /\(finish\)/i.test(lead) ? "finish" : null;
+      if (!kind) continue;
+      entries.push({
+        name: lead.split("(")[0].trim(),
+        kind,
+        requires: lead.match(/\(requires ([^)]+)\)/i)?.[1] ?? null,
+        text: strip(m[2]).replace(/^:\s*/, ""),
+      });
+    }
+    if (entries.length) out.push({ sphere: strip(head), entries });
   }
   return out;
 };

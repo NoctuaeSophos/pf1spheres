@@ -19,7 +19,7 @@ SPDX-License-Identifier: EUPL-1.2
         {{#if spellPoints.max }}
             <div class="form-group spell-points" data-tooltip="@spheres.spellPoints.value / @spheres.spellPoints.max">
                 <label>{{ localize "PF1SPHERES.SpellPoints" }}</label>
-                <input type="number" name="flags.pf1spheres.spellPoints" value="{{ spellPoints.value }}" min="0" max="{{ spellPoints.max }}" data-dtype="Number">
+                <input type="number" class="pf1s-spell-points" value="{{ spellPoints.value }}" min="0" max="{{ spellPoints.max }}" data-dtype="Number">
                 <span>/ {{ spellPoints.max }}</span>
             </div>
         {{/if }}
@@ -46,8 +46,21 @@ SPDX-License-Identifier: EUPL-1.2
         <button type="button" class="pf1s-seq-add" data-tooltip="PF1SPHERES.Auto.AddLink"><i class="fas fa-plus"></i></button>
         <button type="button" class="pf1s-seq-sub" data-tooltip="PF1SPHERES.Auto.LoseLink"><i class="fas fa-minus"></i></button>
         <button type="button" class="pf1s-seq-end">{{ localize "PF1SPHERES.Auto.EndSequence" }}</button>
+        {{#if sequence.imbueOptions.length }}
+        <select class="pf1s-seq-imbue" data-tooltip="PF1SPHERES.Auto.Imbue">
+            <option value="">{{ localize "PF1SPHERES.Auto.Imbue" }}: —</option>
+            {{#each sequence.imbueOptions as |o| }}<option value="{{ o.value }}" {{#if o.selected }}selected{{/if }}>{{ o.label }}</option>{{/each }}
+        </select>
+        {{else }}
         <input type="text" class="pf1s-seq-imbue" value="{{ sequence.imbue }}" placeholder="{{ localize "PF1SPHERES.Auto.Imbue" }}">
+        {{/if }}
     </div>
+    {{#if sequence.imbueChosen }}
+    <div class="spheres-imbue">
+        <p><strong>{{ sequence.imbueChosen.name }} ({{ localize "PF1SPHERES.Auto.Imbue" }}):</strong> {{ sequence.imbueChosen.text }}</p>
+        {{#each sequence.imbueChosen.finishers as |f| }}<p><strong>{{ f.name }} ({{ localize "PF1SPHERES.Auto.Finisher" }}):</strong> {{ f.text }}</p>{{/each }}
+    </div>
+    {{/if }}
     {{/if }}
     {{#if effects.length }}
     <div class="spheres-effects">

@@ -1,5 +1,5 @@
 _id: iHxTs6RN2mqI6R2K
-_key: '!items!iHxTs6RN2mqI6R2K'
+_key: "!items!iHxTs6RN2mqI6R2K"
 effects: []
 flags:
   pf1: {}
@@ -18,12 +18,20 @@ system:
     damageMult: 1
   abilityType: ex
   acquired: false
-  actions: []
+  actions:
+    - _id: XJwIJ5RyNJD9a3ov
+      name: Astrology
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,15 +47,15 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p>Once per day, you can spend 1 hour studying star charts and celestial
       positions to gain a pool of insight points equal to half your scholar level
       (minimum 1) plus your Int bonus.</p><p>Each point spent adds 1d4+1 to one of
@@ -57,18 +65,18 @@ system:
       text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -79,26 +87,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Scholar's Knack
+    - Scholar's Knack
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
+    autoDeductChargesCost: "1"
     maxFormula: max(1, floor(@classes.scholar.level / 2)) + max(0, @abilities.int.mod)
     per: day
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

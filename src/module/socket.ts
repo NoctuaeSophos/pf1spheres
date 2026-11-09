@@ -18,7 +18,8 @@ const SOCKET = `module.${MODULE_ID}`;
 const handlers = new Map<string, (msg, user) => Promise<void> | void>();
 
 /** True on exactly one client: the active GM's. Shared state is only written there. */
-export const isGMWriter = () => game.user?.isGM && (game.users.activeGM ?? game.user).id === game.user.id;
+export const isGMWriter = () =>
+  game.user?.isGM && (game.users.activeGM ?? game.user).id === game.user.id;
 
 /**
  * Registers a handler for a request type.
@@ -78,7 +79,8 @@ export const requestGM = async (msg): Promise<boolean> => {
 };
 
 /** True if the user may act for this actor (GM or owner) */
-export const userOwns = (user, actor) => Boolean(user?.isGM || actor?.testUserPermission?.(user, "OWNER"));
+export const userOwns = (user, actor) =>
+  Boolean(user?.isGM || actor?.testUserPermission?.(user, "OWNER"));
 
 export const registerSocket = () => {
   Hooks.once("ready", () => {

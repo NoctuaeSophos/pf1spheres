@@ -1,5 +1,5 @@
 _id: Wall2j7O2tMGN0HD
-_key: '!items!Wall2j7O2tMGN0HD'
+_key: "!items!Wall2j7O2tMGN0HD"
 effects: []
 flags:
   pf1: {}
@@ -18,12 +18,17 @@ system:
     damageMult: 1
   abilityType: su
   acquired: false
-  actions: []
+  actions:
+    - _id: W9V50Jvg7gYnruwO
+      name: Touch of Corruption
+      actionType: other
+      activation:
+        type: special
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,15 +44,15 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p>From 2nd level, can fill a target with negative energy by touch, a
       number of times per day equal to ½ her soul weaver level + casting ability modifier.</p><p>Standard
       action that doesn''t provoke (swift action on herself). Unwilling targets need
@@ -62,18 +67,18 @@ system:
       text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -84,26 +89,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Lichling
+    - Lichling
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
+    autoDeductChargesCost: "1"
     maxFormula: floor(@classes.soulWeaver.level / 2) + @spheres.cam
     per: day
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

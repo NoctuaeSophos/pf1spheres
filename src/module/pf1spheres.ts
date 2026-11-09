@@ -200,8 +200,19 @@ Hooks.once("setup", () => {
   if (moduleData) {
     moduleData.api = {
       config: pf1s.config,
-      weather: { open: openWeather, control: openCasterWeather, sync: syncSceneWeather, effects: getWeatherEffects },
-      automation: { effects: getEffects, endEffect, buildBlastActions, openFormulae, rollMsbVsTargets },
+      weather: {
+        open: openWeather,
+        control: openCasterWeather,
+        sync: syncSceneWeather,
+        effects: getWeatherEffects,
+      },
+      automation: {
+        effects: getEffects,
+        endEffect,
+        buildBlastActions,
+        openFormulae,
+        rollMsbVsTargets,
+      },
       _internal: {
         packUtils: undefined,
         devUtils: undefined,
