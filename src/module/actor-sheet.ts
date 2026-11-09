@@ -121,25 +121,82 @@ const addNavTab = (app: ActorSheetPF, html: JQuery<HTMLElement>) => {
 const getTraditions = (actor: ActorPF) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const items = (actor as any).items.contents as any[];
-  return items
-    .filter((i) => ["martial", "casting"].includes(i.flags?.pf1spheres?.tradition))
-    .map((t) => ({
-      id: t.id,
-      name: t.name,
-      img: t.img,
-      kind: t.flags.pf1spheres.tradition,
-      kindLabel: localize(
-        t.flags.pf1spheres.tradition === "martial" ? "MartialTradition" : "CastingTradition",
-      ),
-      members: (t.system.links?.children ?? [])
-        .map((l: { uuid: string }) => items.find((i) => i.id === l.uuid.split(".").pop()))
-        .filter(Boolean)
-        .map((i: { id: string; name: string; img: string }) => ({
-          id: i.id,
-          name: i.name,
-          img: i.img,
-        })),
-    }));
+  const traditions = items.filter((i) =>
+    ["martial", "casting"].includes(i.flags?.pf1spheres?.tradition),
+  );
+  const inAny = new Set(traditions.flatMap((t) => traditionMemberIds(t)));
+  // Features and talents not in any tradition, to pick from
+  const candidates = items
+    .filter(
+      (i) =>
+        i.type === "feat" &&
+        !i.flags?.pf1spheres?.tradition &&
+        !i.flags?.pf1spheres?.spellPool &&
+        !inAny.has(i.id),
+    )
+    .map((i) => ({ id: i.id, name: i.name }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+  return traditions.map((t) => ({
+    id: t.id,
+    name: t.name,
+    img: t.img,
+    kind: t.flags.pf1spheres.tradition,
+    kindLabel: localize(
+      t.flags.pf1spheres.tradition === "martial" ? "MartialTradition" : "CastingTradition",
+    ),
+    members: traditionMemberIds(t)
+      .map((id) => items.find((i) => i.id === id))
+      .filter(Boolean)
+      .map((i: { id: string; name: string; img: string }) => ({
+        id: i.id,
+        name: i.name,
+        img: i.img,
+      })),
+    candidates,
+  }));
+};
+
+/**
+ * A tradition's members: the module's own list (flags.pf1spheres.members), so deleting a tradition only
+ * removes the tradition. pf1 "children" links, used before, would delete the members with it.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const traditionMemberIds = (t: any): string[] => [
+  ...new Set<string>([
+    ...(t.flags?.pf1spheres?.members ?? []),
+    ...(t.system?.links?.children ?? []).map((l: { uuid: string }) => l.uuid.split(".").pop()),
+  ]),
+];
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const setMembers = (tradition: any, ids: string[]) =>
+  tradition.update({ "flags.pf1spheres.members": [...new Set(ids)], "system.links.children": [] });
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const addMember = (actor: any, traditionId: string, itemId: string) => {
+  const t = actor.items.get(traditionId);
+  if (!t || !itemId || itemId === traditionId || !actor.items.get(itemId)) return;
+  // An item belongs to one tradition at a time
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  for (const other of actor.items.filter((i: any) => i.flags?.pf1spheres?.tradition && i !== t)) {
+    const ids = traditionMemberIds(other);
+    if (ids.includes(itemId))
+      setMembers(
+        other,
+        ids.filter((id) => id !== itemId),
+      );
+  }
+  return setMembers(t, [...traditionMemberIds(t), itemId]);
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const removeMember = (actor: any, traditionId: string, itemId: string) => {
+  const t = actor.items.get(traditionId);
+  if (t)
+    return setMembers(
+      t,
+      traditionMemberIds(t).filter((id) => id !== itemId),
+    );
 };
 
 const createTradition = async (actor: ActorPF, kind: "martial" | "casting") => {
@@ -157,7 +214,7 @@ const createTradition = async (actor: ActorPF, kind: "martial" | "casting") => {
         subType: "classFeat",
         description: { value: `<p>${localize("TraditionHint")}</p>` },
       },
-      flags: { pf1spheres: { tradition: kind } },
+      flags: { pf1spheres: { tradition: kind, members: [] } },
     },
   ]);
   item?.sheet?.render(true);
@@ -375,6 +432,28 @@ const activateListeners = (app: ActorSheetPF, html: JQuery<HTMLElement>, actor: 
     setSpellPoints(actor, Number((ev.currentTarget as HTMLInputElement).value) || 0);
   });
   html.find(".pf1s-control-weather").on("click", () => openCasterWeather(actor));
+  html.find(".pf1s-tradition-add").on("change", (ev) => {
+    const el = ev.currentTarget as HTMLSelectElement;
+    addMember(actor, el.dataset.traditionId ?? "", el.value);
+  });
+  html.find(".pf1s-tradition-remove").on("click", (ev) => {
+    const el = ev.currentTarget as HTMLElement;
+    removeMember(actor, el.dataset.traditionId ?? "", el.dataset.itemId ?? "");
+  });
+  // Drag an item from this sheet onto a tradition to add it
+  html.find(".tradition").on("dragover", (ev) => ev.preventDefault());
+  html.find(".tradition").on("drop", (ev) => {
+    ev.preventDefault();
+    ev.stopPropagation();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const g = globalThis as any;
+    const data = g.foundry.applications.ux.TextEditor.implementation.getDragEventData(
+      ev.originalEvent,
+    );
+    const item = data?.type === "Item" && data.uuid ? g.fromUuidSync(data.uuid) : null;
+    if (item?.parent === actor)
+      addMember(actor, (ev.currentTarget as HTMLElement).dataset.traditionId ?? "", item.id);
+  });
   html
     .find(".pf1s-tradition-new")
     .on("click", (ev) =>

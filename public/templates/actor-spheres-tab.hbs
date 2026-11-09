@@ -92,11 +92,15 @@ SPDX-License-Identifier: EUPL-1.2
         </h4>
         <ol class="item-list">
         {{#each traditions as |t| }}
-            <li class="flexrow tradition">
+            <li class="flexrow tradition" data-tradition-id="{{ t.id }}">
                 <img src="{{ t.img }}" alt="" class="tradition-img">
                 <a class="pf1s-open-item tradition-name" data-item-id="{{ t.id }}"><strong>{{ t.name }}</strong></a>
                 <span class="tradition-kind">{{ t.kindLabel }}</span>
-                <span class="tradition-members">{{#each t.members as |m| }}<a class="pf1s-open-item" data-item-id="{{ m.id }}">{{ m.name }}</a>{{#unless @last }}, {{/unless }}{{else }}<em>{{ localize "PF1SPHERES.TraditionEmpty" }}</em>{{/each }}</span>
+                <span class="tradition-members">{{#each t.members as |m| }}<span class="tradition-member"><a class="pf1s-open-item" data-item-id="{{ m.id }}">{{ m.name }}</a> <a class="pf1s-tradition-remove" data-tradition-id="{{ t.id }}" data-item-id="{{ m.id }}" data-tooltip="PF1SPHERES.TraditionRemove"><i class="fas fa-xmark"></i></a></span>{{else }}<em>{{ localize "PF1SPHERES.TraditionEmpty" }}</em>{{/each }}</span>
+                <select class="pf1s-tradition-add" data-tradition-id="{{ t.id }}">
+                    <option value="">{{ localize "PF1SPHERES.TraditionAdd" }}</option>
+                    {{#each t.candidates as |c| }}<option value="{{ c.id }}">{{ c.name }}</option>{{/each }}
+                </select>
             </li>
         {{/each }}
         </ol>

@@ -230,7 +230,28 @@ async function syncSpellPool(actor) {
     await pool.update({ "system.links.charges": links }, options);
 }
 
+/**
+ * Traditions made before 0.9.9 listed their members as pf1 children, and pf1 deletes children with
+ * their parent; move them to the module's own list so deleting a tradition keeps its talents.
+ */
+async function migrateTraditions(actor) {
+  const updates = actor.items
+    .filter((i) => i.flags?.[MODULE_ID]?.tradition && i._source.system?.links?.children?.length)
+    .map((t) => ({
+      _id: t.id,
+      [`flags.${MODULE_ID}.members`]: [
+        ...new Set([
+          ...(t.flags[MODULE_ID].members ?? []),
+          ...t._source.system.links.children.map((l) => l.uuid.split(".").pop()),
+        ]),
+      ],
+      "system.links.children": [],
+    }));
+  if (updates.length) await actor.updateEmbeddedDocuments("Item", updates, { [SKIP]: true });
+}
+
 async function runSync(actor) {
+  await migrateTraditions(actor);
   await syncSpellPool(actor);
   await syncGrantedActions(actor);
   // A granted action can bring a spell point cost; convert it now rather than on the next sync
@@ -408,7 +429,10 @@ export const registerGrants = () => {
         (i) => f(i).grants?.length || f(i).granted || f(i).grantItems?.length || f(i).grantedItem,
       );
       const pool = (actor.system.spheres?.spellPoints?.max ?? 0) > 0 || spellPoolItem(actor);
-      if (grants || pool) queueGrants(actor);
+      const traditions = actor.items.some(
+        (i) => f(i).tradition && i._source.system?.links?.children?.length,
+      );
+      if (grants || pool || traditions) queueGrants(actor);
     }
   });
 };

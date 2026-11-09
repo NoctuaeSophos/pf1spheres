@@ -348,6 +348,17 @@
       }
       .tradition-members {
         flex: 1;
+        .tradition-member {
+          white-space: nowrap;
+          margin-right: 0.5em;
+        }
+        .pf1s-tradition-remove {
+          opacity: 0.6;
+          font-size: 0.8em;
+        }
+      }
+      .pf1s-tradition-add {
+        flex: 0 0 9em;
       }
     }
   }
