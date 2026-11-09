@@ -16,7 +16,15 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: RlzGW7hUNwOdqryz
+      name: Web Exemplar
+      actionType: other
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
   armorProf: []
   associations:
     classes: []

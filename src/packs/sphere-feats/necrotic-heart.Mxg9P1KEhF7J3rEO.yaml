@@ -2,6 +2,11 @@ _id: Mxg9P1KEhF7J3rEO
 _key: "!items!Mxg9P1KEhF7J3rEO"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      zqpGHoPZgPDcgaE4:
+        condSp:
+          0o1C6xc4sohdmM0L: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: zqpGHoPZgPDcgaE4
+      name: Necrotic Heart
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      duration:
+        value: "1"
+        units: minute
+      conditionals:
+        - _id: 0o1C6xc4sohdmM0L
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

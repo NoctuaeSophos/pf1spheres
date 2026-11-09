@@ -2,6 +2,11 @@ _id: O2i81vloMvGNize1
 _key: "!items!O2i81vloMvGNize1"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      mZp0zVZomHFwUbbY:
+        condSp:
+          rEqmSM9wCZ7Uw9xf: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: mZp0zVZomHFwUbbY
+      name: Arcane Empowerment
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      conditionals:
+        - _id: rEqmSM9wCZ7Uw9xf
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

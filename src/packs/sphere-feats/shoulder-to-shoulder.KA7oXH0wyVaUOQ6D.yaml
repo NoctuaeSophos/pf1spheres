@@ -16,7 +16,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: S82qTdrOJRBRY6Hq
+      name: Shoulder To Shoulder
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      duration:
+        value: "1"
+        units: minute
   armorProf: []
   associations:
     classes: []

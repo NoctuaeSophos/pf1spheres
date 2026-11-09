@@ -2,6 +2,11 @@ _id: EibWB4nzzF93lHgw
 _key: "!items!EibWB4nzzF93lHgw"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      m7exG3lCMqXXQ8ag:
+        condSp:
+          OMTNwncxvjcnqcMU: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: m7exG3lCMqXXQ8ag
+      name: Numb Mind
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      duration:
+        value: "1"
+        units: round
+      conditionals:
+        - _id: OMTNwncxvjcnqcMU
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -2,6 +2,11 @@ _id: Scbvew8BI3jlViby
 _key: "!items!Scbvew8BI3jlViby"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      kEAvstqVVPqzPptE:
+        condSp:
+          JQzhkPkenG5ZFJoC: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: kEAvstqVVPqzPptE
+      name: Focused Fire Tactics
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      conditionals:
+        - _id: JQzhkPkenG5ZFJoC
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -2,6 +2,11 @@ _id: 7xubINOuq7KyGjkR
 _key: "!items!7xubINOuq7KyGjkR"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      NGpuxcmlzkO7rRu5:
+        condSp:
+          ykYYqhXHdO2x93CJ: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: NGpuxcmlzkO7rRu5
+      name: Rebuff, Improved
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      conditionals:
+        - _id: ykYYqhXHdO2x93CJ
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

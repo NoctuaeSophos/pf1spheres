@@ -16,7 +16,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: kwXoIIXGvOoNZYW2
+      name: Anathema
+      actionType: msak
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      touch: true
+      ability:
+        attack: str
   armorProf: []
   associations:
     classes: []

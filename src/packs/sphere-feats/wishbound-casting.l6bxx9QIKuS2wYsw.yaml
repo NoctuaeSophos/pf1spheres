@@ -2,6 +2,11 @@ _id: l6bxx9QIKuS2wYsw
 _key: "!items!l6bxx9QIKuS2wYsw"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      Qan8ePsqMgLj2olX:
+        condSp:
+          CwYjn5zYIkN5SMYf: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Qan8ePsqMgLj2olX
+      name: Wishbound Casting
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      duration:
+        value: "24"
+        units: hour
+      conditionals:
+        - _id: CwYjn5zYIkN5SMYf
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

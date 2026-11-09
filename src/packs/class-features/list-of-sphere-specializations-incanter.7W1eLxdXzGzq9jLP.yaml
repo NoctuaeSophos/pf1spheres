@@ -2,6 +2,11 @@ _id: 7W1eLxdXzGzq9jLP
 _key: "!items!7W1eLxdXzGzq9jLP"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      zJr4i0B3JrTAwR4y:
+        condSp:
+          9ojfljoQoaF1Llqs: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,26 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: zJr4i0B3JrTAwR4y
+      name: List of Sphere Specializations (Incanter)
+      actionType: rsak
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
+      touch: true
+      ability:
+        attack: dex
+      duration:
+        value: "1"
+        units: round
+      conditionals:
+        - _id: 9ojfljoQoaF1Llqs
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

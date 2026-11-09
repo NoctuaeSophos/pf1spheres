@@ -13,8 +13,8 @@ import yaml
 REPO = sys.argv[1]
 WRITE = "--write" in sys.argv
 SAMPLE = int(sys.argv[sys.argv.index("--sample") + 1]) if "--sample" in sys.argv else 0
-ONLY = sys.argv[sys.argv.index("--only") + 1:] if "--only" in sys.argv else []
-PACKS = ["magic-talents", "combat-talents", "skill-talents"]
+ONLY = [a for a in sys.argv[sys.argv.index("--only") + 1:] if not a.startswith("--")] if "--only" in sys.argv else []
+PACKS = sys.argv[sys.argv.index("--packs") + 1].split(",") if "--packs" in sys.argv else ["magic-talents", "combat-talents", "skill-talents"]
 
 ACT_WORDS = {"standard": "standard", "move": "move", "swift": "swift", "immediate": "immediate", "free": "free", "full-round": "full", "full round": "full"}
 UNCHAINED = {"standard": (2, "action"), "move": (1, "action"), "swift": (1, "action"), "immediate": (1, "reaction"), "free": (1, "free"), "full": (3, "action")}
@@ -50,12 +50,14 @@ def build(d, pack):
     t = text(d)
     sents = sentences(t)
     sphere = (d.get("flags", {}).get("pf1spheres") or {}).get("sphere") or ""
-    magic = pack == "magic-talents"
+    magic = pack == "magic-talents" or (STRICT and KINDS.get(sphere) == "magic")
     act, act_sent = own_activation(sents)
     save = SAVE.search(t)
     sps = [(m, s) for s in sents for m in SP.finditer(s)]
     touch = TOUCH.search(t)
     if not (act or save or (magic and sps)):
+        return None, None
+    if STRICT and not act:
         return None, None
     if not act:
         # Without a stated action, only something that reads like an ability you use gets one
@@ -71,7 +73,7 @@ def build(d, pack):
         a["actionType"] = "msak" if touch.group(1).lower() == "melee" else "rsak"
         a["touch"] = True
         a["ability"] = {"attack": "str" if a["actionType"] == "msak" else "dex"}
-    if save:
+    if save and not (STRICT and not KINDS.get(sphere)):
         kind = SAVE_TYPE[save.group(1).lower()]
         effect = (save.group(3) or save.group(2)).lower()
         dc = (f"10 + floor(@spheres.cl.{sphere}.total / 2) + @spheres.cam" if magic and sphere
@@ -125,6 +127,18 @@ def write(f, a, auto):
     open(f, "w").write(src)
 
 LIMITED = "--limited" in sys.argv
+# --strict (feats, features): only a stated action counts, and a save gets a DC only from a known sphere
+STRICT = "--strict" in sys.argv
+
+def sphere_kinds():
+    """Which sphere keys are magic and which martial, from the talent packs."""
+    kinds = {}
+    for pack, kind in (("magic-talents", "magic"), ("combat-talents", "combat")):
+        for f in glob.glob(f"{REPO}/src/packs/{pack}/*.yaml"):
+            k = ((load(f).get("flags") or {}).get("pf1spheres") or {}).get("sphere")
+            if k: kinds.setdefault(k, kind)
+    return kinds
+KINDS = sphere_kinds() if STRICT else {}
 
 def build_limited(d):
     """A plain action for an item with limited uses and none: it spends the item's own charges."""

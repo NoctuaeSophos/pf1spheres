@@ -16,7 +16,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: zgeiwBxfZCGGQccO
+      name: Projectile Vomit
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      duration:
+        value: "1"
+        units: round
   armorProf: []
   associations:
     classes: []

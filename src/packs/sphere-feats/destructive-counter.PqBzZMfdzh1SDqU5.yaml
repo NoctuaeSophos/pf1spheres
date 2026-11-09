@@ -2,6 +2,11 @@ _id: PqBzZMfdzh1SDqU5
 _key: "!items!PqBzZMfdzh1SDqU5"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      4MyWuUFjsUNPjc01:
+        condSp:
+          T5GOBUSZGi6HWGK1: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 4MyWuUFjsUNPjc01
+      name: Destructive Counter
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      conditionals:
+        - _id: T5GOBUSZGi6HWGK1
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

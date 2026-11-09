@@ -2,6 +2,11 @@ _id: ndasEOSPKArKo6Ak
 _key: "!items!ndasEOSPKArKo6Ak"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      TeKdNnFRIBXuDL7D:
+        condSp:
+          xtpYlSXpfKtHF4vU: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: TeKdNnFRIBXuDL7D
+      name: Curse of Chaos
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      conditionals:
+        - _id: xtpYlSXpfKtHF4vU
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

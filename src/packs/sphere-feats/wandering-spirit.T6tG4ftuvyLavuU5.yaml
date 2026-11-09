@@ -2,6 +2,11 @@ _id: T6tG4ftuvyLavuU5
 _key: "!items!T6tG4ftuvyLavuU5"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      YzTTOkq2BEDbN2AH:
+        condSp:
+          RQ73l5PuXay1F6gc: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: YzTTOkq2BEDbN2AH
+      name: Wandering Spirit
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      duration:
+        value: "1"
+        units: round
+      conditionals:
+        - _id: RQ73l5PuXay1F6gc
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

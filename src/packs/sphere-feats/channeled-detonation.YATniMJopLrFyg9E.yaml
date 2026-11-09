@@ -2,6 +2,11 @@ _id: YATniMJopLrFyg9E
 _key: "!items!YATniMJopLrFyg9E"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      YXg4JdpmrcXgGCJb:
+        condSp:
+          W56eCuNGMGmSrCGI: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: YXg4JdpmrcXgGCJb
+      name: Channeled Detonation
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: W56eCuNGMGmSrCGI
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

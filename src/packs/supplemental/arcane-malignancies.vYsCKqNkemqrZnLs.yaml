@@ -1,5 +1,5 @@
 _id: vYsCKqNkemqrZnLs
-_key: '!items!vYsCKqNkemqrZnLs'
+_key: "!items!vYsCKqNkemqrZnLs"
 effects: []
 flags:
   pf1: {}
@@ -18,12 +18,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: w0FzvGr3GwnPFYhv
+      name: Arcane Malignancies
+      actionType: other
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
+      duration:
+        value: "24"
+        units: hour
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,15 +50,15 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p><strong>How it works:</strong> a changeling may accept a malignancy
       as a drawback to earn one additional trait at character creation. The malignancy
       is rolled randomly on a d% table and is a physical deformity that comes from
@@ -89,18 +100,18 @@ system:
       text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -111,27 +122,27 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: trait
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Drawback
-  - Changeling
+    - Drawback
+    - Changeling
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

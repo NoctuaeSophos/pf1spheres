@@ -2,6 +2,11 @@ _id: h6qvRNrsrYJHEPvM
 _key: "!items!h6qvRNrsrYJHEPvM"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      KLVPA2oQUP44XPSL:
+        condSp:
+          2oRlPhDBuqOSg5Ap: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: KLVPA2oQUP44XPSL
+      name: Vital Magic
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      conditionals:
+        - _id: 2oRlPhDBuqOSg5Ap
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

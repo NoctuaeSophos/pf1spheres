@@ -2,6 +2,11 @@ _id: 2twJk9WOlLOCGr2J
 _key: "!items!2twJk9WOlLOCGr2J"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      HVDctQUy1xvCkgaf:
+        condSp:
+          rfwA94hJ9WnywX0t: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: HVDctQUy1xvCkgaf
+      name: Infantry Formation
+      actionType: other
+      activation:
+        type: move
+        unchained:
+          cost: 1
+          type: action
+      conditionals:
+        - _id: rfwA94hJ9WnywX0t
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

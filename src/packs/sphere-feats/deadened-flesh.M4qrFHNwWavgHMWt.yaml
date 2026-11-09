@@ -2,6 +2,11 @@ _id: M4qrFHNwWavgHMWt
 _key: "!items!M4qrFHNwWavgHMWt"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      aeOV4qBkdfQ1y3GQ:
+        condSp:
+          sMpSscDlkrCaqx9v: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: aeOV4qBkdfQ1y3GQ
+      name: Deadened Flesh
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      duration:
+        value: "1"
+        units: round
+      conditionals:
+        - _id: sMpSscDlkrCaqx9v
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

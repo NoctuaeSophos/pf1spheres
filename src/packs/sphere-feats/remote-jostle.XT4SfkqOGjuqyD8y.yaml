@@ -16,7 +16,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: HLS45gqIO2zVZxqy
+      name: Remote Jostle
+      actionType: rsak
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      touch: true
+      ability:
+        attack: dex
   armorProf: []
   associations:
     classes: []

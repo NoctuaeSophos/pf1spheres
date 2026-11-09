@@ -2,6 +2,11 @@ _id: dQY7bZ5BfJlLP1et
 _key: "!items!dQY7bZ5BfJlLP1et"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      BHXgwETdIKnT30fK:
+        condSp:
+          0skBaHmsWWdawFgF: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: BHXgwETdIKnT30fK
+      name: Triage
+      actionType: other
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
+      conditionals:
+        - _id: 0skBaHmsWWdawFgF
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -2,6 +2,11 @@ _id: J5BXsUNKfQltWjGf
 _key: "!items!J5BXsUNKfQltWjGf"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      jsNOBAGx5diFoNPc:
+        condSp:
+          bdaKwtgHwIoALtLi: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: jsNOBAGx5diFoNPc
+      name: Scouting Tactics
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      conditionals:
+        - _id: bdaKwtgHwIoALtLi
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

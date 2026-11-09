@@ -16,7 +16,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: pUuMHwkpu9mq9Ugk
+      name: Violent Shadow
+      actionType: rsak
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
+      touch: true
+      ability:
+        attack: dex
   armorProf: []
   associations:
     classes: []

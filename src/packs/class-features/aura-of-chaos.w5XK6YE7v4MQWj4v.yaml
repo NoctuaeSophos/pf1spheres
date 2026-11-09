@@ -2,6 +2,11 @@ _id: w5XK6YE7v4MQWj4v
 _key: "!items!w5XK6YE7v4MQWj4v"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      OL8dKLzdocJ2isAj:
+        condSp:
+          IhKtJ0RlgLKOmxgJ: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: OL8dKLzdocJ2isAj
+      name: Aura of Chaos
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      conditionals:
+        - _id: IhKtJ0RlgLKOmxgJ
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

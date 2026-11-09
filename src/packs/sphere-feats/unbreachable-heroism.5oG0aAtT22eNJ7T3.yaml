@@ -16,7 +16,15 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: SY0l9FLw91GqK8ks
+      name: Unbreachable Heroism
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
   armorProf: []
   associations:
     classes: []

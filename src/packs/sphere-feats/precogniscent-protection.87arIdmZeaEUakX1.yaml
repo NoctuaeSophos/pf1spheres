@@ -2,6 +2,11 @@ _id: 87arIdmZeaEUakX1
 _key: "!items!87arIdmZeaEUakX1"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      i18c6EudM7Oyf5TN:
+        condSp:
+          S05kOY2oNzN2m1El: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: i18c6EudM7Oyf5TN
+      name: Precogniscent Protection
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      conditionals:
+        - _id: S05kOY2oNzN2m1El
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -2,6 +2,11 @@ _id: eMdrobxo2CPvPpOq
 _key: "!items!eMdrobxo2CPvPpOq"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      RlrwZbqcabUGJmGE:
+        condSp:
+          p7CgQ0PBQFI14zGt: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: RlrwZbqcabUGJmGE
+      name: Counterspelling Strike
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      conditionals:
+        - _id: p7CgQ0PBQFI14zGt
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

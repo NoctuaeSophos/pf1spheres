@@ -16,7 +16,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: qW4sg8NFNl5oFA6Q
+      name: Hidden Heretic
+      actionType: other
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
+      duration:
+        value: "24"
+        units: hour
   armorProf: []
   associations:
     classes: []

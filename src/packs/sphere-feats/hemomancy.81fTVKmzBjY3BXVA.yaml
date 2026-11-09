@@ -2,6 +2,11 @@ _id: 81fTVKmzBjY3BXVA
 _key: "!items!81fTVKmzBjY3BXVA"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      ItDr9uP14pEHpJpb:
+        condSp:
+          9ATPtdbmF4RPAfqo: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: ItDr9uP14pEHpJpb
+      name: Hemomancy
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      duration:
+        value: "1"
+        units: round
+      conditionals:
+        - _id: 9ATPtdbmF4RPAfqo
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -2,6 +2,11 @@ _id: E91ytLF05ZFV7jWK
 _key: "!items!E91ytLF05ZFV7jWK"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      fngAFTCloiADN5Rp:
+        condSp:
+          VI2XQWhX1ssrKrxq: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: fngAFTCloiADN5Rp
+      name: Mystic Assault
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: VI2XQWhX1ssrKrxq
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

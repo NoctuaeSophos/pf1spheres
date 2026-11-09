@@ -2,6 +2,11 @@ _id: VzWypJbL2GOqgnFV
 _key: "!items!VzWypJbL2GOqgnFV"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      B4bZWOz648JJnUfd:
+        condSp:
+          7UACNWiP3sFd67Ji: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: B4bZWOz648JJnUfd
+      name: Fleeting Spell
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      conditionals:
+        - _id: 7UACNWiP3sFd67Ji
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

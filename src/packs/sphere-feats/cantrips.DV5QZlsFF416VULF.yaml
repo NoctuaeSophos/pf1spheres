@@ -16,7 +16,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: A1id6Vw5DQL05HA0
+      name: Cantrips
+      actionType: rsak
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      touch: true
+      ability:
+        attack: dex
   armorProf: []
   associations:
     classes: []

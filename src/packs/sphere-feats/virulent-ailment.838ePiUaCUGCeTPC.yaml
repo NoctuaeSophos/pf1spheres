@@ -2,6 +2,12 @@ _id: 838ePiUaCUGCeTPC
 _key: "!items!838ePiUaCUGCeTPC"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      9QgmyjjYtUtBrmgO:
+        condSp:
+          6grn4yDcaz2YBSoG: 1
+          OsDbjqMVzaVp62BS: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 9QgmyjjYtUtBrmgO
+      name: Virulent Ailment
+      actionType: msak
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      touch: true
+      ability:
+        attack: str
+      conditionals:
+        - _id: 6grn4yDcaz2YBSoG
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: OsDbjqMVzaVp62BS
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

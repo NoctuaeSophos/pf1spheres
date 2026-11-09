@@ -2,6 +2,11 @@ _id: 2ZEXANYmRTJ8xOtn
 _key: "!items!2ZEXANYmRTJ8xOtn"
 effects: []
 flags:
+  pf1spheres:
+    automation:
+      hDavJA76rNicHTp8:
+        condSp:
+          hkqdlm7tOtHWnsCG: 1
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +21,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: hDavJA76rNicHTp8
+      name: Counterspell
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: hkqdlm7tOtHWnsCG
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []
