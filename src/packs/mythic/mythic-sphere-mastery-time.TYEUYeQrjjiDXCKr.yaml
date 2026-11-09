@@ -101,7 +101,6 @@ system:
     - Gifted
     - Mythic Sphere Mastery
     - Mythic
-    - Path Feature
     - Path Ability
   target:
     value: ""

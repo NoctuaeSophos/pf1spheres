@@ -116,7 +116,7 @@ system:
   tags:
     - Spheremaster
     - Mythic
-    - Path Feature
+    - Mythic Path
   target:
     value: ""
   traitCategory: ""

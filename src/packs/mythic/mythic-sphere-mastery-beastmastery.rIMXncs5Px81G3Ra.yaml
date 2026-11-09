@@ -91,7 +91,6 @@ system:
   tags:
     - Mythic Sphere Mastery
     - Path Ability
-    - Path Feature
     - Mythic
   target:
     value: ""

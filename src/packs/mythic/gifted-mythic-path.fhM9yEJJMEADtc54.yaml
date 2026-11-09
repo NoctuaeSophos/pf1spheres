@@ -111,7 +111,7 @@ system:
   tags:
     - Gifted
     - Mythic
-    - Path Feature
+    - Mythic Path
   target:
     value: ""
   traitCategory: ""
