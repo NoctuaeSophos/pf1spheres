@@ -207,7 +207,15 @@ const formulaeItem = (talent, actor, opts) => {
     name: `${talent.name} (${loc("Formulae")})`,
     type: "consumable",
     img: talent.img,
-    flags: { [MODULE_ID]: { formulaeExpires: expires, formula: talent.name } },
+    // Alchemical, so a scholar's inoculations cover them
+    flags: {
+      [MODULE_ID]: {
+        formulaeExpires: expires,
+        formula: talent.name,
+        alchemical: true,
+        sphere: "alchemy",
+      },
+    },
     system: {
       subType: "potion",
       quantity: opts.quantity,
