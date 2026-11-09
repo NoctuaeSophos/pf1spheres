@@ -348,8 +348,15 @@ const getAllyLists = (actor: ActorPF) => {
       key: "undead",
       label: localize("Auto.Undead"),
       unit: "hd",
+      // Temporary caster level boosts (buffs such as Draw Magic) don't raise the limit
       max: undeadHDLimit(
-        a.system.spheres?.cl?.death?.total ?? 0,
+        (a.system.spheres?.cl?.death?.total ?? 0) -
+          [...(a.changes ?? [])]
+            .filter(
+              (c: any) =>
+                c.parent?.type === "buff" && ["spherecl", "sphereclDeath"].includes(c.target),
+            )
+            .reduce((sum: number, c: any) => sum + (Number(c.value) || 0), 0),
         a.items.filter((i: any) => i.name === "Greater Reanimate").length,
       ),
       names: docs.map((d: any) => (d ? `${d.name} (${hd(d)} HD)` : "?")),

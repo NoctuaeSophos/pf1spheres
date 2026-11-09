@@ -7,11 +7,9 @@ flags:
     sphere: death
     automation:
       bjMe04GatHdRpblZ:
-        sp: "2"
+        sp: "3"
         effect:
           enabled: false
-        condSp:
-          fskuIOhGIEEtHusH: 1
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Permanent Undead
@@ -40,12 +38,9 @@ system:
       notes:
         footer:
           - "The reanimation is instantaneous: no duration, can't be dispelled, but still counts toward your
-            Hit Dice limit. Over the limit, older permanent undead are released and turn hostile."
-      conditionals:
-        - _id: fskuIOhGIEEtHusH
-          name: Plus Reanimate's own spell point
-          default: true
-          modifiers: []
+            Hit Dice limit. Over the limit, older permanent undead are released and turn hostile. Costs Reanimate's
+            spell point plus the 2 for permanence."
+      conditionals: []
   armorProf: []
   associations:
     classes: []
