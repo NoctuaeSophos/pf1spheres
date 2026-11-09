@@ -55,7 +55,13 @@ system:
     noMediumEncumbrance: false
     seeInDarkness: false
     seeInvisibility: false
-  changes: []
+  changes:
+    - _id: dkpurchasesp0001
+      formula: "1"
+      operator: add
+      target: spellPoints
+      type: untyped
+      priority: 0
   classSkills: {}
   contextNotes: []
   crOffset: ""
@@ -67,27 +73,24 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Their suffering is your salvation. Break their souls across the iron
-      that is your will.</p>
+    value:
+      "<p>Their suffering is your salvation. Break their souls across the iron that is your will.</p>
 
       <p><strong>Prerequisite:</strong> Death sphere.</p>
 
-      <p><strong>Benefit:</strong> You gain +1 spell point. You can spend a
-      spell point as an immediate action whenever another creature within close
-      range fails a saving throw against a death or negative energy effect to
-      infuse yourself with their shredded life force, gaining a number of
-      temporary hit points equal to 1/2 your character level plus 1d6 per
-      necrosis feat you possess. These temporary hit points last for 1 minute
-      per necrosis feat you possess. You cannot use this feat if the affected
+      <p><strong>Benefit:</strong> You gain +1 spell point. You can spend a spell point as an immediate
+      action whenever another creature within close range fails a saving throw against a death or negative
+      energy effect to infuse yourself with their shredded life force, gaining a number of temporary hit
+      points equal to 1/2 your character level plus 1d6 per necrosis feat you possess. These temporary
+      hit points last for 1 minute per necrosis feat you possess. You cannot use this feat if the affected
       creature has fewer Hit Dice than half your character level.</p>
 
-      <p><strong>Four Necrosis Feats:</strong> You no longer need to spend a
-      spell point when using this feat to gain temporary hit points. You may
-      spend a spell point as a free action to dismiss the temporary hit points
-      from this feat, healing for that same amount. Treat this healing as a
-      negative energy effect, healing normally even if you could not heal from
-      negative energy.</p>
+      <p><strong>Four Necrosis Feats:</strong> You no longer need to spend a spell point when using this
+      feat to gain temporary hit points. You may spend a spell point as a free action to dismiss the temporary
+      hit points from this feat, healing for that same amount. Treat this healing as a negative energy
+      effect, healing normally even if you could not heal from negative energy.</p>
+
+      "
   disabled: false
   duration:
     units: ""

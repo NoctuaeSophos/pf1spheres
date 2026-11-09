@@ -55,7 +55,13 @@ system:
     noMediumEncumbrance: false
     seeInDarkness: false
     seeInvisibility: false
-  changes: []
+  changes:
+    - _id: azh0cfzfymv2b4e8
+      formula: "1"
+      operator: add
+      target: spellPoints
+      type: untyped
+      priority: 0
   classSkills: {}
   contextNotes: []
   crOffset: ""
@@ -67,24 +73,23 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You can reverse the flow of your body&#8217;s energies, changing what
-      will heal and harm you.</p>
+    value:
+      "<p>You can reverse the flow of your body&#8217;s energies, changing what will heal and harm
+      you.</p>
 
       <p><strong>Prerequisite:</strong> Death sphere.</p>
 
-      <p><strong>Benefit:</strong> You gain +1 spell point. You can spend a
-      spell point as an immediate action to reverse your reaction to positive
-      and negative energy for 1 round per necrosis feat you possess - a living
-      creature would now be healed by negative energy and harmed by positive
-      energy, while an undead creature would be be healed by positive energy and
-      harmed by negative energy. Using this ability again while it is active
-      returns you to your normal state.</p>
+      <p><strong>Benefit:</strong> You gain +1 spell point. You can spend a spell point as an immediate
+      action to reverse your reaction to positive and negative energy for 1 round per necrosis feat you
+      possess - a living creature would now be healed by negative energy and harmed by positive energy,
+      while an undead creature would be be healed by positive energy and harmed by negative energy. Using
+      this ability again while it is active returns you to your normal state.</p>
 
-      <p><strong>Four Necrosis Feats:</strong> As a full-round action, you can
-      reverse your reaction to positive and negative energy for 24 hours without
-      spending a spell point. Using this ability again while it is active still
-      returns to your normal state.</p>
+      <p><strong>Four Necrosis Feats:</strong> As a full-round action, you can reverse your reaction to
+      positive and negative energy for 24 hours without spending a spell point. Using this ability again
+      while it is active still returns to your normal state.</p>
+
+      "
   disabled: false
   duration:
     units: ""

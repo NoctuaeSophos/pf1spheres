@@ -55,7 +55,13 @@ system:
     noMediumEncumbrance: false
     seeInDarkness: false
     seeInvisibility: false
-  changes: []
+  changes:
+    - _id: geu5z9e3q7k3hgsl
+      formula: "1"
+      operator: add
+      target: spellPoints
+      type: untyped
+      priority: 0
   classSkills: {}
   contextNotes: []
   crOffset: ""
@@ -67,22 +73,21 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Your emotional and reflex responses fade, allowing you to shrug off
-      distracting conditions.</p>
+    value:
+      "<p>Your emotional and reflex responses fade, allowing you to shrug off distracting conditions.</p>
 
       <p><strong>Prerequisite:</strong> Death sphere.</p>
 
-      <p><strong>Benefit:</strong> You gain +1 spell point. You can spend a
-      spell point as an immediate action to gain a +2 bonus to saving throws
-      against bleed, death effects, disease, energy drain, exhaustion, fatigue,
-      mind-affecting effects, paralysis, poison, sleep effects, and stunning for
-      1 round. For each necrosis feat you possess beyond this one, the bonus and
-      duration increase by 1.</p>
+      <p><strong>Benefit:</strong> You gain +1 spell point. You can spend a spell point as an immediate
+      action to gain a +2 bonus to saving throws against bleed, death effects, disease, energy drain,
+      exhaustion, fatigue, mind-affecting effects, paralysis, poison, sleep effects, and stunning for
+      1 round. For each necrosis feat you possess beyond this one, the bonus and duration increase by
+      1.</p>
 
-      <p><strong>Four Necrosis Feats:</strong> When you use this feat, you also
-      gain a new saving throw against one of the above effects currently
-      affecting you (your choice).</p>
+      <p><strong>Four Necrosis Feats:</strong> When you use this feat, you also gain a new saving throw
+      against one of the above effects currently affecting you (your choice).</p>
+
+      "
   disabled: false
   duration:
     units: ""

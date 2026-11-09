@@ -55,7 +55,13 @@ system:
     noMediumEncumbrance: false
     seeInDarkness: false
     seeInvisibility: false
-  changes: []
+  changes:
+    - _id: fb9mdggo3rw8e65c
+      formula: "1"
+      operator: add
+      target: spellPoints
+      type: untyped
+      priority: 0
   classSkills: {}
   contextNotes: []
   crOffset: ""
@@ -67,23 +73,22 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Your blood flow slows and heartbeat grows erratic without significant
-      harm to you, increasing your ability to survive freezing temperatures and
-      electric shocks.</p>
+    value:
+      "<p>Your blood flow slows and heartbeat grows erratic without significant harm to you, increasing
+      your ability to survive freezing temperatures and electric shocks.</p>
 
       <p><strong>Prerequisite:</strong> Death sphere.</p>
 
-      <p><strong>Benefit:</strong> You gain +1 spell point. You can spend a
-      spell point as an immediate action to gain cold resistance 5 and
-      electricity resistance 5 for 1 round. For each necrosis feat you possess
-      beyond this one, the cold and electricity resistances increase by 5 and
-      the duration increases by 1 round.</p>
+      <p><strong>Benefit:</strong> You gain +1 spell point. You can spend a spell point as an immediate
+      action to gain cold resistance 5 and electricity resistance 5 for 1 round. For each necrosis feat
+      you possess beyond this one, the cold and electricity resistances increase by 5 and the duration
+      increases by 1 round.</p>
 
-      <p><strong>Four Necrosis Feats:</strong> You always have cold resistance
-      10 and electricity resistance 10, and when you spend a spell point, you
-      gain immunity to cold and electricity for a number of rounds equal to the
-      number of necrosis feats you possess.</p>
+      <p><strong>Four Necrosis Feats:</strong> You always have cold resistance 10 and electricity resistance
+      10, and when you spend a spell point, you gain immunity to cold and electricity for a number of
+      rounds equal to the number of necrosis feats you possess.</p>
+
+      "
   disabled: false
   duration:
     units: ""

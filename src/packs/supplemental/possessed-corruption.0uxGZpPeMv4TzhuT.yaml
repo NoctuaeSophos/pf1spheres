@@ -1,0 +1,107 @@
+_id: 0uxGZpPeMv4TzhuT
+_key: "!items!0uxGZpPeMv4TzhuT"
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Possessed (corruption)
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: su
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ""
+  attackName: ""
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ""
+  critConfirmBonus: ""
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ""
+    unidentified: ""
+    value: '<p>An evil spirit shares your body. It starts each day with 1 influence
+      at sunrise and gains 1 more whenever you rest or become confused, dazed, frightened,
+      panicked or stunned; you lose any immunity to those conditions.</p><p>When it
+      reaches 5 influence, attempt a Will save (DC 15 + your manifestation level,
+      +2 for each earlier attempt that day). On a failure the corruption advances:
+      at stage 1 your alignment shifts toward the spirit''s and it controls you until
+      sunrise; at stage 2 your alignment changes; at stage 3 you become an NPC.</p><p>You
+      gain manifestations as your corruption grows, roughly one every 2 levels.</p><p><em>Source:
+      Pathfinder RPG Horror Adventures.</em> <a href="https://aonprd.com/CorruptionsDisplay.aspx?ItemName=Possessed">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ""
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ""
+  formulaicAttacks:
+    bonus:
+      formula: ""
+    count:
+      formula: ""
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ""
+    type: ""
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ""
+  subType: misc
+  summons: false
+  tag: ""
+  tags:
+    - Corruption
+  target:
+    value: ""
+  traitCategory: ""
+  traitType: ""
+  uses:
+    autoDeductChargesCost: "1"
+    maxFormula: "5"
+    per: day
+    rechargeFormula: ""
+    value: 0
+  weaponProf: []
+type: feat

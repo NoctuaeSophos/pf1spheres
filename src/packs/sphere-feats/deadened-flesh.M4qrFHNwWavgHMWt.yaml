@@ -55,7 +55,13 @@ system:
     noMediumEncumbrance: false
     seeInDarkness: false
     seeInvisibility: false
-  changes: []
+  changes:
+    - _id: w7vhkfc7r28z9jp5
+      formula: "1"
+      operator: add
+      target: spellPoints
+      type: untyped
+      priority: 0
   classSkills: {}
   contextNotes: []
   crOffset: ""
@@ -67,21 +73,19 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Your nerves fail, increasing your pain tolerance and general
-      resilience.</p>
+    value: "<p>Your nerves fail, increasing your pain tolerance and general resilience.</p>
 
       <p><strong>Prerequisite:</strong> Death sphere.</p>
 
-      <p><strong>Benefit:</strong> You gain +1 spell point. You can spend a
-      spell point as an immediate action to gain a +1 bonus to natural armor and
-      DR/- for 1 round. For each necrosis feat you possess beyond this one, the
-      natural armor bonus and damage reduction increase by 1 and the duration
-      increases by 1 round.</p>
+      <p><strong>Benefit:</strong> You gain +1 spell point. You can spend a spell point as an immediate
+      action to gain a +1 bonus to natural armor and DR/- for 1 round. For each necrosis feat you possess
+      beyond this one, the natural armor bonus and damage reduction increase by 1 and the duration increases
+      by 1 round.</p>
 
-      <p><strong>Four Necrosis Feats:</strong> You gain half the normal benefit
-      of this feat at all times (increasing to the full benefit when you spend a
-      spell point).</p>
+      <p><strong>Four Necrosis Feats:</strong> You gain half the normal benefit of this feat at all times
+      (increasing to the full benefit when you spend a spell point).</p>
+
+      "
   disabled: false
   duration:
     units: ""
