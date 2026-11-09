@@ -6,9 +6,34 @@ flags:
   pf1spheres:
     automation:
       5WdFuSEdKHoVPtOp:
-        condSp:
-          BfsVgBson1bRZrrV: 1
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: allies
+        buff:
+          itemId: tpl:totem-of-the-war-dance
+          sphere: war
+        sp: "1"
     sphere: war
+    buffTemplates:
+      totem-of-the-war-dance:
+        name: Totem of the War Dance
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Spend your move action to give another ally an immediate extra move
+          action (they can't leave the totem; at most 2 donors per ally per round), or swap places with
+          an adjacent ally as a move action without provoking.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Totem of the War Dance: give your move action to an ally inside, or swap places with
+              an adjacent ally as a move action"
+            target: allSpeeds
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of The War Dance
@@ -24,18 +49,20 @@ system:
   acquired: false
   actions:
     - _id: 5WdFuSEdKHoVPtOp
-      name: Totem Of The War Dance
+      name: Totem of the War Dance
       actionType: other
       activation:
         type: standard
         unchained:
           cost: 2
           type: action
-      conditionals:
-        - _id: BfsVgBson1bRZrrV
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+      conditionals: []
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -65,18 +92,17 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You must spend a spell point to create a totem of the war dance. You
-      and your allies may use your move actions to allow other allies to move.
-      The giving character cannot move (or take a 5-feet step), while the
-      receiving ally gets another move action to spend. This extra move action
-      must be used immediately and can only be used with a movement ability.
-      They may not leave the area of the totem during this move. Their actions
-      provoke attacks of opportunity normally. No single ally can be moved by
-      more than 2 allies until their next turn has occurred. Any ally may swap
-      places with an adjacent ally as a move action. This does not provoke
-      attacks of opportunity. Both allies must be capable of moving for this to
-      work.</p>
+    value:
+      "<p>You must spend a spell point to create a totem of the war dance. You and your allies may
+      use your move actions to allow other allies to move. The giving character cannot move (or take a
+      5-feet step), while the receiving ally gets another move action to spend. This extra move action
+      must be used immediately and can only be used with a movement ability. They may not leave the area
+      of the totem during this move. Their actions provoke attacks of opportunity normally. No single
+      ally can be moved by more than 2 allies until their next turn has occurred. Any ally may swap places
+      with an adjacent ally as a move action. This does not provoke attacks of opportunity. Both allies
+      must be capable of moving for this to work.</p>
+
+      "
   disabled: false
   duration:
     units: ""

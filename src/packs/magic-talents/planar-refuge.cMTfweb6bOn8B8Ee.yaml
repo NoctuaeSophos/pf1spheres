@@ -5,6 +5,49 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      hALTdVakCMO0D58d:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+        buff:
+          itemId: tpl:ward-planar-refuge
+          sphere: protection
+      LVBVqGXQq4yLwNGU:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-planar-refuge
+          sphere: protection
+    buffTemplates:
+      ward-planar-refuge:
+        name: Planar Refuge (Ward)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Ward: Immunity to harmful environmental effects and harmful planar traits (extreme
+          temperatures, toxicity, lack of air) inside; beneficial planar traits still apply.</p>"
+        changes: []
+        contextNotes:
+          - text: "Planar Refuge: immune to harmful environment and planar traits"
+            target: allSavingThrows
+      aegis-planar-refuge:
+        name: "Aegis: Planar Refuge"
+        img: icons/svg/ice-aura.svg
+        description: "<p>Aegis: Immunity to harmful environmental effects and harmful planar traits.</p>"
+        changes: []
+        contextNotes:
+          - text: "Planar Refuge: immune to harmful environment and planar traits"
+            target: allSavingThrows
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Planar Refuge
@@ -18,7 +61,32 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: hALTdVakCMO0D58d
+      name: Planar Refuge (Ward)
+      actionType: other
+      img: ""
+      activation: &id001
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
+    - _id: LVBVqGXQq4yLwNGU
+      name: Planar Refuge (Aegis)
+      actionType: other
+      img: ""
+      activation: *id001
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,26 +116,22 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Your magics create refuge against the dangers of space and planes
-      unknown.</p>
+    value: "<p>Your magics create refuge against the dangers of space and planes unknown.</p>
 
-      <p><strong>Prerequisites:</strong> Protection sphere, caster level
-      5th.</p>
+      <p><strong>Prerequisites:</strong> Protection sphere, caster level 5th.</p>
 
-      <p>You may create a ward that protects against and grants immunity to
-      harmful environmental effects, such as extreme temperatures, toxicity, and
-      lack of air. This includes immunity and protection against planar traits
-      (such as alignment, energy, magic, and time traits) which would harm or
-      weaken a creature inside its radius, but does not negate any benefits of
-      the planar trait. This does not protect against environmental effects not
-      native to the plane and not caused by a planar trait, such as magical
+      <p>You may create a ward that protects against and grants immunity to harmful environmental effects,
+      such as extreme temperatures, toxicity, and lack of air. This includes immunity and protection against
+      planar traits (such as alignment, energy, magic, and time traits) which would harm or weaken a creature
+      inside its radius, but does not negate any benefits of the planar trait. This does not protect against
+      environmental effects not native to the plane and not caused by a planar trait, such as magical
       weather created with the Weather sphere.</p>
 
-      <p>If you possess the Breathless (aegis) talent, when you grant an aegis
-      with the Breathless (aegis) talent, the granted aegis also provides this
-      talent&#8217;s immunities and protections against environmental and planar
-      traits.</p>
+      <p>If you possess the Breathless (aegis) talent, when you grant an aegis with the Breathless (aegis)
+      talent, the granted aegis also provides this talent&#8217;s immunities and protections against environmental
+      and planar traits.</p>
+
+      "
   disabled: false
   duration:
     units: ""

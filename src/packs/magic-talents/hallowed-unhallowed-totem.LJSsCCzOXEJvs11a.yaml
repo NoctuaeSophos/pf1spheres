@@ -5,6 +5,54 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: war
+    automation:
+      Cmi06W4OqRGbXZUw:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: all
+        buff:
+          itemId: tpl:hallowed-totem
+          sphere: war
+      8GaIkABh163ljCOM:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: all
+        buff:
+          itemId: tpl:unhallowed-totem
+          sphere: war
+    buffTemplates:
+      hallowed-totem:
+        name: Hallowed Totem
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Creatures here take a -1 penalty (-1 more per 10 caster levels) on
+          saves against channeled positive energy and positive energy effects.</p>"
+        changes: []
+        contextNotes:
+          - text: "Hallowed Totem: -[[1 + floor(@item.level / 10)]] on saves against positive energy"
+            target: allSavingThrows
+      unhallowed-totem:
+        name: Unhallowed Totem
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Creatures here take a -1 penalty (-1 more per 10 caster levels) on
+          saves against channeled negative energy and negative energy effects.</p>"
+        changes: []
+        contextNotes:
+          - text: "Unhallowed Totem: -[[1 + floor(@item.level / 10)]] on saves against negative energy"
+            target: allSavingThrows
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Hallowed/Unhallowed Totem
@@ -18,7 +66,33 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Cmi06W4OqRGbXZUw
+      name: Hallowed Totem
+      actionType: other
+      img: ""
+      activation: &id001
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
+    - _id: 8GaIkABh163ljCOM
+      name: Unhallowed Totem
+      actionType: other
+      img: ""
+      activation: *id001
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -48,18 +122,17 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create either a hallowed or unhallowed totem. If creating a
-      hallowed totem, all creatures within the area of this totem suffer a -1
-      penalty to saving throws made to resist channeled positive energy and
-      positive energy effects such as cure spells and Life sphere effects. This
-      penalty increases by 1 for every 10 caster levels. If creating an
-      unhallowed totem, this penalty instead applies to channeled negative
-      energy and negative energy effects, such as inflict spells and Death
-      sphere effects. If you place a hallowed totem in a location that already
-      has an unhallowed totem present or vice versa, you must succeed at a magic
-      skill check to place your totem. On a success, the two totems cancel each
-      other, leaving neither hallowed totem nor unhallowed totem in place.</p>
+    value:
+      "<p>You may create either a hallowed or unhallowed totem. If creating a hallowed totem, all
+      creatures within the area of this totem suffer a -1 penalty to saving throws made to resist channeled
+      positive energy and positive energy effects such as cure spells and Life sphere effects. This penalty
+      increases by 1 for every 10 caster levels. If creating an unhallowed totem, this penalty instead
+      applies to channeled negative energy and negative energy effects, such as inflict spells and Death
+      sphere effects. If you place a hallowed totem in a location that already has an unhallowed totem
+      present or vice versa, you must succeed at a magic skill check to place your totem. On a success,
+      the two totems cancel each other, leaving neither hallowed totem nor unhallowed totem in place.</p>
+
+      "
   disabled: false
   duration:
     units: ""

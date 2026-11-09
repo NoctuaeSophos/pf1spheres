@@ -5,6 +5,34 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      l9zV0JVfk2LfaroI:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-destructionless
+          sphere: protection
+    buffTemplates:
+      aegis-destructionless:
+        name: "Aegis: Destructionless"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: +4 morale to AC and saves against rays, evocation, Destruction sphere
+          effects, breath weapons and elementals.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Destructionless: +4 morale on saves against rays, evocation, Destruction sphere, breath
+              weapons and elementals"
+            target: allSavingThrows
+          - text:
+              "Destructionless: +4 morale AC against rays, evocation, Destruction sphere, breath weapons
+              and elementals"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Destructionless
@@ -18,7 +46,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: l9zV0JVfk2LfaroI
+      name: Destructionless Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,11 +90,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that protects against direct magical attacks.
-      This grants a +4 morale bonus to AC and saving throws against ray attacks,
-      effects from the evocation magic school or the Destruction sphere, breath
-      weapons, as well as attacks and effects originating from elementals.</p>
+    value:
+      "<p>You may create an aegis that protects against direct magical attacks. This grants a +4
+      morale bonus to AC and saving throws against ray attacks, effects from the evocation magic school
+      or the Destruction sphere, breath weapons, as well as attacks and effects originating from elementals.</p>
+
+      "
   disabled: false
   duration:
     units: ""

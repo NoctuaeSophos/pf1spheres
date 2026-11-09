@@ -5,6 +5,31 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: war
+    automation:
+      As2MXl3dPw5D6mNc:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: enemies
+        buff:
+          itemId: tpl:what-is-it-good-for
+          sphere: war
+    buffTemplates:
+      what-is-it-good-for:
+        name: What Is It Good For?
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Enemies gain no attack or AC bonuses from battlefield positioning
+          such as flanking, higher ground or cover.</p>"
+        changes: []
+        contextNotes:
+          - text: "What Is It Good For?: no flanking, higher ground or cover bonuses"
+            target: attack
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: What Is It Good For?
@@ -18,7 +43,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: As2MXl3dPw5D6mNc
+      name: What Is It Good For?
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -48,10 +88,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You create a totem that amplifies the futility of war. Enemies within
-      this totem do not gain bonuses to attack rolls or to AC due to battlefield
-      positioning, such as flanking, higher ground, or cover.</p>
+    value:
+      "<p>You create a totem that amplifies the futility of war. Enemies within this totem do not
+      gain bonuses to attack rolls or to AC due to battlefield positioning, such as flanking, higher ground,
+      or cover.</p>
+
+      "
   disabled: false
   duration:
     units: ""

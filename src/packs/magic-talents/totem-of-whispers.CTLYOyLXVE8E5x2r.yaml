@@ -5,6 +5,40 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: war
+    automation:
+      N2jGqnn3ODmxqoox:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: enemies
+        buff:
+          itemId: tpl:totem-of-whispers
+          sphere: war
+    buffTemplates:
+      totem-of-whispers:
+        name: Totem of Whispers
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: -1 on concentration and listening Perception checks, -1 more per 2
+          caster levels; abilities needing speech have a 10% (+5% per 5 caster levels) failure chance
+          unless a Perform (oratory) check beats 10 + the caster level. Deaf creatures ignore the penalties.</p>"
+        changes:
+          - formula: -(1 + floor(@item.level / 2))
+            target: concentration
+            type: untyped
+            operator: add
+        contextNotes:
+          - text: "Totem of Whispers: -[[1 + floor(@item.level / 2)]] on Perception to listen"
+            target: skills
+          - text:
+              "Totem of Whispers: abilities needing speech fail [[10 + 5 * floor(@item.level / 5)]]%
+              of the time unless Perform (oratory) beats DC [[10 + @item.level]]"
+            target: concentration
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Whispers
@@ -18,7 +52,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: N2jGqnn3ODmxqoox
+      name: Totem of Whispers
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -48,19 +97,18 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>The area of your totem is filled with quiet voices that distract and
-      unnerve your enemies. Enemies take a -1 penalty to their concentration
-      checks and Perception checks involving listening. This increases by -1 for
-      every 2 caster levels you possess.</p>
+    value:
+      "<p>The area of your totem is filled with quiet voices that distract and unnerve your enemies.
+      Enemies take a -1 penalty to their concentration checks and Perception checks involving listening.
+      This increases by -1 for every 2 caster levels you possess.</p>
 
-      <p>This does not work against deaf enemies, or enemies in an environment
-      where it is difficult to hear. The whispers also interfere with using
-      abilities that require speaking - such an ability has a 10% chance of
-      failing when used plus 5% per 5 caster levels, even if the user is deaf.
-      Whenever a creature uses such an ability, they can attempt a Perform
-      (oratory) as part of the action required to activate the ability with a DC
-      of 10 + your caster level to negate this effect.</p>
+      <p>This does not work against deaf enemies, or enemies in an environment where it is difficult to
+      hear. The whispers also interfere with using abilities that require speaking - such an ability has
+      a 10% chance of failing when used plus 5% per 5 caster levels, even if the user is deaf. Whenever
+      a creature uses such an ability, they can attempt a Perform (oratory) as part of the action required
+      to activate the ability with a DC of 10 + your caster level to negate this effect.</p>
+
+      "
   disabled: false
   duration:
     units: ""

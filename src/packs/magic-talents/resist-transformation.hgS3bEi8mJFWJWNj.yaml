@@ -5,6 +5,30 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      Zu13UyNlobuxbAbS:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-resist-transformation
+          sphere: protection
+    buffTemplates:
+      aegis-resist-transformation:
+        name: "Aegis: Resist Transformation"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: +4 morale on saves against polymorph, Enhancement and Alteration sphere
+          effects, alter ability, transmutation, and lycanthropes and shapeshifters.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Resist Transformation: +4 morale on saves against polymorph, Enhancement and Alteration
+              spheres, transmutation and shapeshifters"
+            target: allSavingThrows
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Resist Transformation
@@ -18,7 +42,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Zu13UyNlobuxbAbS
+      name: Resist Transformation Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,14 +86,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that holds the target&#8217;s shape together.
-      This grants the subject a +4 morale bonus on saves against polymorph
-      effects, Enhancement and Alteration sphere effects, effects from the alter
-      ability from the Creation sphere, and spells from the transmutation
-      school, as well as to saving throws against spell, spell-like, and
-      supernatural abilities of lycanthropes and creatures with the shapeshifter
-      subtype.</p>
+    value:
+      "<p>You may create an aegis that holds the target&#8217;s shape together. This grants the subject
+      a +4 morale bonus on saves against polymorph effects, Enhancement and Alteration sphere effects,
+      effects from the alter ability from the Creation sphere, and spells from the transmutation school,
+      as well as to saving throws against spell, spell-like, and supernatural abilities of lycanthropes
+      and creatures with the shapeshifter subtype.</p>
+
+      "
   disabled: false
   duration:
     units: ""

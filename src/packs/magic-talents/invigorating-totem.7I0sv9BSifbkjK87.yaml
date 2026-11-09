@@ -5,6 +5,29 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: war
+    automation:
+      1I5WsAEdDGtJYDfz:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: allies
+        buff:
+          itemId: tpl:invigorating-totem
+          sphere: war
+    buffTemplates:
+      invigorating-totem:
+        name: Invigorating Totem
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: At the end of the caster's turn you gain 1 temporary hit point (+1
+          per 5 caster levels), stacking up to the caster level; they vanish when you leave the totem.</p>"
+        changes: []
+        contextNotes: []
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Invigorating Totem
@@ -18,7 +41,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 1I5WsAEdDGtJYDfz
+      name: Invigorating Totem
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -48,12 +86,13 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You and your allies gain 1 temporary hit point per round at the end of
-      your turn, +1 per 5 caster levels. These temporary hit points stack with
-      themselves, to a maximum number of temporary hit points equal to your
-      caster level. These temporary hit points only remain as long as you remain
+    value:
+      "<p>You and your allies gain 1 temporary hit point per round at the end of your turn, +1 per
+      5 caster levels. These temporary hit points stack with themselves, to a maximum number of temporary
+      hit points equal to your caster level. These temporary hit points only remain as long as you remain
       within the area of effect of this totem.</p>
+
+      "
   disabled: false
   duration:
     units: ""

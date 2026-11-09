@@ -106,6 +106,13 @@ export const onRenderActionSheet = (app, html) => {
       <div class="form-group"><label>${loc("ZoneAt")}</label>
         <div class="form-fields"><select data-pf1s="zone.at">${opt("", loc("ZoneAtSelf"), a.zone?.at)}${opt("template", loc("ZoneAtTemplate"), a.zone?.at)}</select></div>
         <p class="hint">${loc("ZoneAtHint")}</p></div>
+      <div class="form-group"><label>${loc("ZoneAlign")}</label>
+        <div class="form-fields"><select data-pf1s="zone.align">${opt("", loc("AlignAny"), a.zone?.align)}${["good", "evil", "lawful", "chaotic", "neutral"].map((k) => opt(k, loc(`Align${k[0].toUpperCase()}${k.slice(1)}`), a.zone?.align)).join("")}</select></div></div>
+      <div class="form-group"><label>${loc("ZoneCross")}</label>
+        <div class="form-fields"><select data-pf1s="zone.cross">${opt("", loc("ZoneCrossNone"), a.zone?.cross)}${opt("enter", loc("ZoneCrossEnter"), a.zone?.cross)}${opt("both", loc("ZoneCrossBoth"), a.zone?.cross)}</select></div></div>
+      <div class="form-group"><label>${loc("ZoneCrossNote")}</label>
+        <div class="form-fields"><input type="text" data-pf1s="zone.crossNote" value="${esc(a.zone?.crossNote)}"></div>
+        <p class="hint">${loc("ZoneCrossHint")}</p></div>
 
       <h3 class="form-header">${loc("Mark")}</h3>
       <div class="form-group"><label>${loc("MarkLabel")}</label>

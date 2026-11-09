@@ -8,7 +8,42 @@ flags:
       tKHuHpbHhmRmzcfL:
         condSp:
           ETxZYdMlfeLJJ9bX: 1
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+          cross: enter
+          crossNote:
+            A summoned creature must beat MSD [[@spheres.msd.total]] with its summoner's magic
+            skill check or it can't enter; magic used inside or targeted into it needs the same check.
+        sp: "1"
+      bOhsjyzUWSybJN55:
+        sp: "2"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-spell-ward
+          sphere: protection
     sphere: protection
+    buffTemplates:
+      aegis-spell-ward:
+        name: "Aegis: Spell Ward"
+        img: icons/svg/ice-aura.svg
+        description: "<p>Aegis: Spell resistance 10 + caster level.</p>"
+        changes:
+          - formula: 10 + @item.level
+            target: spellResist
+            type: untyped
+            operator: add
+        contextNotes: []
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Spell Ward
@@ -24,7 +59,7 @@ system:
   acquired: false
   actions:
     - _id: tKHuHpbHhmRmzcfL
-      name: Spell Ward
+      name: Spell Ward (Ward)
       actionType: other
       activation:
         type: standard
@@ -36,6 +71,26 @@ system:
           name: Spend 1 spell point
           default: true
           modifiers: []
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
+    - _id: bOhsjyzUWSybJN55
+      name: Spell Ward (Aegis)
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -65,23 +120,22 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may spend a spell point to create a ward that represses all magic
-      within its area of effect. Attempt one magic skill check against each
-      magical effect, magic item, or summoned creature within the area. Magic
-      items have a MSD of 10 + their caster level. If your check exceeds the MSD
-      of the magical effect, item, or caster who summoned the creature, the
-      effect is suppressed, the magic item ceases to function, or the summoned
-      creature temporarily disappears. Time spent suppressed counts toward a
-      magical effect&#8217;s total duration. Any caster attempting to use a
-      magical ability in or targeted within this area, or any summoned creature
-      attempting to enter this area, must attempt a magic skill check against
-      your MSD. On a success, the magical effect is unimpeded, and the summoned
-      creature is not banished by that Spell Ward. This counts as an antimagic
-      field for effects that interact with them.</p>
+    value:
+      "<p>You may spend a spell point to create a ward that represses all magic within its area of
+      effect. Attempt one magic skill check against each magical effect, magic item, or summoned creature
+      within the area. Magic items have a MSD of 10 + their caster level. If your check exceeds the MSD
+      of the magical effect, item, or caster who summoned the creature, the effect is suppressed, the
+      magic item ceases to function, or the summoned creature temporarily disappears. Time spent suppressed
+      counts toward a magical effect&#8217;s total duration. Any caster attempting to use a magical ability
+      in or targeted within this area, or any summoned creature attempting to enter this area, must attempt
+      a magic skill check against your MSD. On a success, the magical effect is unimpeded, and the summoned
+      creature is not banished by that Spell Ward. This counts as an antimagic field for effects that
+      interact with them.</p>
 
-      <p>You may also spend 2 spell points instead of 1 to create an aegis that
-      grants the target spell resistance equal to 10 + your caster level.</p>
+      <p>You may also spend 2 spell points instead of 1 to create an aegis that grants the target spell
+      resistance equal to 10 + your caster level.</p>
+
+      "
   disabled: false
   duration:
     units: ""

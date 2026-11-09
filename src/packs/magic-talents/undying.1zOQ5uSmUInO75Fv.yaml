@@ -5,6 +5,30 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      u82he6Gbs3NNzK2Z:
+        sp: "2"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-undying
+          sphere: protection
+    buffTemplates:
+      aegis-undying:
+        name: "Aegis: Undying"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: As Deathless, plus immunity to energy drain and negative energy; existing
+          negative level penalties are suppressed.</p>"
+        changes: []
+        contextNotes:
+          - text: "Undying: +4 morale on saves against death effects and harmful healing"
+            target: allSavingThrows
+          - text: "Undying: immune to energy drain and negative energy"
+            target: allSavingThrows
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Undying
@@ -18,7 +42,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: u82he6Gbs3NNzK2Z
+      name: Undying Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,21 +86,19 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p><strong>Prerequisites:</strong> Protection sphere (Deathless (aegis)),
-      caster level 7th.</p>
+    value:
+      "<p><strong>Prerequisites:</strong> Protection sphere (Deathless (aegis)), caster level 7th.</p>
 
-      <p>When you create a Deathless aegis, you may spend an additional spell
-      point to create an Undying aegis instead. In addition to the effects of
-      the Deathless aegis, the subject is immune to energy drain and any
-      negative energy effects, including channeled negative energy.</p>
+      <p>When you create a Deathless aegis, you may spend an additional spell point to create an Undying
+      aegis instead. In addition to the effects of the Deathless aegis, the subject is immune to energy
+      drain and any negative energy effects, including channeled negative energy.</p>
 
-      <p>This aegis does not remove negative levels that the subject has already
-      gained, but it does remove the penalties from negative levels for the
-      duration of its effect.</p>
+      <p>This aegis does not remove negative levels that the subject has already gained, but it does remove
+      the penalties from negative levels for the duration of its effect.</p>
 
-      <p>This aegis does not protect against other sorts of attacks, even if
-      those attacks might be lethal.</p>
+      <p>This aegis does not protect against other sorts of attacks, even if those attacks might be lethal.</p>
+
+      "
   disabled: false
   duration:
     units: ""

@@ -6,9 +6,34 @@ flags:
   pf1spheres:
     automation:
       KyvmJf70So0oKzNi:
-        condSp:
-          if1POPPctBWoHTux: 1
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: all
+        buff:
+          itemId: tpl:totem-of-tenuous-mortality
+          sphere: war
+        sp: "1"
     sphere: war
+    buffTemplates:
+      totem-of-tenuous-mortality:
+        name: Totem of Tenuous Mortality
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: An enemy brought to 0 hp or fewer here must make a Fortitude save
+          or die (death effect). Allies at negative hit points gain regeneration (acid or fire) equal
+          to half the caster level (minimum 1).</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Totem of Tenuous Mortality (enemies): at 0 hp or fewer, Fortitude DC [[10 + floor(@spheres.cl.war.total
+              / 2) + @spheres.cam]] or die"
+            target: fort
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Tenuous Mortality
@@ -24,7 +49,7 @@ system:
   acquired: false
   actions:
     - _id: KyvmJf70So0oKzNi
-      name: Totem Of Tenuous Mortality
+      name: Totem of Tenuous Mortality
       actionType: save
       activation:
         type: standard
@@ -35,11 +60,13 @@ system:
         type: fort
         dc: 10 + floor(@spheres.cl.war.total / 2) + @spheres.cam
         description: ""
-      conditionals:
-        - _id: if1POPPctBWoHTux
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+      conditionals: []
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -69,18 +96,17 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p><strong>Prerequisites:</strong> War sphere, caster level 5th.</p>
+    value: "<p><strong>Prerequisites:</strong> War sphere, caster level 5th.</p>
 
-      <p>You must spend a spell point to create a totem of tenuous mortality.
-      Whenever an enemy within this totem&#8217;s area would be reduced to 0 hit
-      points or fewer, they must succeed at a Fortitude saving throw or
-      instantly die. This is a death effect. Additionally, allies within this
-      totem&#8217;s area gain regeneration (acid or fire) equal to 1/2 your
-      caster level (minimum 1), but only when they are at a negative hit point
-      total. Creatures that possess abilities that allow them to stay conscious
-      at 0 or fewer hit points still fall unconscious if they would normally die
-      from the amount of damage they have received.</p>
+      <p>You must spend a spell point to create a totem of tenuous mortality. Whenever an enemy within
+      this totem&#8217;s area would be reduced to 0 hit points or fewer, they must succeed at a Fortitude
+      saving throw or instantly die. This is a death effect. Additionally, allies within this totem&#8217;s
+      area gain regeneration (acid or fire) equal to 1/2 your caster level (minimum 1), but only when
+      they are at a negative hit point total. Creatures that possess abilities that allow them to stay
+      conscious at 0 or fewer hit points still fall unconscious if they would normally die from the amount
+      of damage they have received.</p>
+
+      "
   disabled: false
   duration:
     units: ""

@@ -6,9 +6,162 @@ flags:
   pf1spheres:
     automation:
       fEv8bXkJ2wigMjyw:
-        condSp:
-          RF351f9K9mzwFWyr: 1
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: all
+          align: good
+        buff:
+          itemId: tpl:totem-of-allegiance-good
+          sphere: war
+        sp: "1"
+      nepKG6OJxX6b4SYD:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: all
+          align: evil
+        buff:
+          itemId: tpl:totem-of-allegiance-evil
+          sphere: war
+        sp: "1"
+      ufSHmkotYLLso7Pw:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: all
+          align: lawful
+        buff:
+          itemId: tpl:totem-of-allegiance-lawful
+          sphere: war
+        sp: "1"
+      x2MzM8HpH0pe6v4Y:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: all
+          align: chaotic
+        buff:
+          itemId: tpl:totem-of-allegiance-chaotic
+          sphere: war
+        sp: "1"
+      itR0vVROdRoYz92b:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: all
+          align: neutral
+        buff:
+          itemId: tpl:totem-of-allegiance-neutral
+          sphere: war
+        sp: "1"
     sphere: war
+    buffTemplates:
+      totem-of-allegiance-good:
+        name: Totem of Allegiance (Good)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Creatures that are good take a +1 circumstance bonus on attack rolls
+          and saving throws, +1 more per 10 caster levels.</p>"
+        changes:
+          - formula: 1 + floor(@item.level / 10)
+            target: attack
+            type: circumstance
+            operator: add
+          - formula: 1 + floor(@item.level / 10)
+            target: allSavingThrows
+            type: circumstance
+            operator: add
+        contextNotes: []
+      totem-of-allegiance-evil:
+        name: Totem of Allegiance (Evil)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Creatures that are evil take a +1 circumstance bonus on attack rolls
+          and saving throws, +1 more per 10 caster levels.</p>"
+        changes:
+          - formula: 1 + floor(@item.level / 10)
+            target: attack
+            type: circumstance
+            operator: add
+          - formula: 1 + floor(@item.level / 10)
+            target: allSavingThrows
+            type: circumstance
+            operator: add
+        contextNotes: []
+      totem-of-allegiance-lawful:
+        name: Totem of Allegiance (Lawful)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Creatures that are lawful take a +1 circumstance bonus on attack rolls
+          and saving throws, +1 more per 10 caster levels.</p>"
+        changes:
+          - formula: 1 + floor(@item.level / 10)
+            target: attack
+            type: circumstance
+            operator: add
+          - formula: 1 + floor(@item.level / 10)
+            target: allSavingThrows
+            type: circumstance
+            operator: add
+        contextNotes: []
+      totem-of-allegiance-chaotic:
+        name: Totem of Allegiance (Chaotic)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Creatures that are chaotic take a +1 circumstance bonus on attack
+          rolls and saving throws, +1 more per 10 caster levels.</p>"
+        changes:
+          - formula: 1 + floor(@item.level / 10)
+            target: attack
+            type: circumstance
+            operator: add
+          - formula: 1 + floor(@item.level / 10)
+            target: allSavingThrows
+            type: circumstance
+            operator: add
+        contextNotes: []
+      totem-of-allegiance-neutral:
+        name: Totem of Allegiance (Neutral)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Creatures that are true neutral take a +1 circumstance bonus on attack
+          rolls and saving throws, +1 more per 10 caster levels.</p>"
+        changes:
+          - formula: 1 + floor(@item.level / 10)
+            target: attack
+            type: circumstance
+            operator: add
+          - formula: 1 + floor(@item.level / 10)
+            target: allSavingThrows
+            type: circumstance
+            operator: add
+        contextNotes: []
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Allegiance
@@ -24,18 +177,72 @@ system:
   acquired: false
   actions:
     - _id: fEv8bXkJ2wigMjyw
-      name: Totem Of Allegiance
+      name: Totem of Allegiance (Good)
       actionType: other
       activation:
         type: standard
         unchained:
           cost: 2
           type: action
-      conditionals:
-        - _id: RF351f9K9mzwFWyr
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+      conditionals: []
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
+    - _id: nepKG6OJxX6b4SYD
+      name: Totem of Allegiance (Evil)
+      actionType: other
+      img: ""
+      activation: &id001
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
+      conditionals: []
+    - _id: ufSHmkotYLLso7Pw
+      name: Totem of Allegiance (Lawful)
+      actionType: other
+      img: ""
+      activation: *id001
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
+      conditionals: []
+    - _id: x2MzM8HpH0pe6v4Y
+      name: Totem of Allegiance (Chaotic)
+      actionType: other
+      img: ""
+      activation: *id001
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
+      conditionals: []
+    - _id: itR0vVROdRoYz92b
+      name: Totem of Allegiance (Neutral)
+      actionType: other
+      img: ""
+      activation: *id001
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
+      conditionals: []
   armorProf: []
   associations:
     classes: []
@@ -65,17 +272,17 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You must spend a spell point to create a totem of allegiance. Choose an
-      end of the alignment spectrum (chaotic, evil, good, or lawful) when you
-      create this totem. Creatures within the area of this totem who possess
-      that alignment gain a +1 circumstance bonus to all saving throws and
-      attack rolls. This bonus increases by 1 per 10 caster levels.</p>
+    value:
+      "<p>You must spend a spell point to create a totem of allegiance. Choose an end of the alignment
+      spectrum (chaotic, evil, good, or lawful) when you create this totem. Creatures within the area
+      of this totem who possess that alignment gain a +1 circumstance bonus to all saving throws and attack
+      rolls. This bonus increases by 1 per 10 caster levels.</p>
 
-      <p>You must select an alignment that you possess. If you are true neutral,
-      you may select neutrality with this totem. This only benefits true neutral
-      creatures; chaotic neutral, lawful neutral, neutral evil, and neutral good
-      creatures are unaffected.</p>
+      <p>You must select an alignment that you possess. If you are true neutral, you may select neutrality
+      with this totem. This only benefits true neutral creatures; chaotic neutral, lawful neutral, neutral
+      evil, and neutral good creatures are unaffected.</p>
+
+      "
   disabled: false
   duration:
     units: ""

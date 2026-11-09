@@ -5,6 +5,28 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      JUzZlBwnrHoWjv31:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-painful-aegis
+          sphere: protection
+    buffTemplates:
+      aegis-painful-aegis:
+        name: "Aegis: Painful Aegis"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: A creature that hits the bearer with a melee or ranged attack takes 1
+          nonlethal damage per 2 caster levels (minimum 1).</p>"
+        changes: []
+        contextNotes:
+          - text: "Painful Aegis: attackers that hit you take [[max(1, floor(@item.level / 2))]] nonlethal"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Painful Aegis
@@ -18,7 +40,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: JUzZlBwnrHoWjv31
+      name: Painful Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,11 +84,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that inflicts pain on creatures that hurt its
-      bearer. Whenever a creature successfully hits the bearer of this aegis
-      with a melee or ranged attack, that creature suffers 1 point of nonlethal
-      damage per 2 caster levels (minimum 1).</p>
+    value:
+      "<p>You may create an aegis that inflicts pain on creatures that hurt its bearer. Whenever
+      a creature successfully hits the bearer of this aegis with a melee or ranged attack, that creature
+      suffers 1 point of nonlethal damage per 2 caster levels (minimum 1).</p>
+
+      "
   disabled: false
   duration:
     units: ""

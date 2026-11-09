@@ -6,9 +6,34 @@ flags:
   pf1spheres:
     automation:
       sesW9l3iAeHy2tZQ:
-        condSp:
-          PTGLhCpFQHLRZx5H: 1
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: enemies
+        buff:
+          itemId: tpl:gyroscopic-totem
+          sphere: war
+        sp: "1"
     sphere: war
+    buffTemplates:
+      gyroscopic-totem:
+        name: Gyroscopic Totem
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Enemies here are unbalanced: entering a square provokes as if leaving
+          it, no 5-foot steps, and after moving more than 5 ft. a Reflex save or fall prone (+1 per leg
+          beyond 2; fliers, swimmers, burrowers, crawlers and incorporeal creatures are unaffected).</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Gyroscopic Totem: entering squares provokes, no 5-foot steps; after moving over 5 ft.
+              Reflex DC [[10 + floor(@spheres.cl.war.total / 2) + @spheres.cam]] or fall prone"
+            target: ref
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Gyroscopic Totem
@@ -35,11 +60,13 @@ system:
         type: ref
         dc: 10 + floor(@spheres.cl.war.total / 2) + @spheres.cam
         description: ""
-      conditionals:
-        - _id: PTGLhCpFQHLRZx5H
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+      conditionals: []
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -69,20 +96,19 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You must spend a spell point to create a gyroscopic totem.
-      Gravitational fluctuations keep enemies within this totem unbalanced while
-      they remain within. An unbalanced creature can still move, but entering
-      squares draws attacks of opportunity as if they had left the square, and
-      the creature can not take 5-foot steps.</p>
+    value:
+      "<p>You must spend a spell point to create a gyroscopic totem. Gravitational fluctuations keep
+      enemies within this totem unbalanced while they remain within. An unbalanced creature can still
+      move, but entering squares draws attacks of opportunity as if they had left the square, and the
+      creature can not take 5-foot steps.</p>
 
-      <p>In addition, at the end of any movement with a total distance greater
-      than 5 feet, the creature must succeed at a Reflex save or fall prone. If
-      the creature has more than 2 legs, it gains a +1 bonus to this saving
-      throw for each additional leg, and creatures that are flying, crawling,
-      swimming, or burrowing are unaffected, as are creatures that are not
-      affected by gravity such as incorporeal creatures. Teleporting creatures
-      do not draw attacks of opportunity because of this totem.</p>
+      <p>In addition, at the end of any movement with a total distance greater than 5 feet, the creature
+      must succeed at a Reflex save or fall prone. If the creature has more than 2 legs, it gains a +1
+      bonus to this saving throw for each additional leg, and creatures that are flying, crawling, swimming,
+      or burrowing are unaffected, as are creatures that are not affected by gravity such as incorporeal
+      creatures. Teleporting creatures do not draw attacks of opportunity because of this totem.</p>
+
+      "
   disabled: false
   duration:
     units: ""

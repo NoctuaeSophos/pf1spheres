@@ -5,6 +5,35 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      PfoLRL0jPZF0Cu6g:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+        buff:
+          itemId: tpl:ward-clarity
+          sphere: protection
+    buffTemplates:
+      ward-clarity:
+        name: Clarity Ward
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Ward: Creatures inside must make a Will save or be unable to disguise or conceal
+          themselves; illusion and concealment effects need a magic skill check against the caster's
+          MSD.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Clarity ward: Will DC [[10 + floor(@spheres.cl.protection.total / 2) + @spheres.cam]]
+              or you can't disguise or conceal yourself; illusions here need a magic skill check against
+              the caster's MSD"
+            target: will
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Clarity
@@ -18,7 +47,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: PfoLRL0jPZF0Cu6g
+      name: Clarity Ward
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
   armorProf: []
   associations:
     classes: []
@@ -48,24 +92,22 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Within the area of this ward, attempts to conceal, obfuscate, or
-      disguise oneself are hindered. Any creature within the ward must succeed
-      at a Will save or they become unable to use any abilities to disguise or
-      conceal themselves. Likewise, any spell, spell-like ability, or sphere
-      ability that creates illusions or makes it difficult to sense physical
-      phenomena is more difficult to use. When the ward is first created, the
-      user attempts a single magical skill check against every illusion or
-      concealing effect created with a spell, spell-like ability, or sphere
-      ability. Magic items have a MSD of 11 + their caster level and creatures
-      using spell-like abilities have an MSD equal to 11 + their Hit Dice.</p>
+    value:
+      "<p>Within the area of this ward, attempts to conceal, obfuscate, or disguise oneself are hindered.
+      Any creature within the ward must succeed at a Will save or they become unable to use any abilities
+      to disguise or conceal themselves. Likewise, any spell, spell-like ability, or sphere ability that
+      creates illusions or makes it difficult to sense physical phenomena is more difficult to use. When
+      the ward is first created, the user attempts a single magical skill check against every illusion
+      or concealing effect created with a spell, spell-like ability, or sphere ability. Magic items have
+      a MSD of 11 + their caster level and creatures using spell-like abilities have an MSD equal to 11
+      + their Hit Dice.</p>
 
-      <p>If your check succeeds, the effect is suppressed or the magic item
-      ceases to function, respectively. Time spent suppressed counts toward a
-      magical effect&#8217;s total duration. Any additional attempt to create an
-      illusion or concealment effect requires the caster to beat your MSD with a
-      magical skill check. They must do this even if they passed their Will
-      saving throw.</p>
+      <p>If your check succeeds, the effect is suppressed or the magic item ceases to function, respectively.
+      Time spent suppressed counts toward a magical effect&#8217;s total duration. Any additional attempt
+      to create an illusion or concealment effect requires the caster to beat your MSD with a magical
+      skill check. They must do this even if they passed their Will saving throw.</p>
+
+      "
   disabled: false
   duration:
     units: ""

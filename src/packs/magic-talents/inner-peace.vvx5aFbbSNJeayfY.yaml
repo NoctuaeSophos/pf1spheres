@@ -5,6 +5,33 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      PpWqEzy4eD2NUA8A:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-inner-peace
+          sphere: protection
+    buffTemplates:
+      aegis-inner-peace:
+        name: "Aegis: Inner Peace"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: +4 morale on saves against fear, emotion and mind-affecting effects (always
+          a save against magical ones), and +4 morale on Bluff to hide emotions or pass secret messages
+          and Diplomacy to calm.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Inner Peace: +4 morale on saves against fear, emotion and mind-affecting effects (save
+              always allowed)"
+            target: allSavingThrows
+          - text: "Inner Peace: +4 morale on Bluff to hide emotions and Diplomacy to calm"
+            target: skills
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Inner Peace
@@ -18,7 +45,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: PpWqEzy4eD2NUA8A
+      name: Inner Peace Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,15 +89,15 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that grants the target a +4 morale bonus to
-      saving throws against all fear, emotional and mind-affecting abilities,
-      both magical or mundane. When the target is affected by a magical ability
-      this bonus applies to, they are always granted a save to completely negate
-      the effect, even if one is not normally allowed. The improved composure of
-      the subject also grants them a +4 morale bonus to Bluff checks to conceal
-      emotions or relay secret messages, and to Diplomacy checks to influence
-      attitudes to make creatures calm.</p>
+    value:
+      "<p>You may create an aegis that grants the target a +4 morale bonus to saving throws against
+      all fear, emotional and mind-affecting abilities, both magical or mundane. When the target is affected
+      by a magical ability this bonus applies to, they are always granted a save to completely negate
+      the effect, even if one is not normally allowed. The improved composure of the subject also grants
+      them a +4 morale bonus to Bluff checks to conceal emotions or relay secret messages, and to Diplomacy
+      checks to influence attitudes to make creatures calm.</p>
+
+      "
   disabled: false
   duration:
     units: ""

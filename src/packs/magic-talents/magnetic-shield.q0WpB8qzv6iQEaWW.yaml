@@ -5,6 +5,31 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      mb36tsslFMGvesmv:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+        buff:
+          itemId: tpl:ward-magnetic-shield
+          sphere: protection
+    buffTemplates:
+      ward-magnetic-shield:
+        name: Magnetic Shield
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Ward: Damage reduction equal to the caster level against metal and metal-tipped
+          weapons (not silver) and metal-shod attacks.</p>"
+        changes: []
+        contextNotes:
+          - text: "Magnetic Shield: DR [[@item.level]] against metal weapons (not silver)"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Magnetic Shield
@@ -18,7 +43,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: mb36tsslFMGvesmv
+      name: Magnetic Shield
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
   armorProf: []
   associations:
     classes: []
@@ -48,13 +88,13 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Creatures within this ward have damage reduction equal to your caster
-      level against all metal weapons or metal tipped weapons, with the
-      exception of silver weapons. This defense also applies to melee attacks by
-      ironshod creatures or creatures that have metal covering the point of
-      contact of the attack (such as a punch from someone wearing a
-      gauntlet).</p>
+    value:
+      "<p>Creatures within this ward have damage reduction equal to your caster level against all
+      metal weapons or metal tipped weapons, with the exception of silver weapons. This defense also applies
+      to melee attacks by ironshod creatures or creatures that have metal covering the point of contact
+      of the attack (such as a punch from someone wearing a gauntlet).</p>
+
+      "
   disabled: false
   duration:
     units: ""

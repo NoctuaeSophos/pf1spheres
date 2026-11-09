@@ -6,9 +6,34 @@ flags:
   pf1spheres:
     automation:
       zxwp7NS3CvkDGxH3:
-        condSp:
-          UxRRQlBICr6XxG8k: 1
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: enemies
+        buff:
+          itemId: tpl:totem-of-screaming-skin
+          sphere: war
+        sp: "1"
     sphere: war
+    buffTemplates:
+      totem-of-screaming-skin:
+        name: Totem of Screaming Skin
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: A weapon or natural attack against an enemy here that misses by 5
+          or less (not a natural 1) is a glancing blow dealing damage equal to the caster level; on-hit
+          effects don't trigger.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Totem of Screaming Skin: attacks against you that miss by 5 or less (not a natural 1)
+              deal [[@item.level]] damage"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Screaming Skin
@@ -24,7 +49,7 @@ system:
   acquired: false
   actions:
     - _id: zxwp7NS3CvkDGxH3
-      name: Totem Of Screaming Skin
+      name: Totem of Screaming Skin
       actionType: msak
       activation:
         type: standard
@@ -34,11 +59,13 @@ system:
       touch: true
       ability:
         attack: str
-      conditionals:
-        - _id: UxRRQlBICr6XxG8k
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+      conditionals: []
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -68,16 +95,16 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You must spend a spell point to create a totem of screaming skin.
-      Enemies within this are haunted by the sensation of pain from far away.
-      Whenever their skin is even slightly broken, a wound rips open in the
-      shape of a mouth and screams, making even the smallest injuries horrific.
-      Whenever a weapon or natural weapon attack is made on an enemy inside the
-      totem, if the attack roll misses by 5 or less, and is not a natural 1, the
-      attack is a glancing blow and does damage equal to your caster level.
-      Effects that trigger on a hit, such as a melee touch attack delivering a
-      sphere ability, do not trigger on a glancing blow.</p>
+    value:
+      "<p>You must spend a spell point to create a totem of screaming skin. Enemies within this are
+      haunted by the sensation of pain from far away. Whenever their skin is even slightly broken, a wound
+      rips open in the shape of a mouth and screams, making even the smallest injuries horrific. Whenever
+      a weapon or natural weapon attack is made on an enemy inside the totem, if the attack roll misses
+      by 5 or less, and is not a natural 1, the attack is a glancing blow and does damage equal to your
+      caster level. Effects that trigger on a hit, such as a melee touch attack delivering a sphere ability,
+      do not trigger on a glancing blow.</p>
+
+      "
   disabled: false
   duration:
     units: ""

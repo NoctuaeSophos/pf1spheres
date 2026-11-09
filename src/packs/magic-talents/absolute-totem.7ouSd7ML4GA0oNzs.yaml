@@ -6,9 +6,36 @@ flags:
   pf1spheres:
     automation:
       cfBAepfJBd0Kh8oO:
-        condSp:
-          OL8dKLzdocJ2isAj: 1
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: allies
+        buff:
+          itemId: tpl:absolute-totem
+          sphere: war
+        sp: "1"
     sphere: war
+    buffTemplates:
+      absolute-totem:
+        name: Absolute Totem
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Your gear's hardness rises by the caster level, and you gain a competence
+          bonus on sunder attempts; when struck by an enemy's manufactured melee weapon, you may try
+          to sunder it as an immediate action.</p>"
+        changes: []
+        contextNotes:
+          - text: "Absolute Totem: worn and carried gear has +[[@item.level]] hardness"
+            target: ac
+          - text:
+              "Absolute Totem: +[[1 + floor(@item.level / 5)]] competence on sunder; when hit by a manufactured
+              melee weapon, sunder it as an immediate action"
+            target: cmb
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Absolute Totem
@@ -31,11 +58,13 @@ system:
         unchained:
           cost: 2
           type: action
-      conditionals:
-        - _id: OL8dKLzdocJ2isAj
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+      conditionals: []
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -65,15 +94,15 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You must spend a spell point to create an absolute totem. Within this
-      totem, the weapons, armor and equipment allies are wearing or carrying
-      receive a bonus to their hardness equal to your caster level. While using
-      these weapons, allies receive a +1 competence bonus to sunder attempts.
-      This increases by +1 for every 5 caster levels, and whenever an enemy
-      strikes them with a melee attack using a manufactured weapon, they may
-      attempt to sunder their opponent&#8217;s weapon as an immediate
-      action.</p>
+    value:
+      "<p>You must spend a spell point to create an absolute totem. Within this totem, the weapons,
+      armor and equipment allies are wearing or carrying receive a bonus to their hardness equal to your
+      caster level. While using these weapons, allies receive a +1 competence bonus to sunder attempts.
+      This increases by +1 for every 5 caster levels, and whenever an enemy strikes them with a melee
+      attack using a manufactured weapon, they may attempt to sunder their opponent&#8217;s weapon as
+      an immediate action.</p>
+
+      "
   disabled: false
   duration:
     units: ""

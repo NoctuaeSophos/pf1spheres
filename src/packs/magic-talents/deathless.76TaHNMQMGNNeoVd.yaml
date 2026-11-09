@@ -5,6 +5,30 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      wH7C9HehwTp0136u:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-deathless
+          sphere: protection
+    buffTemplates:
+      aegis-deathless:
+        name: "Aegis: Deathless"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: +4 morale on saves against death effects, Death sphere abilities and negative
+          channeling, and against harmful healing effects; always gets a Will save against them.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Deathless: +4 morale on saves against death effects, Death sphere, negative channeling
+              and harmful healing (Will save always allowed)"
+            target: allSavingThrows
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Deathless
@@ -20,7 +44,7 @@ system:
   acquired: false
   actions:
     - _id: wH7C9HehwTp0136u
-      name: Deathless
+      name: Deathless Aegis
       actionType: save
       activation:
         type: standard
@@ -31,6 +55,11 @@ system:
         type: will
         dc: 10 + floor(@spheres.cl.protection.total / 2) + @spheres.cam
         description: ""
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -60,14 +89,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that blocks direct attacks on one&#8217;s life.
-      This grants the subject a +4 morale bonus to saving throws against all
-      death spells, Death sphere abilities, channeled negative energy, and other
-      magical death effects, as well as harmful effects originating from healing
-      spells, Life sphere abilities, channeled positive energy, and other
-      magical healing effects. The subject is granted a Will save to negate
-      these effects even if one is not normally allowed.</p>
+    value:
+      "<p>You may create an aegis that blocks direct attacks on one&#8217;s life. This grants the
+      subject a +4 morale bonus to saving throws against all death spells, Death sphere abilities, channeled
+      negative energy, and other magical death effects, as well as harmful effects originating from healing
+      spells, Life sphere abilities, channeled positive energy, and other magical healing effects. The
+      subject is granted a Will save to negate these effects even if one is not normally allowed.</p>
+
+      "
   disabled: false
   duration:
     units: ""

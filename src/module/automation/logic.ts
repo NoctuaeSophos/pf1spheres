@@ -21,7 +21,18 @@ export interface ActionAutomation {
   /** Apply one of the actor's buffs to the targets at the caster's level */
   buff?: { itemId?: string; sphere?: string; self?: boolean; level?: string };
   /** Create an area centred on the user that applies the buff to creatures inside */
-  zone?: { enabled?: boolean; radius?: string; who?: ZoneWho; at?: "" | "self" | "template" };
+  zone?: {
+    enabled?: boolean;
+    radius?: string;
+    who?: ZoneWho;
+    at?: "" | "self" | "template";
+    /** Only creatures of this alignment (good, evil, lawful, chaotic, neutral) */
+    align?: ZoneAlign;
+    /** A ward's edge: warn when a creature crosses it going in, or either way */
+    cross?: "" | "enter" | "both";
+    /** What happens to a creature that crosses, with [[formula]] placeholders filled at cast */
+    crossNote?: string;
+  };
   /** Mark the targets */
   mark?: { label?: string; attackerNote?: string; defenderNote?: string; squadron?: boolean };
   /** When a creature fails a save rolled from this action's chat card */
@@ -89,6 +100,7 @@ export const saveFailed = (total: number, natural: number | undefined, dc: numbe
 
 export type DurationUnit = "round" | "minute" | "hour";
 export type ZoneWho = "allies" | "enemies" | "all" | "inoculated" | "squadron";
+export type ZoneAlign = "" | "good" | "evil" | "lawful" | "chaotic" | "neutral";
 
 export const UNIT_SECONDS: Record<DurationUnit, number> = { round: 6, minute: 60, hour: 3600 };
 
@@ -173,6 +185,45 @@ export const zoneAffects = (
   const same = disposition === casterDisposition;
   return who === "allies" ? same : !same && disposition !== 0;
 };
+
+/**
+ * Whether a pf1 alignment code ("lg", "tn", ...) is of the given end of the spectrum. Neutral means
+ * true neutral only, as totems of allegiance and enemies treat it.
+ */
+export const alignmentMatches = (
+  align: ZoneAlign | undefined,
+  code: string | undefined,
+): boolean => {
+  if (!align) return true;
+  const c = (code ?? "").toLowerCase();
+  if (align === "neutral") return c === "tn" || c === "n";
+  if (align === "lawful") return c[0] === "l";
+  if (align === "chaotic") return c[0] === "c";
+  return c[1] === (align === "good" ? "g" : "e");
+};
+
+/** Which way a move crosses an area's edge, if it does and the area watches that direction */
+export const edgeCrossing = (
+  wasInside: boolean,
+  isInside: boolean,
+  mode: "" | "enter" | "both" | undefined,
+): "enter" | "leave" | null => {
+  if (!mode || wasInside === isInside) return null;
+  if (isInside) return "enter";
+  return mode === "both" ? "leave" : null;
+};
+
+/**
+ * Replaces a caster's sphere values (@spheres.cl.total, @spheres.cl.<sphere>.total, @spheres.cam,
+ * @spheres.pam, @spheres.msb.total, @spheres.msd.total) with their numbers, so a buff given to
+ * someone else scales with, and quotes DCs from, the caster rather than its bearer.
+ */
+export const pinCasterLevels = (text: string, lookup: (path: string) => number): string =>
+  typeof text === "string"
+    ? text.replace(/@spheres\.(cl(?:\.\w+)?\.total|cam|pam|ms[bd]\.total)\b/g, (_m, path) =>
+        String(lookup(path)),
+      )
+    : text;
 
 /** Distance between two points in grid units (ft.), given pixels per grid square and feet per square */
 export const distanceFt = (

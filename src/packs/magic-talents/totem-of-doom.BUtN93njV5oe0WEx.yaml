@@ -6,9 +6,46 @@ flags:
   pf1spheres:
     automation:
       v8tmj0ezfo0aoBnM:
-        condSp:
-          djaKsn45WXqDzlAL: 1
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: enemies
+        buff:
+          itemId: tpl:totem-of-doom
+          sphere: war
+        sp: "1"
     sphere: war
+    buffTemplates:
+      totem-of-doom:
+        name: Shaken (Totem of Doom)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Enemies are shaken while inside (no save; doesn't stack with other
+          fear). Taken twice, an already-shaken creature becomes frightened; three times, a frightened
+          one panics.</p>"
+        changes:
+          - formula: "-2"
+            target: attack
+            type: untyped
+            operator: add
+          - formula: "-2"
+            target: allSavingThrows
+            type: untyped
+            operator: add
+          - formula: "-2"
+            target: skills
+            type: untyped
+            operator: add
+          - formula: "-2"
+            target: allChecks
+            type: untyped
+            operator: add
+        contextNotes: []
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Doom
@@ -24,18 +61,20 @@ system:
   acquired: false
   actions:
     - _id: v8tmj0ezfo0aoBnM
-      name: Totem Of Doom
+      name: Totem of Doom
       actionType: other
       activation:
         type: standard
         unchained:
           cost: 2
           type: action
-      conditionals:
-        - _id: djaKsn45WXqDzlAL
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+      conditionals: []
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -65,20 +104,19 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You must spend a spell point to place a totem of doom. All enemies in
-      the area become shaken (no save). This effect lasts as long as they remain
-      within the totem&#8217;s effect area. The effects of this totem are not
-      cumulative with itself or other sources of fear.</p>
+    value:
+      "<p>You must spend a spell point to place a totem of doom. All enemies in the area become shaken
+      (no save). This effect lasts as long as they remain within the totem&#8217;s effect area. The effects
+      of this totem are not cumulative with itself or other sources of fear.</p>
 
-      <p>You may take this talent a total of three times. If taken twice, your
-      totem of doom becomes cumulative; if a creature comes into contact with
-      your totem of doom who is already shaken from another effect, the effect
-      of your totem of doom is changed to frightened for that specific creature.
-      If you gain this talent three times, a creature who comes into contact
-      with your totem of doom who is already frightened from another effect
-      becomes panicked. Multiple totems of doom do not stack with each other for
-      this purpose.</p>
+      <p>You may take this talent a total of three times. If taken twice, your totem of doom becomes cumulative;
+      if a creature comes into contact with your totem of doom who is already shaken from another effect,
+      the effect of your totem of doom is changed to frightened for that specific creature. If you gain
+      this talent three times, a creature who comes into contact with your totem of doom who is already
+      frightened from another effect becomes panicked. Multiple totems of doom do not stack with each
+      other for this purpose.</p>
+
+      "
   disabled: false
   duration:
     units: ""

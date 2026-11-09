@@ -5,6 +5,72 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      Fsy6GxmrH5ooFrlF:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+          cross: enter
+          crossNote:
+            Will DC [[10 + floor(@spheres.cl.protection.total / 2) + @spheres.cam]] or it can't
+            cross the edge; on a success it is immune to this ward for 24 hours. (Creatures inside when
+            it was made are immune.)
+          align: chaotic
+      NazlrhebGb96FoCR:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+          cross: enter
+          crossNote:
+            Will DC [[10 + floor(@spheres.cl.protection.total / 2) + @spheres.cam]] or it can't
+            cross the edge; on a success it is immune to this ward for 24 hours. (Creatures inside when
+            it was made are immune.)
+          align: evil
+      ZHVwFddjATG8sjTf:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+          cross: enter
+          crossNote:
+            Will DC [[10 + floor(@spheres.cl.protection.total / 2) + @spheres.cam]] or it can't
+            cross the edge; on a success it is immune to this ward for 24 hours. (Creatures inside when
+            it was made are immune.)
+          align: good
+      oFsuDeSsnqdIRisS:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+          cross: enter
+          crossNote:
+            Will DC [[10 + floor(@spheres.cl.protection.total / 2) + @spheres.cam]] or it can't
+            cross the edge; on a success it is immune to this ward for 24 hours. (Creatures inside when
+            it was made are immune.)
+          align: lawful
+    buffTemplates: {}
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Repel Chaos/Evil/Good/Law
@@ -20,7 +86,7 @@ system:
   acquired: false
   actions:
     - _id: Fsy6GxmrH5ooFrlF
-      name: Repel Chaos/Evil/Good/Law
+      name: Repel Chaos
       actionType: save
       activation:
         type: standard
@@ -34,6 +100,49 @@ system:
       duration:
         value: "24"
         units: hour
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
+    - _id: NazlrhebGb96FoCR
+      name: Repel Evil
+      actionType: other
+      img: ""
+      activation: &id001
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
+    - _id: ZHVwFddjATG8sjTf
+      name: Repel Good
+      actionType: other
+      img: ""
+      activation: *id001
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
+    - _id: oFsuDeSsnqdIRisS
+      name: Repel Law
+      actionType: other
+      img: ""
+      activation: *id001
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
   armorProf: []
   associations:
     classes: []

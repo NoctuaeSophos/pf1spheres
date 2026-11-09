@@ -5,6 +5,33 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: war
+    automation:
+      29VLg0qElFsqdprJ:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: allies
+        buff:
+          itemId: tpl:totem-of-agility
+          sphere: war
+    buffTemplates:
+      totem-of-agility:
+        name: Totem of Agility
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Ignore nonmagical difficult terrain in the totem; from caster level
+          10, magical difficult terrain too, and open doors as a free action.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Totem of Agility: ignore nonmagical difficult terrain (from caster level 10, magical
+              too, and open doors as a free action)"
+            target: allSpeeds
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Agility
@@ -18,7 +45,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 29VLg0qElFsqdprJ
+      name: Totem of Agility
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -48,11 +90,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You and your allies ignore nonmagical difficult terrain within the area
-      of the totem. At caster level 10th, you and your allies may ignore magical
-      difficult terrain and may open doors as a free action rather than a move
-      action within the area of the totem.</p>
+    value:
+      "<p>You and your allies ignore nonmagical difficult terrain within the area of the totem. At
+      caster level 10th, you and your allies may ignore magical difficult terrain and may open doors as
+      a free action rather than a move action within the area of the totem.</p>
+
+      "
   disabled: false
   duration:
     units: ""

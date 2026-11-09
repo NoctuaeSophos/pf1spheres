@@ -5,6 +5,32 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      LGLEYieVPgi1ahfw:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-iron-shield
+          sphere: protection
+    buffTemplates:
+      aegis-iron-shield:
+        name: "Aegis: Iron Shield"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: +4 to AC and saves against environmental damage, nature-sourced attacks,
+          Nature and Weather sphere abilities, and fey, magical beasts and plants.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Iron Shield: +4 on saves against environment, nature, Nature and Weather spheres, fey,
+              magical beasts and plants"
+            target: allSavingThrows
+          - text: "Iron Shield: +4 AC against nature-sourced attacks and fey, magical beasts and plants"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Iron Shield
@@ -18,7 +44,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: LGLEYieVPgi1ahfw
+      name: Iron Shield Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,14 +88,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that protects against the forces of nature.
-      This grants a +4 bonus to AC and saving throws against all forms of
-      environmental damage (though not from vacuum), attacks that utilize nature
-      as a resource (such as lightning called from the sky, but not from all
-      electricity attacks), abilities of the Nature and Weather spheres, and the
-      spell, spell-like, and supernatural abilities of fey creatures, magical
-      beasts, and plant creatures.</p>
+    value:
+      "<p>You may create an aegis that protects against the forces of nature. This grants a +4 bonus
+      to AC and saving throws against all forms of environmental damage (though not from vacuum), attacks
+      that utilize nature as a resource (such as lightning called from the sky, but not from all electricity
+      attacks), abilities of the Nature and Weather spheres, and the spell, spell-like, and supernatural
+      abilities of fey creatures, magical beasts, and plant creatures.</p>
+
+      "
   disabled: false
   duration:
     units: ""

@@ -13,13 +13,16 @@ import { isGMWriter, registerSocketHandler, requestGM, serialised, userOwns } fr
 import {
   SEQUENCE_BREAKERS,
   addLinks,
+  alignmentMatches,
   distanceFt,
+  edgeCrossing,
   durationSeconds,
   fillNote,
   hasAutomation,
   hasFailEffects,
   isInoculated,
   parseConditions,
+  pinCasterLevels,
   templateToItemData,
   remainingSeconds,
   saveFailed,
@@ -193,10 +196,11 @@ export const resolveBuff = (actor, item, ref: string | undefined) => {
  * A copy of a caster's buff, active at the given level. The source's start time is dropped: pf1 only
  * fills it in on updates, so a copied start would make the new buff look already expired.
  */
-const buffCopy = (source, level: number, name: string, flags: object) => {
+const buffCopy = (source, level: number, name: string, flags: object, caster?) => {
   const data =
     typeof source.toObject === "function" ? source.toObject() : foundry.utils.deepClone(source);
   delete data._id;
+  if (caster) pinBuffLevels(data, caster);
   data.name = name;
   data.system.level = level;
   data.system.active = true;
@@ -206,6 +210,14 @@ const buffCopy = (source, level: number, name: string, flags: object) => {
     ...flags,
   });
   return data;
+};
+
+/** Fixes a buff's references to the caster's sphere values (caster level, casting modifier, MSB/MSD) */
+const pinBuffLevels = (data, caster) => {
+  const spheres = caster.getRollData?.()?.spheres ?? caster.system?.spheres ?? {};
+  const value = (path: string) => Number(foundry.utils.getProperty(spheres, path) ?? 0) || 0;
+  for (const c of data.system?.changes ?? []) c.formula = pinCasterLevels(c.formula, value);
+  for (const n of data.system?.contextNotes ?? []) n.text = pinCasterLevels(n.text, value);
 };
 
 /**
@@ -229,9 +241,13 @@ async function applyBuff(msg, user) {
     const target = fromUuidSync(uuid);
     if (!target) continue;
     const name = target.uuid === caster.uuid ? source.name : `${source.name} (${caster.name})`;
-    const data = buffCopy(source, msg.level, name, {
-      appliedBy: { casterUuid: caster.uuid, effectId: msg.effectId },
-    });
+    const data = buffCopy(
+      source,
+      msg.level,
+      name,
+      { appliedBy: { casterUuid: caster.uuid, effectId: msg.effectId } },
+      caster,
+    );
     await target.createEmbeddedDocuments("Item", [data]);
   }
 }
@@ -293,6 +309,11 @@ export interface Zone {
   level: number;
   effectId: string;
   regionId: string | null;
+  /** Only creatures of this alignment */
+  align?: string;
+  /** A ward's edge, watched for creatures crossing it */
+  cross?: "" | "enter" | "both";
+  crossNote?: string;
 }
 
 export const getZones = (scene): Zone[] =>
@@ -306,7 +327,7 @@ async function createZone(msg, user) {
   const [region] = await scene.createEmbeddedDocuments("Region", [
     {
       name: msg.name,
-      color: msg.who === "enemies" ? "#c0392b" : "#2e86c1",
+      color: msg.cross ? "#8e44ad" : msg.who === "enemies" ? "#c0392b" : "#2e86c1",
       shapes: [{ type: "circle", x: msg.center.x, y: msg.center.y, radius: px, hole: false }],
       visibility: CONST.REGION_VISIBILITY?.ALWAYS ?? 2,
       flags: { [MODULE_ID]: { zoneId: msg.zoneId } },
@@ -332,6 +353,9 @@ async function createZone(msg, user) {
     level: msg.level,
     effectId: msg.effectId,
     regionId: region?.id ?? null,
+    align: msg.align ?? "",
+    cross: msg.cross ?? "",
+    crossNote: String(msg.crossNote ?? "").slice(0, 500),
   });
   await scene.setFlag(MODULE_ID, "zones", zones);
 }
@@ -394,6 +418,7 @@ export async function syncZones(scene) {
         {
           zoneBuff: { sceneId: scene.id, zoneId: z.id, boost },
         },
+        fromUuidSync(z.casterUuid),
       );
       if (boost) data.system.changes = boostTotemChanges(data.system.changes ?? [], boost);
       await actor.createEmbeddedDocuments("Item", [data]);
@@ -402,8 +427,47 @@ export async function syncZones(scene) {
   await syncFormations(scene);
 }
 
+/**
+ * A token's move across a ward's edge: the mover is warned and the GM gets a chat note of what the
+ * ward does to it. Nothing is blocked; the GM rules on saves and checks.
+ */
+function onPreMoveToken(token, changed, _options, userId) {
+  if (userId !== game.user.id || !("x" in changed || "y" in changed)) return;
+  const scene = token.parent;
+  const zones = getZones(scene).filter((z) => z.cross);
+  const actor = token.actor;
+  if (!zones.length || !actor) return;
+  const from = tokenCenter(token);
+  const to = tokenCenter({
+    x: changed.x ?? token.x,
+    y: changed.y ?? token.y,
+    width: token.width,
+    height: token.height,
+    parent: scene,
+  });
+  const ft = (p, z) => distanceFt(p, z, scene.grid.size, scene.grid.distance);
+  for (const z of zones) {
+    if (!zoneAffects(z.who, z.casterDisposition, token.disposition)) continue;
+    if (!alignmentMatches(z.align, actor.system?.details?.alignment)) continue;
+    const way = edgeCrossing(ft(from, z) <= z.radius, ft(to, z) <= z.radius, z.cross);
+    if (!way) continue;
+    const text = fmt(way === "enter" ? "WardEnter" : "WardLeave", {
+      name: token.name,
+      ward: z.name,
+      note: z.crossNote || "",
+    });
+    ui.notifications.warn(text);
+    ChatMessage.create({
+      content: `<p>${foundry.utils.escapeHTML(text)}</p>`,
+      speaker: ChatMessage.getSpeaker({ token }),
+      whisper: game.users.filter((u) => u.isGM).map((u) => u.id),
+    }).catch(() => {});
+  }
+}
+
 /** Whether a zone's audience includes a creature: by disposition, or by the caster's inoculated or squadron list */
 const zoneIncludes = (z, actor, token) => {
+  if (!alignmentMatches(z.align, actor.system?.details?.alignment)) return false;
   if (z.who === "inoculated")
     return isInoculated(z.casterUuid, inoculatedBy(z.casterUuid), actor.uuid);
   const caster = fromUuidSync(z.casterUuid);
@@ -768,6 +832,9 @@ async function onPostActionUse(au) {
       buffRef: auto.buff?.itemId,
       level,
       effectId: effect.id,
+      align: auto.zone.align ?? "",
+      cross: auto.zone.cross ?? "",
+      crossNote: fillNote(auto.zone.crossNote ?? "", (f) => evalFormula(f, rd)),
     });
   } else if (buff) {
     const uuids = targets.map((t) => t.actor?.uuid).filter(Boolean);
@@ -1238,6 +1305,7 @@ export const registerAutomation = () => {
     // A deleted unlinked caster takes its tracker with it; the sweep ends what it left behind
     queueSweep();
   });
+  Hooks.on("preUpdateToken", onPreMoveToken);
   Hooks.on("updateToken", (t, changed) => {
     if ("x" in changed || "y" in changed || "disposition" in changed) queueZones(t.parent);
   });

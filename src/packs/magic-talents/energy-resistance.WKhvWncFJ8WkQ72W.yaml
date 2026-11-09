@@ -5,6 +5,53 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      Xlj9uRNPjcQe1Vnx:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+        buff:
+          itemId: tpl:ward-energy-resistance
+          sphere: protection
+      OX9p0JlQQHdyRVzE:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-energy-resistance
+          sphere: protection
+    buffTemplates:
+      ward-energy-resistance:
+        name: Energy Resistance (Ward)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Ward: Damage of the chosen energy type (acid, cold, electricity, fire or sonic)
+          dealt inside is reduced by 10 + the caster level.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Energy Resistance ward: damage of the chosen energy type is reduced by [[10 + @item.level]]
+              here"
+            target: ac
+      aegis-energy-resistance:
+        name: "Aegis: Energy Resistance"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: Energy resistance 10 + caster level to one of acid, cold, electricity,
+          fire or sonic.</p>"
+        changes: []
+        contextNotes:
+          - text: "Energy Resistance aegis: resist [[10 + @item.level]] against the chosen energy"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Energy Resistance
@@ -18,7 +65,32 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Xlj9uRNPjcQe1Vnx
+      name: Energy Resistance (Ward)
+      actionType: other
+      img: ""
+      activation: &id001
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
+    - _id: OX9p0JlQQHdyRVzE
+      name: Energy Resistance (Aegis)
+      actionType: other
+      img: ""
+      activation: *id001
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,13 +120,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create a ward that suppresses one energy type of your choice
-      (acid, cold, electricity, fire, or sonic). Any damage of that energy type
-      dealt within this area is reduced by 10 + your caster level. You may also
-      create an aegis that grants energy resistance 10 + your caster level to
-      either acid, cold, electricity, fire, or sonic. These effects only absorb
-      damage and may not protect from other side effects of an attack.</p>
+    value:
+      "<p>You may create a ward that suppresses one energy type of your choice (acid, cold, electricity,
+      fire, or sonic). Any damage of that energy type dealt within this area is reduced by 10 + your caster
+      level. You may also create an aegis that grants energy resistance 10 + your caster level to either
+      acid, cold, electricity, fire, or sonic. These effects only absorb damage and may not protect from
+      other side effects of an attack.</p>
+
+      "
   disabled: false
   duration:
     units: ""

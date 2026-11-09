@@ -5,6 +5,22 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      eM1zgw3UYpUcpIUK:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+          cross: enter
+          crossNote:
+            Teleportation, time, gravity, transdimensional and Warp or Time sphere effects used
+            inside need a magic skill check against MSD [[@spheres.msd.total]] or fail.
+    buffTemplates: {}
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Quantum Lock
@@ -18,7 +34,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: eM1zgw3UYpUcpIUK
+      name: Quantum Lock Ward
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
   armorProf: []
   associations:
     classes: []
@@ -48,22 +79,20 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create a ward that represses all effects that alter reality,
-      including sphere abilities that change the rate of time, teleportation,
-      gravitational effects, transdimensional effects, distortion of space, and
-      Warp and Time sphere abilities within its area of effect. When this ward
-      is created, attempt one magic skill check against each effect in the area
-      of the ward that it can repress. Magic items have a MSD of 11 + their
-      caster level. If your check exceeds the MSD of the magical effect or item,
-      the effect is suppressed or the magic item ceases to function,
-      respectively. Time spent suppressed counts toward a magical effect&#8217;s
-      total duration.</p>
+    value:
+      "<p>You may create a ward that represses all effects that alter reality, including sphere abilities
+      that change the rate of time, teleportation, gravitational effects, transdimensional effects, distortion
+      of space, and Warp and Time sphere abilities within its area of effect. When this ward is created,
+      attempt one magic skill check against each effect in the area of the ward that it can repress. Magic
+      items have a MSD of 11 + their caster level. If your check exceeds the MSD of the magical effect
+      or item, the effect is suppressed or the magic item ceases to function, respectively. Time spent
+      suppressed counts toward a magical effect&#8217;s total duration.</p>
 
-      <p>Once inside the effect, any caster attempting to use an ability that
-      can be repressed by this ward must attempt a magic skill check against
-      your MSD. If they fail, the ability is negated completely (e.g., the
-      creature never leaves its point of origin).</p>
+      <p>Once inside the effect, any caster attempting to use an ability that can be repressed by this
+      ward must attempt a magic skill check against your MSD. If they fail, the ability is negated completely
+      (e.g., the creature never leaves its point of origin).</p>
+
+      "
   disabled: false
   duration:
     units: ""

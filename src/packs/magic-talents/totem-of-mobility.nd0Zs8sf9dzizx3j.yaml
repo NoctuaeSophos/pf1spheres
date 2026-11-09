@@ -6,9 +6,31 @@ flags:
   pf1spheres:
     automation:
       enwo0sBWzUOgc0Pi:
-        condSp:
-          RThnAQ2uqcHwwRJA: 1
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: allies
+        buff:
+          itemId: tpl:totem-of-mobility
+          sphere: war
+        sp: "1"
     sphere: war
+    buffTemplates:
+      totem-of-mobility:
+        name: Totem of Mobility
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: As a swift action, take a 5-foot step that doesn't stop your normal
+          5-foot step or move action.</p>"
+        changes: []
+        contextNotes:
+          - text: "Totem of Mobility: swift action 5-foot step, on top of your normal one"
+            target: allSpeeds
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Mobility
@@ -24,18 +46,20 @@ system:
   acquired: false
   actions:
     - _id: enwo0sBWzUOgc0Pi
-      name: Totem Of Mobility
+      name: Totem of Mobility
       actionType: other
       activation:
         type: standard
         unchained:
           cost: 2
           type: action
-      conditionals:
-        - _id: RThnAQ2uqcHwwRJA
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+      conditionals: []
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -65,12 +89,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You must spend a spell point to create a totem of mobility. As a swift
-      action, allies within this area may make a 5-foot step. This is in all
-      ways similar to a normal 5-foot step, except this does not prohibit them
-      from taking their usual 5-foot step, nor using a move action to move
-      normally.</p>
+    value:
+      "<p>You must spend a spell point to create a totem of mobility. As a swift action, allies within
+      this area may make a 5-foot step. This is in all ways similar to a normal 5-foot step, except this
+      does not prohibit them from taking their usual 5-foot step, nor using a move action to move normally.</p>
+
+      "
   disabled: false
   duration:
     units: ""

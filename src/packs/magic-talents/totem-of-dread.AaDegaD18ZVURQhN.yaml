@@ -5,6 +5,34 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: war
+    automation:
+      RdFKLizafGS2O0MZ:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: enemies
+        buff:
+          itemId: tpl:totem-of-dread
+          sphere: war
+    buffTemplates:
+      totem-of-dread:
+        name: Totem of Dread
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: An enemy that fails a Will save can't benefit from morale bonuses
+          while inside; new save on first encountering it and at the end of each of its turns until it
+          succeeds.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Totem of Dread: Will DC [[10 + floor(@spheres.cl.war.total / 2) + @spheres.cam]] or no
+              morale bonuses while inside"
+            target: will
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Dread
@@ -18,7 +46,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: RdFKLizafGS2O0MZ
+      name: Totem of Dread
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -48,13 +91,13 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Enemies within the totem&#8217;s area must attempt a Will save. On a
-      failed saving throw, they cannot benefit from morale bonuses so long as
-      they remain in the area of the totem. A creature within this totem gets a
-      Will saving throw upon first encountering it, and an additional Will
-      saving throw at the end of each turn they are affected by it until they
-      successfully save.</p>
+    value:
+      "<p>Enemies within the totem&#8217;s area must attempt a Will save. On a failed saving throw,
+      they cannot benefit from morale bonuses so long as they remain in the area of the totem. A creature
+      within this totem gets a Will saving throw upon first encountering it, and an additional Will saving
+      throw at the end of each turn they are affected by it until they successfully save.</p>
+
+      "
   disabled: false
   duration:
     units: ""

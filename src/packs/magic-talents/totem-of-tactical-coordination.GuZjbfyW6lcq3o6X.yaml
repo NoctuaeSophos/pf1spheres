@@ -5,6 +5,33 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: war
+    automation:
+      R63llXs36lUWfDa9:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: allies
+        buff:
+          itemId: tpl:totem-of-tactical-coordination
+          sphere: war
+    buffTemplates:
+      totem-of-tactical-coordination:
+        name: Totem of Tactical Coordination
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: You take no hit point damage from the attacks, spells and abilities
+          of allies in the totem, and may choose to succeed on saves against them.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Totem of Tactical Coordination: no hp damage from allies inside; you may auto-succeed
+              saves against them"
+            target: allSavingThrows
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Tactical Coordination
@@ -18,7 +45,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: R63llXs36lUWfDa9
+      name: Totem of Tactical Coordination
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -48,11 +90,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Allies within this totem do not take hit point damage from attacks,
-      spells, or abilities of other allies within this totem, and may choose to
-      automatically succeed at any saving throws vs. the abilities of allies
-      within the totem.</p>
+    value:
+      "<p>Allies within this totem do not take hit point damage from attacks, spells, or abilities
+      of other allies within this totem, and may choose to automatically succeed at any saving throws
+      vs. the abilities of allies within the totem.</p>
+
+      "
   disabled: false
   duration:
     units: ""

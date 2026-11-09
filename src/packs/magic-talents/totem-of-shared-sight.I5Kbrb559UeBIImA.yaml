@@ -5,6 +5,34 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: war
+    automation:
+      17UuwtqwL4zcdyXr:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: allies
+        buff:
+          itemId: tpl:totem-of-shared-sight
+          sphere: war
+    buffTemplates:
+      totem-of-shared-sight:
+        name: Totem of Shared Sight
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: You share senses with allies in the totem: what one perceives, all
+          do, which can prevent surprise; one ally's successful save against an illusion counts for all.
+          Doesn't prevent flanking.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Totem of Shared Sight: share senses with allies inside; one save against an illusion
+              succeeds for all"
+            target: skills
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Shared Sight
@@ -18,7 +46,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 17UuwtqwL4zcdyXr
+      name: Totem of Shared Sight
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -48,15 +91,15 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You and your allies can share perception, seeing through each
-      other&#8217;s eyes and hearing through each other&#8217;s ears. Anything
-      visible or noticed by one is also perceived by everyone else, including
-      with special senses such as blindsense or scent. This can prevent a
-      character from being surprised. If any ally within the totem successfully
-      saves versus an illusion effect, then everyone else automatically succeeds
-      at their saving throw as well, even if they previously failed. This totem
-      does not prevent allies from being flanked.</p>
+    value:
+      "<p>You and your allies can share perception, seeing through each other&#8217;s eyes and hearing
+      through each other&#8217;s ears. Anything visible or noticed by one is also perceived by everyone
+      else, including with special senses such as blindsense or scent. This can prevent a character from
+      being surprised. If any ally within the totem successfully saves versus an illusion effect, then
+      everyone else automatically succeeds at their saving throw as well, even if they previously failed.
+      This totem does not prevent allies from being flanked.</p>
+
+      "
   disabled: false
   duration:
     units: ""

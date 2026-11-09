@@ -8,7 +8,27 @@ flags:
       De1f8rESQedUStPK:
         condSp:
           R0CsTy4Qwb8DwkNh: 2
+        sp: "2"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-adaptation
+          sphere: protection
     sphere: protection
+    buffTemplates:
+      aegis-adaptation:
+        name: "Aegis: Adaptation"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: Immunity to one damage type of the caster's choice: acid, cold, electricity,
+          fire or sonic.</p>"
+        changes: []
+        contextNotes:
+          - text: "Adaptation: immune to the chosen energy type"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Adaptation
@@ -24,7 +44,7 @@ system:
   acquired: false
   actions:
     - _id: De1f8rESQedUStPK
-      name: Adaptation
+      name: Adaptation Aegis
       actionType: other
       activation:
         type: standard
@@ -36,6 +56,11 @@ system:
           name: Spend 2 spell points
           default: true
           modifiers: []
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -65,13 +90,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p><strong>Prerequisites:</strong> Protection sphere (Energy Resistance
-      (aegis, ward)), caster level 10th.</p>
+    value:
+      "<p><strong>Prerequisites:</strong> Protection sphere (Energy Resistance (aegis, ward)), caster
+      level 10th.</p>
 
-      <p>You may spend 2 spell points to grant a target an aegis that makes them
-      immune to one damage type of your choice (acid, cold, electricity, fire,
-      or sonic).</p>
+      <p>You may spend 2 spell points to grant a target an aegis that makes them immune to one damage
+      type of your choice (acid, cold, electricity, fire, or sonic).</p>
+
+      "
   disabled: false
   duration:
     units: ""

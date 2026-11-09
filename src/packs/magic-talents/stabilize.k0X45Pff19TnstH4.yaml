@@ -5,6 +5,32 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      wNwV5cIW0MTKqG3T:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-stabilize
+          sphere: protection
+    buffTemplates:
+      aegis-stabilize:
+        name: "Aegis: Stabilize"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: +4 morale to AC and saves against teleportation, Time and Warp sphere
+          effects, direct telekinesis, time-altering effects, and extraplanar creatures.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Stabilize: +4 morale on saves against teleportation, Time and Warp spheres, telekinesis,
+              time effects and extraplanar creatures"
+            target: allSavingThrows
+          - text: "Stabilize: +4 morale AC against extraplanar creatures and telekinesis"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Stabilize
@@ -18,7 +44,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: wNwV5cIW0MTKqG3T
+      name: Stabilize Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,14 +88,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that stabilizes the target against planar
-      effects or effects that warp time and space. The target gains a +4 morale
-      bonus to AC and saving throws against any teleportation effects, effects
-      from the Time or Warp spheres, direct telekinesis (such as Hostile Lift,
-      but not attacks from Bludgeons) as well as any other effects that alter
-      time, such as the slow spell. This also applies to attacks and abilities
-      from extraplanar creatures, such as summoned or conjured creatures.</p>
+    value:
+      "<p>You may create an aegis that stabilizes the target against planar effects or effects that
+      warp time and space. The target gains a +4 morale bonus to AC and saving throws against any teleportation
+      effects, effects from the Time or Warp spheres, direct telekinesis (such as Hostile Lift, but not
+      attacks from Bludgeons) as well as any other effects that alter time, such as the slow spell. This
+      also applies to attacks and abilities from extraplanar creatures, such as summoned or conjured creatures.</p>
+
+      "
   disabled: false
   duration:
     units: ""

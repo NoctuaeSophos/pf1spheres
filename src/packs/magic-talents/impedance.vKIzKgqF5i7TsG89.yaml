@@ -5,6 +5,44 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      9y1J5Yklb6PJ4Wh3:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+          cross: enter
+          crossNote:
+            Will DC [[10 + floor(@spheres.cl.protection.total / 2) + @spheres.cam]] or it can't
+            enter or move closer to the center (also checked at the start of its turn).
+      aSV9nX8BvDoEASXE:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-impedance
+          sphere: protection
+    buffTemplates:
+      aegis-impedance:
+        name: "Aegis: Impedance"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: Creatures approaching within 5 ft. (+5 ft. per 10 caster levels) need
+          a Will save at the start of their turn or on approach, or can't move closer.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Impedance aegis: within [[5 + 5 * floor(@item.level / 10)]] ft., Will save or can't
+              move closer"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Impedance
@@ -20,7 +58,7 @@ system:
   acquired: false
   actions:
     - _id: 9y1J5Yklb6PJ4Wh3
-      name: Impedance
+      name: Impedance (Ward)
       actionType: save
       activation:
         type: standard
@@ -31,6 +69,26 @@ system:
         type: will
         dc: 10 + floor(@spheres.cl.protection.total / 2) + @spheres.cam
         description: ""
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
+    - _id: aSV9nX8BvDoEASXE
+      name: Impedance (Aegis)
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -60,15 +118,16 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create a ward that makes it difficult for creatures to approach
-      the center of the ward. At the beginning of their turn, or when they try
-      to enter the ward, a creature must succeed at a Will save or they are
-      unable to enter or move any closer to the center of the ward. If applied
-      as an aegis, this functions the same except the range is reduced to 5 feet
-      + 5 feet per 10 caster levels.</p>
+    value:
+      "<p>You may create a ward that makes it difficult for creatures to approach the center of the
+      ward. At the beginning of their turn, or when they try to enter the ward, a creature must succeed
+      at a Will save or they are unable to enter or move any closer to the center of the ward. If applied
+      as an aegis, this functions the same except the range is reduced to 5 feet + 5 feet per 10 caster
+      levels.</p>
 
       <p>This talent does not interfere with attacks; only movement.</p>
+
+      "
   disabled: false
   duration:
     units: ""

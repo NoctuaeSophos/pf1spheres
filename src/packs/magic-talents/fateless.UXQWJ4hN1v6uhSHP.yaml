@@ -5,6 +5,30 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      0peMvgcnNXSl0tvf:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-fateless
+          sphere: protection
+    buffTemplates:
+      aegis-fateless:
+        name: "Aegis: Fateless"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: +4 morale on saves against divination, Divination and Fate sphere effects,
+          curses, and abilities of hags and outsiders; always gets a Will save against curses.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Fateless: +4 morale on saves against divination, Divination and Fate spheres, curses,
+              hags and outsiders"
+            target: allSavingThrows
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Fateless
@@ -20,7 +44,7 @@ system:
   acquired: false
   actions:
     - _id: 0peMvgcnNXSl0tvf
-      name: Fateless
+      name: Fateless Aegis
       actionType: save
       activation:
         type: standard
@@ -31,6 +55,11 @@ system:
         type: will
         dc: 10 + floor(@spheres.cl.protection.total / 2) + @spheres.cam
         description: ""
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -60,14 +89,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that protects against tugs on the strands of
-      fate. This grants a +4 morale bonus to saving throws against effects from
-      the divination magic school, effects from the Divination and Fate spheres,
-      and effects with the curse descriptor. This also applies to all spells,
-      spell-like, and supernatural abilities originating from hags and
-      outsiders. The subject is granted a Will save to negate curse effects even
-      if one is not normally allowed.</p>
+    value:
+      "<p>You may create an aegis that protects against tugs on the strands of fate. This grants
+      a +4 morale bonus to saving throws against effects from the divination magic school, effects from
+      the Divination and Fate spheres, and effects with the curse descriptor. This also applies to all
+      spells, spell-like, and supernatural abilities originating from hags and outsiders. The subject
+      is granted a Will save to negate curse effects even if one is not normally allowed.</p>
+
+      "
   disabled: false
   duration:
     units: ""

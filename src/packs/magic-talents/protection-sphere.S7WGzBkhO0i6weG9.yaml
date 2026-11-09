@@ -17,6 +17,18 @@ flags:
         buff:
           itemId: tpl:aegis-deflection
           sphere: protection
+      S33fFR1rBUNlnoU8:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+          cross: both
+          crossNote: A wall of force blocks movement, attacks and line of effect (not sight) until destroyed.
     buffTemplates:
       aegis-deflection:
         name: "Aegis: Deflection"
@@ -56,6 +68,21 @@ system:
       notes:
         footer:
           - "Aegis: touch, 1 spell point, 1 hour per caster level. Target a creature, or none for yourself."
+    - _id: S33fFR1rBUNlnoU8
+      name: Barrier Ward
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
   armorProf: []
   associations:
     classes: []

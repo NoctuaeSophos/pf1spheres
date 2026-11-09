@@ -6,9 +6,33 @@ flags:
   pf1spheres:
     automation:
       Kncz8HkywhjpU05m:
-        condSp:
-          c4J1WRcQ1uhyMDJ2: 1
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: allies
+        buff:
+          itemId: tpl:blood-totem
+          sphere: war
+        sp: "1"
     sphere: war
+    buffTemplates:
+      blood-totem:
+        name: Blood Totem
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: When an enemy in the totem damages you while you are in it, its damage
+          roll drops by 1 (+1 per 5 caster levels) and it takes that much damage, bypassing resistance.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Blood Totem: an enemy inside that damages you deals [[1 + floor(@item.level / 5)]] less
+              and takes [[1 + floor(@item.level / 5)]] damage (bypasses resistance)"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Blood Totem
@@ -31,11 +55,13 @@ system:
         unchained:
           cost: 2
           type: action
-      conditionals:
-        - _id: c4J1WRcQ1uhyMDJ2
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+      conditionals: []
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -65,13 +91,13 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You must spend a spell point to create a blood totem. Whenever an enemy
-      within this totem&#8217;s area deals damage to an ally within this
-      totem&#8217;s area, the damage roll is reduced by 1 (to a minimum of 0),
-      and the attacker takes 1 damage that bypasses all damage resistance. The
-      damage reduced and the damage dealt by this totem increases by 1 for every
-      5 caster levels you possess.</p>
+    value:
+      "<p>You must spend a spell point to create a blood totem. Whenever an enemy within this totem&#8217;s
+      area deals damage to an ally within this totem&#8217;s area, the damage roll is reduced by 1 (to
+      a minimum of 0), and the attacker takes 1 damage that bypasses all damage resistance. The damage
+      reduced and the damage dealt by this totem increases by 1 for every 5 caster levels you possess.</p>
+
+      "
   disabled: false
   duration:
     units: ""

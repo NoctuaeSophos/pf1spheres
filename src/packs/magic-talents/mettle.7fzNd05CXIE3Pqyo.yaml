@@ -5,6 +5,28 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      AZNHbOFFYNJc5fxp:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-mettle
+          sphere: protection
+    buffTemplates:
+      aegis-mettle:
+        name: "Aegis: Mettle"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: Untyped bonus to AC equal to 5 + caster level against critical confirmation
+          rolls.</p>"
+        changes: []
+        contextNotes:
+          - text: "Mettle: +[[5 + @item.level]] AC against critical confirmation"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Mettle
@@ -18,7 +40,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: AZNHbOFFYNJc5fxp
+      name: Mettle Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,9 +84,11 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>A creature with this aegis receives an untyped bonus to their AC equal
-      to 5 + your caster level against critical hit confirmation rolls.</p>
+    value:
+      "<p>A creature with this aegis receives an untyped bonus to their AC equal to 5 + your caster
+      level against critical hit confirmation rolls.</p>
+
+      "
   disabled: false
   duration:
     units: ""

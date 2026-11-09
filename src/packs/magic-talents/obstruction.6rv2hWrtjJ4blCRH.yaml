@@ -5,6 +5,28 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      u02cziJ5ThyD38tZ:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-obstruction
+          sphere: protection
+    buffTemplates:
+      aegis-obstruction:
+        name: "Aegis: Obstruction"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: DR/— equal to half the caster level (minimum 1); ends after absorbing
+          10 × caster level damage.</p>"
+        changes: []
+        contextNotes:
+          - text: "Obstruction: DR [[max(1, floor(@item.level / 2))]]/—, ends after absorbing [[10 * @item.level]]"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Obstruction
@@ -18,7 +40,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: u02cziJ5ThyD38tZ
+      name: Obstruction Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,11 +84,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that absorbs damage. The target gains DR/-
-      equal to 1/2 the caster level (minimum 1). Once this aegis has absorbed
-      damage equal to 10 x the caster level, the aegis ends even if its duration
-      has not yet expired.</p>
+    value:
+      "<p>You may create an aegis that absorbs damage. The target gains DR/- equal to 1/2 the caster
+      level (minimum 1). Once this aegis has absorbed damage equal to 10 x the caster level, the aegis
+      ends even if its duration has not yet expired.</p>
+
+      "
   disabled: false
   duration:
     units: ""

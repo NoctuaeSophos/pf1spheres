@@ -5,6 +5,31 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: war
+    automation:
+      WhTNIbBBmXP5oVBM:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: allies
+        buff:
+          itemId: tpl:totem-of-stability
+          sphere: war
+    buffTemplates:
+      totem-of-stability:
+        name: Totem of Stability
+        img: icons/svg/ice-aura.svg
+        description: "<p>War totem: +2 bonus to CMD, +1 per 5 caster levels.</p>"
+        changes:
+          - formula: 2 + floor(@item.level / 5)
+            target: cmd
+            type: untyped
+            operator: add
+        contextNotes: []
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Stability
@@ -18,7 +43,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: WhTNIbBBmXP5oVBM
+      name: Totem of Stability
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -48,9 +88,11 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You and your allies gain a +2 bonus to CMD. This bonus increases by +1
-      for every 5 caster levels you possess.</p>
+    value:
+      "<p>You and your allies gain a +2 bonus to CMD. This bonus increases by +1 for every 5 caster
+      levels you possess.</p>
+
+      "
   disabled: false
   duration:
     units: ""

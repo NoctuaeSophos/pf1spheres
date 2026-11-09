@@ -5,6 +5,31 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: war
+    automation:
+      TuoCHzOascEvcO5D:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: allies
+        buff:
+          itemId: tpl:tactical-totem
+          sphere: war
+        condSp:
+          72Xr26untCEsPoBP: 1
+    buffTemplates:
+      tactical-totem:
+        name: Tactical Totem
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Allies who qualify gain the benefits of a teamwork feat the caster
+          chose (one more per 10 caster levels), and count as having it for other allies.</p>"
+        changes: []
+        contextNotes: []
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Tactical Totem
@@ -18,7 +43,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: TuoCHzOascEvcO5D
+      name: Tactical Totem
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
+      conditionals:
+        - _id: 72Xr26untCEsPoBP
+          name: Spend 1 spell point to share teamwork feats you qualify for, not only ones you have
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []
@@ -48,15 +93,15 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>When you activate this totem, choose a teamwork feat you possess.
-      Allies within the totem that qualify for that feat gain the benefits of
-      that feat. In addition, all allies are considered to have that feat for
-      the purpose of determining whether other allies benefit from that feat.
-      For every 10 caster levels, choose an additional teamwork feat. When you
-      create this totem, you may choose to spend a spell point. If you do, you
-      may share any teamwork feats you qualify for, not just teamwork feats you
-      possess.</p>
+    value:
+      "<p>When you activate this totem, choose a teamwork feat you possess. Allies within the totem
+      that qualify for that feat gain the benefits of that feat. In addition, all allies are considered
+      to have that feat for the purpose of determining whether other allies benefit from that feat. For
+      every 10 caster levels, choose an additional teamwork feat. When you create this totem, you may
+      choose to spend a spell point. If you do, you may share any teamwork feats you qualify for, not
+      just teamwork feats you possess.</p>
+
+      "
   disabled: false
   duration:
     units: ""

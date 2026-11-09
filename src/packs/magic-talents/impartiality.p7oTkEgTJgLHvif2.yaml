@@ -5,6 +5,49 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      wvOWe3T01e1nEsRo:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+        buff:
+          itemId: tpl:ward-impartiality
+          sphere: protection
+      VuAUGAfyLbfhB42Y:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-impartiality
+          sphere: protection
+    buffTemplates:
+      ward-impartiality:
+        name: Impartiality (Ward)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Ward: Creatures inside are treated as having no alignment for all magical effects;
+          alignment detection doesn't find them.</p>"
+        changes: []
+        contextNotes:
+          - text: "Impartiality: no alignment for magical effects"
+            target: allSavingThrows
+      aegis-impartiality:
+        name: "Aegis: Impartiality"
+        img: icons/svg/ice-aura.svg
+        description: "<p>Aegis: Treated as having no alignment for all magical effects.</p>"
+        changes: []
+        contextNotes:
+          - text: "Impartiality: no alignment for magical effects"
+            target: allSavingThrows
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Impartiality
@@ -18,7 +61,32 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: wvOWe3T01e1nEsRo
+      name: Impartiality (Ward)
+      actionType: other
+      img: ""
+      activation: &id001
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
+    - _id: VuAUGAfyLbfhB42Y
+      name: Impartiality (Aegis)
+      actionType: other
+      img: ""
+      activation: *id001
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,14 +116,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Creatures within this ward or bearing this aegis are treated as having
-      no alignment for all magical effects. Effects that detect alignment (such
-      as the Divine Alignment alternate divination from the Divination sphere)
-      do not detect the creature or creatures protected, while those that affect
-      certain alignments have no effect on protected creatures at all. This does
-      not allow a creature to disguise their alignment - they appear as an
-      absence of alignment.</p>
+    value:
+      "<p>Creatures within this ward or bearing this aegis are treated as having no alignment for
+      all magical effects. Effects that detect alignment (such as the Divine Alignment alternate divination
+      from the Divination sphere) do not detect the creature or creatures protected, while those that
+      affect certain alignments have no effect on protected creatures at all. This does not allow a creature
+      to disguise their alignment - they appear as an absence of alignment.</p>
+
+      "
   disabled: false
   duration:
     units: ""

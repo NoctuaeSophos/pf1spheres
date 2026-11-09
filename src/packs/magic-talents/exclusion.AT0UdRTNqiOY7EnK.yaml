@@ -5,6 +5,24 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      tQJYDqoTCOVU2oAy:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+          cross: enter
+          crossNote:
+            If it is made of or carries the excluded material, it needs a Strength check against
+            DC [[10 + floor(@spheres.cl.protection.total / 2) + @spheres.cam]] to cross (or drops the
+            material). Attacks of that material from outside take -[[@spheres.cl.protection.total]] to
+            hit.
+    buffTemplates: {}
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Exclusion
@@ -18,7 +36,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: tQJYDqoTCOVU2oAy
+      name: Exclusion Ward
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
   armorProf: []
   associations:
     classes: []
@@ -48,21 +81,20 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You can create a ward that prevents entry of a common material or
-      element chosen when you create the ward. You may choose an element based
-      on their physical material (such as stone, metal, water, or acid), form of
-      energy (such as fire or light) or based on their physical properties (such
-      as poisonous materials or living materials). Magical and non-magical
-      materials excluded have great difficulty entering the ward, but are
-      unaffected once inside.</p>
+    value:
+      "<p>You can create a ward that prevents entry of a common material or element chosen when you
+      create the ward. You may choose an element based on their physical material (such as stone, metal,
+      water, or acid), form of energy (such as fire or light) or based on their physical properties (such
+      as poisonous materials or living materials). Magical and non-magical materials excluded have great
+      difficulty entering the ward, but are unaffected once inside.</p>
 
-      <p>Creatures made of or carrying the material with them must succeed at a
-      Strength check against a DC equal to your Protection sphere DC to cross
-      the threshold of the ward, or they can simply drop any of the warded
-      material they are carrying. An attack from outside the ward that crosses
-      into the ward and is composed of the offending material receives a penalty
-      to attack equal to your caster level.</p>
+      <p>Creatures made of or carrying the material with them must succeed at a Strength check against
+      a DC equal to your Protection sphere DC to cross the threshold of the ward, or they can simply drop
+      any of the warded material they are carrying. An attack from outside the ward that crosses into
+      the ward and is composed of the offending material receives a penalty to attack equal to your caster
+      level.</p>
+
+      "
   disabled: false
   duration:
     units: ""

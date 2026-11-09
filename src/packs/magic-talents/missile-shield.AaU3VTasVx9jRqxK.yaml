@@ -5,6 +5,31 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      M1yk5dSXPsoLID6o:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+        buff:
+          itemId: tpl:ward-missile-shield
+          sphere: protection
+    buffTemplates:
+      ward-missile-shield:
+        name: Missile Shield
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Ward: Damage from projectiles, thrown objects, projectile rays and falling debris
+          dealt inside is reduced by 5 + the caster level.</p>"
+        changes: []
+        contextNotes:
+          - text: "Missile Shield: projectile and thrown damage reduced by [[5 + @item.level]]"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Missile Shield
@@ -18,7 +43,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: M1yk5dSXPsoLID6o
+      name: Missile Shield
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
   armorProf: []
   associations:
     classes: []
@@ -48,14 +88,15 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create a ward that protects creatures within from projectiles,
-      including projectile weapons, thrown rocks, rays made up of projectiles
-      (such as created by the Stone Blast talent of the Destruction sphere) or
-      falling debris. Any damage of that type dealt within this area is reduced
-      by 5 + your caster level. These effects only absorb damage and may not
-      protect from other side effects of an attack (like being pinned under the
-      weight of a thrown boulder or being poisoned by a poisoned arrow).</p>
+    value:
+      "<p>You may create a ward that protects creatures within from projectiles, including projectile
+      weapons, thrown rocks, rays made up of projectiles (such as created by the Stone Blast talent of
+      the Destruction sphere) or falling debris. Any damage of that type dealt within this area is reduced
+      by 5 + your caster level. These effects only absorb damage and may not protect from other side effects
+      of an attack (like being pinned under the weight of a thrown boulder or being poisoned by a poisoned
+      arrow).</p>
+
+      "
   disabled: false
   duration:
     units: ""

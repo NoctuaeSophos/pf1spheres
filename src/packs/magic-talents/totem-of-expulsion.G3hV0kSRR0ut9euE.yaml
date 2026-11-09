@@ -6,9 +6,53 @@ flags:
   pf1spheres:
     automation:
       3jer6ogZJ9ImAZOm:
-        condSp:
-          4VuZdume4MQWwyDu: 1
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: all
+        buff:
+          itemId: tpl:totem-of-expulsion
+          sphere: war
+        sp: "1"
     sphere: war
+    buffTemplates:
+      totem-of-expulsion:
+        name: Sickened (Totem of Expulsion)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Non-native outsiders (allies too) are sickened while inside, and their
+          DR, energy resistance and SR drop by the caster level (immunity counts as resistance of twice
+          their Hit Dice). Only creatures that are non-native outsiders are affected: delete this buff
+          from anyone else.</p>"
+        changes:
+          - formula: "-2"
+            target: attack
+            type: untyped
+            operator: add
+          - formula: "-2"
+            target: wdamage
+            type: untyped
+            operator: add
+          - formula: "-2"
+            target: allSavingThrows
+            type: untyped
+            operator: add
+          - formula: "-2"
+            target: skills
+            type: untyped
+            operator: add
+          - formula: "-2"
+            target: allChecks
+            type: untyped
+            operator: add
+        contextNotes:
+          - text: "Totem of Expulsion (non-native outsiders only): DR, energy resistance and SR -[[@item.level]]"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Expulsion
@@ -24,18 +68,20 @@ system:
   acquired: false
   actions:
     - _id: 3jer6ogZJ9ImAZOm
-      name: Totem Of Expulsion
+      name: Totem of Expulsion
       actionType: other
       activation:
         type: standard
         unchained:
           cost: 2
           type: action
-      conditionals:
-        - _id: 4VuZdume4MQWwyDu
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+      conditionals: []
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -65,18 +111,17 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You must spend a spell point to create a totem of expulsion. The totem
-      creates a field of energy that applies interdimensional pressure to
-      creatures that do not belong on your plane, and weakens them. All
-      non-native outsiders (including allies) within are sickened (no save)
-      while they remain inside the area of the totem. In addition, they receive
-      a penalty to any damage reduction, energy resistance, and spell resistance
-      they possess equal to your caster level. Energy immunity is also affected:
-      treat immune creatures as having a resistance equal to twice their total
-      Hit Dice, then subtract your caster level as you would with normal
-      resistance, to a minimum of 0. You can only create this totem on your home
-      plane.</p>
+    value:
+      "<p>You must spend a spell point to create a totem of expulsion. The totem creates a field
+      of energy that applies interdimensional pressure to creatures that do not belong on your plane,
+      and weakens them. All non-native outsiders (including allies) within are sickened (no save) while
+      they remain inside the area of the totem. In addition, they receive a penalty to any damage reduction,
+      energy resistance, and spell resistance they possess equal to your caster level. Energy immunity
+      is also affected: treat immune creatures as having a resistance equal to twice their total Hit Dice,
+      then subtract your caster level as you would with normal resistance, to a minimum of 0. You can
+      only create this totem on your home plane.</p>
+
+      "
   disabled: false
   duration:
     units: ""

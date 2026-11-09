@@ -5,6 +5,26 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      WiCgLVItYJXNuElh:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-mystic-shell
+          sphere: protection
+    buffTemplates:
+      aegis-mystic-shell:
+        name: "Aegis: Mystic Shell"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: 2 layers (+1 per 10 caster levels); a dispel on any magical effect on
+          the bearer strips a layer instead. Layers can fuel succor talents.</p>"
+        changes: []
+        contextNotes: []
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Mystic Shell
@@ -18,7 +38,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: WiCgLVItYJXNuElh
+      name: Mystic Shell Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,14 +82,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that protects magical effects on the character.
-      A mystic shell has 2 layers, + 1 layer per 10 caster levels. While the
-      layers are in place, whenever a magical effect on the character would be
-      dispelled, it remains and instead a layer of the shell is lost. Each layer
-      is counterspelled as a separate magical effect. Layers of the shell can
-      also be sacrificed to use (succor) talents or abilities. Layers from
-      multiple castings of this aegis do not stack.</p>
+    value:
+      "<p>You may create an aegis that protects magical effects on the character. A mystic shell
+      has 2 layers, + 1 layer per 10 caster levels. While the layers are in place, whenever a magical
+      effect on the character would be dispelled, it remains and instead a layer of the shell is lost.
+      Each layer is counterspelled as a separate magical effect. Layers of the shell can also be sacrificed
+      to use (succor) talents or abilities. Layers from multiple castings of this aegis do not stack.</p>
+
+      "
   disabled: false
   duration:
     units: ""

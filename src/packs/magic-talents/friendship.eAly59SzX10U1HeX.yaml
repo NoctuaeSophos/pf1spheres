@@ -5,6 +5,28 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      UkQcKKg9fGrxarTa:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-friendship
+          sphere: protection
+    buffTemplates:
+      aegis-friendship:
+        name: "Aegis: Friendship"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: Immune to allies' area spells, sphere and supernatural abilities that
+          allow spell resistance; beneficial effects still apply.</p>"
+        changes: []
+        contextNotes:
+          - text: "Friendship: immune to allies' harmful area effects"
+            target: allSavingThrows
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Friendship
@@ -18,7 +40,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: UkQcKKg9fGrxarTa
+      name: Friendship Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,14 +84,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that gives a creature special protection from
-      the spell, spell-like, sphere and supernatural abilities of his allies.
-      Whenever one of that creature&#8217;s allies uses a spell, spell-like, or
-      sphere ability that is subject to spell resistance and covers an area, or
-      a supernatural ability that covers an area, allies with this aegis and
-      their equipment are treated as if they were immune. This aegis does not
-      block beneficial effects from a creature's allies.</p>
+    value:
+      "<p>You may create an aegis that gives a creature special protection from the spell, spell-like,
+      sphere and supernatural abilities of his allies. Whenever one of that creature&#8217;s allies uses
+      a spell, spell-like, or sphere ability that is subject to spell resistance and covers an area, or
+      a supernatural ability that covers an area, allies with this aegis and their equipment are treated
+      as if they were immune. This aegis does not block beneficial effects from a creature's allies.</p>
+
+      "
   disabled: false
   duration:
     units: ""

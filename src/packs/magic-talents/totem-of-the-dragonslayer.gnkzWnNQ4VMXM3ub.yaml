@@ -8,7 +8,32 @@ flags:
       GX6Rh1XSdyv9a5AQ:
         condSp:
           RBMGtcx4n1wMODBZ: 1
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: allies
+        buff:
+          itemId: tpl:totem-of-the-dragonslayer
+          sphere: war
     sphere: war
+    buffTemplates:
+      totem-of-the-dragonslayer:
+        name: Totem of the Dragonslayer
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: +1 competence bonus on Reflex saves against area effects, +1 per 5
+          caster levels; with the spell point, such a save that would halve damage negates it.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Totem of the Dragonslayer: +[[1 + floor(@item.level / 5)]] competence on Reflex saves
+              against area effects (evasion if the caster spent a spell point)"
+            target: ref
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of The Dragonslayer
@@ -24,7 +49,7 @@ system:
   acquired: false
   actions:
     - _id: GX6Rh1XSdyv9a5AQ
-      name: Totem Of The Dragonslayer
+      name: Totem of the Dragonslayer
       actionType: save
       activation:
         type: standard
@@ -37,9 +62,15 @@ system:
         description: ""
       conditionals:
         - _id: RBMGtcx4n1wMODBZ
-          name: Spend 1 spell point (option)
+          name: "Spend 1 spell point: a successful Reflex save against a half-damage attack takes no damage"
           default: false
           modifiers: []
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -69,13 +100,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You and your allies gain a +1 competence bonus to Reflex saves vs. area
-      effects. This increases by +1 for every 5 caster levels you possess. When
-      you create this totem, you may spend a spell point. If you do, whenever an
-      ally attempts a Reflex saving throw that benefits from this totem against
-      an attack that normally deals half damage on a successful save, they take
-      no damage on a successful save instead.</p>
+    value:
+      "<p>You and your allies gain a +1 competence bonus to Reflex saves vs. area effects. This increases
+      by +1 for every 5 caster levels you possess. When you create this totem, you may spend a spell point.
+      If you do, whenever an ally attempts a Reflex saving throw that benefits from this totem against
+      an attack that normally deals half damage on a successful save, they take no damage on a successful
+      save instead.</p>
+
+      "
   disabled: false
   duration:
     units: ""

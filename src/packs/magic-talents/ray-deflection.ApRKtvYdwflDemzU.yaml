@@ -5,6 +5,28 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      EFYJLEl9x2VTOnR7:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-ray-deflection
+          sphere: protection
+    buffTemplates:
+      aegis-ray-deflection:
+        name: "Aegis: Ray Deflection"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: Rays that don't automatically hit have a 20% chance (+5% per 5 caster
+          levels, max 50%) to be deflected back at their source with the same roll.</p>"
+        changes: []
+        contextNotes:
+          - text: "Ray Deflection: [[min(50, 20 + 5 * floor(@item.level / 5))]]% to reflect rays"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Ray Deflection
@@ -18,7 +40,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: EFYJLEl9x2VTOnR7
+      name: Ray Deflection Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,16 +84,16 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Whenever a ray attack is used against a creature with this aegis, there
-      is a 20% chance the ray will be deflected back at the caster. This
-      increases by 5% for every 5 caster levels to a maximum of 50%. This aegis
-      does not offer protection against rays that automatically hit, such as
-      those with a natural 20 on the attack roll. A deflected ray makes an
-      attack against the attacker using the same attack roll and all of the
-      applicable modifiers of the original attack and if it hits, the attacker
-      takes the attack&#8217;s damage and suffers all the other consequences of
-      getting struck with that attack.</p>
+    value:
+      "<p>Whenever a ray attack is used against a creature with this aegis, there is a 20% chance
+      the ray will be deflected back at the caster. This increases by 5% for every 5 caster levels to
+      a maximum of 50%. This aegis does not offer protection against rays that automatically hit, such
+      as those with a natural 20 on the attack roll. A deflected ray makes an attack against the attacker
+      using the same attack roll and all of the applicable modifiers of the original attack and if it
+      hits, the attacker takes the attack&#8217;s damage and suffers all the other consequences of getting
+      struck with that attack.</p>
+
+      "
   disabled: false
   duration:
     units: ""

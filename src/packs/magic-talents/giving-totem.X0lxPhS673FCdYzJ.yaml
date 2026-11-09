@@ -6,9 +6,29 @@ flags:
   pf1spheres:
     automation:
       fIkgc02uBOvxeIh9:
-        condSp:
-          DknHdPQIp86A76HS: 1
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: all
+        buff:
+          itemId: tpl:giving-totem
+          sphere: war
+        sp: "1"
     sphere: war
+    buffTemplates:
+      giving-totem:
+        name: Giving Totem
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Positive energy effects that heal or harm creatures here gain extra
+          hit points equal to the caster level or the original amount, whichever is less.</p>"
+        changes: []
+        contextNotes: []
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Giving Totem
@@ -31,11 +51,13 @@ system:
         unchained:
           cost: 2
           type: action
-      conditionals:
-        - _id: DknHdPQIp86A76HS
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+      conditionals: []
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -65,12 +87,13 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You must spend a spell point to create a giving totem. Whenever a
-      creature is subjected to a positive energy effect that causes them to
-      regain or lose hit points (but not temporary hit points granted or ability
-      damage dealt) the number of hit points gained or lost increases by your
+    value:
+      "<p>You must spend a spell point to create a giving totem. Whenever a creature is subjected
+      to a positive energy effect that causes them to regain or lose hit points (but not temporary hit
+      points granted or ability damage dealt) the number of hit points gained or lost increases by your
       caster level or by the original value, whichever is less.</p>
+
+      "
   disabled: false
   duration:
     units: ""

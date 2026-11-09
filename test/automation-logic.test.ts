@@ -38,6 +38,9 @@ import {
   targetMsd,
   totalSpCost,
   zoneAffects,
+  alignmentMatches,
+  edgeCrossing,
+  pinCasterLevels,
 } from "../src/module/automation/logic";
 import type { Grant } from "../src/module/automation/logic";
 import {
@@ -358,5 +361,38 @@ describe("mythic followers", () => {
     expect(mythicFollowers(followersAllowed(33))).toEqual([0, 0, 0, 0, 5, 5]);
     expect(mythicFollowers(followersAllowed(30))).toEqual([0, 0, 0, 2, 5, 3]);
     expect(mythicFollowers([3, 0, 0, 0, 0, 0])).toEqual([3, 0, 0, 0, 0, 0]);
+  });
+});
+
+describe("wards and totems", () => {
+  it("matches alignments, neutral meaning true neutral", () => {
+    expect(alignmentMatches("good", "ng")).toBe(true);
+    expect(alignmentMatches("good", "le")).toBe(false);
+    expect(alignmentMatches("lawful", "le")).toBe(true);
+    expect(alignmentMatches("chaotic", "cn")).toBe(true);
+    expect(alignmentMatches("neutral", "tn")).toBe(true);
+    expect(alignmentMatches("neutral", "ln")).toBe(false);
+    expect(alignmentMatches("", "ce")).toBe(true);
+  });
+  it("sees a ward's edge crossed in the watched directions", () => {
+    expect(edgeCrossing(false, true, "enter")).toBe("enter");
+    expect(edgeCrossing(true, false, "enter")).toBe(null);
+    expect(edgeCrossing(true, false, "both")).toBe("leave");
+    expect(edgeCrossing(true, true, "both")).toBe(null);
+    expect(edgeCrossing(false, true, "")).toBe(null);
+  });
+  it("pins the caster's sphere values", () => {
+    const v = { "cl.protection.total": 9, "cl.total": 12, cam: 4, "msd.total": 20 };
+    const look = (p) => v[p] ?? 0;
+    expect(pinCasterLevels("1 + floor(@spheres.cl.protection.total / 5)", look)).toBe(
+      "1 + floor(9 / 5)",
+    );
+    expect(pinCasterLevels("+[[@spheres.cl.total]] and @item.level", look)).toBe(
+      "+[[12]] and @item.level",
+    );
+    expect(pinCasterLevels("DC [[10 + @spheres.cam]] MSD [[@spheres.msd.total]]", look)).toBe(
+      "DC [[10 + 4]] MSD [[20]]",
+    );
+    expect(pinCasterLevels("@spheres.sequence.length", look)).toBe("@spheres.sequence.length");
   });
 });

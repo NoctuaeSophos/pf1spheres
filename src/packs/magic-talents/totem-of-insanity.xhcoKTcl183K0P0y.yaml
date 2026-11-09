@@ -6,9 +6,34 @@ flags:
   pf1spheres:
     automation:
       HUzTE6BARevZlqQT:
-        condSp:
-          CFCC2b8obVzDt4Z3: 1
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: enemies
+        buff:
+          itemId: tpl:totem-of-insanity
+          sphere: war
+        sp: "1"
     sphere: war
+    buffTemplates:
+      totem-of-insanity:
+        name: Totem of Insanity
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: An enemy that fails a Will save on entering (or on creation) has a
+          50% chance at the start of each turn to attack its nearest ally instead, with a new save at
+          the end of any turn it does (mind-affecting compulsion).</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Totem of Insanity: Will DC [[10 + floor(@spheres.cl.war.total / 2) + @spheres.cam]] or
+              50% chance each turn to attack your nearest ally"
+            target: will
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Insanity
@@ -24,7 +49,7 @@ system:
   acquired: false
   actions:
     - _id: HUzTE6BARevZlqQT
-      name: Totem Of Insanity
+      name: Totem of Insanity
       actionType: save
       activation:
         type: standard
@@ -35,11 +60,13 @@ system:
         type: will
         dc: 10 + floor(@spheres.cl.war.total / 2) + @spheres.cam
         description: ""
-      conditionals:
-        - _id: CFCC2b8obVzDt4Z3
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+      conditionals: []
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -69,19 +96,19 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You must spend a spell point to create a totem of insanity. Enemies
-      within this totem are filled with bloodlust and confusion, and must
-      succeed at a Will save upon entering the area of the totem or upon it
-      being created. If they fail, then on the beginning of their next turn
-      there is a 50% chance they will attack their own nearest ally instead of
-      their enemy. If they do, they are considered an ally for the purposes of
-      your totems for the duration of the attack. At the end of any turn they do
-      this, they receive another saving throw.</p>
+    value:
+      "<p>You must spend a spell point to create a totem of insanity. Enemies within this totem are
+      filled with bloodlust and confusion, and must succeed at a Will save upon entering the area of the
+      totem or upon it being created. If they fail, then on the beginning of their next turn there is
+      a 50% chance they will attack their own nearest ally instead of their enemy. If they do, they are
+      considered an ally for the purposes of your totems for the duration of the attack. At the end of
+      any turn they do this, they receive another saving throw.</p>
 
-      <p>Leaving the totem causes the effect to end for a creature, but
-      re-entering it causes the effect to resume if they have not yet made a
-      successful saving throw. These are mind-affecting, compulsion effects.</p>
+      <p>Leaving the totem causes the effect to end for a creature, but re-entering it causes the effect
+      to resume if they have not yet made a successful saving throw. These are mind-affecting, compulsion
+      effects.</p>
+
+      "
   disabled: false
   duration:
     units: ""

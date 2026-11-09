@@ -6,9 +6,162 @@ flags:
   pf1spheres:
     automation:
       TlsPwCGTpWBqVTGl:
-        condSp:
-          dlw6Kdo2yEJcxhlT: 1
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: all
+          align: good
+        buff:
+          itemId: tpl:totem-of-enemies-good
+          sphere: war
+        sp: "1"
+      L9IHmXtEYFWvnTHJ:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: all
+          align: evil
+        buff:
+          itemId: tpl:totem-of-enemies-evil
+          sphere: war
+        sp: "1"
+      YxFcLyxsqJ1hEVOC:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: all
+          align: lawful
+        buff:
+          itemId: tpl:totem-of-enemies-lawful
+          sphere: war
+        sp: "1"
+      5N6mxdteTIolkzD2:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: all
+          align: chaotic
+        buff:
+          itemId: tpl:totem-of-enemies-chaotic
+          sphere: war
+        sp: "1"
+      uplevHefglNzIyKH:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: all
+          align: neutral
+        buff:
+          itemId: tpl:totem-of-enemies-neutral
+          sphere: war
+        sp: "1"
     sphere: war
+    buffTemplates:
+      totem-of-enemies-good:
+        name: Totem of Enemies (Good)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Creatures that are good take a -1 circumstance penalty on attack rolls
+          and saving throws, -1 more per 10 caster levels.</p>"
+        changes:
+          - formula: -(1 + floor(@item.level / 10))
+            target: attack
+            type: circumstance
+            operator: add
+          - formula: -(1 + floor(@item.level / 10))
+            target: allSavingThrows
+            type: circumstance
+            operator: add
+        contextNotes: []
+      totem-of-enemies-evil:
+        name: Totem of Enemies (Evil)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Creatures that are evil take a -1 circumstance penalty on attack rolls
+          and saving throws, -1 more per 10 caster levels.</p>"
+        changes:
+          - formula: -(1 + floor(@item.level / 10))
+            target: attack
+            type: circumstance
+            operator: add
+          - formula: -(1 + floor(@item.level / 10))
+            target: allSavingThrows
+            type: circumstance
+            operator: add
+        contextNotes: []
+      totem-of-enemies-lawful:
+        name: Totem of Enemies (Lawful)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Creatures that are lawful take a -1 circumstance penalty on attack
+          rolls and saving throws, -1 more per 10 caster levels.</p>"
+        changes:
+          - formula: -(1 + floor(@item.level / 10))
+            target: attack
+            type: circumstance
+            operator: add
+          - formula: -(1 + floor(@item.level / 10))
+            target: allSavingThrows
+            type: circumstance
+            operator: add
+        contextNotes: []
+      totem-of-enemies-chaotic:
+        name: Totem of Enemies (Chaotic)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Creatures that are chaotic take a -1 circumstance penalty on attack
+          rolls and saving throws, -1 more per 10 caster levels.</p>"
+        changes:
+          - formula: -(1 + floor(@item.level / 10))
+            target: attack
+            type: circumstance
+            operator: add
+          - formula: -(1 + floor(@item.level / 10))
+            target: allSavingThrows
+            type: circumstance
+            operator: add
+        contextNotes: []
+      totem-of-enemies-neutral:
+        name: Totem of Enemies (Neutral)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Creatures that are true neutral take a -1 circumstance penalty on
+          attack rolls and saving throws, -1 more per 10 caster levels.</p>"
+        changes:
+          - formula: -(1 + floor(@item.level / 10))
+            target: attack
+            type: circumstance
+            operator: add
+          - formula: -(1 + floor(@item.level / 10))
+            target: allSavingThrows
+            type: circumstance
+            operator: add
+        contextNotes: []
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Enemies
@@ -24,18 +177,72 @@ system:
   acquired: false
   actions:
     - _id: TlsPwCGTpWBqVTGl
-      name: Totem Of Enemies
+      name: Totem of Enemies (Good)
       actionType: other
       activation:
         type: standard
         unchained:
           cost: 2
           type: action
-      conditionals:
-        - _id: dlw6Kdo2yEJcxhlT
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+      conditionals: []
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
+    - _id: L9IHmXtEYFWvnTHJ
+      name: Totem of Enemies (Evil)
+      actionType: other
+      img: ""
+      activation: &id001
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
+      conditionals: []
+    - _id: YxFcLyxsqJ1hEVOC
+      name: Totem of Enemies (Lawful)
+      actionType: other
+      img: ""
+      activation: *id001
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
+      conditionals: []
+    - _id: 5N6mxdteTIolkzD2
+      name: Totem of Enemies (Chaotic)
+      actionType: other
+      img: ""
+      activation: *id001
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
+      conditionals: []
+    - _id: uplevHefglNzIyKH
+      name: Totem of Enemies (Neutral)
+      actionType: other
+      img: ""
+      activation: *id001
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
+      conditionals: []
   armorProf: []
   associations:
     classes: []
@@ -65,15 +272,15 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You must spend a spell point to create a totem of enemies. Choose an
-      end of the alignment spectrum (chaotic, evil, good, or lawful) when you
-      create the totem. Creatures within the area of this totem who possess that
-      alignment suffer a -1 penalty to all saving throws and attack rolls. This
-      penalty increases by 1 per 10 caster levels. You must select an alignment
-      that you do not possess. If you are chaotic neutral, lawful neutral,
-      neutral evil, or neutral good, you may select true neutral with this
-      totem.</p>
+    value:
+      "<p>You must spend a spell point to create a totem of enemies. Choose an end of the alignment
+      spectrum (chaotic, evil, good, or lawful) when you create the totem. Creatures within the area of
+      this totem who possess that alignment suffer a -1 penalty to all saving throws and attack rolls.
+      This penalty increases by 1 per 10 caster levels. You must select an alignment that you do not possess.
+      If you are chaotic neutral, lawful neutral, neutral evil, or neutral good, you may select true neutral
+      with this totem.</p>
+
+      "
   disabled: false
   duration:
     units: ""

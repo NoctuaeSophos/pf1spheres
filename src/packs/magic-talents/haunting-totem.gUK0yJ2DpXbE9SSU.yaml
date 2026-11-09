@@ -5,6 +5,34 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: war
+    automation:
+      NHaJ2guJIYdy1lOv:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: enemies
+        buff:
+          itemId: tpl:haunting-totem
+          sphere: war
+    buffTemplates:
+      haunting-totem:
+        name: Haunting Totem
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: An enemy here that fails a Will save is flanked by any of the caster's
+          allies threatening it while it remains in the totem (no new save on re-entering; mind-affecting
+          phantasm; blindsense or blindsight auto-succeeds).</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Haunting Totem: Will DC [[10 + floor(@spheres.cl.war.total / 2) + @spheres.cam]] or the
+              caster's allies threatening you count as flanking you"
+            target: will
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Haunting Totem
@@ -18,7 +46,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: NHaJ2guJIYdy1lOv
+      name: Haunting Totem
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -48,15 +91,15 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Enemies within this totem must succeed at a Will save, or become
-      distracted by hallucinations at the edge of their perception. If they
-      fail, any of the caster&#8217;s allies threatening them are considered to
-      be flanking them. This lasts as long as are in the totem, ends if they
-      leave the totem, and resumes if they reenter the totem. They do not get a
-      new saving throw if the leave and then reenter the totem area. This is a
-      mind-affecting illusion (phantasm) effect, and creatures with blindsense
-      or blindsight automatically succeed at their saving throw.</p>
+    value:
+      "<p>Enemies within this totem must succeed at a Will save, or become distracted by hallucinations
+      at the edge of their perception. If they fail, any of the caster&#8217;s allies threatening them
+      are considered to be flanking them. This lasts as long as are in the totem, ends if they leave the
+      totem, and resumes if they reenter the totem. They do not get a new saving throw if the leave and
+      then reenter the totem area. This is a mind-affecting illusion (phantasm) effect, and creatures
+      with blindsense or blindsight automatically succeed at their saving throw.</p>
+
+      "
   disabled: false
   duration:
     units: ""

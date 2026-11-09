@@ -5,6 +5,28 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      Hcj4JPcqwOJeIMPn:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-preserve-integrity
+          sphere: protection
+    buffTemplates:
+      aegis-preserve-integrity:
+        name: "Aegis: Preserve Integrity"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: Immune to ability damage and drain, and their existing penalties are suppressed
+          (not self-inflicted).</p>"
+        changes: []
+        contextNotes:
+          - text: "Preserve Integrity: immune to ability damage and drain"
+            target: allSavingThrows
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Preserve Integrity
@@ -18,7 +40,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Hcj4JPcqwOJeIMPn
+      name: Preserve Integrity Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,16 +84,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p><strong>Prerequisites:</strong> Protection sphere, caster level
-      10th.</p>
+    value: "<p><strong>Prerequisites:</strong> Protection sphere, caster level 10th.</p>
 
-      <p>You may grant the target an aegis that makes them immune to ability
-      damage and ability drain. This aegis does not remove ability damage or
-      drain that the subject has already gained, but it does remove the
-      penalties from ability damage or drain for the duration of this aegis.
-      This aegis does not protect against self-inflicted ability damage or
-      drain.</p>
+      <p>You may grant the target an aegis that makes them immune to ability damage and ability drain.
+      This aegis does not remove ability damage or drain that the subject has already gained, but it does
+      remove the penalties from ability damage or drain for the duration of this aegis. This aegis does
+      not protect against self-inflicted ability damage or drain.</p>
+
+      "
   disabled: false
   duration:
     units: ""

@@ -5,6 +5,40 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      Bw5yxK5zZa3Z3qn7:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-slippery
+          sphere: protection
+    buffTemplates:
+      aegis-slippery:
+        name: "Aegis: Slippery"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: +2 enhancement bonus on Acrobatics, Escape Artist and CMD (+1 per 5 caster
+          levels); escape attempts as an immediate action.</p>"
+        changes:
+          - formula: 2 + floor(@item.level / 5)
+            target: skill.acr
+            type: enh
+            operator: add
+          - formula: 2 + floor(@item.level / 5)
+            target: skill.esc
+            type: enh
+            operator: add
+          - formula: 2 + floor(@item.level / 5)
+            target: cmd
+            type: enh
+            operator: add
+        contextNotes:
+          - text: "Slippery: Escape Artist as an immediate action against effects you could escape"
+            target: skills
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Slippery
@@ -18,7 +52,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Bw5yxK5zZa3Z3qn7
+      name: Slippery Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,13 +96,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that protects a creature from being physically
-      restrained or manipulated. The bearer of this aegis gains a +2 enhancement
-      bonus to Acrobatics checks, Escape Artist checks, and to CMD, and if they
-      are under an effect they could escape with an Escape Artist check they may
-      attempt such a check immediately as an immediate action. These bonuses
-      increase by 1 for every 5 caster levels you possess.</p>
+    value:
+      "<p>You may create an aegis that protects a creature from being physically restrained or manipulated.
+      The bearer of this aegis gains a +2 enhancement bonus to Acrobatics checks, Escape Artist checks,
+      and to CMD, and if they are under an effect they could escape with an Escape Artist check they may
+      attempt such a check immediately as an immediate action. These bonuses increase by 1 for every 5
+      caster levels you possess.</p>
+
+      "
   disabled: false
   duration:
     units: ""

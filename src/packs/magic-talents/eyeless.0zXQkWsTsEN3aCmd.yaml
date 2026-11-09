@@ -5,6 +5,32 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      U4pcSwzDnLxXDj3e:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-eyeless
+          sphere: protection
+    buffTemplates:
+      aegis-eyeless:
+        name: "Aegis: Eyeless"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: +4 morale to AC and saves against Light and Dark sphere effects, light-based
+          and illusory attacks, gaze attacks and shadow effects (not disbelief saves).</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Eyeless: +4 morale on saves against Light and Dark spheres, light, illusory attacks,
+              gazes and shadow effects"
+            target: allSavingThrows
+          - text: "Eyeless: +4 morale AC against light, illusory and shadow attacks"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Eyeless
@@ -18,7 +44,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: U4pcSwzDnLxXDj3e
+      name: Eyeless Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,13 +88,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that protects against effects dependent on
-      light, dark, or that attack the senses. This grants a +4 morale bonus to
-      AC and saving throws against effects from the Light and Dark spheres,
-      attacks based on light or from illusionary sources (although this does not
-      grant a bonus to saving throws made to disbelieve illusions), as well as
-      gaze attacks and attacks and effects with the shadow descriptor.</p>
+    value:
+      "<p>You may create an aegis that protects against effects dependent on light, dark, or that
+      attack the senses. This grants a +4 morale bonus to AC and saving throws against effects from the
+      Light and Dark spheres, attacks based on light or from illusionary sources (although this does not
+      grant a bonus to saving throws made to disbelieve illusions), as well as gaze attacks and attacks
+      and effects with the shadow descriptor.</p>
+
+      "
   disabled: false
   duration:
     units: ""

@@ -5,6 +5,20 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      Ol4JjXxbTYlY8mVv:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+          cross: enter
+          crossNote: It needs Intelligence 3 or higher to enter, unless it teleports or is pushed in.
+    buffTemplates: {}
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Logic
@@ -18,7 +32,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Ol4JjXxbTYlY8mVv
+      name: Logic Ward
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
   armorProf: []
   associations:
     classes: []
@@ -48,12 +77,13 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>This ward presents subtle inconsistencies and misdirections that
-      prevent entry. Creatures must have an Intelligence of at least 3 to enter
-      into the warded area. Teleportation bypasses the effect of this ward, and
-      low-intelligence creatures can still be pushed or otherwise motivated into
+    value:
+      "<p>This ward presents subtle inconsistencies and misdirections that prevent entry. Creatures
+      must have an Intelligence of at least 3 to enter into the warded area. Teleportation bypasses the
+      effect of this ward, and low-intelligence creatures can still be pushed or otherwise motivated into
       the ward area by other more intelligent creatures or by accident.</p>
+
+      "
   disabled: false
   duration:
     units: ""

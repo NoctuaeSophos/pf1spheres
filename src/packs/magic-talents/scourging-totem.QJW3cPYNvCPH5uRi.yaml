@@ -5,6 +5,30 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: war
+    automation:
+      B6mFijZiCFcGOKZm:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: enemies
+        buff:
+          itemId: tpl:scourging-totem
+          sphere: war
+    buffTemplates:
+      scourging-totem:
+        name: Scourging Totem
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: Enemies take damage equal to half the caster level (minimum 1) of
+          the chosen energy (acid, cold, electricity or fire) when they enter and at the end of the caster's
+          turn while inside.</p>"
+        changes: []
+        contextNotes: []
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Scourging Totem
@@ -18,7 +42,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: B6mFijZiCFcGOKZm
+      name: Scourging Totem
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -48,13 +87,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>This totem emits pulses of energy, damaging every enemy within your
-      totem&#8217;s range for an amount per round equal to 1/2 your caster level
-      (minimum 1). This damage may be acid, electricity, cold, or fire, as
-      chosen when the totem is created. Creatures who enter the area of effect
-      of this totem suffer damage immediately. Creatures who remain within the
-      area of this totem suffer damage each round at the end of your turn.</p>
+    value:
+      "<p>This totem emits pulses of energy, damaging every enemy within your totem&#8217;s range
+      for an amount per round equal to 1/2 your caster level (minimum 1). This damage may be acid, electricity,
+      cold, or fire, as chosen when the totem is created. Creatures who enter the area of effect of this
+      totem suffer damage immediately. Creatures who remain within the area of this totem suffer damage
+      each round at the end of your turn.</p>
+
+      "
   disabled: false
   duration:
     units: ""

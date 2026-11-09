@@ -5,6 +5,30 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      6nJHq981hAmjBBLA:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-guardian
+          sphere: protection
+    buffTemplates:
+      aegis-guardian:
+        name: "Aegis: Guardian"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: Hostile creatures within 10 ft. of the bearer take -1 (-1 per 5 caster
+          levels) on attacks against anyone else.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Guardian: enemies within 10 ft. take -[[1 + floor(@item.level / 5)]] attacking anyone
+              but you"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Guardian
@@ -18,7 +42,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 6nJHq981hAmjBBLA
+      name: Guardian Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,15 +86,15 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that draws harmful attention to its bearer and
-      away from their allies. Any hostile target within 10 feet of the bearer of
-      this aegis who decides to target any creature other than the bearer of
-      this aegis suffers a -1 penalty to their attack roll. This penalty
-      increases by 1 for every 5 caster levels possessed. Multiple Guardian
-      aegises do not stack; if a creature attacks one creature with this aegis
-      while within the area of another creature with this aegis, they suffer no
-      penalty for their attack.</p>
+    value:
+      "<p>You may create an aegis that draws harmful attention to its bearer and away from their
+      allies. Any hostile target within 10 feet of the bearer of this aegis who decides to target any
+      creature other than the bearer of this aegis suffers a -1 penalty to their attack roll. This penalty
+      increases by 1 for every 5 caster levels possessed. Multiple Guardian aegises do not stack; if a
+      creature attacks one creature with this aegis while within the area of another creature with this
+      aegis, they suffer no penalty for their attack.</p>
+
+      "
   disabled: false
   duration:
     units: ""

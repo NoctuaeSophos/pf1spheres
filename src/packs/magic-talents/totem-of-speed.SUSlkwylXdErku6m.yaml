@@ -5,6 +5,31 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: war
+    automation:
+      CirKyXlnQV04vj0r:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: allies
+        buff:
+          itemId: tpl:totem-of-speed
+          sphere: war
+    buffTemplates:
+      totem-of-speed:
+        name: Totem of Speed
+        img: icons/svg/ice-aura.svg
+        description: "<p>War totem: +5 ft. to all movement speeds, +5 ft. per 5 caster levels.</p>"
+        changes:
+          - formula: 5 + 5 * floor(@item.level / 5)
+            target: allSpeeds
+            type: enh
+            operator: add
+        contextNotes: []
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Speed
@@ -18,7 +43,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: CirKyXlnQV04vj0r
+      name: Totem of Speed
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -48,9 +88,10 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You and your allies gain a +5 bonus to all movement speeds, + 5-foot
-      per 5 caster levels.</p>
+    value:
+      "<p>You and your allies gain a +5 bonus to all movement speeds, + 5-foot per 5 caster levels.</p>
+
+      "
   disabled: false
   duration:
     units: ""

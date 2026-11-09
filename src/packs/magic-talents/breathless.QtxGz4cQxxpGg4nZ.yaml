@@ -5,6 +5,28 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      8gDlefdxT9iUtvYe:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-breathless
+          sphere: protection
+    buffTemplates:
+      aegis-breathless:
+        name: "Aegis: Breathless"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: +4 morale on saves against poison and disease; no need to breathe (immune
+          to inhaled effects; survive underwater or in vacuum) and withstand extreme pressure.</p>"
+        changes: []
+        contextNotes:
+          - text: "Breathless: +4 morale on saves against poison and disease"
+            target: allSavingThrows
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Breathless
@@ -18,7 +40,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 8gDlefdxT9iUtvYe
+      name: Breathless Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,14 +84,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that suspends the body&#8217;s needs. The
-      target gains a +4 morale bonus to saving throws against poisons and
-      diseases, can withstand extreme pressures (such as from the ocean), and
-      can survive without air, making it immune to effects that require
-      breathing (such as inhaled poison), and granting it the power to survive
-      underwater, or even in a vacuum. This does not give immunity to cloud or
-      gas attacks that do not require breathing.</p>
+    value:
+      "<p>You may create an aegis that suspends the body&#8217;s needs. The target gains a +4 morale
+      bonus to saving throws against poisons and diseases, can withstand extreme pressures (such as from
+      the ocean), and can survive without air, making it immune to effects that require breathing (such
+      as inhaled poison), and granting it the power to survive underwater, or even in a vacuum. This does
+      not give immunity to cloud or gas attacks that do not require breathing.</p>
+
+      "
   disabled: false
   duration:
     units: ""

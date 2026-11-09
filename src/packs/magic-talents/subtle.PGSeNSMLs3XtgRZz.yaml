@@ -5,6 +5,28 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      5HmW9BPaIrlRSHki:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-subtle
+          sphere: protection
+    buffTemplates:
+      aegis-subtle:
+        name: "Aegis: Subtle"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: Hidden from sphere and supernatural abilities that pick out creatures
+          (treated as an ally or unaffected); magical traps and triggers ignore the bearer.</p>"
+        changes: []
+        contextNotes:
+          - text: "Subtle: selective sphere and supernatural effects treat you as an ally"
+            target: allSavingThrows
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Subtle
@@ -18,7 +40,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 5HmW9BPaIrlRSHki
+      name: Subtle Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,34 +84,28 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p><strong>Prerequisites:</strong> Protection sphere, caster level
-      5th.</p>
+    value: "<p><strong>Prerequisites:</strong> Protection sphere, caster level 5th.</p>
 
-      <p>A creature with this aegis is surrounded by a field of magical energy
-      that interferes with other forms of magic. Rather than producing an
-      obvious spell resistance effect, however, the creature with the aegis
-      becomes hidden from sphere abilities and supernatural abilities.</p>
+      <p>A creature with this aegis is surrounded by a field of magical energy that interferes with other
+      forms of magic. Rather than producing an obvious spell resistance effect, however, the creature
+      with the aegis becomes hidden from sphere abilities and supernatural abilities.</p>
 
-      <p>The effect is such that these abilities can not target the character
-      properly without assistance from a creature. If a supernatural or sphere
-      ability discerns between allies and enemies (as many totems of the War
-      sphere do), or acts in a way that its effects only affect certain
-      creatures (such as creatures of a creature type or a specific alignment),
-      the creature with the aegis is unaffected or considered to be an ally.
-      Similarly, magic traps and contingency effects (like glyphs) are not
-      triggered by the creature&#8217;s presence, and any effect relying on a
-      magical trigger is also not triggered, as if the creature were invisible
-      to the trap or effect. Traps may still be sprung by physical triggers,
-      however.</p>
+      <p>The effect is such that these abilities can not target the character properly without assistance
+      from a creature. If a supernatural or sphere ability discerns between allies and enemies (as many
+      totems of the War sphere do), or acts in a way that its effects only affect certain creatures (such
+      as creatures of a creature type or a specific alignment), the creature with the aegis is unaffected
+      or considered to be an ally. Similarly, magic traps and contingency effects (like glyphs) are not
+      triggered by the creature&#8217;s presence, and any effect relying on a magical trigger is also
+      not triggered, as if the creature were invisible to the trap or effect. Traps may still be sprung
+      by physical triggers, however.</p>
 
-      <p>Abilities that rely on the caster choosing targets are not affected by
-      this aegis, even if that ability only works on certain targets (such as a
-      paladin&#8217;s smite evil ability), and this does not give the bearer any
-      special concealment from creatures using magical senses. Area effect
-      abilities are also still effective against the creature, provided the
-      effect affects every creature, or affects every creature save for those
-      specifically made invulnerable by the caster.</p>
+      <p>Abilities that rely on the caster choosing targets are not affected by this aegis, even if that
+      ability only works on certain targets (such as a paladin&#8217;s smite evil ability), and this does
+      not give the bearer any special concealment from creatures using magical senses. Area effect abilities
+      are also still effective against the creature, provided the effect affects every creature, or affects
+      every creature save for those specifically made invulnerable by the caster.</p>
+
+      "
   disabled: false
   duration:
     units: ""

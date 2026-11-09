@@ -5,6 +5,39 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: war
+    automation:
+      x4LMYmjCPtA10WEj:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: allies
+        buff:
+          itemId: tpl:totem-of-deep-thought
+          sphere: war
+        condSp:
+          r90uMwumnTX8sfuT: 1
+    buffTemplates:
+      totem-of-deep-thought:
+        name: Totem of Deep Thought
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: +1 competence bonus on concentration checks, +1 per 5 caster levels
+          (and on spell penetration if the caster spent a spell point).</p>"
+        changes:
+          - formula: 1 + floor(@item.level / 5)
+            target: concentration
+            type: competence
+            operator: add
+        contextNotes:
+          - text:
+              "Totem of Deep Thought: +[[1 + floor(@item.level / 5)]] on spell penetration if the caster
+              spent a spell point"
+            target: cl
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Deep Thought
@@ -18,7 +51,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: x4LMYmjCPtA10WEj
+      name: Totem of Deep Thought
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
+      conditionals:
+        - _id: r90uMwumnTX8sfuT
+          name: "Spend 1 spell point: the bonus also applies to spell penetration"
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []
@@ -48,11 +101,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Your allies gain a +1 competence bonus to concentration. This increases
-      by +1 for every 5 caster levels you possess. When you create this totem,
-      you may spend a spell point. If you do, the bonus applies not only to
-      concentration rolls, but spell penetration rolls as well.</p>
+    value:
+      "<p>Your allies gain a +1 competence bonus to concentration. This increases by +1 for every
+      5 caster levels you possess. When you create this totem, you may spend a spell point. If you do,
+      the bonus applies not only to concentration rolls, but spell penetration rolls as well.</p>
+
+      "
   disabled: false
   duration:
     units: ""

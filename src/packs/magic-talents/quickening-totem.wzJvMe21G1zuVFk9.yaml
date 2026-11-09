@@ -5,6 +5,31 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: war
+    automation:
+      pIIbVxm8DUOXGZeR:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: allies
+        buff:
+          itemId: tpl:quickening-totem
+          sphere: war
+    buffTemplates:
+      quickening-totem:
+        name: Quickening Totem
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: +2 dodge bonus to AC against attacks of opportunity, +1 per 4 caster
+          levels.</p>"
+        changes: []
+        contextNotes:
+          - text: "Quickening Totem: +[[2 + floor(@item.level / 4)]] dodge AC against attacks of opportunity"
+            target: ac
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Quickening Totem
@@ -18,7 +43,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: pIIbVxm8DUOXGZeR
+      name: Quickening Totem
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -48,10 +88,11 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You and your allies gain a +2 dodge bonus to AC vs. attacks of
-      opportunity. This increases by +1 for every 4 caster levels you
-      possess.</p>
+    value:
+      "<p>You and your allies gain a +2 dodge bonus to AC vs. attacks of opportunity. This increases
+      by +1 for every 4 caster levels you possess.</p>
+
+      "
   disabled: false
   duration:
     units: ""

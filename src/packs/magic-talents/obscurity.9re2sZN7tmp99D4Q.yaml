@@ -5,6 +5,53 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      cUZW2Egt4r2k8JRK:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.protection.total"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 * @spheres.cl.protection.total
+          who: all
+        buff:
+          itemId: tpl:ward-obscurity
+          sphere: protection
+      jYAHAasCBJ2DNa7l:
+        sp: "1"
+        effect:
+          enabled: true
+          concentration: false
+          duration: "@spheres.cl.protection.total"
+          units: hour
+        buff:
+          itemId: tpl:aegis-obscurity
+          sphere: protection
+    buffTemplates:
+      ward-obscurity:
+        name: Obscurity (Ward)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Ward: Creatures inside seem unremarkable: others must make a Will save to notice
+          them (automatic for those who know they're there or are fighting them). No tracks are left.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Obscurity: others need Will DC [[10 + floor(@spheres.cl.protection.total / 2) + @spheres.cam]]
+              to notice you"
+            target: skills
+      aegis-obscurity:
+        name: "Aegis: Obscurity"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Aegis: Others must make a Will save to notice the bearer (automatic for those
+          who know they're there or are fighting them). No tracks are left.</p>"
+        changes: []
+        contextNotes:
+          - text: "Obscurity: others need a Will save to notice you; no tracks"
+            target: skills
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Obscurity
@@ -18,7 +65,32 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: cUZW2Egt4r2k8JRK
+      name: Obscurity (Ward)
+      actionType: other
+      img: ""
+      activation: &id001
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Ward: up to 10 ft. + 5 ft. per caster level (resize the area on the scene for a smaller ward).
+            Concentration, or 1 spell point for 1 round per caster level."
+    - _id: jYAHAasCBJ2DNa7l
+      name: Obscurity (Aegis)
+      actionType: other
+      img: ""
+      activation: *id001
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 hour per caster level. Unwilling targets get a Will save; subject to spell resistance."
   armorProf: []
   associations:
     classes: []
@@ -48,19 +120,18 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Creatures with this aegis or within this ward appear unremarkable and
-      unimportant to those around them. Creatures must succeed at a Will save to
-      be able to notice their presence, even if they succeeded on a relevant
-      Perception check. A successful save allows them to see the obscured
-      creatures normally (assuming they can see the creatures normally), until
-      they have left the sight of the creature by either moving out of
-      line-of-sight or succeeding at a Stealth check. Creatures who are
-      specifically looking for the protected creatures and are aware of their
-      identity (like those who have been told you are there by someone else), or
-      who are engaged in combat with them automatically pass this saving throw.
-      Creatures with this aegis do not leave behind tracks or other signs of
-      their passage.</p>
+    value:
+      "<p>Creatures with this aegis or within this ward appear unremarkable and unimportant to those
+      around them. Creatures must succeed at a Will save to be able to notice their presence, even if
+      they succeeded on a relevant Perception check. A successful save allows them to see the obscured
+      creatures normally (assuming they can see the creatures normally), until they have left the sight
+      of the creature by either moving out of line-of-sight or succeeding at a Stealth check. Creatures
+      who are specifically looking for the protected creatures and are aware of their identity (like those
+      who have been told you are there by someone else), or who are engaged in combat with them automatically
+      pass this saving throw. Creatures with this aegis do not leave behind tracks or other signs of their
+      passage.</p>
+
+      "
   disabled: false
   duration:
     units: ""
