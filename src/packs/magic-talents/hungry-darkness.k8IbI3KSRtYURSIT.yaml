@@ -18,7 +18,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: m69Fg30GvZpbqGE0
+      name: Hungry Darkness
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.dark.total / 2) + @spheres.cam
+        description: ""
   armorProf: []
   associations:
     classes: []

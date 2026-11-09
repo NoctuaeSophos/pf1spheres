@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      HG5Ba7gN1XDTszCF:
+        condSp:
+          dBf51zWumYujequw: 1
+          HWHGm2uUKYcLiSRF: 1
     sphere: time
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/time.webp
@@ -18,7 +23,31 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: HG5Ba7gN1XDTszCF
+      name: Time Of The Season
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.time.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "@spheres.cl.time.total"
+        units: minute
+      conditionals:
+        - _id: dBf51zWumYujequw
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
+        - _id: HWHGm2uUKYcLiSRF
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

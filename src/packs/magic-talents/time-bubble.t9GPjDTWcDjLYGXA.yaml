@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      xmWWDRhki69QQU2Z:
+        condSp:
+          sER0I8BSPfGxATix: 1
+          ekQD8jJEIgvUcnB7: 1
     sphere: time
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/time.webp
@@ -18,7 +23,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: xmWWDRhki69QQU2Z
+      name: Time Bubble
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      duration:
+        value: "@spheres.cl.time.total"
+        units: round
+      conditionals:
+        - _id: sER0I8BSPfGxATix
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: ekQD8jJEIgvUcnB7
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

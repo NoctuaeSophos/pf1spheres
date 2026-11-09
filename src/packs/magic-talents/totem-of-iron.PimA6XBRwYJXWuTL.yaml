@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      IGJatzKICdc3jjgL:
+        condSp:
+          4rHyVD2sCkCQ1OWf: 1
     sphere: war
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: IGJatzKICdc3jjgL
+      name: Totem Of Iron
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: 4rHyVD2sCkCQ1OWf
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

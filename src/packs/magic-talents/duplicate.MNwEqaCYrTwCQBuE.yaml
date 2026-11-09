@@ -18,7 +18,15 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: QqTFoJDoIKShVG6L
+      name: Duplicate
+      actionType: other
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
   armorProf: []
   associations:
     classes: []

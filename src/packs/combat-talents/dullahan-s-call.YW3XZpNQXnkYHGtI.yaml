@@ -18,7 +18,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Z7ZdZ6nwRI3ZJk4F
+      name: Dullahan’s Call
+      actionType: save
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
+      duration:
+        value: "1"
+        units: round
   armorProf: []
   associations:
     classes: []

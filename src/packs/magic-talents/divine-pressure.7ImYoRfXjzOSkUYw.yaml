@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      IkXOpIqp9dkwwAfm:
+        condSp:
+          OtiiRTFQEpTpaGSC: 1
+          i7PwSti4TjLKpvO0: 1
     sphere: fate
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/fate.webp
@@ -18,7 +23,31 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: IkXOpIqp9dkwwAfm
+      name: Divine Pressure
+      actionType: save
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.fate.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "@spheres.cl.fate.total"
+        units: minute
+      conditionals:
+        - _id: OtiiRTFQEpTpaGSC
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: i7PwSti4TjLKpvO0
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -1,5 +1,5 @@
 _id: 5Pqgk23l5Gyt286A
-_key: '!items!5Pqgk23l5Gyt286A'
+_key: "!items!5Pqgk23l5Gyt286A"
 effects: []
 flags:
   pf1: {}
@@ -19,12 +19,20 @@ system:
     damageMult: 1
   abilityType: ex
   acquired: false
-  actions: []
+  actions:
+    - _id: a5nbgD86xNq8Mqze
+      name: Avoid Hazard
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -40,15 +48,15 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p>Research topic must concern an area, survival, or hazards. It starts
       with 1 notion if the topic involved underground or natural hazards (Knowledge
       (dungeoneering) or Knowledge (nature)). You gain an insight bonus on saves against
@@ -68,18 +76,18 @@ system:
       text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -90,28 +98,28 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: skillTalent
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Research
-  - Theory
-  - Utility
+    - Research
+    - Theory
+    - Utility
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

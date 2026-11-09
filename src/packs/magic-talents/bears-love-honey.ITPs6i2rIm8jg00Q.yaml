@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      QB7xoFcSvTAxRzma:
+        condSp:
+          ZsV2GenFmtX0moDo: 1
     sphere: bear
 folder: null
 img: icons/svg/item-bag.svg
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: QB7xoFcSvTAxRzma
+      name: Bears Love Honey
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: ZsV2GenFmtX0moDo
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

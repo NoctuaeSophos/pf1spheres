@@ -18,7 +18,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: cCdNppock7L2lua5
+      name: Disorient
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.mana.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "@spheres.cl.mana.total"
+        units: minute
   armorProf: []
   associations:
     classes: []

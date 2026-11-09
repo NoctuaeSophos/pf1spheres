@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      QIZphnROcy05lyrv:
+        condSp:
+          9jxkow40N459ztFu: 3
     sphere: fallenFey
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/fallen_fey.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: QIZphnROcy05lyrv
+      name: Fey Initiation
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: 9jxkow40N459ztFu
+          name: Spend 3 spell points
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

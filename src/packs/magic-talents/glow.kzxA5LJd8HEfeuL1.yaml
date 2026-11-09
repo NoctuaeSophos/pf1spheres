@@ -18,7 +18,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: q9bfS3nPqN9PPVLj
+      name: Glow
+      actionType: rsak
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      touch: true
+      ability:
+        attack: dex
+      duration:
+        value: "@spheres.cl.light.total"
+        units: minute
   armorProf: []
   associations:
     classes: []

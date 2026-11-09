@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      T7afLXigyr4hM3BC:
+        condSp:
+          4UZqfUCPxgcF1Utn: 1
     sphere: warp
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/warp.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: T7afLXigyr4hM3BC
+      name: Instill Teleport
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: 4UZqfUCPxgcF1Utn
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

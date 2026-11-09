@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      ozcuyjPsoPISfmDj:
+        condSp:
+          UlBvRzhc1whQ7nP8: 1
     sphere: warp
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/warp.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: ozcuyjPsoPISfmDj
+      name: Extradimensional Torpor
+      actionType: save
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.warp.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: UlBvRzhc1whQ7nP8
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      9WZEb9jCnSqmtODM:
+        condSp:
+          8H2XmHdu7Q88ad4F: 1
     sphere: fallenFey
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/fallen_fey.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 9WZEb9jCnSqmtODM
+      name: Stone Shape
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: 8H2XmHdu7Q88ad4F
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      n0NLdZGL0MassbAL:
+        condSp:
+          NvVXRFBnvfOqDO7J: 2
     sphere: weather
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/weather.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: n0NLdZGL0MassbAL
+      name: Volcano Lord
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: NvVXRFBnvfOqDO7J
+          name: Spend 2 spell points
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

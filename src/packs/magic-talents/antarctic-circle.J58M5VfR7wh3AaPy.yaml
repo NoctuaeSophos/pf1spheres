@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      bttOofL9H2WjQ5TY:
+        condSp:
+          4MyWuUFjsUNPjc01: 1
+          T5GOBUSZGi6HWGK1: 1
     sphere: bear
 folder: null
 img: icons/svg/item-bag.svg
@@ -18,7 +23,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: bttOofL9H2WjQ5TY
+      name: Antarctic Circle
+      actionType: other
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
+      duration:
+        value: "@spheres.cl.bear.total"
+        units: hour
+      conditionals:
+        - _id: 4MyWuUFjsUNPjc01
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: T5GOBUSZGi6HWGK1
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

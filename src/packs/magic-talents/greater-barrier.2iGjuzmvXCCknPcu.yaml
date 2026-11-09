@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      nKN3972yhd8BHdpH:
+        condSp:
+          kG3ungfEqD78DYUi: 1
     sphere: protection
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: nKN3972yhd8BHdpH
+      name: Greater Barrier
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: kG3ungfEqD78DYUi
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -18,7 +18,16 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Fa07lLXCf1wDDPTQ
+      name: Shaped Chemistry
+      actionType: save
+      activation:
+        type: special
+      save:
+        type: ref
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: Reflex half
   armorProf: []
   associations:
     classes: []

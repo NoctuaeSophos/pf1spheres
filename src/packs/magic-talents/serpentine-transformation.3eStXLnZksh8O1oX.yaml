@@ -18,7 +18,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: OWfIEwxgNfHIW4S3
+      name: Serpentine Transformation
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      duration:
+        value: "6"
+        units: round
   armorProf: []
   associations:
     classes: []

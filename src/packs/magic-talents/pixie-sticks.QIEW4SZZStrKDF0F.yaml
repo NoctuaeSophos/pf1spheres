@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      TYD6j9dBUneUZCQL:
+        condSp:
+          EY577WNigSLaAApG: 1
     sphere: fallenFey
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/fallen_fey.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: TYD6j9dBUneUZCQL
+      name: Pixie Sticks
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      conditionals:
+        - _id: EY577WNigSLaAApG
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

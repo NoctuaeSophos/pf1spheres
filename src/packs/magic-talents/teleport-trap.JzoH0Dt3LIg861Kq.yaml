@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      8UpF3x6e8J4XehMg:
+        condSp:
+          9R9EWYDAg3NunI3L: 1
+          fC307Tg0QqCGdIQL: 1
     sphere: warp
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/warp.webp
@@ -18,7 +23,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 8UpF3x6e8J4XehMg
+      name: Teleport Trap
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      duration:
+        value: 10 * @spheres.cl.warp.total
+        units: minute
+      conditionals:
+        - _id: 9R9EWYDAg3NunI3L
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: fC307Tg0QqCGdIQL
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

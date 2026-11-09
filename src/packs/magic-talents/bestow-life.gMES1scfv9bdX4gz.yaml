@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      qVTSu7rtaUWM6ZO8:
+        condSp:
+          8eb0ogET9D9XyYq6: 3
     sphere: enhancement
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/enhancement.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: qVTSu7rtaUWM6ZO8
+      name: Bestow Life
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: 8eb0ogET9D9XyYq6
+          name: Spend 3 spell points
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

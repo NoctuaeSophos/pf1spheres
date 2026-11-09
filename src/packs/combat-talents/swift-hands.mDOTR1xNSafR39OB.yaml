@@ -18,7 +18,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: eXoOuynRKZzmv3aH
+      name: Swift Hands
+      actionType: msak
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      touch: true
+      ability:
+        attack: str
+      duration:
+        value: "1"
+        units: round
   armorProf: []
   associations:
     classes: []

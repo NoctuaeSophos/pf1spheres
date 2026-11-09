@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      e0ZpJ9PRYmWTTu1H:
+        condSp:
+          5eU1cYfLpS2voi3u: 1
     sphere: death
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
@@ -18,7 +22,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: e0ZpJ9PRYmWTTu1H
+      name: Shroud (Death)
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      duration:
+        value: "@spheres.cl.death.total"
+        units: round
+      conditionals:
+        - _id: 5eU1cYfLpS2voi3u
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      s5cV07Py4siPT4Ty:
+        condSp:
+          N5rTeXMM0GrMn5ot: 1
+          gxRK4ZfxbSHeh19u: 1
     sphere: telekinesis
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/telekinesis.webp
@@ -18,7 +23,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: s5cV07Py4siPT4Ty
+      name: Focused Power
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: N5rTeXMM0GrMn5ot
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: gxRK4ZfxbSHeh19u
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

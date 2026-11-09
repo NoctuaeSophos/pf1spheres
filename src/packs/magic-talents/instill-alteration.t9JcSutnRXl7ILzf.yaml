@@ -18,7 +18,15 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: UBvwTS1zPjD31KJa
+      name: Instill Alteration
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
   armorProf: []
   associations:
     classes: []

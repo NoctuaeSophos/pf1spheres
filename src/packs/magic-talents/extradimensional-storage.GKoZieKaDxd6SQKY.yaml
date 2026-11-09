@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      j3d7Sick1CsWo3LZ:
+        condSp:
+          uTJUjt6quJ1nj8ZQ: 1
     sphere: warp
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/warp.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: j3d7Sick1CsWo3LZ
+      name: Extradimensional Storage
+      actionType: other
+      activation:
+        type: move
+        unchained:
+          cost: 1
+          type: action
+      conditionals:
+        - _id: uTJUjt6quJ1nj8ZQ
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

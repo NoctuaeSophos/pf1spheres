@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      WfB7koV4gopdufPe:
+        condSp:
+          Xy9HwgTSc0HiIGgE: 1
+          LVC1uf1uSfhzgvdp: 1
     sphere: nature
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/nature.webp
@@ -18,7 +23,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: WfB7koV4gopdufPe
+      name: Resist Elements
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      duration:
+        value: "@spheres.cl.nature.total"
+        units: minute
+      conditionals:
+        - _id: Xy9HwgTSc0HiIGgE
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: LVC1uf1uSfhzgvdp
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

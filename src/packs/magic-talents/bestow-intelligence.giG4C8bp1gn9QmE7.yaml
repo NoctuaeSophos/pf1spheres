@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      5EbOApZOXzcycDeZ:
+        condSp:
+          6dqmVe5Mvxrv99Nc: 1
     sphere: enhancement
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/enhancement.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 5EbOApZOXzcycDeZ
+      name: Bestow Intelligence
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.enhancement.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: 6dqmVe5Mvxrv99Nc
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

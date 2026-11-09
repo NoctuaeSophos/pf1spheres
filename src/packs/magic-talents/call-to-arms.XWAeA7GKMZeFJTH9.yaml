@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      oK4tYnzNLeK6kjcb:
+        condSp:
+          hgN7kwjSbbciSPOc: 1
     sphere: war
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: oK4tYnzNLeK6kjcb
+      name: Call To Arms
+      actionType: other
+      activation:
+        type: move
+        unchained:
+          cost: 1
+          type: action
+      conditionals:
+        - _id: hgN7kwjSbbciSPOc
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

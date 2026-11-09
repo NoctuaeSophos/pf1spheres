@@ -18,7 +18,15 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: ZiJIIZ5KUwc7sYGq
+      name: Cone Of Death
+      actionType: other
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
   armorProf: []
   associations:
     classes: []

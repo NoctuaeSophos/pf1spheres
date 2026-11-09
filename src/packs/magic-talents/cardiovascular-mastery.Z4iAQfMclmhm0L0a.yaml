@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      WPnsuvBqbwq7sdTW:
+        condSp:
+          x6uX9MGE2sNVbYAb: 1
+          BHXgwETdIKnT30fK: 1
     sphere: blood
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/blood.webp
@@ -18,7 +23,31 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: WPnsuvBqbwq7sdTW
+      name: Cardiovascular Mastery
+      actionType: save
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.blood.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "1"
+        units: minute
+      conditionals:
+        - _id: x6uX9MGE2sNVbYAb
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
+        - _id: BHXgwETdIKnT30fK
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

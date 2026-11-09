@@ -18,7 +18,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: qD0jctZMZA3iqG7B
+      name: Shocking Creature
+      actionType: msak
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      touch: true
+      ability:
+        attack: str
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.conjuration.total / 2) + @spheres.cam
+        description: ""
   armorProf: []
   associations:
     classes: []

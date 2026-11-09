@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      31jwopk2JDXibl7T:
+        condSp:
+          SJ1BAVBvgkqO3nsr: 1
     sphere: alteration
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/alteration.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 31jwopk2JDXibl7T
+      name: Undead Body
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.alteration.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "24"
+        units: hour
+      conditionals:
+        - _id: SJ1BAVBvgkqO3nsr
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

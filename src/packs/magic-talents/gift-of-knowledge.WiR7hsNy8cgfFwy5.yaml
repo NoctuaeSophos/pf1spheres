@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      7EWN1WWWurZpaAIb:
+        condSp:
+          voI4w60vaXXXp4vY: 1
     sphere: mana
 folder: null
 img: icons/svg/item-bag.svg
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 7EWN1WWWurZpaAIb
+      name: Gift Of Knowledge
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: voI4w60vaXXXp4vY
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

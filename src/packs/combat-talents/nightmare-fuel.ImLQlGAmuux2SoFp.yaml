@@ -18,7 +18,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Hfz2a6fDol3VmHs8
+      name: Nightmare Fuel
+      actionType: save
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      save:
+        type: will
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
   armorProf: []
   associations:
     classes: []

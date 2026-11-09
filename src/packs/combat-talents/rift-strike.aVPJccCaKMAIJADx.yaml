@@ -18,7 +18,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 9zk6yMabdfTucwoz
+      name: Rift Strike
+      actionType: other
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
+      duration:
+        value: "1"
+        units: hour
   armorProf: []
   associations:
     classes: []

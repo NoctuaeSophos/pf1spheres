@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      6xS0DGHMnilPvRXI:
+        condSp:
+          qaRTVBle9qfng0sJ: 1
     sphere: creation
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/creation.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 6xS0DGHMnilPvRXI
+      name: Plasma Production
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: ref
+        dc: 10 + floor(@spheres.cl.creation.total / 2) + @spheres.cam
+        description: Reflex negates
+      conditionals:
+        - _id: qaRTVBle9qfng0sJ
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

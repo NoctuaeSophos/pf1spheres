@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      wswzHJMyPuaYV2Fy:
+        condSp:
+          CtlItZjBKyLof06v: 1
     sphere: divination
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/divination.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: wswzHJMyPuaYV2Fy
+      name: Detect Thoughts
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.divination.total / 2) + @spheres.cam
+        description: Will negates
+      conditionals:
+        - _id: CtlItZjBKyLof06v
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

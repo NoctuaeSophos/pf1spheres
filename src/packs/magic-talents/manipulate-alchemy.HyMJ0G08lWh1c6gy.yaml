@@ -18,7 +18,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: M34jySIDyYZD1m89
+      name: Manipulate Alchemy
+      actionType: save
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.blood.total / 2) + @spheres.cam
+        description: ""
   armorProf: []
   associations:
     classes: []

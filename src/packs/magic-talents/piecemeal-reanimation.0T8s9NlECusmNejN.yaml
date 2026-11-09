@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      KdivBOAeBpJHxHzj:
+        condSp:
+          BqxtMfCbuUhzFClL: 1
+          hxcpKaj3d8Ts3DRu: 1
     sphere: death
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
@@ -18,7 +23,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: KdivBOAeBpJHxHzj
+      name: Piecemeal Reanimation
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: BqxtMfCbuUhzFClL
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: hxcpKaj3d8Ts3DRu
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

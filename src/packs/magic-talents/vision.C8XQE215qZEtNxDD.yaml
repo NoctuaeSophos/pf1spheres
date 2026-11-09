@@ -18,7 +18,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: cIAfK7hpWGCsNbB8
+      name: Vision
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.mind.total / 2) + @spheres.cam
+        description: Will negates
+      duration:
+        value: "@spheres.cl.mind.total"
+        units: round
   armorProf: []
   associations:
     classes: []

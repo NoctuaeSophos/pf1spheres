@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      ASP7iENj4b4si6kj:
+        condSp:
+          5ScW3eVNsbgVtYuu: 1
+          asUfSNsxLvoZZ9zx: 1
     sphere: fallenFey
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/fallen_fey.webp
@@ -18,7 +23,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: ASP7iENj4b4si6kj
+      name: Summon Fairy
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: 5ScW3eVNsbgVtYuu
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: asUfSNsxLvoZZ9zx
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

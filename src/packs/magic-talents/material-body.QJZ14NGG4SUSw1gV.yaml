@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      hJbAfcNCQ6Yt6LCT:
+        condSp:
+          Weg7ZgztGT0bZyxi: 1
+          ZEfbbjGoOf0fJmMH: 1
     sphere: creation
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/creation.webp
@@ -18,7 +23,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: hJbAfcNCQ6Yt6LCT
+      name: Material Body
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      duration:
+        value: "@spheres.cl.creation.total"
+        units: minute
+      conditionals:
+        - _id: Weg7ZgztGT0bZyxi
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: ZEfbbjGoOf0fJmMH
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

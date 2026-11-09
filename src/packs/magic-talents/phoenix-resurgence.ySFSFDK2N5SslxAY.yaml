@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      v5hUnCghUVVvPHX8:
+        condSp:
+          HLJj6RPdPrLaFKWA: 3
     sphere: nature
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/nature.webp
@@ -18,7 +22,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: v5hUnCghUVVvPHX8
+      name: Phoenix Resurgence
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      duration:
+        value: "1"
+        units: hour
+      conditionals:
+        - _id: HLJj6RPdPrLaFKWA
+          name: Spend 3 spell points
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

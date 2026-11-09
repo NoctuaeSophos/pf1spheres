@@ -18,7 +18,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Cn2csCi1mtVuLm8e
+      name: Gremlin’s Presence
+      actionType: save
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.fallenFey.total / 2) + @spheres.cam
+        description: Will negates
+      duration:
+        value: "24"
+        units: hour
   armorProf: []
   associations:
     classes: []

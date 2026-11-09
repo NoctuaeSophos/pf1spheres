@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      RXLujTpwrkcrOg25:
+        condSp:
+          8LewmCNybdo4zLW9: 1
     sphere: destruction
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: RXLujTpwrkcrOg25
+      name: Disintegrate
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: 8LewmCNybdo4zLW9
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

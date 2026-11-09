@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      rDpPUA6ewNLPo9D9:
+        condSp:
+          LctRMgITchyA2jTI: 1
+          FL6Os4uMYXAhh3L7: 1
     sphere: fate
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/fate.webp
@@ -18,7 +23,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: rDpPUA6ewNLPo9D9
+      name: Undying Obstinance
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      duration:
+        value: "1"
+        units: round
+      conditionals:
+        - _id: LctRMgITchyA2jTI
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: FL6Os4uMYXAhh3L7
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

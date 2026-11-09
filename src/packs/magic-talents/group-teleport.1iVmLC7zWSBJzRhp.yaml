@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      WucAlvAQTbKxXkp0:
+        condSp:
+          1ajMZqMDEJJTyiqp: 2
+          Jhr9Aj6iHiLu4Wdk: 1
     sphere: warp
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/warp.webp
@@ -18,7 +23,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: WucAlvAQTbKxXkp0
+      name: Group Teleport
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: 1ajMZqMDEJJTyiqp
+          name: Spend 2 spell points
+          default: true
+          modifiers: []
+        - _id: Jhr9Aj6iHiLu4Wdk
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

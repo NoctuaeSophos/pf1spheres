@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      Oj3QYrzZq9adP0J5:
+        condSp:
+          wMPLCM7HUFpk5acd: 1
     sphere: light
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/light.webp
@@ -18,7 +22,26 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Oj3QYrzZq9adP0J5
+      name: Bright Light
+      actionType: rsak
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      touch: true
+      ability:
+        attack: dex
+      duration:
+        value: "@spheres.cl.light.total"
+        units: minute
+      conditionals:
+        - _id: wMPLCM7HUFpk5acd
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

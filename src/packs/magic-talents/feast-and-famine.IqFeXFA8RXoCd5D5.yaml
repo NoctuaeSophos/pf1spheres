@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      vTeaY4EcFHXv6eWM:
+        condSp:
+          Oem3Od2xYAfPTwLk: 1
+          Z9FRXVFiq1S7t5dV: 1
     sphere: fallenFey
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/fallen_fey.webp
@@ -18,7 +23,34 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: vTeaY4EcFHXv6eWM
+      name: Feast And Famine
+      actionType: rsak
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      touch: true
+      ability:
+        attack: dex
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.fallenFey.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "1"
+        units: round
+      conditionals:
+        - _id: Oem3Od2xYAfPTwLk
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
+        - _id: Z9FRXVFiq1S7t5dV
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

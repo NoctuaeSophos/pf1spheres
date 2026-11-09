@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      3efWCyzHAF75PWYb:
+        condSp:
+          gLKD7DS1BAEl4eCz: 1
+          FiGW0aQoVmzIc7Rs: 1
     sphere: fate
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/fate.webp
@@ -18,7 +23,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 3efWCyzHAF75PWYb
+      name: Exorcism
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: gLKD7DS1BAEl4eCz
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: FiGW0aQoVmzIc7Rs
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

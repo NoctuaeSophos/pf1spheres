@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      KPudANTU1vkfbjnj:
+        condSp:
+          HX1fw0xBwIRL3JjQ: 1
     sphere: destruction
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: KPudANTU1vkfbjnj
+      name: Energy Leap
+      actionType: save
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      save:
+        type: ref
+        dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+        description: Reflex half
+      duration:
+        value: "1"
+        units: round
+      conditionals:
+        - _id: HX1fw0xBwIRL3JjQ
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

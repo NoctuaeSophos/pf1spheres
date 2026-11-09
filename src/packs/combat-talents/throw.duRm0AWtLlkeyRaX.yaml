@@ -18,7 +18,16 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: qun7sf2oO3Cga32o
+      name: Throw
+      actionType: save
+      activation:
+        type: special
+      save:
+        type: ref
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
   armorProf: []
   associations:
     classes: []

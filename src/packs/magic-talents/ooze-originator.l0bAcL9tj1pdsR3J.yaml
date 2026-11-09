@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      ZgJvyoN1uaaCS3BY:
+        condSp:
+          OUxtFoKTotnUOwJW: 1
     sphere: creation
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/creation.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: ZgJvyoN1uaaCS3BY
+      name: Ooze Originator
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: OUxtFoKTotnUOwJW
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

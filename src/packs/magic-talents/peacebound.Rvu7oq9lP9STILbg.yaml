@@ -18,7 +18,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Flfn2wRLBmU8e9Qf
+      name: Peacebound
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.protection.total / 2) + @spheres.cam
+        description: Will negates
+      duration:
+        value: "24"
+        units: hour
   armorProf: []
   associations:
     classes: []

@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      1GsUtxpA65GrMM5p:
+        condSp:
+          B8Dq802NZniJPiZZ: 1
     sphere: mind
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/mind.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 1GsUtxpA65GrMM5p
+      name: Mental Archive
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      conditionals:
+        - _id: B8Dq802NZniJPiZZ
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

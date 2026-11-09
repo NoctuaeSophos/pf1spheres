@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      PUPLeFem5UxGEamK:
+        condSp:
+          OnduJGVHkiW39x07: 1
+          Yi8wTmJD03Z9OYQJ: 1
     sphere: divination
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/divination.webp
@@ -18,7 +23,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: PUPLeFem5UxGEamK
+      name: Scent
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: OnduJGVHkiW39x07
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: Yi8wTmJD03Z9OYQJ
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      1Kwm8YYFvWW6ANvS:
+        condSp:
+          cJniLDQdfl77yTi2: 1
     sphere: enhancement
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/enhancement.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 1Kwm8YYFvWW6ANvS
+      name: Steal Capacity
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: cJniLDQdfl77yTi2
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

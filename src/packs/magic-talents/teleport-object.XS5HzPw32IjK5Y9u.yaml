@@ -18,7 +18,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: OGzZUFV5qFqsMVd7
+      name: Teleport Object
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.warp.total / 2) + @spheres.cam
+        description: ""
   armorProf: []
   associations:
     classes: []

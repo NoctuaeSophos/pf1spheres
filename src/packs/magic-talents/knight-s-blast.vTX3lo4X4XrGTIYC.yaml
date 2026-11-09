@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      UdpBip7Wap50wpXf:
+        condSp:
+          1ELyBvEWcoQ1dCGp: 1
+          7cM7lmeqfXvWfvPf: 1
     sphere: destruction
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
@@ -18,7 +23,28 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: UdpBip7Wap50wpXf
+      name: Knight’s Blast
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: ref
+        dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: 1ELyBvEWcoQ1dCGp
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: 7cM7lmeqfXvWfvPf
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

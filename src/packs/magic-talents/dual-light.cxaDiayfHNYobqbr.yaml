@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      jQLxJL8AxHpKCzqh:
+        condSp:
+          ol94mJVho31qPgmH: 1
     sphere: light
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/light.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: jQLxJL8AxHpKCzqh
+      name: Dual Light
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: ol94mJVho31qPgmH
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

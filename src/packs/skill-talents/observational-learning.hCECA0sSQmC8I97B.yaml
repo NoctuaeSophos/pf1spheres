@@ -1,5 +1,5 @@
 _id: hCECA0sSQmC8I97B
-_key: '!items!hCECA0sSQmC8I97B'
+_key: "!items!hCECA0sSQmC8I97B"
 effects: []
 flags:
   pf1: {}
@@ -19,12 +19,23 @@ system:
     damageMult: 1
   abilityType: ex
   acquired: false
-  actions: []
+  actions:
+    - _id: JK9EvLe4jE4SZBtP
+      name: Observational Learning
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      duration:
+        value: "1"
+        units: round
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -40,15 +51,15 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p><strong>Prerequisites:</strong> Study sphere.</p><p>Subject must be
       a creature. You can use the Knowledge skill that identifies the subject to identify
       any class feature, feat, or talent you see it use (DC 10 + its HD) or to assess
@@ -71,18 +82,18 @@ system:
       <a href="http://spheresofpower.wikidot.com/study#toc44">Full text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -93,27 +104,27 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: skillTalent
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Exceptional
-  - Theory
+    - Exceptional
+    - Theory
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

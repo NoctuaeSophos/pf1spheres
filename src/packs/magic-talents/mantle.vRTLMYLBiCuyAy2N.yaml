@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      t6DoxpY4UAhWo3ah:
+        condSp:
+          vVgCSFXbonwcuWyA: 1
     sphere: weather
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/weather.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: t6DoxpY4UAhWo3ah
+      name: Mantle
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.weather.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "@spheres.cl.weather.total"
+        units: hour
+      conditionals:
+        - _id: vVgCSFXbonwcuWyA
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

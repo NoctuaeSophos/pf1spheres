@@ -18,7 +18,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: gRdZXnGolAGMm4KL
+      name: Intense Conditioning
+      actionType: save
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      save:
+        type: will
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
+      duration:
+        value: "1"
+        units: minute
   armorProf: []
   associations:
     classes: []

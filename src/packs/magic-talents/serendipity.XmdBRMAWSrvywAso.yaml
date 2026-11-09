@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      LofixWWR7AYMbJx8:
+        condSp:
+          UGhIADlAlSThXSC7: 1
     sphere: fate
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/fate.webp
@@ -18,7 +22,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: LofixWWR7AYMbJx8
+      name: Serendipity
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      duration:
+        value: "@spheres.cl.fate.total"
+        units: round
+      conditionals:
+        - _id: UGhIADlAlSThXSC7
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

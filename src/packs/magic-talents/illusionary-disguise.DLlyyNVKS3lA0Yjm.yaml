@@ -18,7 +18,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: JD8vEYDYV31nUvxp
+      name: Illusionary Disguise
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.illusion.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "1"
+        units: minute
   armorProf: []
   associations:
     classes: []

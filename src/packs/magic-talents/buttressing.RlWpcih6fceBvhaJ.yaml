@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      S82qTdrOJRBRY6Hq:
+        condSp:
+          sP795nf4Gakq5p1V: 1
+          m8kV6um4yvMpy62O: 1
     sphere: protection
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
@@ -18,7 +23,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: S82qTdrOJRBRY6Hq
+      name: Buttressing
+      actionType: other
+      activation:
+        type: move
+        unchained:
+          cost: 1
+          type: action
+      conditionals:
+        - _id: sP795nf4Gakq5p1V
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: m8kV6um4yvMpy62O
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

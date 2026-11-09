@@ -18,7 +18,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: QuxDGqrgAjxDgaYY
+      name: Staggering Tear
+      actionType: save
+      activation:
+        type: special
+      save:
+        type: fort
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
+      duration:
+        value: "1"
+        units: round
   armorProf: []
   associations:
     classes: []

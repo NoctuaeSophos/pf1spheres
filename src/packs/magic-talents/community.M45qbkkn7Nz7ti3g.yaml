@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      z89HoZ9zDnki7XeZ:
+        condSp:
+          ZOmEPJUo09jwQO10: 1
     sphere: protection
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: z89HoZ9zDnki7XeZ
+      name: Community
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      conditionals:
+        - _id: ZOmEPJUo09jwQO10
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

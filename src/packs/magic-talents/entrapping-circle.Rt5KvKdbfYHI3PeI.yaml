@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      VTrzBuIAyjyWy4AZ:
+        condSp:
+          j5OapMG7qSNUyp0m: 2
+          Qhf1NYc6TdzSJuRP: 1
     sphere: conjuration
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/conjuration.webp
@@ -18,7 +23,28 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: VTrzBuIAyjyWy4AZ
+      name: Entrapping Circle
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.conjuration.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: j5OapMG7qSNUyp0m
+          name: Spend 2 spell points
+          default: true
+          modifiers: []
+        - _id: Qhf1NYc6TdzSJuRP
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

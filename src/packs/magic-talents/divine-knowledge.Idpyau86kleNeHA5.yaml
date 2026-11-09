@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      SGVS11OOCGdRSnBR:
+        condSp:
+          G27XiFWmc8S0ZJql: 3
     sphere: divination
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/divination.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: SGVS11OOCGdRSnBR
+      name: Divine Knowledge
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: G27XiFWmc8S0ZJql
+          name: Spend 3 spell points
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

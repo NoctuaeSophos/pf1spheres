@@ -18,7 +18,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 55zS01pQ9oN0DWqF
+      name: Duel Of Wills
+      actionType: save
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
   armorProf: []
   associations:
     classes: []

@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      XZAKS6zCeaRyML8Q:
+        condSp:
+          jEXAJgfPEn5jOaBa: 3
     sphere: warp
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/warp.webp
@@ -18,7 +22,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: XZAKS6zCeaRyML8Q
+      name: Create Demiplane
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      duration:
+        value: "1"
+        units: minute
+      conditionals:
+        - _id: jEXAJgfPEn5jOaBa
+          name: Spend 3 spell points (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

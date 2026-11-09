@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      kHXO7O9aflWooluv:
+        condSp:
+          z3dwBQiG0FmStHaX: 1
     sphere: mind
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/mind.webp
@@ -18,7 +22,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: kHXO7O9aflWooluv
+      name: Rapid Processing
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      duration:
+        value: "@spheres.cl.mind.total"
+        units: hour
+      conditionals:
+        - _id: z3dwBQiG0FmStHaX
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

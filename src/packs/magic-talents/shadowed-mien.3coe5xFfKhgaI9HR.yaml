@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      EeHTQjkE1ZkauU2U:
+        condSp:
+          Ox68JcZ9imecSWdk: 1
+          mWqaShnwufGEiwCV: 1
     sphere: dark
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/dark.webp
@@ -18,7 +23,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: EeHTQjkE1ZkauU2U
+      name: Shadowed Mien
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      duration:
+        value: 10 * @spheres.cl.dark.total
+        units: minute
+      conditionals:
+        - _id: Ox68JcZ9imecSWdk
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: mWqaShnwufGEiwCV
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

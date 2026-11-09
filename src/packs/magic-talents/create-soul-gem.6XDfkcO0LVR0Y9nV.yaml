@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      YWKvsrdNPTZ0Mv3M:
+        condSp:
+          Ua1jM1tLB4pyyRyM: 3
     sphere: death
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: YWKvsrdNPTZ0Mv3M
+      name: Create Soul Gem
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "@spheres.cl.death.total"
+        units: day
+      conditionals:
+        - _id: Ua1jM1tLB4pyyRyM
+          name: Spend 3 spell points (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

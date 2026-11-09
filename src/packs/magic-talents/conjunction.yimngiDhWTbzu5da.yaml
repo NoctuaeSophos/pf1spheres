@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      rTyRqBRlEaZUZrwp:
+        condSp:
+          PtuEFBNOfQ5xj7t2: 1
+          ydf0K5uY8iH1wOLa: 1
     sphere: fate
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/fate.webp
@@ -18,7 +23,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: rTyRqBRlEaZUZrwp
+      name: Conjunction
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      conditionals:
+        - _id: PtuEFBNOfQ5xj7t2
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
+        - _id: ydf0K5uY8iH1wOLa
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

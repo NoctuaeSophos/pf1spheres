@@ -18,7 +18,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: crfLHoq7f8pXockX
+      name: Soul Sunder
+      actionType: save
+      activation:
+        type: special
+      save:
+        type: will
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
+      duration:
+        value: "1"
+        units: round
   armorProf: []
   associations:
     classes: []

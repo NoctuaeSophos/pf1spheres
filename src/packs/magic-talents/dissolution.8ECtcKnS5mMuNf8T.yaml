@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      O9Lnt8EGno2CRi8T:
+        condSp:
+          qM5CLxIpzMGni3Wh: 1
+          RGfI2rVXWybQTKjt: 1
     sphere: creation
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/creation.webp
@@ -18,7 +23,28 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: O9Lnt8EGno2CRi8T
+      name: Dissolution
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.creation.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: qM5CLxIpzMGni3Wh
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: RGfI2rVXWybQTKjt
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      QJHgUKR74pWXoqQT:
+        condSp:
+          3srMHXWcb1pHMptt: 2
     sphere: nature
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/nature.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: QJHgUKR74pWXoqQT
+      name: Tsunami
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.nature.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: 3srMHXWcb1pHMptt
+          name: Spend 2 spell points
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

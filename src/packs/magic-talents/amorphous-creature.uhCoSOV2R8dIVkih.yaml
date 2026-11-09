@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      5er8bOfZqfM2oeq3:
+        condSp:
+          hDavJA76rNicHTp8: 1
     sphere: conjuration
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/conjuration.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 5er8bOfZqfM2oeq3
+      name: Amorphous Creature
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: hDavJA76rNicHTp8
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

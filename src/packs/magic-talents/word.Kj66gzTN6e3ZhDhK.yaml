@@ -18,7 +18,15 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 146DPZnOE3pWZAM3
+      name: Word
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
   armorProf: []
   associations:
     classes: []

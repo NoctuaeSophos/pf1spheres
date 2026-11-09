@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      YHlki3rjOQOjHX2S:
+        condSp:
+          WnFI8knpljzeEwS4: 1
     sphere: blood
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/blood.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: YHlki3rjOQOjHX2S
+      name: Red Mist
+      actionType: other
+      activation:
+        type: move
+        unchained:
+          cost: 1
+          type: action
+      conditionals:
+        - _id: WnFI8knpljzeEwS4
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

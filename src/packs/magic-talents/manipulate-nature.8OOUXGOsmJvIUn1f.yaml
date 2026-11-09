@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      gqrwOhEsyLL1nuBZ:
+        condSp:
+          a3ZtqY1iJJMKO5iS: 1
+          XksR3gYRB0DB1RT8: 1
     sphere: nature
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/nature.webp
@@ -18,7 +23,28 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: gqrwOhEsyLL1nuBZ
+      name: Manipulate Nature
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: ref
+        dc: 10 + floor(@spheres.cl.nature.total / 2) + @spheres.cam
+        description: Reflex negates
+      conditionals:
+        - _id: a3ZtqY1iJJMKO5iS
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
+        - _id: XksR3gYRB0DB1RT8
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

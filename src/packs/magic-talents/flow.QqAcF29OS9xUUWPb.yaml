@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      zz18YV1vzzFZvw3l:
+        condSp:
+          T3jIVHAQ75sinvRe: 1
     sphere: mana
 folder: null
 img: icons/svg/item-bag.svg
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: zz18YV1vzzFZvw3l
+      name: Flow
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: T3jIVHAQ75sinvRe
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -18,7 +18,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 9ykZ9gqWWVC84ftD
+      name: Magical Misdirection
+      actionType: save
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.mana.total / 2) + @spheres.cam
+        description: ""
   armorProf: []
   associations:
     classes: []

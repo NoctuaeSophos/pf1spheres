@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      EvYzn9Xwb9F5FmmI:
+        condSp:
+          G8hS2DX9VoMWgv9j: 1
     sphere: bear
 folder: null
 img: icons/svg/item-bag.svg
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: EvYzn9Xwb9F5FmmI
+      name: Paws and Reflect
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      conditionals:
+        - _id: G8hS2DX9VoMWgv9j
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

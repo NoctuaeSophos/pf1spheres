@@ -18,7 +18,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: lMQ0lvJY5AWVTsXe
+      name: Expert Fence
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      duration:
+        value: "1"
+        units: round
   armorProf: []
   associations:
     classes: []

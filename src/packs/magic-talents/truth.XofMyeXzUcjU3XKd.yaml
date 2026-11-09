@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      u2mAAvHBxXnDOUHb:
+        condSp:
+          VxGwVIF8LoAD781K: 1
     sphere: fate
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/fate.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: u2mAAvHBxXnDOUHb
+      name: Truth
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.fate.total / 2) + @spheres.cam
+        description: Will negates
+      duration:
+        value: "@spheres.cl.fate.total"
+        units: minute
+      conditionals:
+        - _id: VxGwVIF8LoAD781K
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

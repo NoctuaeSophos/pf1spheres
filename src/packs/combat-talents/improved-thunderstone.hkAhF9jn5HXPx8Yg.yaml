@@ -18,7 +18,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Q3hdiHRR9eUVgjPd
+      name: Improved Thunderstone
+      actionType: save
+      activation:
+        type: special
+      save:
+        type: fort
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
+      duration:
+        value: "1"
+        units: hour
   armorProf: []
   associations:
     classes: []

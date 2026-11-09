@@ -18,7 +18,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: iqYt2wbuygkCk8PP
+      name: Giant Traits
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: ref
+        dc: 10 + floor(@spheres.cl.alteration.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "1"
+        units: minute
   armorProf: []
   associations:
     classes: []

@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      zbRkax8EoeExG28V:
+        condSp:
+          FRnN5nm1EmtYDro9: 1
     sphere: bear
 folder: null
 img: icons/svg/item-bag.svg
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: zbRkax8EoeExG28V
+      name: Grin and Bear It
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      conditionals:
+        - _id: FRnN5nm1EmtYDro9
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

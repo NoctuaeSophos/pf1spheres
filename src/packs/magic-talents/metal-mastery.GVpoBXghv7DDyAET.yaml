@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      QKzGzmy8j9GXvJDc:
+        condSp:
+          1fpRVeTJ8l1x4Yr5: 1
+          YDEvtMxZ41l2IQlk: 2
     sphere: nature
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/nature.webp
@@ -18,7 +23,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: QKzGzmy8j9GXvJDc
+      name: Metal Mastery
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: 1fpRVeTJ8l1x4Yr5
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
+        - _id: YDEvtMxZ41l2IQlk
+          name: Spend 2 spell points
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

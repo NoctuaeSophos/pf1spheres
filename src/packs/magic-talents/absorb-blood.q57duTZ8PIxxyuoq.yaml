@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      IhKtJ0RlgLKOmxgJ:
+        condSp:
+          TeKdNnFRIBXuDL7D: 1
+          xtpYlSXpfKtHF4vU: 1
     sphere: blood
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/blood.webp
@@ -18,7 +23,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: IhKtJ0RlgLKOmxgJ
+      name: Absorb Blood
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      duration:
+        value: "@spheres.cl.blood.total"
+        units: minute
+      conditionals:
+        - _id: TeKdNnFRIBXuDL7D
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: xtpYlSXpfKtHF4vU
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

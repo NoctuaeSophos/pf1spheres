@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      YzTTOkq2BEDbN2AH:
+        condSp:
+          RQ73l5PuXay1F6gc: 1
     sphere: destruction
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: YzTTOkq2BEDbN2AH
+      name: Clinging Blast
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+        description: Fortitude negates
+      conditionals:
+        - _id: RQ73l5PuXay1F6gc
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

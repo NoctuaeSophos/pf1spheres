@@ -18,7 +18,15 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 2DOh9cJBImDW1sFQ
+      name: Hurricane Twist
+      actionType: other
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
   armorProf: []
   associations:
     classes: []

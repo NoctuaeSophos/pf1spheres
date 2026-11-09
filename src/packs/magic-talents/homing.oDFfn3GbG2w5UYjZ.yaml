@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      muhYGTH3xRTEHtXe:
+        condSp:
+          gQeNyBEeqZQGoCu2: 1
     sphere: telekinesis
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/telekinesis.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: muhYGTH3xRTEHtXe
+      name: Homing
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      conditionals:
+        - _id: gQeNyBEeqZQGoCu2
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

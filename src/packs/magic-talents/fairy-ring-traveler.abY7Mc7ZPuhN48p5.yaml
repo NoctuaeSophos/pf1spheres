@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      qgg4phjFrIIhuDpk:
+        condSp:
+          KIcGqx8mszJni6pU: 1
+          3IGp4gag8dFYYSKn: 2
     sphere: fallenFey
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/fallen_fey.webp
@@ -18,7 +23,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: qgg4phjFrIIhuDpk
+      name: Fairy Ring Traveler
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: KIcGqx8mszJni6pU
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: 3IGp4gag8dFYYSKn
+          name: Spend 2 spell points (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

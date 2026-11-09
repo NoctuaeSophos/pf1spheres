@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      gmpUd9iMdfeZ04Kv:
+        condSp:
+          UiamrIP4aOu7bnuu: 1
     sphere: destruction
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: gmpUd9iMdfeZ04Kv
+      name: Energy Bomb
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: UiamrIP4aOu7bnuu
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

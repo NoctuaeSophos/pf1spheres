@@ -18,7 +18,16 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 8vQVsnEcWz6Xu5sc
+      name: Essence Manipulation
+      actionType: save
+      activation:
+        type: special
+      save:
+        type: fort
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
   armorProf: []
   associations:
     classes: []

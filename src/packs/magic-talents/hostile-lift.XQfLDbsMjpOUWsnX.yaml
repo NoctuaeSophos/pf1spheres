@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      SgT9Vdcs6XQiHgSe:
+        condSp:
+          uk0IM1AkplyWZBTv: 1
     sphere: telekinesis
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/telekinesis.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: SgT9Vdcs6XQiHgSe
+      name: Hostile Lift
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.telekinesis.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: uk0IM1AkplyWZBTv
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

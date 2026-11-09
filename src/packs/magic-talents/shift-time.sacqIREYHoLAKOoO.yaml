@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      sG6JNCek0F4itqTh:
+        condSp:
+          3z4beZ1qpcZIRmDz: 1
     sphere: time
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/time.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: sG6JNCek0F4itqTh
+      name: Shift Time
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      conditionals:
+        - _id: 3z4beZ1qpcZIRmDz
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

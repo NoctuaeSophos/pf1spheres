@@ -18,7 +18,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: FpnqsZYRRpeAH579
+      name: Shatter Earth
+      actionType: save
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
+      save:
+        type: ref
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
+      duration:
+        value: "1"
+        units: round
   armorProf: []
   associations:
     classes: []

@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      xUDvKDy7wuavLEvo:
+        condSp:
+          bpD4McOjUQjryreG: 1
     sphere: war
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: xUDvKDy7wuavLEvo
+      name: Empower
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: bpD4McOjUQjryreG
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

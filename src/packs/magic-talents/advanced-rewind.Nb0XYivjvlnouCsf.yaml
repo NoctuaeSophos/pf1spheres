@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      RVdD53X83RZJzzzz:
+        condSp:
+          gEOzdmenCkhvMdga: 2
     sphere: time
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/time.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: RVdD53X83RZJzzzz
+      name: Advanced Rewind
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: gEOzdmenCkhvMdga
+          name: Spend 2 spell points
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

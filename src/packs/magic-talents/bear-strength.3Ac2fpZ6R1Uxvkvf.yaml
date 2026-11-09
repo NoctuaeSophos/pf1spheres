@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      7770H2DCpYgojjHR:
+        condSp:
+          g80USP2W5DfJXcaY: 1
     sphere: bear
 folder: null
 img: icons/svg/item-bag.svg
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 7770H2DCpYgojjHR
+      name: Bear Strength
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      conditionals:
+        - _id: g80USP2W5DfJXcaY
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

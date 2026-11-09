@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      S02zG8FBIPY3jnow:
+        condSp:
+          1veethElVDO974QD: 2
     sphere: destruction
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: S02zG8FBIPY3jnow
+      name: Radiation Blast
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "@spheres.cl.destruction.total"
+        units: minute
+      conditionals:
+        - _id: 1veethElVDO974QD
+          name: Spend 2 spell points (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      cTCyxcTWsABPMZqw:
+        condSp:
+          py2Li7Nm2TLxeQnv: 1
     sphere: death
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: cTCyxcTWsABPMZqw
+      name: Exhausting Strike
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
+        description: Fortitude negates
+      duration:
+        value: "@spheres.cl.death.total"
+        units: round
+      conditionals:
+        - _id: py2Li7Nm2TLxeQnv
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

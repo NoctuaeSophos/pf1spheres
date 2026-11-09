@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      KjIg8xNbe3nNyjOq:
+        condSp:
+          9wMxEhh2FDEEtfjg: 1
     sphere: protection
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: KjIg8xNbe3nNyjOq
+      name: Aegis
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.protection.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "@spheres.cl.protection.total"
+        units: hour
+      conditionals:
+        - _id: 9wMxEhh2FDEEtfjg
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

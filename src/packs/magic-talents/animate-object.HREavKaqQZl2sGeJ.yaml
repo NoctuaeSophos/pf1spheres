@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      aeOV4qBkdfQ1y3GQ:
+        condSp:
+          sMpSscDlkrCaqx9v: 1
     sphere: enhancement
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/enhancement.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: aeOV4qBkdfQ1y3GQ
+      name: Animate Object
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: ref
+        dc: 10 + floor(@spheres.cl.enhancement.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: sMpSscDlkrCaqx9v
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

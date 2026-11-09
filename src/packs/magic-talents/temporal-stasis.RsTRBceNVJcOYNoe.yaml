@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      uNe799fiP1WRE95j:
+        condSp:
+          MUJ6h5v22BcGF2iy: 3
     sphere: time
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/time.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: uNe799fiP1WRE95j
+      name: Temporal Stasis
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.time.total / 2) + @spheres.cam
+        description: Fortitude negates
+      conditionals:
+        - _id: MUJ6h5v22BcGF2iy
+          name: Spend 3 spell points
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

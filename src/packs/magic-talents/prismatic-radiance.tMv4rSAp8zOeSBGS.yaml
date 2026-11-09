@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      bPFc6hEefKzuoqPC:
+        condSp:
+          PfC6I12J7CLtHMIw: 3
     sphere: light
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/light.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: bPFc6hEefKzuoqPC
+      name: Prismatic Radiance
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: ref
+        dc: 10 + floor(@spheres.cl.light.total / 2) + @spheres.cam
+        description: Reflex half
+      duration:
+        value: "4"
+        units: round
+      conditionals:
+        - _id: PfC6I12J7CLtHMIw
+          name: Spend 3 spell points
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

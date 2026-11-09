@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      KSaGAw5TLI0laKml:
+        condSp:
+          51ogn7hrL4VG9uR9: 1
+          yzSbeM1SBh1V5rGj: 1
     sphere: warp
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/warp.webp
@@ -18,7 +23,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: KSaGAw5TLI0laKml
+      name: Isoport
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      conditionals:
+        - _id: 51ogn7hrL4VG9uR9
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
+        - _id: yzSbeM1SBh1V5rGj
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      eZCOugnrQYxehTEE:
+        condSp:
+          qlGaOPZG5bPERVcI: 1
     sphere: divination
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/divination.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: eZCOugnrQYxehTEE
+      name: Greater Scrying
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      conditionals:
+        - _id: qlGaOPZG5bPERVcI
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

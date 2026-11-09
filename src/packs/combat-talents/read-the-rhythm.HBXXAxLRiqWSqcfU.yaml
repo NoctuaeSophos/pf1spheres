@@ -18,7 +18,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: oyqeg42eJ4to0TBL
+      name: Read the Rhythm
+      actionType: other
+      activation:
+        type: move
+        unchained:
+          cost: 1
+          type: action
+      duration:
+        value: "1"
+        units: minute
   armorProf: []
   associations:
     classes: []

@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      hJBW8kRQjMD1Xz1n:
+        condSp:
+          hSsaxFncd5rtmhSt: 1
+          C9hkuCDKxskJecaD: 1
     sphere: divination
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/divination.webp
@@ -18,7 +23,31 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: hJBW8kRQjMD1Xz1n
+      name: Divine
+      actionType: save
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.divination.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: 10 * @spheres.cl.divination.total
+        units: minute
+      conditionals:
+        - _id: hSsaxFncd5rtmhSt
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: C9hkuCDKxskJecaD
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

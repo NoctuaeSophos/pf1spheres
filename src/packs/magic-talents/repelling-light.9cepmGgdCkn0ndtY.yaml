@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      VJh8nEY3eAGYSTqY:
+        condSp:
+          ehX4gwF0oEf54Exq: 1
     sphere: light
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/light.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: VJh8nEY3eAGYSTqY
+      name: Repelling Light
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.light.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: ehX4gwF0oEf54Exq
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

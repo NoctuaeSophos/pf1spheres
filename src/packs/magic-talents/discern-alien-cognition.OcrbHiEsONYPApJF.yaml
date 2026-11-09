@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      tGlhP5sSv07G4AOk:
+        condSp:
+          Hs0GnG5mAldOKMgw: 1
     sphere: mind
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/mind.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: tGlhP5sSv07G4AOk
+      name: Discern Alien Cognition
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: Hs0GnG5mAldOKMgw
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

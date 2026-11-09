@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      JFWLvkv4gxy9hiFL:
+        condSp:
+          s9vyKJluXbunDh9s: 1
     sphere: mind
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/mind.webp
@@ -18,7 +22,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: JFWLvkv4gxy9hiFL
+      name: Intuit Knowledge
+      actionType: other
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
+      duration:
+        value: "@spheres.cl.mind.total"
+        units: hour
+      conditionals:
+        - _id: s9vyKJluXbunDh9s
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

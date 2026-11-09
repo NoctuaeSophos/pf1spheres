@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      0o1C6xc4sohdmM0L:
+        condSp:
+          m7exG3lCMqXXQ8ag: 1
+          OMTNwncxvjcnqcMU: 1
     sphere: divination
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/divination.webp
@@ -18,7 +23,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 0o1C6xc4sohdmM0L
+      name: Blindfolded Oracle
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      conditionals:
+        - _id: m7exG3lCMqXXQ8ag
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: OMTNwncxvjcnqcMU
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

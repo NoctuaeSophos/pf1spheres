@@ -18,7 +18,16 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: WmTIrCjQbWJRhYQV
+      name: Inescapable Challenge
+      actionType: save
+      activation:
+        type: special
+      save:
+        type: will
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
   armorProf: []
   associations:
     classes: []

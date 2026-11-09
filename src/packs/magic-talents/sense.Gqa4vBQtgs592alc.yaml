@@ -18,7 +18,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: G0LWJMpqF6dh8jvH
+      name: Sense
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      duration:
+        value: "1"
+        units: hour
   armorProf: []
   associations:
     classes: []

@@ -18,7 +18,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: nHk0xpRlj0QDlO80
+      name: Essentialize
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      duration:
+        value: "24"
+        units: hour
   armorProf: []
   associations:
     classes: []

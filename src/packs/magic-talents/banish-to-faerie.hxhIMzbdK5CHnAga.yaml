@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      1QsO7jprBGumXxY9:
+        condSp:
+          B4bZWOz648JJnUfd: 1
     sphere: fallenFey
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/fallen_fey.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 1QsO7jprBGumXxY9
+      name: Banish to Faerie
+      actionType: msak
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      touch: true
+      ability:
+        attack: str
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.fallenFey.total / 2) + @spheres.cam
+        description: Will negates
+      conditionals:
+        - _id: B4bZWOz648JJnUfd
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

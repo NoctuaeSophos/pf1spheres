@@ -18,7 +18,15 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: EtxYm8B62e2ZE7dz
+      name: Mobile Focus
+      actionType: other
+      activation:
+        type: move
+        unchained:
+          cost: 1
+          type: action
   armorProf: []
   associations:
     classes: []

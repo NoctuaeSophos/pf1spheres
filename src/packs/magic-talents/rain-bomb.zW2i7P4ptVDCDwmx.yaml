@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      OVNSCjLck11RTODu:
+        condSp:
+          KrX63IDbsv5wbeXe: 1
     sphere: weather
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/weather.webp
@@ -18,7 +22,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: OVNSCjLck11RTODu
+      name: Rain Bomb
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      duration:
+        value: "1"
+        units: round
+      conditionals:
+        - _id: KrX63IDbsv5wbeXe
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

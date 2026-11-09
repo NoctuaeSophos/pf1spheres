@@ -18,7 +18,15 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: mh6I6DBqky5JzCZa
+      name: Crushing Combo
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
   armorProf: []
   associations:
     classes: []

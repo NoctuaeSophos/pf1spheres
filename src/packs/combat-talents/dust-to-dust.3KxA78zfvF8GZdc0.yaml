@@ -18,7 +18,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: RtH8VbNknQDc2pu8
+      name: Dust To Dust
+      actionType: save
+      activation:
+        type: special
+      save:
+        type: fort
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: Fortitude negates
+      duration:
+        value: "24"
+        units: hour
   armorProf: []
   associations:
     classes: []

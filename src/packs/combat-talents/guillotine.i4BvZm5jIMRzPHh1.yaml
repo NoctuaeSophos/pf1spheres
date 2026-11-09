@@ -18,7 +18,16 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 3AeY1BmRHGT78Z3B
+      name: Guillotine
+      actionType: save
+      activation:
+        type: special
+      save:
+        type: ref
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
   armorProf: []
   associations:
     classes: []

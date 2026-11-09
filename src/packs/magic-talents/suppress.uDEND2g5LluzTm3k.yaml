@@ -18,7 +18,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: RV5VEvLXnyRR0ya5
+      name: Suppress
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      duration:
+        value: "24"
+        units: hour
   armorProf: []
   associations:
     classes: []

@@ -18,7 +18,25 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: u8jzPde0IgxLd6Gn
+      name: Aberrant Body
+      actionType: rsak
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      touch: true
+      ability:
+        attack: dex
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.alteration.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "@spheres.cl.alteration.total"
+        units: round
   armorProf: []
   associations:
     classes: []

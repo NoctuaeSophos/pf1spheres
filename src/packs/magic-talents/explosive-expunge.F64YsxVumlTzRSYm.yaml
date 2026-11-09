@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      SVA1LiA0d3OjuvmH:
+        condSp:
+          alIrHqfuyqQ2tJzG: 2
     sphere: mana
 folder: null
 img: icons/svg/item-bag.svg
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: SVA1LiA0d3OjuvmH
+      name: Explosive Expunge
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: alIrHqfuyqQ2tJzG
+          name: Spend 2 spell points (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

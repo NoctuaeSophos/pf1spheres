@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      ZePkStjqJZUZgd1K:
+        condSp:
+          35dmpnfqq1fqFlqa: 1
     sphere: fallenFey
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/fallen_fey.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: ZePkStjqJZUZgd1K
+      name: Mantle Of Spring
+      actionType: save
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.fallenFey.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "@spheres.cl.fallenFey.total"
+        units: minute
+      conditionals:
+        - _id: 35dmpnfqq1fqFlqa
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

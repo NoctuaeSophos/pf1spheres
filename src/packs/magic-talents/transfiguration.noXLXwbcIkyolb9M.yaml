@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      GcVv3l3UIykSgSoA:
+        condSp:
+          08YChDgT0jU5xvT4: 2
     sphere: life
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/life.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: GcVv3l3UIykSgSoA
+      name: Transfiguration
+      actionType: other
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
+      conditionals:
+        - _id: 08YChDgT0jU5xvT4
+          name: Spend 2 spell points
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

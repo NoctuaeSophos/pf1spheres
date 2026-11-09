@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      3ymjuxCuTaDXDH9E:
+        condSp:
+          mTbeJiKTIcU3CGB9: 2
     sphere: divination
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/divination.webp
@@ -18,7 +22,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 3ymjuxCuTaDXDH9E
+      name: True Perception
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      duration:
+        value: "@spheres.cl.divination.total"
+        units: minute
+      conditionals:
+        - _id: mTbeJiKTIcU3CGB9
+          name: Spend 2 spell points
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

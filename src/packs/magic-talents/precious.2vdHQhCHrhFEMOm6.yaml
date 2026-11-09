@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      jk2H25WVKz9EZra9:
+        condSp:
+          1YoRutJUYF7ZcxB4: 1
     sphere: light
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/light.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: jk2H25WVKz9EZra9
+      name: Precious
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.light.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: 1YoRutJUYF7ZcxB4
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

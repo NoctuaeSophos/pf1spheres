@@ -18,7 +18,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: hR3Ce05RVqq18bIp
+      name: Final Judgement
+      actionType: save
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
   armorProf: []
   associations:
     classes: []

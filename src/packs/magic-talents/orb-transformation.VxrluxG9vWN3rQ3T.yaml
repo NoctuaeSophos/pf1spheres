@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      EKw0S6yf3aK4WbLI:
+        condSp:
+          SyOXPuFnBYPJMWnF: 1
     sphere: alteration
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/alteration.webp
@@ -18,7 +22,30 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: EKw0S6yf3aK4WbLI
+      name: Orb Transformation
+      actionType: rsak
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      touch: true
+      ability:
+        attack: dex
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.alteration.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "24"
+        units: hour
+      conditionals:
+        - _id: SyOXPuFnBYPJMWnF
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

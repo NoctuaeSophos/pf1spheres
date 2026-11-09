@@ -18,7 +18,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: kUsc9WOolTNmp6ep
+      name: Improved Tanglefoot Bag
+      actionType: rsak
+      activation:
+        type: special
+      touch: true
+      ability:
+        attack: dex
+      save:
+        type: ref
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
   armorProf: []
   associations:
     classes: []

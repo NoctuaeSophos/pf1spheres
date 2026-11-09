@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      mggwseIGh9DWpx9r:
+        condSp:
+          273dU2M2peR8SPny: 1
     sphere: blood
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/blood.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: mggwseIGh9DWpx9r
+      name: Rush To The Head
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.blood.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "@spheres.cl.blood.total"
+        units: round
+      conditionals:
+        - _id: 273dU2M2peR8SPny
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

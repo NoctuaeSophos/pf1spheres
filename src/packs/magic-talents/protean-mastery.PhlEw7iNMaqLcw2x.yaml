@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      HAt6RYJyMUtWVKSO:
+        condSp:
+          TkEDD2szcgD8NulO: 1
+          3G4b2U07F3lorxVN: 1
     sphere: alteration
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/alteration.webp
@@ -18,7 +23,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: HAt6RYJyMUtWVKSO
+      name: Protean Mastery
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      duration:
+        value: "1"
+        units: minute
+      conditionals:
+        - _id: TkEDD2szcgD8NulO
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
+        - _id: 3G4b2U07F3lorxVN
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

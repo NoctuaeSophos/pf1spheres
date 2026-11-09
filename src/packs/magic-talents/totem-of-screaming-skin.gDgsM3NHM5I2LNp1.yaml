@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      zxwp7NS3CvkDGxH3:
+        condSp:
+          UxRRQlBICr6XxG8k: 1
     sphere: war
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
@@ -18,7 +22,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: zxwp7NS3CvkDGxH3
+      name: Totem Of Screaming Skin
+      actionType: msak
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      touch: true
+      ability:
+        attack: str
+      conditionals:
+        - _id: UxRRQlBICr6XxG8k
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

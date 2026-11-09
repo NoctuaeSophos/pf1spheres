@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      no4yw2vMNJKrsWfN:
+        condSp:
+          9Tx1hxQIPuivR2hv: 1
     sphere: life
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/life.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: no4yw2vMNJKrsWfN
+      name: Make Whole
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: 9Tx1hxQIPuivR2hv
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

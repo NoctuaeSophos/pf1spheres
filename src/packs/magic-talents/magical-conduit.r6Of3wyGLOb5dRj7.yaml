@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      pvLpyOcHYJZtrEXT:
+        condSp:
+          EDadQyDoMNlXM1EJ: 1
     sphere: mana
 folder: null
 img: icons/svg/item-bag.svg
@@ -18,7 +22,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: pvLpyOcHYJZtrEXT
+      name: Magical Conduit
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      duration:
+        value: "@spheres.cl.mana.total"
+        units: minute
+      conditionals:
+        - _id: EDadQyDoMNlXM1EJ
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

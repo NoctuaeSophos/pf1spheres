@@ -18,7 +18,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: zFTBDOnLutv3qRYa
+      name: Forgettable Theft
+      actionType: save
+      activation:
+        type: special
+      save:
+        type: will
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
+      duration:
+        value: "1"
+        units: minute
   armorProf: []
   associations:
     classes: []

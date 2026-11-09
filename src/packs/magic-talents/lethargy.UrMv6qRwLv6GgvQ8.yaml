@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      0OYdsGcvdgHVVTmG:
+        condSp:
+          zkoQnBqQDfp5DaSo: 1
     sphere: time
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/time.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 0OYdsGcvdgHVVTmG
+      name: Lethargy
+      actionType: rsak
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      touch: true
+      ability:
+        attack: dex
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.time.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: zkoQnBqQDfp5DaSo
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -18,7 +18,15 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: nAYFa7mPeiL2iIYY
+      name: Chargethrough
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
   armorProf: []
   associations:
     classes: []

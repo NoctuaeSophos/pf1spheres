@@ -18,7 +18,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 6FFdfsj9SUtVNpFw
+      name: Sight Beyond Sight
+      actionType: other
+      activation:
+        type: move
+        unchained:
+          cost: 1
+          type: action
+      duration:
+        value: "1"
+        units: round
   armorProf: []
   associations:
     classes: []

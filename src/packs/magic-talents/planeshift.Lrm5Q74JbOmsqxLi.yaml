@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      qA7NlOGv1cChuJnk:
+        condSp:
+          3tINj5Grq6LRrCYU: 2
     sphere: warp
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/warp.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: qA7NlOGv1cChuJnk
+      name: Planeshift
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: 3tINj5Grq6LRrCYU
+          name: Spend 2 spell points (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

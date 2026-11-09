@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      RqOxSbrJdvxAcB9M:
+        condSp:
+          H4Q39tZYovvEgUYV: 1
+          VlFgxmr5FcTi5v2A: 1
     sphere: divination
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/divination.webp
@@ -18,7 +23,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: RqOxSbrJdvxAcB9M
+      name: Logos
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: H4Q39tZYovvEgUYV
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: VlFgxmr5FcTi5v2A
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

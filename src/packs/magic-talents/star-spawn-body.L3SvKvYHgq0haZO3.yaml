@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      l0v9WR5C8A8DNhoe:
+        condSp:
+          KrYl75ExJ4EKT515: 1
     sphere: alteration
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/alteration.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: l0v9WR5C8A8DNhoe
+      name: Star-Spawn Body
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.alteration.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "1"
+        units: round
+      conditionals:
+        - _id: KrYl75ExJ4EKT515
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

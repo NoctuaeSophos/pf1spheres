@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      lT7YAY84qudjVWrS:
+        condSp:
+          hxwvPj71DDPZcvtu: 1
+          TGgVu4dwTSHzR3wW: 1
     sphere: warp
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/warp.webp
@@ -18,7 +23,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: lT7YAY84qudjVWrS
+      name: Pouncing Teleport
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: hxwvPj71DDPZcvtu
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: TGgVu4dwTSHzR3wW
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

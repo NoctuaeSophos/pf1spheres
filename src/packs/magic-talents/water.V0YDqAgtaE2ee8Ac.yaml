@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      9B5G6JFGQG6YBh6r:
+        condSp:
+          Z1sGx7SknqXmegP6: 1
+          sG0uGkVOR1CFHGix: 1
     sphere: nature
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/nature.webp
@@ -18,7 +23,31 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 9B5G6JFGQG6YBh6r
+      name: Water
+      actionType: save
+      activation:
+        type: move
+        unchained:
+          cost: 1
+          type: action
+      save:
+        type: ref
+        dc: 10 + floor(@spheres.cl.nature.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "1"
+        units: round
+      conditionals:
+        - _id: Z1sGx7SknqXmegP6
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
+        - _id: sG0uGkVOR1CFHGix
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

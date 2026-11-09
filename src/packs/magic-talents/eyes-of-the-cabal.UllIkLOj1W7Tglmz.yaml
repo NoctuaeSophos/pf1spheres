@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      HHesFwbWYF476fmF:
+        condSp:
+          r3tMLIWfmiErX5W2: 2
     sphere: divination
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/divination.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: HHesFwbWYF476fmF
+      name: Eyes Of The Cabal
+      actionType: save
+      activation:
+        type: move
+        unchained:
+          cost: 1
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.divination.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "@spheres.cl.divination.total"
+        units: hour
+      conditionals:
+        - _id: r3tMLIWfmiErX5W2
+          name: Spend 2 spell points (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

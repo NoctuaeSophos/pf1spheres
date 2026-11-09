@@ -18,7 +18,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: XQNOaqvJMPpUiVGu
+      name: War Paint
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      duration:
+        value: "2"
+        units: hour
   armorProf: []
   associations:
     classes: []

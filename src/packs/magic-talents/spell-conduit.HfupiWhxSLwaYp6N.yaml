@@ -18,7 +18,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Qf30e5GLY6hO5W8I
+      name: Spell Conduit
+      actionType: msak
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      touch: true
+      ability:
+        attack: str
   armorProf: []
   associations:
     classes: []

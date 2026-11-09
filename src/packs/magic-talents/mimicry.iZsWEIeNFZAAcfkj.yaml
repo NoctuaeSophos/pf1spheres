@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      XQOvMB7mZsKRud7G:
+        condSp:
+          xGgcvqTV78PqQr7B: 1
     sphere: alteration
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/alteration.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: XQOvMB7mZsKRud7G
+      name: Mimicry
+      actionType: other
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
+      conditionals:
+        - _id: xGgcvqTV78PqQr7B
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

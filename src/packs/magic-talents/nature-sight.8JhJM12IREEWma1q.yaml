@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      to5ad360qg5XlXCO:
+        condSp:
+          H1Zu1i6luTRzRj2R: 1
     sphere: nature
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/nature.webp
@@ -18,7 +22,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: to5ad360qg5XlXCO
+      name: Nature Sight
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      duration:
+        value: "@spheres.cl.nature.total"
+        units: minute
+      conditionals:
+        - _id: H1Zu1i6luTRzRj2R
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

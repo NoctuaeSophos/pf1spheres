@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      JJLxCri4eZ3tOfSm:
+        condSp:
+          Q9BccZ7HsJ6IlA6J: 1
     sphere: enhancement
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/enhancement.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: JJLxCri4eZ3tOfSm
+      name: Power Parasitism
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      conditionals:
+        - _id: Q9BccZ7HsJ6IlA6J
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

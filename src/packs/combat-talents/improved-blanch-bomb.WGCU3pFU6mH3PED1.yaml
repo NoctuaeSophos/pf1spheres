@@ -18,7 +18,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: bWOGtk8rhJOQ6ODV
+      name: Improved Blanch Bomb
+      actionType: rsak
+      activation:
+        type: special
+      touch: true
+      ability:
+        attack: dex
+      save:
+        type: fort
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
+      duration:
+        value: "1"
+        units: minute
   armorProf: []
   associations:
     classes: []

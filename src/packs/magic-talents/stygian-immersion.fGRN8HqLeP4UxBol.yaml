@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      Y8jRY6Bhj0hur6AY:
+        condSp:
+          9SWUzdHoYOduIUKc: 1
     sphere: dark
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/dark.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Y8jRY6Bhj0hur6AY
+      name: Stygian Immersion
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: ref
+        dc: 10 + floor(@spheres.cl.dark.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: 9SWUzdHoYOduIUKc
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

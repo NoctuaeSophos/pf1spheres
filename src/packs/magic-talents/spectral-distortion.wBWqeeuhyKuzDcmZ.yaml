@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      9TMFPfw2hbKlz24t:
+        condSp:
+          QjWJKLWMiZjLKMim: 1
     sphere: death
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 9TMFPfw2hbKlz24t
+      name: Spectral Distortion
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: QjWJKLWMiZjLKMim
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

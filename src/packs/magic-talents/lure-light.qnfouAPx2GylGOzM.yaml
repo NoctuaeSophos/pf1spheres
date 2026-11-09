@@ -18,7 +18,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: aVxhWuviRcNTmnbL
+      name: Lure Light
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.light.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "24"
+        units: hour
   armorProf: []
   associations:
     classes: []

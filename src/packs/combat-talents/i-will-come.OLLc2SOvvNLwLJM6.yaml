@@ -18,7 +18,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 7Thevdn4J7X8P8VT
+      name: I Will Come
+      actionType: other
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
+      duration:
+        value: "10"
+        units: minute
   armorProf: []
   associations:
     classes: []

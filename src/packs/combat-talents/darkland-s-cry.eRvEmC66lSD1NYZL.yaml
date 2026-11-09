@@ -18,7 +18,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: RKx1YvsiCWRIqDYi
+      name: Darkland’s Cry
+      actionType: save
+      activation:
+        type: move
+        unchained:
+          cost: 1
+          type: action
+      save:
+        type: fort
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
   armorProf: []
   associations:
     classes: []

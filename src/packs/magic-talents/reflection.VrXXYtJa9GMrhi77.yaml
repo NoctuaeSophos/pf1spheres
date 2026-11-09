@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      MWfgXxp7LAH9vx8U:
+        condSp:
+          zKBJI1SkXRI6TZO7: 1
     sphere: protection
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: MWfgXxp7LAH9vx8U
+      name: Reflection
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      conditionals:
+        - _id: zKBJI1SkXRI6TZO7
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

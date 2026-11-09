@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      PeMeSzteeUeIaexe:
+        condSp:
+          jJhUFPGS4r6XCl5g: 1
     sphere: protection
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
@@ -18,7 +22,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: PeMeSzteeUeIaexe
+      name: Glyph
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      duration:
+        value: "@spheres.cl.protection.total"
+        units: hour
+      conditionals:
+        - _id: jJhUFPGS4r6XCl5g
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

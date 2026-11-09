@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      XT3yKW5ds3g9UFCG:
+        condSp:
+          bHZIibp9foNlkgtq: 2
     sphere: fate
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/fate.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: XT3yKW5ds3g9UFCG
+      name: Declare Fate
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.fate.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "@spheres.cl.fate.total"
+        units: minute
+      conditionals:
+        - _id: bHZIibp9foNlkgtq
+          name: Spend 2 spell points
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

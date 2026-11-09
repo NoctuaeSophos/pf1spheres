@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      o0aRFhDO9M7VzJFe:
+        condSp:
+          gSWwHMkN47cBmrEx: 1
     sphere: time
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/time.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: o0aRFhDO9M7VzJFe
+      name: Steal Time
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.time.total / 2) + @spheres.cam
+        description: Will negates
+      duration:
+        value: "1"
+        units: round
+      conditionals:
+        - _id: gSWwHMkN47cBmrEx
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      ItDr9uP14pEHpJpb:
+        condSp:
+          9ATPtdbmF4RPAfqo: 1
     sphere: bear
 folder: null
 img: icons/svg/item-bag.svg
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: ItDr9uP14pEHpJpb
+      name: Bearer of Bad News
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.bear.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: 9ATPtdbmF4RPAfqo
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      PeXoVYZVklppec2J:
+        condSp:
+          Ufnm2lc6YfsjekQi: 3
     sphere: death
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: PeXoVYZVklppec2J
+      name: Soul Trap
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "@spheres.cl.death.total"
+        units: round
+      conditionals:
+        - _id: Ufnm2lc6YfsjekQi
+          name: Spend 3 spell points
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

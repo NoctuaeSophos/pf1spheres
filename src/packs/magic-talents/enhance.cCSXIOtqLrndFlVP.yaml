@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      hh9FiHBaloRIjOVI:
+        condSp:
+          GhHw1F96ewn294oU: 1
     sphere: enhancement
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/enhancement.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: hh9FiHBaloRIjOVI
+      name: Enhance
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.enhancement.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "@spheres.cl.enhancement.total"
+        units: minute
+      conditionals:
+        - _id: GhHw1F96ewn294oU
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -18,7 +18,25 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: BtMxHY3x5IunaYXJ
+      name: Sanctify
+      actionType: rsak
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      touch: true
+      ability:
+        attack: dex
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.life.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "@spheres.cl.life.total"
+        units: hour
   armorProf: []
   associations:
     classes: []

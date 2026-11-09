@@ -18,7 +18,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: T6CWeKUUd3EkzPR3
+      name: Fursome Aura
+      actionType: save
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.bear.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "24"
+        units: hour
   armorProf: []
   associations:
     classes: []

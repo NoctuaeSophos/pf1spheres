@@ -18,7 +18,15 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: AuwRFkYOPt8ZQyG9
+      name: Earthquake Stomp
+      actionType: other
+      activation:
+        type: full
+        unchained:
+          cost: 3
+          type: action
   armorProf: []
   associations:
     classes: []

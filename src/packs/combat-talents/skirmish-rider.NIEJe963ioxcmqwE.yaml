@@ -18,7 +18,15 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 6USTCJm9Q2mrD4jA
+      name: Skirmish Rider
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
   armorProf: []
   associations:
     classes: []

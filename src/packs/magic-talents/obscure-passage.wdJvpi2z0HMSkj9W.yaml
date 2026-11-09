@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      CcFKGnQd0kdwtYf4:
+        condSp:
+          npFXtC5IAIecUelQ: 1
     sphere: dark
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/dark.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: CcFKGnQd0kdwtYf4
+      name: Obscure Passage
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: ref
+        dc: 10 + floor(@spheres.cl.dark.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: npFXtC5IAIecUelQ
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

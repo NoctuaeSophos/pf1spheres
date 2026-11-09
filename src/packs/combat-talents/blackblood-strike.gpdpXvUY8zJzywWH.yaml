@@ -18,7 +18,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Oq1xI2ZPpFPaeWYA
+      name: Blackblood Strike
+      actionType: save
+      activation:
+        type: special
+      save:
+        type: fort
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: Fortitude negates
+      duration:
+        value: "1"
+        units: round
   armorProf: []
   associations:
     classes: []

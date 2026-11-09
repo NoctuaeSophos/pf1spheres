@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      M9nDthTiB64fN3mK:
+        condSp:
+          h6U3wkxV1vZWVRa0: 1
     sphere: time
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/time.webp
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: M9nDthTiB64fN3mK
+      name: Eject
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.time.total / 2) + @spheres.cam
+        description: Will negates
+      duration:
+        value: "@spheres.cl.time.total"
+        units: round
+      conditionals:
+        - _id: h6U3wkxV1vZWVRa0
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

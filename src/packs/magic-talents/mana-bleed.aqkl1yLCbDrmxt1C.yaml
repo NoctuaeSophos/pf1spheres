@@ -18,7 +18,18 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: o49uRzRcFIEZmIle
+      name: Mana Bleed
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      duration:
+        value: "@spheres.cl.blood.total"
+        units: round
   armorProf: []
   associations:
     classes: []

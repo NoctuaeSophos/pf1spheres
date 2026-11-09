@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      NMWKPVutMRmx1Y2F:
+        condSp:
+          LPVgroat5bHePo1X: 1
+          4QyFyyCU81pxZAsx: 1
     sphere: creation
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/creation.webp
@@ -18,7 +23,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: NMWKPVutMRmx1Y2F
+      name: Sustenance
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: LPVgroat5bHePo1X
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: 4QyFyyCU81pxZAsx
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

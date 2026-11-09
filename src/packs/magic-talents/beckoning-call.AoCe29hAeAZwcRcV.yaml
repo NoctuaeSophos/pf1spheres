@@ -18,7 +18,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: zC5T4uUhf7kvmlP7
+      name: Beckoning Call
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.fallenFey.total / 2) + @spheres.cam
+        description: Will negates
+      duration:
+        value: "24"
+        units: hour
   armorProf: []
   associations:
     classes: []

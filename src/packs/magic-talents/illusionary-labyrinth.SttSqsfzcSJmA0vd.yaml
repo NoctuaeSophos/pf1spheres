@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      eghu4b5YboxeNeFV:
+        condSp:
+          dm3DOztZE9ytOO45: 1
     sphere: illusion
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/illusion.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: eghu4b5YboxeNeFV
+      name: Illusionary Labyrinth
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.illusion.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: dm3DOztZE9ytOO45
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

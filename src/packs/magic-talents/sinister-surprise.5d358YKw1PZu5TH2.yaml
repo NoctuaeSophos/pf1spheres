@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      Gv7fihSg3Z44McMZ:
+        condSp:
+          F1pPNth0zfEch9xo: 1
     sphere: dark
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/dark.webp
@@ -18,7 +22,23 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Gv7fihSg3Z44McMZ
+      name: Sinister Surprise
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      duration:
+        value: 10 * @spheres.cl.dark.total
+        units: minute
+      conditionals:
+        - _id: F1pPNth0zfEch9xo
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

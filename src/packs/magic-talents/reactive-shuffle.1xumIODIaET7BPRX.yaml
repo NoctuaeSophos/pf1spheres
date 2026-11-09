@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      KoA7KyefggtIhFd3:
+        condSp:
+          TfUSNcncUi04NHoN: 2
+          KAzprwjP3vOD7lCq: 1
     sphere: mana
 folder: null
 img: icons/svg/item-bag.svg
@@ -18,7 +23,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: KoA7KyefggtIhFd3
+      name: Reactive Shuffle
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          cost: 1
+          type: reaction
+      conditionals:
+        - _id: TfUSNcncUi04NHoN
+          name: Spend 2 spell points
+          default: true
+          modifiers: []
+        - _id: KAzprwjP3vOD7lCq
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

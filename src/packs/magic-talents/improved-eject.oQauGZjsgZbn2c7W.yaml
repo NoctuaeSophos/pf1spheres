@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      nGD7jJnjjOCZbBiM:
+        condSp:
+          SqMroAnGODdfXaZv: 5
     sphere: time
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/time.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: nGD7jJnjjOCZbBiM
+      name: Improved Eject
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.time.total / 2) + @spheres.cam
+        description: ""
+      conditionals:
+        - _id: SqMroAnGODdfXaZv
+          name: Spend 5 spell points
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -18,7 +18,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: DMnLYD4XTOzo1o72
+      name: Eternal Buzz
+      actionType: save
+      activation:
+        type: swift
+        unchained:
+          cost: 1
+          type: action
+      save:
+        type: fort
+        dc: 10 + floor(@attributes.bab.total / 2) + @spheres.pam
+        description: ""
   armorProf: []
   associations:
     classes: []

@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      TLdD5G9SD4aHaYcR:
+        condSp:
+          BhVqAuswnF9sDpUt: 1
     sphere: bear
 folder: null
 img: icons/svg/item-bag.svg
@@ -18,7 +22,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: TLdD5G9SD4aHaYcR
+      name: Slumbear
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.bear.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "1"
+        units: minute
+      conditionals:
+        - _id: BhVqAuswnF9sDpUt
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      WIEQJ2QAWerzxT6z:
+        condSp:
+          HZs2OhqCXacI0SKt: 1
     sphere: creation
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/creation.webp
@@ -18,7 +22,24 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: WIEQJ2QAWerzxT6z
+      name: Fleshcraft
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.creation.total / 2) + @spheres.cam
+        description: Fortitude negates
+      conditionals:
+        - _id: HZs2OhqCXacI0SKt
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

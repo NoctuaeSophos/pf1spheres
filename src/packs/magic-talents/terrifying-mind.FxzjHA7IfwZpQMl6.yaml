@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      huJs8g79yJShUCP6:
+        condSp:
+          b2SzWlmZgzetI1gu: 1
+          2yAnXU3Bbl6B7MJ3: 1
     sphere: mind
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/mind.webp
@@ -18,7 +23,31 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: huJs8g79yJShUCP6
+      name: Terrifying Mind
+      actionType: save
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.mind.total / 2) + @spheres.cam
+        description: Will negates
+      duration:
+        value: "@spheres.cl.mind.total"
+        units: round
+      conditionals:
+        - _id: b2SzWlmZgzetI1gu
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
+        - _id: 2yAnXU3Bbl6B7MJ3
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

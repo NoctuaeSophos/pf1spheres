@@ -18,7 +18,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 6SaxOhfMHvUJdPVa
+      name: Unseelie Aura
+      actionType: save
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.fallenFey.total / 2) + @spheres.cam
+        description: ""
+      duration:
+        value: "24"
+        units: hour
   armorProf: []
   associations:
     classes: []

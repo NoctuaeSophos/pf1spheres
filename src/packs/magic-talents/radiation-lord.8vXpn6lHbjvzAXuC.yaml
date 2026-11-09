@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      azeLcHBmbH8OimW2:
+        condSp:
+          wAu9nwPNmI7qmX5a: 2
     sphere: weather
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/weather.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: azeLcHBmbH8OimW2
+      name: Radiation Lord
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: wAu9nwPNmI7qmX5a
+          name: Spend 2 spell points
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []

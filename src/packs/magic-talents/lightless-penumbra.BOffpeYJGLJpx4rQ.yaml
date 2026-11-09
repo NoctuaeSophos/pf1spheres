@@ -4,6 +4,10 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      lLUcYTYZehZupdoL:
+        condSp:
+          8UrwkS1xAT0rkCCl: 1
     sphere: dark
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/dark.webp
@@ -18,7 +22,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: lLUcYTYZehZupdoL
+      name: Lightless Penumbra
+      actionType: other
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      conditionals:
+        - _id: 8UrwkS1xAT0rkCCl
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []

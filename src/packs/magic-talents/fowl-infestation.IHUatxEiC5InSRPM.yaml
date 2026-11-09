@@ -4,6 +4,11 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    automation:
+      NUbewnAa13PUVOIq:
+        condSp:
+          JwOkKOuwtgcVlSwA: 1
+          5bZTDXgvg2jxX4EF: 1
     sphere: death
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
@@ -18,7 +23,28 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: NUbewnAa13PUVOIq
+      name: Fowl Infestation
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
+        description: Will negates
+      conditionals:
+        - _id: JwOkKOuwtgcVlSwA
+          name: Spend 1 spell point
+          default: true
+          modifiers: []
+        - _id: 5bZTDXgvg2jxX4EF
+          name: Spend 1 spell point (option)
+          default: false
+          modifiers: []
   armorProf: []
   associations:
     classes: []
