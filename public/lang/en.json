@@ -20,6 +20,7 @@
     "NeedGM": "A GM must be logged in for this.",
     "SpellPoints": "Spell Points",
     "Traditions": "Traditions",
+    "NoDescription": "No description.",
     "SphereDrawbacks": "Sphere drawbacks",
     "CastingDrawbacks": "Casting drawbacks and boons",
     "MartialTradition": "Martial tradition",
@@ -27,7 +28,9 @@
     "NewMartialTradition": "Add a martial tradition",
     "NewCastingTradition": "Add a casting tradition",
     "TraditionEmpty": "No members yet: pick them from the list, or drag them here from the sheet.",
-    "TraditionAdd": "Add a member…",
+    "TraditionAdd": "Add members",
+    "TraditionAddButton": "Add",
+    "TraditionNoCandidates": "Every feature is already in a tradition.",
     "TraditionRemove": "Remove from this tradition (the item stays on the sheet)",
     "TraditionHint": "A tradition. Its talents, drawbacks and boons are added on the Spheres tab and appear with it there instead of in Features. Deleting the tradition leaves them on the sheet.",
     "Leadership": {

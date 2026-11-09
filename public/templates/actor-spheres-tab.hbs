@@ -104,10 +104,7 @@ SPDX-License-Identifier: EUPL-1.2
                 <a class="pf1s-open-item tradition-name" data-item-id="{{ t.id }}"><strong>{{ t.name }}</strong></a>
                 <span class="tradition-kind">{{ t.kindLabel }}</span>
                 <span class="tradition-members">{{#each t.members as |m| }}<span class="tradition-member"><a class="pf1s-open-item" data-item-id="{{ m.id }}">{{ m.name }}</a> <a class="pf1s-tradition-remove" data-tradition-id="{{ t.id }}" data-item-id="{{ m.id }}" data-tooltip="PF1SPHERES.TraditionRemove"><i class="fas fa-xmark"></i></a></span>{{else }}<em>{{ localize "PF1SPHERES.TraditionEmpty" }}</em>{{/each }}</span>
-                <select class="pf1s-tradition-add" data-tradition-id="{{ t.id }}">
-                    <option value="">{{ localize "PF1SPHERES.TraditionAdd" }}</option>
-                    {{#each t.candidates as |c| }}<option value="{{ c.id }}">{{ c.name }}</option>{{/each }}
-                </select>
+                <a class="pf1s-tradition-add" data-tradition-id="{{ t.id }}" data-tooltip="PF1SPHERES.TraditionAdd"><i class="fas fa-plus"></i></a>
             </li>
         {{/each }}
         </ol>
@@ -157,12 +154,9 @@ SPDX-License-Identifier: EUPL-1.2
                             <div class="talent-activation">{{ talent.activationType }}</div>
                             <div class="talent-use">
                                 {{#if talent.hasAction }}
-                                    <a class "item-control item-action action roll" data-tooltip="PF1.UseFeat">
-                                      <i class ="fas fa-dice-d20"></i>
-                                    </a>
-                                </img>
-                            {{/if }}
-                        </div>
+                                    <a class="item-control talent-roll" data-tooltip="PF1.UseFeat"><i class="fas fa-dice-d20"></i></a>
+                                {{/if }}
+                            </div>
                         {{!-- <div class="talent-controls"></div> --}}
                     </li>
                 {{/each }}

@@ -359,7 +359,7 @@
         }
       }
       .pf1s-tradition-add {
-        flex: 0 0 9em;
+        flex: 0 0 auto;
       }
     }
   }
@@ -482,4 +482,22 @@
   --pf1s-wx-storm: #a58ae6;
   --pf1s-wx-snow: #a9c9f0;
   --pf1s-wx-flood: #2bb0bf;
+}
+
+.tab.spheres li.talent-summary {
+  list-style: none;
+  padding: 0.3em 0.6em 0.5em 2.4em;
+  font-size: 0.9em;
+  border-bottom: 1px solid var(--color-border-light-tertiary, #ccc);
+}
+.tab.spheres .talent .talent-name {
+  cursor: pointer;
+}
+
+.pf1s-member-pick {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.15em 1em;
+  max-height: 24em;
+  overflow-y: auto;
 }

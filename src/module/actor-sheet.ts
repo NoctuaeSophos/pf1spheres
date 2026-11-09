@@ -260,6 +260,38 @@ const addMember = (actor: any, traditionId: string, itemId: string) => {
   return setMembers(t, [...traditionMemberIds(t), itemId]);
 };
 
+/** A dialog with a checkbox per feature not yet in a tradition; the ticked ones join this one */
+const pickMembers = async (actor: ActorPF, traditionId: string) => {
+  const t = getTraditions(actor).find((x) => x.id === traditionId);
+  if (!t) return;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const g = globalThis as any;
+  const esc = (v: string) => g.foundry.utils.escapeHTML(v);
+  const content = t.candidates.length
+    ? `<div class="pf1s-member-pick">${t.candidates
+        .map(
+          (c: { id: string; name: string }) =>
+            `<label class="checkbox"><input type="checkbox" name="pick" value="${c.id}"> ${esc(c.name)}</label>`,
+        )
+        .join("")}</div>`
+    : `<p>${localize("TraditionNoCandidates")}</p>`;
+  const picked = await g.foundry.applications.api.DialogV2.prompt({
+    window: { title: `${localize("TraditionAdd")}: ${t.name}` },
+    content,
+    ok: {
+      label: localize("TraditionAddButton"),
+      callback: (_ev: Event, button: HTMLButtonElement) =>
+        Array.from(
+          button.form?.querySelectorAll<HTMLInputElement>('input[name="pick"]:checked') ?? [],
+        ).map((i) => i.value),
+    },
+    rejectClose: false,
+  });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const a = actor as any;
+  for (const id of picked ?? []) await addMember(a, traditionId, id);
+};
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const removeMember = (actor: any, traditionId: string, itemId: string) => {
   const t = actor.items.get(traditionId);
@@ -514,6 +546,33 @@ const getSpheresData = (app: ActorSheetPF, actor: ActorPF): SpheresTemplateData 
 const getRenderedSpheresTab = (data: SpheresTemplateData) =>
   renderPf1sTemplate("actor-spheres-tab", data);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const talentOf = (actor: ActorPF, el: HTMLElement): any =>
+  (actor as any).items.get(el.closest<HTMLElement>("[data-item-id]")?.dataset.itemId);
+
+/** Opens or closes a talent's description under its row, as pf1's own item lists do */
+const toggleTalentSummary = async (actor: ActorPF, el: HTMLElement) => {
+  const row = el.closest<HTMLElement>("li.talent");
+  const item = talentOf(actor, el);
+  if (!row || !item) return;
+  const open = row.nextElementSibling;
+  if (open?.classList.contains("talent-summary")) {
+    open.remove();
+    return;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const editor = (globalThis as any).foundry.applications.ux.TextEditor.implementation;
+  const html = await editor.enrichHTML(item.system.description?.value ?? "", {
+    rollData: item.getRollData?.(),
+    relativeTo: item,
+    secrets: item.isOwner,
+  });
+  const summary = document.createElement("li");
+  summary.className = "talent-summary";
+  summary.innerHTML = html || `<em>${localize("NoDescription")}</em>`;
+  row.after(summary);
+};
+
 const activateListeners = (app: ActorSheetPF, html: JQuery<HTMLElement>, actor: ActorPF) => {
   html.find(".msb>.attribute-name.rollable").on("click", _onMsbRoll(actor));
   html.find(".concentration>.attribute-name.rollable").on("click", _onConcentrationRoll(actor));
@@ -525,11 +584,16 @@ const activateListeners = (app: ActorSheetPF, html: JQuery<HTMLElement>, actor: 
     // @ts-expect-error Weird contextmenu types?
     .on("contextmenu", pf1.applications.actor.ActorSheetPF.prototype._onItemEdit.bind(app));
 
-  // TODO: Decide upon own solution for rolling – depends on how talents should be activated
+  // Talent rows: the name expands the description, the icon posts the item to chat, the d20 uses it
   html
-    .find(".talent-use>a")
-    .on("click", pf1.applications.actor.ActorSheetPF.prototype._itemActivationControl.bind(app));
-  html.find(".talent .talent-icon").on("click", (event) => app._onItemRoll(event));
+    .find(".talent .talent-name")
+    .on("click", (ev) => toggleTalentSummary(actor, ev.currentTarget as HTMLElement));
+  html
+    .find(".talent .talent-icon")
+    .on("click", (ev) => talentOf(actor, ev.currentTarget as HTMLElement)?.displayCard?.());
+  html
+    .find(".talent .talent-roll")
+    .on("click", (ev) => talentOf(actor, ev.currentTarget as HTMLElement)?.use?.({ ev }));
 
   html.find(".sphere-label").on("click", _openSphereJournal);
   // The pool lives on the Spell Points item (or the actor flag before it exists), not in the sheet form
@@ -540,10 +604,12 @@ const activateListeners = (app: ActorSheetPF, html: JQuery<HTMLElement>, actor: 
   html.find(".pf1s-control-weather").on("click", () => openCasterWeather(actor));
   html.find(".pf1s-inoculate").on("click", () => inoculateTargets(actor));
   html.find(".pf1s-inoculate-clear").on("click", () => setInoculated(actor, []));
-  html.find(".pf1s-tradition-add").on("change", (ev) => {
-    const el = ev.currentTarget as HTMLSelectElement;
-    addMember(actor, el.dataset.traditionId ?? "", el.value);
-  });
+  html
+    .find(".pf1s-tradition-add")
+    .on("click", (ev) =>
+      pickMembers(actor, (ev.currentTarget as HTMLElement).dataset.traditionId ?? ""),
+    );
+
   html.find(".pf1s-tradition-remove").on("click", (ev) => {
     const el = ev.currentTarget as HTMLElement;
     removeMember(actor, el.dataset.traditionId ?? "", el.dataset.itemId ?? "");
