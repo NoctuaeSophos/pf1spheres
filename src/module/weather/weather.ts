@@ -488,9 +488,22 @@ const refreshWindows = (scene) => {
  * Adds the token's scene weather to an actor's roll data as @spheres.weather: the severities,
  * whether there is a storm, and the lightning formula (maximized when the caster is the controller).
  */
+/**
+ * The scene whose weather an actor is in: an unlinked actor's own token's scene, otherwise the active
+ * scene when the actor has a token there (the scene the Weather buff follows), otherwise the viewed one.
+ */
+const actorWeatherScene = (actor) => {
+  if (actor.token) return actor.token.parent;
+  const onScene = (scene) => scene?.tokens.some((t) => t.actorLink && t.actorId === actor.id);
+  const active = game.scenes?.active;
+  if (onScene(active)) return active;
+  const viewed = canvas?.scene ?? game.scenes?.viewed;
+  if (onScene(viewed)) return viewed;
+  return active ?? viewed;
+};
+
 const weatherRollData = (actor) => {
-  const token = actor.token ?? actor.getActiveTokens?.(false, true)?.[0];
-  const scene = token?.parent ?? canvas?.scene;
+  const scene = actorWeatherScene(actor);
   const weather = getSceneWeather(scene);
   const effects = getWeatherEffects(weather);
   const bolt = getLightning(weather, effects);

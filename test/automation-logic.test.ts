@@ -14,6 +14,9 @@ import {
   formulaeCapacity,
   formulaeDailyUses,
   hasAutomation,
+  hasFailEffects,
+  parseConditions,
+  saveFailed,
   inspiredBonus,
   neutralizerResistance,
   parseBlastType,
@@ -122,5 +125,28 @@ describe("magic skill defense", () => {
     expect(targetMsd(10, 21, 0, 12)).toEqual({ value: 21, estimate: false });
     expect(targetMsd(0, 11, 9, 12)).toEqual({ value: 20, estimate: true });
     expect(targetMsd(0, 11, 0, 12)).toEqual({ value: 23, estimate: true });
+  });
+});
+
+describe("failed saves", () => {
+  it("fails below the DC and on a natural 1, succeeds on a natural 20", () => {
+    expect(saveFailed(14, 9, 15)).toBe(true);
+    expect(saveFailed(15, 10, 15)).toBe(false);
+    expect(saveFailed(30, 1, 15)).toBe(true);
+    expect(saveFailed(10, 20, 25)).toBe(false);
+    expect(saveFailed(10, undefined, 15)).toBe(true);
+  });
+
+  it("parses condition lists with commas or spaces", () => {
+    expect(parseConditions("blind, deaf")).toEqual(["blind", "deaf"]);
+    expect(parseConditions(" dazzled  staggered,dazzled ")).toEqual(["dazzled", "staggered"]);
+    expect(parseConditions(undefined)).toEqual([]);
+  });
+
+  it("only counts on-fail settings that do something", () => {
+    expect(hasFailEffects(undefined)).toBe(false);
+    expect(hasFailEffects({ conditions: "  ", conditionRounds: "1d4" })).toBe(false);
+    expect(hasFailEffects({ regainFocus: true })).toBe(true);
+    expect(hasAutomation({ onFail: { buffId: "abc" } })).toBe(true);
   });
 });

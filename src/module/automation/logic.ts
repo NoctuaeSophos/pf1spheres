@@ -24,7 +24,47 @@ export interface ActionAutomation {
   zone?: { enabled?: boolean; radius?: string; who?: ZoneWho };
   /** Mark the targets */
   mark?: { label?: string; attackerNote?: string; defenderNote?: string };
+  /** When a creature fails a save rolled from this action's chat card */
+  onFail?: FailEffects;
 }
+
+export interface FailEffects {
+  /** pf1 condition ids, separated by commas or spaces */
+  conditions?: string;
+  /** How many rounds the conditions last (dice allowed, rolled per creature) */
+  conditionRounds?: string;
+  /** One of the caster's buffs, copied onto the creature */
+  buffId?: string;
+  /** The buff's level; the caster's sphere caster level when blank */
+  buffLevel?: string;
+  /** How many rounds the buff lasts (dice allowed) */
+  buffRounds?: string;
+  /** Posted with the result; [[formula]] is rolled once */
+  note?: string;
+  /** Offer the caster a button to regain martial focus */
+  regainFocus?: boolean;
+}
+
+/** True when a failed save has anything to do */
+export const hasFailEffects = (f: FailEffects | undefined | null): boolean =>
+  Boolean(f && (f.conditions?.trim() || f.buffId || f.note?.trim() || f.regainFocus));
+
+/** Condition ids from "blind, deaf" or "blind deaf" */
+export const parseConditions = (text: string | undefined): string[] =>
+  [...new Set((text ?? "").split(/[\s,]+/).map((s) => s.trim()).filter(Boolean))];
+
+/**
+ * Whether a saving throw failed: a natural 1 always fails and a natural 20 always succeeds.
+ *
+ * @param total - The save's total
+ * @param natural - The d20's face, if known
+ * @param dc - The DC
+ */
+export const saveFailed = (total: number, natural: number | undefined, dc: number): boolean => {
+  if (natural === 1) return true;
+  if (natural === 20) return false;
+  return total < dc;
+};
 
 export type DurationUnit = "round" | "minute" | "hour";
 export type ZoneWho = "allies" | "enemies" | "all";
@@ -41,7 +81,8 @@ export const hasAutomation = (a: ActionAutomation | undefined | null): boolean =
         a.effect?.enabled ||
         a.buff?.itemId ||
         a.zone?.enabled ||
-        a.mark?.label),
+        a.mark?.label ||
+        hasFailEffects(a.onFail)),
   );
 
 /**

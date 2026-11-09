@@ -94,6 +94,25 @@ export const onRenderActionSheet = (app, html) => {
       <div class="form-group"><label>${loc("MarkDefender")}</label>
         <div class="form-fields"><input type="text" data-pf1s="mark.defenderNote" value="${esc(a.mark?.defenderNote)}"></div>
         <p class="hint">${loc("MarkHint")}</p></div>
+
+      <h3 class="form-header">${loc("OnFail")}</h3>
+      <p class="hint">${loc("OnFailHint")}</p>
+      <div class="form-group"><label>${loc("FailConditions")}</label>
+        <div class="form-fields"><input type="text" data-pf1s="onFail.conditions" value="${esc(a.onFail?.conditions)}" placeholder="blind, deaf"></div>
+        <p class="hint">${loc("FailConditionsHint")}</p></div>
+      <div class="form-group"><label>${loc("FailConditionRounds")}</label>
+        <div class="form-fields"><input type="text" data-pf1s="onFail.conditionRounds" value="${esc(a.onFail?.conditionRounds)}" placeholder="1d4+1"></div></div>
+      <div class="form-group"><label>${loc("FailBuff")}</label>
+        <div class="form-fields"><select data-pf1s="onFail.buffId">${opt("", "—", a.onFail?.buffId)}${buffs.map((b) => opt(b.id, esc(b.name), a.onFail?.buffId)).join("")}</select></div></div>
+      <div class="form-group"><label>${loc("FailBuffLevel")}</label>
+        <div class="form-fields"><input type="text" data-pf1s="onFail.buffLevel" value="${esc(a.onFail?.buffLevel)}" placeholder="${loc("FailBuffLevelPlaceholder")}"></div></div>
+      <div class="form-group"><label>${loc("FailBuffRounds")}</label>
+        <div class="form-fields"><input type="text" data-pf1s="onFail.buffRounds" value="${esc(a.onFail?.buffRounds)}" placeholder="1d4"></div></div>
+      <div class="form-group"><label>${loc("FailNote")}</label>
+        <div class="form-fields"><input type="text" data-pf1s="onFail.note" value="${esc(a.onFail?.note)}"></div>
+        <p class="hint">${loc("FailNoteHint")}</p></div>
+      <div class="form-group"><label>${loc("FailRegainFocus")}</label>
+        <div class="form-fields"><input type="checkbox" data-pf1s="onFail.regainFocus" ${a.onFail?.regainFocus ? "checked" : ""}></div></div>
     </div>`,
   );
 

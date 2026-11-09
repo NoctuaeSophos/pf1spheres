@@ -43,6 +43,8 @@ export class CasterWeatherApp extends foundry.applications.api.HandlebarsApplica
   scene = null;
   /** The weather the caster is dialling in, before casting */
   draft = null;
+  /** The scene weather the draft started from; when the scene changes under it, the draft resets */
+  draftBase = "";
   opts: CastOptions = { ...DEFAULT_CAST };
 
   get title() {
@@ -54,7 +56,13 @@ export class CasterWeatherApp extends foundry.applications.api.HandlebarsApplica
     const caster = getWeatherCaster(this.actor);
     const weather = getSceneWeather(this.scene);
     const current = normaliseWeather(weather);
-    this.draft ??= { ...current };
+    // A player's cast lands after this window has re-rendered, so reset the draft only once the scene weather actually changes
+    const base = JSON.stringify(current);
+    if (this.draft && this.draftBase !== base) this.draft = null;
+    if (!this.draft) {
+      this.draft = { ...current };
+      this.draftBase = base;
+    }
     const max = Math.min(7, caster.maxSeverity + (this.opts.severe && caster.severeWeather ? 1 : 0));
     const effects = getWeatherEffects(this.draft);
     const cost = castCost(caster, this.opts);
@@ -139,7 +147,6 @@ export class CasterWeatherApp extends foundry.applications.api.HandlebarsApplica
         `<p>${ctx.duration}. ${ctx.speed}. ${ctx.area}.</p>`,
     });
     if (!sent) return;
-    this.draft = null;
     this.render();
   }
 

@@ -16,7 +16,10 @@ import {
   durationSeconds,
   fillNote,
   hasAutomation,
+  hasFailEffects,
+  parseConditions,
   remainingSeconds,
+  saveFailed,
   sequenceMax,
   sequenceTurnStart,
   totalSpCost,
@@ -116,7 +119,7 @@ export const persistEffect = async (actor, effectId: string) => {
     seconds: e.persistSeconds,
     durationValue: e.persistValue,
     startTime: game.time.worldTime,
-    combatId: game.combat?.id ?? null,
+    combatId: game.combat?.started ? game.combat.id : null,
     round: game.combat?.round ?? 0,
   });
   await setEffects(actor, list);
@@ -152,6 +155,21 @@ async function cleanupEffect(msg, user) {
 
 /* ---------- buffs applied to targets ---------- */
 
+/**
+ * A copy of a caster's buff, active at the given level. The source's start time is dropped: pf1 only
+ * fills it in on updates, so a copied start would make the new buff look already expired.
+ */
+const buffCopy = (source, level: number, name: string, flags: object) => {
+  const data = source.toObject();
+  delete data._id;
+  data.name = name;
+  data.system.level = level;
+  data.system.active = true;
+  foundry.utils.setProperty(data, "system.duration.start", game.time.worldTime);
+  foundry.utils.setProperty(data, `flags.${MODULE_ID}`, { ...(data.flags?.[MODULE_ID] ?? {}), ...flags });
+  return data;
+};
+
 async function applyBuff(msg, user) {
   const caster = fromUuidSync(msg.casterUuid);
   if (!userOwns(user, caster)) return;
@@ -160,12 +178,8 @@ async function applyBuff(msg, user) {
   for (const uuid of msg.targetUuids ?? []) {
     const target = fromUuidSync(uuid);
     if (!target) continue;
-    const data = source.toObject();
-    delete data._id;
-    data.system.level = msg.level;
-    data.system.active = true;
-    data.name = target.uuid === caster.uuid ? data.name : `${data.name} (${caster.name})`;
-    foundry.utils.setProperty(data, `flags.${MODULE_ID}.appliedBy`, { casterUuid: caster.uuid, effectId: msg.effectId });
+    const name = target.uuid === caster.uuid ? source.name : `${source.name} (${caster.name})`;
+    const data = buffCopy(source, msg.level, name, { appliedBy: { casterUuid: caster.uuid, effectId: msg.effectId } });
     await target.createEmbeddedDocuments("Item", [data]);
   }
 }
@@ -256,12 +270,7 @@ export async function syncZones(scene) {
     for (const z of zones.filter((z) => inside.has(z.id) && !have.has(z.id))) {
       const source = fromUuidSync(z.buffUuid);
       if (!source) continue;
-      const data = source.toObject();
-      delete data._id;
-      data.system.level = z.level;
-      data.system.active = true;
-      data.name = `${data.name} (${z.name})`;
-      foundry.utils.setProperty(data, `flags.${MODULE_ID}.zoneBuff`, { sceneId: scene.id, zoneId: z.id });
+      const data = buffCopy(source, z.level, `${source.name} (${z.name})`, { zoneBuff: { sceneId: scene.id, zoneId: z.id } });
       await actor.createEmbeddedDocuments("Item", [data]);
     }
   }
@@ -275,6 +284,27 @@ const queueZones = (scene) => {
   if (!zoneQueues.has(scene.id)) zoneQueues.set(scene.id, serialised(() => syncZones(game.scenes.get(scene.id))));
   zoneTimers.set(scene.id, setTimeout(() => zoneQueues.get(scene.id)(), 300));
 };
+
+/** The GM moved, resized or deleted a zone's Region: the zone follows it, or ends with it */
+async function onRegionChanged(region, deleted: boolean) {
+  if (!isGMWriter()) return;
+  const zoneId = region.flags?.[MODULE_ID]?.zoneId;
+  const scene = region.parent;
+  if (!zoneId || !scene) return;
+  const zones = getZones(scene);
+  const zone = zones.find((z) => z.id === zoneId);
+  if (!zone) return;
+  if (deleted) {
+    await scene.setFlag(MODULE_ID, "zones", zones.filter((z) => z.id !== zoneId));
+  } else {
+    const circle = region.shapes?.find((sh) => sh.type === "circle");
+    if (!circle) return;
+    Object.assign(zone, { x: circle.x, y: circle.y, radius: (circle.radius / scene.grid.size) * scene.grid.distance });
+    await scene.setFlag(MODULE_ID, "zones", zones);
+  }
+  queueZones(scene);
+  queueSweep();
+}
 
 /* ---------- marks ---------- */
 
@@ -344,6 +374,12 @@ function onPreActionUse(au) {
   const focus = actor.flags?.[MODULE_ID]?.martialFocus === true;
   if ((auto.focus === "require" || auto.focus === "expend") && !focus) {
     ui.notifications.warn(loc("NeedFocus"));
+    return false;
+  }
+  // Buffs, areas and marks are written by the GM's client; without one, refuse before anything is paid
+  const needsGM = auto.buff?.itemId || auto.zone?.enabled || auto.mark?.label;
+  if (needsGM && !game.user.isGM && !game.users.activeGM) {
+    ui.notifications.warn(localize("NeedGM"));
     return false;
   }
   au.shared.pf1spheres = { sp, focus: auto.focus ?? "", auto };
@@ -460,8 +496,62 @@ async function sweep() {
         });
       }
     }
-    const stale = actor.items.filter((i) => (i.flags?.[MODULE_ID]?.formulaeExpires ?? Infinity) <= now).map((i) => i.id);
+    const stale = actor.items
+      .filter((i) => (i.flags?.[MODULE_ID]?.formulaeExpires ?? Infinity) <= now || (i.flags?.[MODULE_ID]?.expiresAt ?? Infinity) <= now)
+      .map((i) => i.id);
     if (stale.length) await actor.deleteEmbeddedDocuments("Item", stale);
+    const expired = actor.effects.filter((e) => (e.flags?.[MODULE_ID]?.expiresAt ?? Infinity) <= now).map((e) => e.id);
+    if (expired.length) await actor.deleteEmbeddedDocuments("ActiveEffect", expired);
+  }
+  await sweepOrphans();
+}
+
+/** True if a linked actor has a token on the scene, or an unlinked actor's token is on it */
+const actorOnScene = (actor, scene) =>
+  actor.token ? actor.token.parent?.id === scene.id : scene.tokens.some((t) => t.actorLink && t.actorId === actor.id);
+
+/** Linked actors only take a scene's buffs while that scene is active (or nothing is) */
+const actorInScene = (actor, scene) => actorOnScene(actor, scene) && (Boolean(actor.token) || scene.active || !game.scenes.active);
+
+/**
+ * Removes what nothing will ever clean up: buffs and marks from casters whose actor or token is gone,
+ * buffs from effects no longer tracked, zones whose caster is gone, and zone or weather buffs on
+ * creatures that left the scene, or whose scene was deleted.
+ */
+async function sweepOrphans() {
+  for (const scene of game.scenes) {
+    const zones = getZones(scene);
+    const orphanZones = zones.filter((z) => !fromUuidSync(z.casterUuid)).map((z) => z.id);
+    if (orphanZones.length) await removeZones(scene, orphanZones);
+    const tokenUpdates = [];
+    for (const t of scene.tokens) {
+      const marks = t.getFlag(MODULE_ID, "marks") ?? [];
+      const kept = marks.filter((m) => fromUuidSync(m.sourceUuid));
+      if (kept.length !== marks.length) tokenUpdates.push({ _id: t.id, [`flags.${MODULE_ID}.marks`]: kept });
+    }
+    if (tokenUpdates.length) await scene.updateEmbeddedDocuments("Token", tokenUpdates);
+  }
+  for (const actor of allActors()) {
+    const drop = actor.items
+      .filter((i) => {
+        const f = i.flags?.[MODULE_ID];
+        if (!f) return false;
+        if (f.appliedBy) {
+          const caster = fromUuidSync(f.appliedBy.casterUuid);
+          return !caster || !getEffects(caster).some((e) => e.id === f.appliedBy.effectId);
+        }
+        if (f.zoneBuff) {
+          const scene = game.scenes.get(f.zoneBuff.sceneId);
+          return !scene || !getZones(scene).some((z) => z.id === f.zoneBuff.zoneId) || !actorInScene(actor, scene);
+        }
+        if (f.weatherBuff) {
+          const scene = game.scenes.get(f.weatherBuff);
+          return !scene || !actorInScene(actor, scene);
+        }
+        return false;
+      })
+      .map((i) => i.id);
+    if (drop.length) await actor.deleteEmbeddedDocuments("Item", drop);
   }
 }
 
@@ -530,6 +620,141 @@ function onConditionAdded(effect) {
   endSequence(actor);
 }
 
+/* ---------- failed saves ---------- */
+
+/** Saves rolled from an action's chat card, between pf1's pre- and post-roll hooks */
+const pendingSaves = new Map<string, { reference: string; dc: number }>();
+
+function onPreRollSave(actor, options) {
+  // Always overwrite: a cancelled roll must not leave its reference for the next save
+  if (options?.reference && options.dc !== undefined && options.dc !== null) {
+    pendingSaves.set(actor.uuid, { reference: options.reference, dc: Number(options.dc) });
+  } else pendingSaves.delete(actor.uuid);
+}
+
+/** A save rolled from a chat card failed: ask the GM to apply the action's on-fail effects */
+async function onRollSave(actor, result) {
+  const pending = pendingSaves.get(actor.uuid);
+  pendingSaves.delete(actor.uuid);
+  if (!pending || !Number.isFinite(pending.dc)) return;
+  const roll = result?.rolls?.[0] ?? result;
+  if (!Number.isFinite(roll?.total)) return;
+  if (!saveFailed(roll.total, roll.dice?.[0]?.total, pending.dc)) return;
+  const message = fromUuidSync(pending.reference);
+  const item = message?.itemSource;
+  const action = message?.actionSource;
+  if (!item || !action || !hasFailEffects(getAutomation(item, action.id).onFail)) return;
+  await requestGM({ action: "auto.failedSave", messageUuid: pending.reference, targetUuid: actor.uuid });
+}
+
+const rollTotal = async (formula, rollData): Promise<number> => {
+  if (!formula || !String(formula).trim()) return 0;
+  try {
+    return (await new Roll(String(formula), rollData).evaluate()).total;
+  } catch {
+    return 0;
+  }
+};
+
+/** Rolls each [[formula]] in a note once, so the chat card shows fixed numbers */
+const rollNote = async (text: string, rollData): Promise<string> => {
+  let out = "";
+  let last = 0;
+  for (const m of text.matchAll(/\[\[(.+?)\]\]/g)) {
+    out += text.slice(last, m.index) + String(await rollTotal(m[1], rollData));
+    last = m.index + m[0].length;
+  }
+  return out + text.slice(last);
+};
+
+/** Runs on the GM's client: conditions and a buff on the failing creature, a note, and the focus prompt */
+async function applyFailedSave(msg, user) {
+  const target = fromUuidSync(msg.targetUuid);
+  // The roller owns the creature that failed; that is all the authority this needs
+  if (!target || !userOwns(user, target)) return;
+  const message = fromUuidSync(msg.messageUuid);
+  const item = message?.itemSource;
+  const action = message?.actionSource;
+  const caster = item?.actor;
+  if (!caster || !action) return;
+  const fail = getAutomation(item, action.id).onFail;
+  if (!hasFailEffects(fail)) return;
+  // Rerolling a failed save must not apply everything twice
+  const failed = message.getFlag(MODULE_ID, "failedSaves") ?? [];
+  if (failed.includes(target.uuid)) return;
+  await message.setFlag(MODULE_ID, "failedSaves", [...failed, target.uuid]);
+
+  const rd = action.getRollData?.() ?? item.getRollData();
+  const now = game.time.worldTime;
+  const lines = [];
+  const conditions = parseConditions(fail.conditions).filter((id) => pf1.registry.conditions.get(id));
+  if (conditions.length) {
+    const rounds = Math.max(1, await rollTotal(fail.conditionRounds || "1", rd));
+    const combat = game.combat?.started ? game.combat : null;
+    const data = {
+      duration: {
+        rounds,
+        seconds: rounds * 6,
+        startTime: now,
+        ...(combat ? { combat: combat.id, startRound: combat.round, startTurn: combat.turn } : {}),
+      },
+      flags: { [MODULE_ID]: { expiresAt: now + rounds * 6 } },
+    };
+    await target.setConditions(Object.fromEntries(conditions.map((id) => [id, foundry.utils.deepClone(data)])));
+    const names = conditions.map((id) => pf1.registry.conditions.get(id).name).join(", ");
+    lines.push(fmt("FailConditionsApplied", { conditions: names, rounds }));
+  }
+  const source = fail.buffId ? caster.items.get(fail.buffId) : null;
+  if (source) {
+    const rounds = Math.max(1, await rollTotal(fail.buffRounds || "1", rd));
+    const level = fail.buffLevel?.trim() ? Math.max(1, evalFormula(fail.buffLevel, rd)) : Math.max(1, rd.spheres?.cl?.total ?? 1);
+    const data = buffCopy(source, level, `${source.name} (${caster.name})`, {
+      failBuff: { casterUuid: caster.uuid },
+      expiresAt: now + rounds * 6,
+    });
+    foundry.utils.setProperty(data, "system.duration.value", String(rounds));
+    foundry.utils.setProperty(data, "system.duration.units", "round");
+    await target.createEmbeddedDocuments("Item", [data]);
+    lines.push(fmt("FailBuffApplied", { name: source.name, rounds }));
+  }
+  if (fail.note?.trim()) lines.push(await rollNote(fail.note, rd));
+  const focused = caster.flags?.[MODULE_ID]?.martialFocus === true;
+  const prompt =
+    fail.regainFocus && !focused
+      ? `<p>${loc("RegainFocusPrompt")}</p><button type="button" data-pf1s-regain-focus="${caster.uuid}"><i class="fas fa-bullseye"></i> ${loc("RegainFocus")}</button>`
+      : "";
+  const sourceName = action.name && action.name !== item.name ? `${item.name}: ${action.name}` : item.name;
+  const whisper = game.users
+    .filter((u) => caster.testUserPermission(u, "OWNER") || target.testUserPermission(u, "OWNER"))
+    .map((u) => u.id);
+  await ChatMessage.create({
+    whisper,
+    speaker: ChatMessage.getSpeaker({ actor: caster }),
+    content:
+      `<p><strong>${fmt("FailedSave", { target: target.token?.name ?? target.name, source: sourceName })}</strong></p>` +
+      lines.map((l) => `<p>${l}</p>`).join("") +
+      prompt,
+  });
+}
+
+/** Wires the "regain martial focus" button for whoever owns the caster */
+function onRenderChatMessage(message, html) {
+  const root = html instanceof HTMLElement ? html : html?.[0];
+  for (const button of root?.querySelectorAll?.("[data-pf1s-regain-focus]") ?? []) {
+    const actor = fromUuidSync(button.dataset.pf1sRegainFocus);
+    if (!actor?.isOwner) {
+      button.remove();
+      continue;
+    }
+    if (actor.flags?.[MODULE_ID]?.martialFocus === true) button.disabled = true;
+    button.addEventListener("click", async () => {
+      button.disabled = true;
+      await actor.setFlag(MODULE_ID, "martialFocus", true);
+      ui.notifications.info(fmt("FocusRegained", { name: actor.name }));
+    });
+  }
+}
+
 /* ---------- registration ---------- */
 
 export const registerAutomation = () => {
@@ -552,21 +777,49 @@ export const registerAutomation = () => {
     result.spheres ??= {};
     result.spheres.sequence = { length: seq.length, active: seq.length > 0 ? 1 : 0, max: sequenceMax(prodigyLevel(doc)) };
   });
-  Hooks.on("updateWorldTime", () => queueSweep());
-  Hooks.on("updateCombat", (combat, changed) => {
+  Hooks.on("updateWorldTime", () => {
+    queueSweep();
+    refreshEffectSheets();
+  });
+  Hooks.on("updateCombat", (combat, changed, options) => {
     if (!("turn" in changed || "round" in changed)) return;
     queueSweep();
+    // Stepping back a turn must not cost a prodigy another link or repeat the prompts
+    if (options?.direction === -1) return;
     onTurnStart(combat).catch((err) => console.error(`${MODULE_ID} | turn start`, err));
   });
   Hooks.on("createActiveEffect", onConditionAdded);
   Hooks.on("createToken", (t) => queueZones(t.parent));
-  Hooks.on("deleteToken", (t) => queueZones(t.parent));
+  Hooks.on("deleteToken", (t) => {
+    queueZones(t.parent);
+    // A deleted unlinked caster takes its tracker with it; the sweep ends what it left behind
+    queueSweep();
+  });
   Hooks.on("updateToken", (t, changed) => {
     if ("x" in changed || "y" in changed || "disposition" in changed) queueZones(t.parent);
   });
   Hooks.on("updateScene", (scene, changed) => {
     if (foundry.utils.hasProperty(changed, `flags.${MODULE_ID}.zones`)) queueZones(scene);
+    if ("active" in changed) queueSweep();
   });
+  Hooks.on("deleteScene", () => queueSweep());
+  Hooks.on("updateRegion", (region, changed) => {
+    if ("shapes" in changed) onRegionChanged(region, false).catch((err) => console.error(`${MODULE_ID} | zone region`, err));
+  });
+  Hooks.on("deleteRegion", (region) => onRegionChanged(region, true).catch((err) => console.error(`${MODULE_ID} | zone region`, err)));
+  Hooks.on("pf1PreActorRollSave", onPreRollSave);
+  Hooks.on("pf1ActorRollSave", (actor, result) => {
+    onRollSave(actor, result).catch((err) => console.error(`${MODULE_ID} | failed save`, err));
+  });
+  registerSocketHandler("auto.failedSave", applyFailedSave);
+  Hooks.on("renderChatMessageHTML", onRenderChatMessage);
 };
+
+/** Open sheets show time left on tracked effects, so they re-render as time passes */
+function refreshEffectSheets() {
+  for (const app of Object.values(ui.windows)) {
+    if (app.rendered && app.actor && getEffects(app.actor).length) app.render(false);
+  }
+}
 
 export const clearMyMarks = (actor) => requestGM({ action: "auto.clearMarks", sourceUuid: actor.uuid });
