@@ -120,7 +120,9 @@
 
     "Settings": {
       "Title": "Spheres Settings",
-      "AbilitySettingNote": "Configure the ability whose modifier will be added e.g. to DCs. In formulas, use {rollPath} to reference this ability modifier."
+      "AbilitySettingNote": "Configure the ability whose modifier will be added e.g. to DCs. In formulas, use {rollPath} to reference this ability modifier.",
+      "ShowSpheresTab": "Show Spheres Tab",
+      "ShowSpheresTabNote": "Adds the Spheres tab to this character's sheet. It is hidden by default so characters without Spheres content keep an uncluttered sheet."
     }
   }
 }

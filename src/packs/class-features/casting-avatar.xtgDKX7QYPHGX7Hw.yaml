@@ -51,7 +51,8 @@ system:
     value: '<p>From 1st level, a High-Caster who combines spheres and talents to create
       magical effects. Gains the usual 2 bonus talents and a casting tradition the
       first time she gains the casting class feature.</p><p><strong>Replaces:</strong>
-      Spells; Orisons.</p><p><em>Source: The Warden.</em> <a href="http://spheresofpower.wikidot.com/avatar#toc2">Full
+      Spells; Orisons (on a sphere druid, this is the same as its Casting feature;
+      take it once).</p><p><em>Source: The Warden.</em> <a href="http://spheresofpower.wikidot.com/avatar#toc2">Full
       text</a></p>'
   disabled: false
   duration:
@@ -88,6 +89,7 @@ system:
   tag: ''
   tags:
   - Avatar
+  - Sphere Druid
   target:
     value: ''
   traitCategory: ''

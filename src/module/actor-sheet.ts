@@ -34,11 +34,18 @@ export const onActorSheetRender: (
   if (app.spheresTab == null) {
     app.spheresTab = { activateTab: false, expandedSpheres: {} };
   }
+
+  const actor = app.actor as ActorPF;
+
+  // The tab is opt-in per actor, toggled in the Spheres settings window
+  if (actor.flags.pf1spheres?.showSpheresTab !== true) {
+    app.spheresTab.activateTab = false;
+    return true;
+  }
+
   addNavTab(app, html);
 
   const body = html.find("section.primary-body").first();
-
-  const actor = app.actor as ActorPF;
 
   const renderData = getSpheresData(app, actor);
   const renderedTemplate = getRenderedSpheresTab(renderData);

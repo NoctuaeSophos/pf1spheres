@@ -59,7 +59,8 @@ system:
       cube or Large metal object); 11th Huge (20-ft. cube or Huge metal object); 14th
       greater (25-ft. cube or Gargantuan metal object; costs 1 extra spell point);
       17th elder (same material; takes 1 round and costs 2 extra spell points instead).</p><p><strong>Replaces:</strong>
-      Wild Shape; A Thousand Faces.</p><p><em>Source: The Warden.</em> <a href="http://spheresofpower.wikidot.com/avatar#toc8">Full
+      Wild Shape; A Thousand Faces (on a sphere druid: Wild Heart and A Thousand Faces).</p><p><em>Source:
+      The Warden.</em> <a href="http://spheresofpower.wikidot.com/avatar#toc8">Full
       text</a></p>'
   disabled: false
   duration:
@@ -96,6 +97,7 @@ system:
   tag: ''
   tags:
   - Avatar
+  - Sphere Druid
   target:
     value: ''
   traitCategory: ''

@@ -51,8 +51,8 @@ system:
     value: '<p>1st level: bonus Nature sphere (magic talent) and bonus Beastmastery
       sphere (combat talent).</p><p>For Beastmastery sphere effects, her class level
       stands in for her base attack bonus.</p><p><strong>Replaces:</strong> Nature
-      Bond.</p><p><em>Source: The Warden.</em> <a href="http://spheresofpower.wikidot.com/avatar#toc6">Full
-      text</a></p>'
+      Bond (on a sphere druid: its Nature Bond).</p><p><em>Source: The Warden.</em>
+      <a href="http://spheresofpower.wikidot.com/avatar#toc6">Full text</a></p>'
   disabled: false
   duration:
     units: ''
@@ -88,6 +88,7 @@ system:
   tag: ''
   tags:
   - Avatar
+  - Sphere Druid
   target:
     value: ''
   traitCategory: ''

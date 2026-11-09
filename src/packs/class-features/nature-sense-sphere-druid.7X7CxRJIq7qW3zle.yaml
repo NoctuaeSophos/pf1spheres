@@ -37,13 +37,13 @@ system:
     seeInDarkness: false
     seeInvisibility: false
   changes:
-  - _id: g531beftop9aqhan
+  - _id: pbsql35me9id0uxx
     formula: '2'
     operator: add
     priority: 0
     target: skill.kna
     type: untyped
-  - _id: 6o7sketjzbrzf5dt
+  - _id: h2zahy2ougcgdcib
     formula: '2'
     operator: add
     priority: 0

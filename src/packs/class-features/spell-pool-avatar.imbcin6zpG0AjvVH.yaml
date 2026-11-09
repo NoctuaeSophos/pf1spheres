@@ -49,8 +49,10 @@ system:
     instructions: ''
     unidentified: ''
     value: '<p>Spell points = level + casting ability modifier (minimum 1). Refills
-      once per day after about 8 hours of rest.</p><p><em>Source: The Warden.</em>
-      <a href="http://spheresofpower.wikidot.com/avatar#toc3">Full text</a></p>'
+      once per day after about 8 hours of rest.</p><p><strong>Replaces:</strong> nothing
+      (on a sphere druid, this is the same as its Spell Pool; take it once).</p><p><em>Source:
+      The Warden.</em> <a href="http://spheresofpower.wikidot.com/avatar#toc3">Full
+      text</a></p>'
   disabled: false
   duration:
     units: ''
@@ -86,6 +88,7 @@ system:
   tag: ''
   tags:
   - Avatar
+  - Sphere Druid
   target:
     value: ''
   traitCategory: ''

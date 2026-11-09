@@ -31,6 +31,8 @@ export interface SpheresActorFlags {
   castingAbility?: Ability | "";
   practitionerAbility?: Ability | "";
   operativeAbility?: Ability | "";
+  /** Whether the actor sheet shows the Spheres tab; hidden unless enabled */
+  showSpheresTab?: boolean;
 }
 
 export declare class ActorPF extends Actor {

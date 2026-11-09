@@ -1,0 +1,106 @@
+_id: zuwRvkdkyvVfB3w7
+_key: '!items!zuwRvkdkyvVfB3w7'
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Deadly Agility
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ''
+  attackName: ''
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ''
+  critConfirmBonus: ''
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ''
+    unidentified: ''
+    value: '<p><strong>Prerequisites:</strong> Weapon Finesse.</p><p>With a light
+      weapon, or any weapon Weapon Finesse applies to (a rapier, for example), add
+      your Dexterity modifier to damage in place of Strength. Off-hand attacks get
+      the same fraction of Dexterity they would of Strength.</p><p><em>Pre-errata
+      version:</em> also required BAB +1; the bonus didn''t grow for two-handed weapons
+      and wasn''t halved off-hand.</p><p>On the sheet, set the weapon attack''s damage
+      ability to Dexterity.</p><p><em>Source: Path of War p. 20.</em> <a href="https://metzo.miraheze.org/wiki/Deadly_Agility">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ''
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ''
+  formulaicAttacks:
+    bonus:
+      formula: ''
+    count:
+      formula: ''
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ''
+    type: ''
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ''
+  subType: feat
+  summons: false
+  tag: ''
+  tags:
+  - Combat
+  - Path of War
+  target:
+    value: ''
+  traitCategory: ''
+  traitType: ''
+  uses:
+    autoDeductChargesCost: '1'
+    maxFormula: ''
+    per: null
+    rechargeFormula: ''
+    value: 0
+  weaponProf: []
+type: feat

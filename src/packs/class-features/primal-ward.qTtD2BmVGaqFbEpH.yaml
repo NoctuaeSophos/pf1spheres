@@ -53,8 +53,8 @@ system:
       4 levels after (6th, 10th, 14th, 18th).</p><p>The AC bonus applies against touch
       attacks and while flat-footed. It''s lost while she wears any armor or carries
       a shield, and doesn''t stack with the monk AC bonus or similar abilities.</p><p><strong>Replaces:</strong>
-      Spontaneous Casting.</p><p><em>Source: The Warden.</em> <a href="http://spheresofpower.wikidot.com/avatar#toc5">Full
-      text</a></p>'
+      Spontaneous Casting (on a sphere druid: Natural Magic).</p><p><em>Source: The
+      Warden.</em> <a href="http://spheresofpower.wikidot.com/avatar#toc5">Full text</a></p>'
   disabled: false
   duration:
     units: ''
@@ -90,6 +90,7 @@ system:
   tag: ''
   tags:
   - Avatar
+  - Sphere Druid
   target:
     value: ''
   traitCategory: ''

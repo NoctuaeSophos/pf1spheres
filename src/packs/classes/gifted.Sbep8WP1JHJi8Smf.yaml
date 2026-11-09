@@ -1,0 +1,36 @@
+_id: Sbep8WP1JHJi8Smf
+_key: '!items!Sbep8WP1JHJi8Smf'
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Gifted
+sort: 0
+system:
+  description:
+    value: '<p>Mythic path from Mythic Spheres. Set this item''s level to your gifted
+      tier: pf1 reads mythic tier from it (mythic power, Hard to Kill, mythic hit
+      points).</p><p><strong>Hit points:</strong> 4 per tier. <strong>Each tier:</strong>
+      one path ability from the gifted or universal list.</p><p>Path features, sphere
+      mastery and the 10th-tier capstone: @UUID[Compendium.pf1spheres.mythic.Item.fhM9yEJJMEADtc54]{Gifted
+      Mythic Path}.</p><p><em>Source: Mythic Spheres.</em> <a href="http://spheresofpower.wikidot.com/mythic-spheres#toc131">Full
+      text</a></p>'
+  hd: 4
+  hp: 0
+  level: 1
+  links:
+    children: []
+    classAssociations:
+    - level: 1
+      name: Gifted Mythic Path
+      uuid: Compendium.pf1spheres.mythic.Item.fhM9yEJJMEADtc54
+  sources:
+  - id: PZO1126
+    pages: '14'
+  subType: mythic
+  tag: ''
+  tags:
+  - Mythic Path
+type: class

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.9.3](https://github.com/NoctuaeSophos/pf1spheres/compare/v0.9.2...v0.9.3) (2026-11-08)
+
+### Features
+
+* Gifted and Spheremaster mythic path class items (4 hit points per tier), so pf1 counts mythic tier for mythic power, mythic hit points and tier-based abilities
+* Brew Stable Formulae (The Inventor's Handbook 2); Supplemental adds Deadly Agility and Defensive Expertise (Path of War) and Leadership (Mythic) (Mythic Hero's Handbook)
+* the Avatar archetype's features name the Sphere Druid features they replace
+* the Spheres tab is hidden on actor sheets by default; enable it per character with "Show Spheres Tab" in the sheet's Spheres settings (header button)
+
 ## [0.9.2](https://github.com/NoctuaeSophos/pf1spheres/compare/v0.9.1...v0.9.2) (2026-11-08)
 
 ### Features

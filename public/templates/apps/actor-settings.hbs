@@ -3,6 +3,13 @@ SPDX-FileCopyrightText: 2022 Ethaks <ethaks@pm.me>
 SPDX-License-Identifier: EUPL-1.2
 -->--}}
 <form autocomplete="off">
+    <div class="form-group">
+        <label for="{{appId}}.showSpheresTab">{{localize "PF1SPHERES.Settings.ShowSpheresTab"}}</label>
+        <div class="form-fields">
+            <input type="checkbox" id="{{appId}}.showSpheresTab" name="flags.pf1spheres.showSpheresTab" data-dtype="Boolean" {{checked pf1sFlags.showSpheresTab}}>
+        </div>
+        <p class="hint">{{localize "PF1SPHERES.Settings.ShowSpheresTabNote"}}</p>
+    </div>
     <div>
         {{! Abilities}}
         {{#each abilitySettings}}
