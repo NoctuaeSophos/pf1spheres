@@ -35,12 +35,13 @@ SPDX-License-Identifier: EUPL-1.2
     <fieldset>
         <legend>{{localize "PF1SPHERES.Leadership.Followers"}}</legend>
         <table class="leadership-followers">
-            <thead><tr><th>{{localize "PF1SPHERES.Leadership.Level"}}</th><th>{{localize "PF1SPHERES.Leadership.Allowed"}}</th><th>{{localize "PF1SPHERES.Leadership.Have"}}</th><th>{{localize "PF1SPHERES.Leadership.Who"}}</th></tr></thead>
+            <thead><tr><th>{{localize "PF1SPHERES.Leadership.Level"}}</th><th>{{localize "PF1SPHERES.Leadership.Allowed"}}</th><th>{{localize "PF1SPHERES.Leadership.Have"}}</th>{{#if mythicFollowers}}<th>{{localize "PF1SPHERES.Leadership.MythicColumn"}}</th>{{/if}}<th>{{localize "PF1SPHERES.Leadership.Who"}}</th></tr></thead>
             <tbody>
             {{#each followers as |f|}}
                 <tr class="{{#if f.over}}leadership-over{{/if}}">
                     <td>{{f.level}}</td><td>{{f.allowed}}</td>
                     <td><input type="number" name="followers.{{f.level}}.count" value="{{f.count}}" min="0" step="1"></td>
+                    {{#if ../mythicFollowers}}<td>{{#if f.mythic}}{{f.mythic}}{{else}}—{{/if}}</td>{{/if}}
                     <td><input type="text" name="followers.{{f.level}}.notes" value="{{f.notes}}"></td>
                 </tr>
             {{/each}}

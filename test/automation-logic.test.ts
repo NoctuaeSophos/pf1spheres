@@ -44,6 +44,7 @@ import {
   cohortMaxLevel,
   followersAllowed,
   leadershipScores,
+  mythicFollowers,
 } from "../src/module/supplements/leadership-logic";
 
 describe("costs", () => {
@@ -340,9 +341,22 @@ describe("squadrons", () => {
       ],
       2,
     );
-    expect(out.map((c) => c.formula)).toEqual(["(1 + floor(@item.level / 5)) + 2", "2", "-2", "(1) + 2"]);
+    expect(out.map((c) => c.formula)).toEqual([
+      "(1 + floor(@item.level / 5)) + 2",
+      "2",
+      "-2",
+      "(1) + 2",
+    ]);
   });
   it("gives Phalanx Formation +2 for one neighbour and +1 for each more", () => {
     expect([0, 1, 2, 3].map(phalanxBonus)).toEqual([0, 2, 3, 4]);
+  });
+});
+
+describe("mythic followers", () => {
+  it("makes the ten highest-level followers mythic", () => {
+    expect(mythicFollowers(followersAllowed(33))).toEqual([0, 0, 0, 0, 5, 5]);
+    expect(mythicFollowers(followersAllowed(30))).toEqual([0, 0, 0, 2, 5, 3]);
+    expect(mythicFollowers([3, 0, 0, 0, 0, 0])).toEqual([3, 0, 0, 0, 0, 0]);
   });
 });

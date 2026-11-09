@@ -110,3 +110,21 @@ export const followersAllowed = (followerScore: number): number[] => {
   if (score === 26) counts[5] = 2;
   return counts;
 };
+
+/**
+ * Leadership (Mythic) at tier 5+: the leader's ten highest-level followers are 1st-tier mythic. Fills
+ * from 6th level down.
+ *
+ * @param counts - Followers at each level 1 to 6 (the ones recorded, or the ones allowed)
+ * @param total - How many are mythic (10)
+ * @returns Mythic followers at each level 1 to 6
+ */
+export const mythicFollowers = (counts: number[], total = 10): number[] => {
+  const out = [0, 0, 0, 0, 0, 0];
+  let left = total;
+  for (let lvl = 5; lvl >= 0 && left > 0; lvl--) {
+    out[lvl] = Math.min(left, Math.max(0, counts[lvl] ?? 0));
+    left -= out[lvl];
+  }
+  return out;
+};

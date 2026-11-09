@@ -48,12 +48,12 @@ system:
   description:
     instructions: ''
     unidentified: ''
-    value: '<p><strong>Prerequisites:</strong> Leadership, 2nd mythic tier.</p><p>Your
+    value: '<p><strong>Prerequisites:</strong> Leadership, character level 7th, 2nd mythic tier.</p><p>Your
       Leadership score increases by your mythic tier. Your cohort is mythic, at half
       your tier.</p><p>If the cohort dies, you can draw on your mythic source to replace
       them after 24 hours; you then have 1 fewer mythic power per day for the next
       30 days.</p><p>At 5th tier or higher, your ten highest-level followers are 1st-tier
-      mythic.</p><p><em>Source: Mythic Hero''s Handbook p. 191.</em> <a href="https://metzo.miraheze.org/wiki/Leadership_(Mythic)">Full
+      mythic.</p><p><em>Source: Mythic Options: The Missing Core Feats (Rogue Genius Games, Owen K.C. Stephens, 2013).</em> <a href="https://metzo.miraheze.org/wiki/Leadership_(Mythic)">Full
       text</a></p>'
   disabled: false
   duration:
@@ -90,7 +90,7 @@ system:
   tag: ''
   tags:
   - Mythic Feat
-  - Legendary Games
+  - Rogue Genius Games
   target:
     value: ''
   traitCategory: ''

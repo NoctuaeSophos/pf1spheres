@@ -52,7 +52,8 @@
       "Allowed": "Allowed",
       "Have": "Have",
       "Who": "Who",
-      "MythicFollowers": "Leadership (Mythic) at tier 5+: your ten highest-level followers are 1st-tier mythic.",
+      "MythicFollowers": "Leadership (Mythic) at tier 5+: your ten highest-level followers are 1st-tier mythic (counted from the followers you record, or from those allowed until you record any).",
+      "MythicColumn": "Mythic (tier 1)",
       "Notes": "Notes",
       "Mod": {
         "renown": "Great renown",

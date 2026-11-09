@@ -87,13 +87,20 @@ export class LeadershipApp extends foundry.applications.api.HandlebarsApplicatio
         )
         .map((x) => ({ uuid: x.uuid, name: x.name, selected: x.uuid === data.cohortUuid }))
         .sort((x, y) => x.name.localeCompare(y.name)),
-      followers: allowed.map((n, i) => ({
-        level: i + 1,
-        allowed: n,
-        count: data.followers?.[i + 1]?.count ?? 0,
-        notes: data.followers?.[i + 1]?.notes ?? "",
-        over: (data.followers?.[i + 1]?.count ?? 0) > n,
-      })),
+      followers: (() => {
+        const have = allowed.map((_, i) => Number(data.followers?.[i + 1]?.count) || 0);
+        // Leadership (Mythic) at tier 5+: the ten highest-level followers, from those recorded (or allowed)
+        const mythicCounts =
+          mythic && tier >= 5 ? mythicFollowers(have.some((n) => n > 0) ? have : allowed) : null;
+        return allowed.map((n, i) => ({
+          level: i + 1,
+          allowed: n,
+          count: have[i],
+          notes: data.followers?.[i + 1]?.notes ?? "",
+          over: have[i] > n,
+          mythic: mythicCounts?.[i] ?? 0,
+        }));
+      })(),
       mythicFollowers: mythic && tier >= 5,
       notes: data.notes ?? "",
       editable: a.isOwner,
