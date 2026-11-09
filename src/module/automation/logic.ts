@@ -223,6 +223,13 @@ export const withoutLabel = (note: string, label: string): string => {
     : n;
 };
 
+/**
+ * The combined Hit Dice of reanimated undead a Death caster can control: twice the Death caster level,
+ * four times with Greater Reanimate, five times with it taken twice.
+ */
+export const undeadHDLimit = (deathCL: number, greaterReanimate: number): number =>
+  Math.max(0, deathCL) * (greaterReanimate >= 2 ? 5 : greaterReanimate === 1 ? 4 : 2);
+
 /** Which way a move crosses an area's edge, if it does and the area watches that direction */
 export const edgeCrossing = (
   wasInside: boolean,

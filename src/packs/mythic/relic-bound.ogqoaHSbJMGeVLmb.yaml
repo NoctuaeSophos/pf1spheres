@@ -1,0 +1,103 @@
+_id: ogqoaHSbJMGeVLmb
+_key: "!items!ogqoaHSbJMGeVLmb"
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Relic-Bound
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ""
+  attackName: ""
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ""
+  critConfirmBonus: ""
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ""
+    unidentified: ""
+    value: '<p>Your mythic power works only while you hold your relic, usually the
+      item it came from. Apart from it for more than 24 hours, you lose all mythic
+      abilities and bonuses until you have it again.</p><p><strong>Taken a second
+      time:</strong> you lose them after more than 1 round apart.</p><p><em>Source:
+      Mythic Spheres of Power.</em> <a href="http://spheresofpower.wikidot.com/mythic-spheres">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ""
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ""
+  formulaicAttacks:
+    bonus:
+      formula: ""
+    count:
+      formula: ""
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ""
+    type: ""
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ""
+  subType: classFeat
+  summons: false
+  tag: ""
+  tags:
+    - Mythic Tradition Drawback
+  target:
+    value: ""
+  traitCategory: ""
+  traitType: ""
+  uses:
+    autoDeductChargesCost: "1"
+    maxFormula: ""
+    per: null
+    rechargeFormula: ""
+    value: 0
+  weaponProf: []
+type: feat

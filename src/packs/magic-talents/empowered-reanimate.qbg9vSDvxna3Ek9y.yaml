@@ -5,6 +5,26 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: death
+    automation:
+      A7g7vupU3aX0MzEu:
+        buff:
+          itemId: tpl:empowered-reanimate
+          sphere: death
+    buffTemplates:
+      empowered-reanimate:
+        name: Empowered Reanimate
+        img: icons/svg/skull.svg
+        description: "<p>Reanimated: +4 enhancement to Strength and Dexterity.</p>"
+        changes:
+          - formula: "4"
+            target: str
+            type: enh
+            operator: add
+          - formula: "4"
+            target: dex
+            type: enh
+            operator: add
+        contextNotes: []
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Empowered Reanimate
@@ -18,7 +38,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: A7g7vupU3aX0MzEu
+      name: Empowered Reanimate
+      actionType: other
+      img: ""
+      activation:
+        type: free
+        unchained:
+          type: free
+          cost: 1
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Reanimated: +4 enhancement to Strength and Dexterity. Target the undead you reanimated."
   armorProf: []
   associations:
     classes: []
@@ -48,9 +82,10 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>All creatures you reanimate gain a +4 enhancement bonus to their
-      Strength and Dexterity.</p>
+    value:
+      "<p>All creatures you reanimate gain a +4 enhancement bonus to their Strength and Dexterity.</p>
+
+      "
   disabled: false
   duration:
     units: ""

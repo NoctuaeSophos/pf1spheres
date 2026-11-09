@@ -43,6 +43,7 @@ import {
   effectLabel,
   pinCasterLevels,
   withoutLabel,
+  undeadHDLimit,
 } from "../src/module/automation/logic";
 import type { Grant } from "../src/module/automation/logic";
 import {
@@ -411,5 +412,13 @@ describe("wards and totems", () => {
       "DC [[10 + 4]] MSD [[20]]",
     );
     expect(pinCasterLevels("@spheres.sequence.length", look)).toBe("@spheres.sequence.length");
+  });
+});
+
+describe("death sphere", () => {
+  it("limits reanimated Hit Dice by Greater Reanimate", () => {
+    expect(undeadHDLimit(10, 0)).toBe(20);
+    expect(undeadHDLimit(10, 1)).toBe(40);
+    expect(undeadHDLimit(15, 2)).toBe(75);
   });
 });

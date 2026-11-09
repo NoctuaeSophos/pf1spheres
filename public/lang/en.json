@@ -221,6 +221,8 @@
       "AlliesSet": "Set from targets",
       "AlliesNone": "Target the allies, then press Set from targets.",
       "AlliesTooMany": "{list}: at most {max} allies.",
+      "Undead": "Reanimated undead (Hit Dice)",
+      "UndeadTooMany": "Those undead have {total} Hit Dice; you can control at most {max}.",
       "Phalanx": "Phalanx Formation",
       "PhalanxHint": "Next to other members of the squadron: +2 circumstance to AC and melee attacks, +1 per extra adjacent member. Kept up to date as tokens move.",
       "NeedHD": "This needs {need} Hit Dice; you have {have}.",

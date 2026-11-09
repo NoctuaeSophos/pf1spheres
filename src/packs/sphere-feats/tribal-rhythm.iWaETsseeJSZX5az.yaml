@@ -1,0 +1,108 @@
+_id: iWaETsseeJSZX5az
+_key: "!items!iWaETsseeJSZX5az"
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    sphere: war
+folder: null
+img: modules/pf1spheres/assets/icons/spheres/war.webp
+name: Tribal Rhythm
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ""
+  attackName: ""
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ""
+  critConfirmBonus: ""
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ""
+    unidentified: ""
+    value: '<p><strong>Prerequisites:</strong> War sphere, bardic performance or raging
+      song.</p><p>When you start a song (a standard action) you may create a totem
+      as part of the same action, or attach a totem you create later. An attached
+      totem affects only allies affected by the song, never enemies, and lasts as
+      long as the song does with no concentration or spell point upkeep (you still
+      pay its creation cost). Allies affected by an attached totem can be rallied;
+      with raging song, being able to accept the song is enough. End an attached totem
+      as a free action. If you can move totems, you can attach and detach them the
+      way you move totemic auras.</p><p><em>Source: War sphere feats.</em> <a href="http://spheresofpower.wikidot.com/war">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ""
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ""
+  formulaicAttacks:
+    bonus:
+      formula: ""
+    count:
+      formula: ""
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ""
+    type: ""
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ""
+  subType: feat
+  summons: false
+  tag: ""
+  tags:
+    - War
+  target:
+    value: ""
+  traitCategory: ""
+  traitType: ""
+  uses:
+    autoDeductChargesCost: "1"
+    maxFormula: ""
+    per: null
+    rechargeFormula: ""
+    value: 0
+  weaponProf: []
+type: feat

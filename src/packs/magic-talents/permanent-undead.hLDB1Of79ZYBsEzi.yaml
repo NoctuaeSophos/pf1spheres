@@ -5,6 +5,13 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: death
+    automation:
+      bjMe04GatHdRpblZ:
+        sp: "2"
+        effect:
+          enabled: false
+        condSp:
+          fskuIOhGIEEtHusH: 1
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Permanent Undead
@@ -18,7 +25,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: bjMe04GatHdRpblZ
+      name: Permanent Reanimate
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - "The reanimation is instantaneous: no duration, can't be dispelled, but still counts toward your
+            Hit Dice limit. Over the limit, older permanent undead are released and turn hostile."
+      conditionals:
+        - _id: fskuIOhGIEEtHusH
+          name: Plus Reanimate's own spell point
+          default: true
+          modifiers: []
   armorProf: []
   associations:
     classes: []
@@ -48,18 +75,17 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p><strong>Prerequisites:</strong> Death sphere (Sustained Necromancy),
-      caster level 5th.</p>
+    value:
+      "<p><strong>Prerequisites:</strong> Death sphere (Sustained Necromancy), caster level 5th.</p>
 
-      <p>When you reanimate a corpse as a skeleton or zombie, you may spend 2
-      spell points to make the reanimation an instantaneous effect. The undead
-      creature exists independent of your concentration, has no duration, and
-      cannot be dispelled. These undead still count against the total number of
-      undead you may have reanimated at any one time. If you create more undead
-      than your total, old permanent undead are not destroyed; instead, they are
-      simply released from service and will attack you or any other nearby
-      living creatures.</p>
+      <p>When you reanimate a corpse as a skeleton or zombie, you may spend 2 spell points to make the
+      reanimation an instantaneous effect. The undead creature exists independent of your concentration,
+      has no duration, and cannot be dispelled. These undead still count against the total number of undead
+      you may have reanimated at any one time. If you create more undead than your total, old permanent
+      undead are not destroyed; instead, they are simply released from service and will attack you or
+      any other nearby living creatures.</p>
+
+      "
   disabled: false
   duration:
     units: ""

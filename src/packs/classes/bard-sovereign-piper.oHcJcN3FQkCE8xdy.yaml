@@ -1,0 +1,176 @@
+_id: oHcJcN3FQkCE8xdy
+_key: "!items!oHcJcN3FQkCE8xdy"
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    casterProgression: mid
+folder: null
+img: systems/pf1/icons/skills/yellow_36.jpg
+name: Bard (Sovereign Piper)
+sort: 0
+system:
+  alignment: ""
+  armorProf: []
+  bab: med
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills:
+    acr: true
+    apr: true
+    art: true
+    blf: true
+    clm: true
+    crf: true
+    dev: false
+    dip: true
+    dis: true
+    esc: true
+    fly: false
+    han: false
+    hea: false
+    int: true
+    kar: true
+    kdu: true
+    ken: true
+    kge: true
+    khi: true
+    klo: true
+    kna: true
+    kno: true
+    kpl: true
+    kre: true
+    lin: true
+    lor: true
+    per: true
+    prf: true
+    pro: true
+    rid: false
+    sen: true
+    slt: true
+    spl: true
+    ste: true
+    sur: false
+    swm: false
+    umd: true
+  contextNotes: []
+  customHD: ""
+  description:
+    instructions: ""
+    unidentified: ""
+    value: '<p>The bard with the Sovereign Piper archetype: a mid-caster sphere caster
+      (Charisma) who leads with War and Warleader. d8 Hit Dice, 6 + Int skill ranks,
+      medium BAB, good Reflex and Will; the bard''s class skills.</p><p>Keeps bardic
+      performance and its performances (inspire courage, countersong, distraction,
+      versatile performance, inspire competence, dirge of doom, inspire greatness,
+      soothing performance, frightening tune, inspire heroics, deadly performance),
+      linked from pf1''s own bard abilities. Trades spells, bardic knowledge, fascinate,
+      well-versed, lore master, suggestion, jack of all trades and mass suggestion
+      for casting, a spell pool, blended training, masterpiece hymnal, Art of War,
+      Martial Lore and Enduring Motivation.</p><p><em>Source: Sovereign Piper (bard
+      archetype).</em> <a href="http://spheresofpower.wikidot.com/sovereign-piper">Full
+      text</a></p>'
+  fc:
+    alt:
+      notes: ""
+      value: 0
+    hp:
+      value: 0
+    skill:
+      value: 0
+  flags:
+    boolean: {}
+    dictionary: {}
+  hd: 8
+  hp: 8
+  languages: []
+  level: 1
+  links:
+    children: []
+    classAssociations:
+      - level: 1
+        name: Proficiencies (Sovereign Piper)
+        uuid: Compendium.pf1spheres.class-features.Item.oZgrrydqKHJtj2X2
+      - level: 1
+        name: Casting (Sovereign Piper)
+        uuid: Compendium.pf1spheres.class-features.Item.oXlv4Kqs6Cd7xwNH
+      - level: 1
+        name: Spell Pool (Sovereign Piper)
+        uuid: Compendium.pf1spheres.class-features.Item.fcEqQvfuFLQrbFBV
+      - level: 1
+        name: Blended Training (Sovereign Piper)
+        uuid: Compendium.pf1spheres.class-features.Item.Ow70EuMmYKwjsBqR
+      - level: 1
+        name: Masterpiece Hymnal
+        uuid: Compendium.pf1spheres.class-features.Item.6KVvMK1TKN3a36CI
+      - level: 1
+        name: Art of War
+        uuid: Compendium.pf1spheres.class-features.Item.XksePZfjp1nY5ZoO
+      - level: 1
+        name: Martial Lore
+        uuid: Compendium.pf1spheres.class-features.Item.W5yzeXE2oBQO4SU8
+      - level: 1
+        name: Inspire Courage
+        uuid: Compendium.pf1.class-abilities.Item.h56K6HEBOItImPPL
+      - level: 1
+        name: Bardic Performance
+        uuid: Compendium.pf1.class-abilities.Item.ZfCUTi1MiLgR4T7I
+      - level: 1
+        name: Countersong
+        uuid: Compendium.pf1.class-abilities.Item.RF8ioMkLc7LNnNT1
+      - level: 1
+        name: Distraction
+        uuid: Compendium.pf1.class-abilities.Item.Kq3GVZ1yMv3ERQCJ
+      - level: 2
+        name: Versatile Performance
+        uuid: Compendium.pf1.class-abilities.Item.HAqAsb5H56C6cZm3
+      - level: 3
+        name: Inspire Competence
+        uuid: Compendium.pf1.class-abilities.Item.2M56kfIOws5yYtxq
+      - level: 8
+        name: Dirge of Doom
+        uuid: Compendium.pf1.class-abilities.Item.pmWnRksUzrKvNOvy
+      - level: 9
+        name: Inspire Greatness
+        uuid: Compendium.pf1.class-abilities.Item.X7gqbGkXTox6Ojhy
+      - level: 12
+        name: Soothing Performance
+        uuid: Compendium.pf1.class-abilities.Item.iGrgU1XzlweVO2tb
+      - level: 14
+        name: Frightening Tune
+        uuid: Compendium.pf1.class-abilities.Item.qfjvZrIgJUjRXUUL
+      - level: 15
+        name: Inspire Heroics
+        uuid: Compendium.pf1.class-abilities.Item.LIFTbzT5WDcsDn0O
+      - level: 18
+        name: Enduring Motivation
+        uuid: Compendium.pf1spheres.class-features.Item.3GAobivHB2mffjJo
+      - level: 20
+        name: Deadly Performance
+        uuid: Compendium.pf1.class-abilities.Item.RSoy0ll1sNno6mJD
+  savingThrows:
+    fort:
+      value: low
+    ref:
+      value: high
+    will:
+      value: high
+  scriptCalls: []
+  skillsPerLevel: 6
+  subType: base
+  tag: bard
+  tags:
+    - Sovereign Piper
+  wealth: ""
+  weaponProf: []
+type: class

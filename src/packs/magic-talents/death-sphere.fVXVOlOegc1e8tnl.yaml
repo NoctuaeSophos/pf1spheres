@@ -1,11 +1,28 @@
 _id: fVXVOlOegc1e8tnl
-_key: '!items!fVXVOlOegc1e8tnl'
+_key: "!items!fVXVOlOegc1e8tnl"
 effects: []
 flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
     sphere: death
+    automation:
+      VxfIMMnTaCevCyTh:
+        onFail:
+          conditions: fatigued
+          conditionRounds: "@spheres.cl.death.total"
+      VoL3a6R3gUIrxaa9:
+        sp: "1"
+        onFail:
+          conditions: exhausted
+          conditionRounds: 10 * @spheres.cl.death.total
+      9Pz7whRiXUYuHVy5:
+        sp: "1"
+        effect:
+          enabled: true
+          duration: "@spheres.cl.death.total"
+          units: minute
+          concentration: false
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Death Sphere
@@ -19,12 +36,68 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: VxfIMMnTaCevCyTh
+      name: Exhausting Strike
+      actionType: rsak
+      img: ""
+      activation: &id001
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
+        description: Fortitude negates
+      notes:
+        footer:
+          - "Ghost strike: melee touch, or ranged touch within medium range (roll the melee touch with Strength).
+            A negative energy death effect: no effect on undead, constructs or the immune. Subject to spell
+            resistance; doesn't stack with itself."
+          - Fatigued for 1 round per caster level (Fortitude negates).
+    - _id: VoL3a6R3gUIrxaa9
+      name: Exhausting Strike (1 SP)
+      actionType: rsak
+      img: ""
+      activation: *id001
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
+        description: Fortitude negates
+      notes:
+        footer:
+          - "Ghost strike: melee touch, or ranged touch within medium range (roll the melee touch with Strength).
+            A negative energy death effect: no effect on undead, constructs or the immune. Subject to spell
+            resistance; doesn't stack with itself."
+          - Exhausted for 1 minute per caster level (Fortitude negates; still fatigued for 1 round on a success).
+    - _id: 9Pz7whRiXUYuHVy5
+      name: Reanimate
+      actionType: other
+      img: ""
+      activation: *id001
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Touch an intact corpse: a zombie or skeleton under your command for 1 minute per caster level.
+            Combined Hit Dice of your reanimated undead: up to twice your caster level (track them on the
+            Spheres tab). No creature over twice your caster level in Hit Dice."
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -40,34 +113,35 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p>You possess the Death magic sphere. Gaining a sphere costs one talent,
-      so this item counts toward your Death talents; tick <em>Exclude from Talent
-      Count</em> if the sphere was granted as a bonus (by a class feature, tradition
-      or drawback).</p><p>Base sphere abilities, packages and drawbacks: @UUID[Compendium.pf1spheres.rules.JournalEntry.pcgrw2W6ZhS3GmIA.JournalEntryPage.cBjQM5mEg1nd0LF3]{Death
-      sphere rules}.</p>'
+    instructions: ""
+    unidentified: ""
+    value:
+      "<p>You possess the Death magic sphere. Gaining a sphere costs one talent, so this item counts
+      toward your Death talents; tick <em>Exclude from Talent Count</em> if the sphere was granted as
+      a bonus (by a class feature, tradition or drawback).</p><p>Base sphere abilities, packages and drawbacks:
+      @UUID[Compendium.pf1spheres.rules.JournalEntry.pcgrw2W6ZhS3GmIA.JournalEntryPage.cBjQM5mEg1nd0LF3]{Death
+      sphere rules}.</p>"
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -78,26 +152,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: magicTalent
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Base Sphere
+    - Base Sphere
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

@@ -6,8 +6,7 @@ flags:
   pf1spheres:
     automation:
       ktMLOfjSokiCOzfc:
-        condSp:
-          2CEmnUxac1N21YGB: 1
+        sp: "1"
     sphere: death
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
@@ -25,24 +24,25 @@ system:
   actions:
     - _id: ktMLOfjSokiCOzfc
       name: Drain
-      actionType: save
+      actionType: rsak
+      img: ""
       activation:
         type: standard
         unchained:
-          cost: 2
           type: action
-      save:
-        type: fort
-        dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
-        description: ""
-      duration:
-        value: "@spheres.cl.death.total"
-        units: hour
-      conditionals:
-        - _id: 2CEmnUxac1N21YGB
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      notes:
+        footer:
+          - "Ghost strike: melee touch, or ranged touch within medium range (roll the melee touch with Strength).
+            A negative energy death effect: no effect on undead, constructs or the immune. Subject to spell
+            resistance."
+          - "No save: 1 temporary negative level for [[@spheres.cl.death.total]] hours (1d2 from caster level
+            5, 1d3 at 10, 1d4 at 15, 1d6 at 20); these stack. On undead: 5 temporary hp per level for 1 hour."
   armorProf: []
   associations:
     classes: []
@@ -72,21 +72,19 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may spend a spell point to make a ghost strike that imposes 1
-      temporary negative level on the target for one hour per caster level (no
-      save). This increases by 1 die size per 5 caster levels (1d2, 1d3, 1d4,
-      and 1d6). Unlike with other ghost strikes, negative levels stack. While
-      normally negative levels have a chance to become permanent and can kill a
-      target whose negative levels equal its Hit Dice, these negative levels do
-      not last long enough to become permanent, and if a negative level from
-      this ghost strike would reduce the creature to 0 Hit Dice, the creature
-      instead takes 4 points of Constitution drain for the duration of the
-      effect. If a negative level lasts longer than 1 day, the target must
-      succeed at a Fortitude save per negative level or have the negative level
-      become permanent. If this ability is used on an undead creature, it
-      instead grants the creature 5 temporary hit points per negative level,
-      which last for 1 hour.</p>
+    value:
+      "<p>You may spend a spell point to make a ghost strike that imposes 1 temporary negative level
+      on the target for one hour per caster level (no save). This increases by 1 die size per 5 caster
+      levels (1d2, 1d3, 1d4, and 1d6). Unlike with other ghost strikes, negative levels stack. While normally
+      negative levels have a chance to become permanent and can kill a target whose negative levels equal
+      its Hit Dice, these negative levels do not last long enough to become permanent, and if a negative
+      level from this ghost strike would reduce the creature to 0 Hit Dice, the creature instead takes
+      4 points of Constitution drain for the duration of the effect. If a negative level lasts longer
+      than 1 day, the target must succeed at a Fortitude save per negative level or have the negative
+      level become permanent. If this ability is used on an undead creature, it instead grants the creature
+      5 temporary hit points per negative level, which last for 1 hour.</p>
+
+      "
   disabled: false
   duration:
     units: ""

@@ -1,0 +1,120 @@
+_id: sut3tdfbjiZUUgEG
+_key: "!items!sut3tdfbjiZUUgEG"
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Spherebound
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ""
+  attackName: ""
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes:
+    - _id: 0c41i6y8tas1kc3s
+      formula: "-1"
+      operator: add
+      priority: 0
+      target: spherecl
+      type: untyped
+    - _id: ef4j2phmsdeeneog
+      formula: "3"
+      operator: add
+      priority: 0
+      target: sphereclDeath
+      type: untyped
+  classSkills: {}
+  contextNotes: []
+  crOffset: ""
+  critConfirmBonus: ""
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ""
+    unidentified: ""
+    value: '<p>Choose one: +2 inherent bonus to caster level in one magic sphere and
+      -1 in your other magic spheres; +2 to effective BAB or ranks for one combat
+      sphere and -1 for your other combat spheres; or +2 effective ranks in all skills
+      for one skill sphere and -1 for your other skill spheres. The penalty can''t
+      lower a value below 1, and you need at least two spheres of that system. You
+      may take it up to three times, each for a different system; the bonus applies
+      to talent effects, not skill rolls.</p><p>The changes are set for a magic sphere:
+      set the +3 change''s target to your chosen sphere (Death by default), which
+      nets +2 there after the -1 to all caster levels.</p><p><em>Source: Mythic Spheres
+      of Power.</em> <a href="http://spheresofpower.wikidot.com/mythic-spheres">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ""
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ""
+  formulaicAttacks:
+    bonus:
+      formula: ""
+    count:
+      formula: ""
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ""
+    type: ""
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ""
+  subType: classFeat
+  summons: false
+  tag: ""
+  tags:
+    - Mythic Tradition Quality
+  target:
+    value: ""
+  traitCategory: ""
+  traitType: ""
+  uses:
+    autoDeductChargesCost: "1"
+    maxFormula: ""
+    per: null
+    rechargeFormula: ""
+    value: 0
+  weaponProf: []
+type: feat

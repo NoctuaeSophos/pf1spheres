@@ -1,0 +1,196 @@
+_id: kU0OQccgJ1P4gcTW
+_key: "!items!kU0OQccgJ1P4gcTW"
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    sphere: death
+    automation:
+      05cH2fKTjUuSX8wB:
+        buff:
+          itemId: tpl:superior-reanimation
+          sphere: death
+      s6nkiMbho9OHfq4m:
+        buff:
+          itemId: tpl:superior-reanimation-str
+          sphere: death
+      Q6LGZ1m95q9MPf78:
+        buff:
+          itemId: tpl:superior-reanimation-dex
+          sphere: death
+    buffTemplates:
+      superior-reanimation:
+        name: Superior Reanimation (Str and Dex)
+        img: icons/svg/skull.svg
+        description: "<p>Reanimated: +6 enhancement to Strength and Dexterity (replaces Empowered Reanimate).</p>"
+        changes:
+          - formula: "6"
+            target: str
+            type: enh
+            operator: add
+          - formula: "6"
+            target: dex
+            type: enh
+            operator: add
+        contextNotes: []
+      superior-reanimation-str:
+        name: Superior Reanimation (Str)
+        img: icons/svg/skull.svg
+        description: "<p>Reanimated: +8 enhancement to Strength (replaces Empowered Reanimate).</p>"
+        changes:
+          - formula: "8"
+            target: str
+            type: enh
+            operator: add
+        contextNotes: []
+      superior-reanimation-dex:
+        name: Superior Reanimation (Dex)
+        img: icons/svg/skull.svg
+        description: "<p>Reanimated: +8 enhancement to Dexterity (replaces Empowered Reanimate).</p>"
+        changes:
+          - formula: "8"
+            target: dex
+            type: enh
+            operator: add
+        contextNotes: []
+folder: null
+img: modules/pf1spheres/assets/icons/spheres/death.webp
+name: Superior Reanimation
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions:
+    - _id: 05cH2fKTjUuSX8wB
+      name: Superior Reanimation (Str and Dex)
+      actionType: other
+      img: ""
+      activation:
+        type: free
+        unchained:
+          type: free
+          cost: 1
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Reanimated: +6 enhancement to Strength and Dexterity (replaces Empowered Reanimate). Target the
+            undead you reanimated."
+    - _id: s6nkiMbho9OHfq4m
+      name: Superior Reanimation (Str)
+      actionType: other
+      img: ""
+      activation:
+        type: free
+        unchained:
+          type: free
+          cost: 1
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Reanimated: +8 enhancement to Strength (replaces Empowered Reanimate). Target the undead you
+            reanimated."
+    - _id: Q6LGZ1m95q9MPf78
+      name: Superior Reanimation (Dex)
+      actionType: other
+      img: ""
+      activation:
+        type: free
+        unchained:
+          type: free
+          cost: 1
+      range:
+        units: touch
+      notes:
+        footer:
+          - "Reanimated: +8 enhancement to Dexterity (replaces Empowered Reanimate). Target the undead you
+            reanimated."
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ""
+  attackName: ""
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ""
+  critConfirmBonus: ""
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ""
+    unidentified: ""
+    value:
+      '<p><strong>Prerequisites:</strong> Death sphere (Empowered Reanimate).</p><p>Creatures you
+      reanimate gain a +6 enhancement bonus to Strength and Dexterity, or +8 to one of them, in place
+      of Empowered Reanimate''s bonuses.</p><p><em>Source: Death sphere feats.</em> <a href="http://spheresofpower.wikidot.com/death">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ""
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ""
+  formulaicAttacks:
+    bonus:
+      formula: ""
+    count:
+      formula: ""
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ""
+    type: ""
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ""
+  subType: feat
+  summons: false
+  tag: ""
+  tags:
+    - Death
+  target:
+    value: ""
+  traitCategory: ""
+  traitType: ""
+  uses:
+    autoDeductChargesCost: "1"
+    maxFormula: ""
+    per: null
+    rechargeFormula: ""
+    value: 0
+  weaponProf: []
+type: feat

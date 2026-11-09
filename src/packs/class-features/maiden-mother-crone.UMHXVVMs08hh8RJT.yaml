@@ -1,0 +1,129 @@
+_id: UMHXVVMs08hh8RJT
+_key: "!items!UMHXVVMs08hh8RJT"
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Maiden, Mother, Crone
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: su
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ""
+  attackName: ""
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes:
+    - _id: axqpnuomjcfrjans
+      formula: ifelse(@classes.hedgewitch.level, @classes.hedgewitch.level, @details.level.value)
+        - floor(ifelse(@classes.hedgewitch.level, @classes.hedgewitch.level, @details.level.value)
+        * 0.75)
+      operator: add
+      priority: 0
+      target: sphereclLife
+      type: untyped
+    - _id: onhjizzk4rj7mtxw
+      formula: ifelse(@classes.hedgewitch.level, @classes.hedgewitch.level, @details.level.value)
+        - floor(ifelse(@classes.hedgewitch.level, @classes.hedgewitch.level, @details.level.value)
+        * 0.75)
+      operator: add
+      priority: 0
+      target: sphereclDeath
+      type: untyped
+    - _id: ucwyyxr6x1mxbjkd
+      formula: ifelse(@classes.hedgewitch.level, @classes.hedgewitch.level, @details.level.value)
+        - floor(ifelse(@classes.hedgewitch.level, @classes.hedgewitch.level, @details.level.value)
+        * 0.75)
+      operator: add
+      priority: 0
+      target: sphereclFate
+      type: untyped
+  classSkills: {}
+  contextNotes: []
+  crOffset: ""
+  critConfirmBonus: ""
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ""
+    unidentified: ""
+    value: '<p>Your class level is your caster level for the Life, Death and Fate
+      spheres. At 1st level gain 2 bonus magic talents, which must come from Life,
+      Death or Fate. From 10th level, after a full rest you may swap one talent you
+      have from those spheres for another from them.</p><p>Gained through the Expertise
+      mythic boon, it uses your total character level as the class level.</p><p><strong>Replaces:</strong>
+      one of the hedgewitch''s paths.</p><p><em>Source: Triple Goddess (hedgewitch
+      archetype).</em> <a href="http://spheresofpower.wikidot.com/triple-goddess">Full
+      text</a></p>'
+  disabled: false
+  duration:
+    units: ""
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ""
+  formulaicAttacks:
+    bonus:
+      formula: ""
+    count:
+      formula: ""
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ""
+    type: ""
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ""
+  subType: classFeat
+  summons: false
+  tag: ""
+  tags:
+    - Triple Goddess
+  target:
+    value: ""
+  traitCategory: ""
+  traitType: ""
+  uses:
+    autoDeductChargesCost: "1"
+    maxFormula: ""
+    per: null
+    rechargeFormula: ""
+    value: 0
+  weaponProf: []
+type: feat

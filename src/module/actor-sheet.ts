@@ -41,6 +41,7 @@ import {
   parseImbuements,
   sequenceMax,
   squadronSize,
+  undeadHDLimit,
 } from "./automation/logic";
 
 const effectIdOf = (ev: JQuery.ClickEvent) =>
@@ -339,7 +340,23 @@ const getAllyLists = (actor: ActorPF) => {
       names: names("squadron"),
     });
   }
-  return lists.map((l) => ({ ...l, count: l.names.length }));
+  // Reanimated undead count by Hit Dice against the Death caster's limit
+  if (a.items.some((i: any) => i.name === "Death Sphere")) {
+    const hd = (d: any) => Number(d?.system?.attributes?.hd?.total ?? 0) || 0;
+    const docs = (a.flags?.pf1spheres?.undead ?? []).map((u: string) => g.fromUuidSync(u));
+    lists.push({
+      key: "undead",
+      label: localize("Auto.Undead"),
+      unit: "hd",
+      max: undeadHDLimit(
+        a.system.spheres?.cl?.death?.total ?? 0,
+        a.items.filter((i: any) => i.name === "Greater Reanimate").length,
+      ),
+      names: docs.map((d: any) => (d ? `${d.name} (${hd(d)} HD)` : "?")),
+      hd: docs.reduce((sum: number, d: any) => sum + hd(d), 0),
+    });
+  }
+  return lists.map((l: any) => ({ ...l, count: l.unit === "hd" ? l.hd : l.names.length }));
 };
 
 /** Sets an ally list from the user's targets, within its size limit */
@@ -354,7 +371,18 @@ const setAlliesFromTargets = async (actor: ActorPF, key: string) => {
     .map((t: any) => t.actor?.uuid)
     .filter((u: string) => u && u !== a.uuid);
   if (!uuids.length) return g.ui.notifications.warn(localize("Auto.AlliesNone"));
-  if (uuids.length > list.max)
+  if ((list as any).unit === "hd") {
+    const total = [...g.game.user.targets]
+      .filter((t: any) => t.actor && t.actor.uuid !== a.uuid)
+      .reduce(
+        (sum: number, t: any) => sum + (Number(t.actor.system?.attributes?.hd?.total) || 0),
+        0,
+      );
+    if (total > list.max)
+      return g.ui.notifications.warn(
+        g.game.i18n.format("PF1SPHERES.Auto.UndeadTooMany", { max: list.max, total }),
+      );
+  } else if (uuids.length > list.max)
     return g.ui.notifications.warn(
       g.game.i18n.format("PF1SPHERES.Auto.AlliesTooMany", { max: list.max, list: list.label }),
     );

@@ -5,6 +5,11 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: death
+    automation:
+      KYcf7611AoP5VNMu:
+        sp: "1"
+      9uVtED9HpsloTOgn:
+        sp: "1"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Mass Death Magic
@@ -18,7 +23,36 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: KYcf7611AoP5VNMu
+      name: Mass Reanimate (+1 SP)
+      actionType: other
+      img: ""
+      activation: &id001
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: touch
+      notes:
+        footer:
+          - Spend 1 more spell point when you reanimate to raise several corpses at once, within your Hit
+            Dice limit.
+    - _id: 9uVtED9HpsloTOgn
+      name: Ghost Strike Cone (+1 SP)
+      actionType: other
+      img: ""
+      activation: *id001
+      range:
+        units: close
+      notes:
+        footer:
+          - "Spend 1 more spell point to shape a ghost strike into a close-range cone: make the chosen ghost
+            strike's attack roll against every creature in it."
+      measureTemplate:
+        type: cone
+        size: 25 + 5 * floor(@spheres.cl.death.total / 2)
   armorProf: []
   associations:
     classes: []
@@ -48,15 +82,16 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>When using your reanimate ability, you may spend an additional spell
-      point to reanimate multiple creatures at once. Your Hit Dice limits apply
-      to the total number you may reanimate at once with this ability.</p>
+    value:
+      "<p>When using your reanimate ability, you may spend an additional spell point to reanimate
+      multiple creatures at once. Your Hit Dice limits apply to the total number you may reanimate at
+      once with this ability.</p>
 
-      <p>When making a ghost strike, you may spend an additional spell point to
-      form your ghost strike into a close-range cone, allowing you to make an
-      attack roll against every target within this area. (Formerly Greater Ghost
-      Strike and Mass Reanimate)</p>
+      <p>When making a ghost strike, you may spend an additional spell point to form your ghost strike
+      into a close-range cone, allowing you to make an attack roll against every target within this area.
+      (Formerly Greater Ghost Strike and Mass Reanimate)</p>
+
+      "
   disabled: false
   duration:
     units: ""

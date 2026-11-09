@@ -1,0 +1,102 @@
+_id: oXlv4Kqs6Cd7xwNH
+_key: "!items!oXlv4Kqs6Cd7xwNH"
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: icons/svg/item-bag.svg
+name: Casting (Sovereign Piper)
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ""
+  attackName: ""
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ""
+  critConfirmBonus: ""
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ""
+    unidentified: ""
+    value: '<p>A mid-caster that casts sphere effects with Charisma as its casting
+      ability. The first time a character gains the casting class feature they also
+      gain a casting tradition and 2 bonus magic talents.</p><p><strong>Replaces:</strong>
+      spells (and cantrips).</p><p><em>Source: Sovereign Piper (bard archetype).</em>
+      <a href="http://spheresofpower.wikidot.com/sovereign-piper">Full text</a></p>'
+  disabled: false
+  duration:
+    units: ""
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ""
+  formulaicAttacks:
+    bonus:
+      formula: ""
+    count:
+      formula: ""
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ""
+    type: ""
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ""
+  subType: classFeat
+  summons: false
+  tag: ""
+  tags:
+    - Sovereign Piper
+  target:
+    value: ""
+  traitCategory: ""
+  traitType: ""
+  uses:
+    autoDeductChargesCost: "1"
+    maxFormula: ""
+    per: null
+    rechargeFormula: ""
+    value: 0
+  weaponProf: []
+type: feat

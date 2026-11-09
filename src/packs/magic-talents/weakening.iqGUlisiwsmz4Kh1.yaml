@@ -8,6 +8,11 @@ flags:
       p9wiw4QtpkpB3LYe:
         condSp:
           7lXHmnF21hZeoEUL: 1
+        onFail:
+          note:
+            Strength or Dexterity (caster's choice) -[[1d4]] for [[@spheres.cl.death.total]] rounds;
+            with the spell point, -[[max(1, floor(@spheres.cl.death.total / 2))]] more (a successful save
+            halves it instead). Can't go below 1.
     sphere: death
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
@@ -25,23 +30,34 @@ system:
   actions:
     - _id: p9wiw4QtpkpB3LYe
       name: Weakening
-      actionType: save
+      actionType: rsak
+      img: ""
       activation:
         type: standard
         unchained:
-          cost: 2
           type: action
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
       save:
         type: fort
         dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
         description: Fortitude negates
+      notes:
+        footer:
+          - "Ghost strike: melee touch, or ranged touch within medium range (roll the melee touch with Strength).
+            A negative energy death effect: no effect on undead, constructs or the immune. Subject to spell
+            resistance; doesn't stack with itself."
       duration:
-        value: "1"
+        value: "@spheres.cl.death.total"
         units: round
       conditionals:
         - _id: 7lXHmnF21hZeoEUL
-          name: Spend 1 spell point
-          default: true
+          name: Spend 1 spell point (+half caster level; a save halves)
+          default: false
           modifiers: []
   armorProf: []
   associations:
@@ -72,13 +88,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may make a ghost strike that inflicts a 1d4 point penalty to the
-      target&#8217;s Strength or Dexterity (your choice, Fortitude negates) for
-      1 round per level. You may spend a spell point to increase this reduction
-      by half your caster level (minimum 1) and cause a successful Fortitude
-      save to only halve the effect instead of negate it. This cannot reduce the
-      target&#8217;s Strength or Dexterity scores to less than 1.</p>
+    value:
+      "<p>You may make a ghost strike that inflicts a 1d4 point penalty to the target&#8217;s Strength
+      or Dexterity (your choice, Fortitude negates) for 1 round per level. You may spend a spell point
+      to increase this reduction by half your caster level (minimum 1) and cause a successful Fortitude
+      save to only halve the effect instead of negate it. This cannot reduce the target&#8217;s Strength
+      or Dexterity scores to less than 1.</p>
+
+      "
   disabled: false
   duration:
     units: ""
