@@ -70,6 +70,8 @@ export interface FailEffects {
   buffLevel?: string;
   /** How many rounds the buff lasts (dice allowed) */
   buffRounds?: string;
+  /** The buff lasts as long as the caster's effect from this action (a performance), not buffRounds */
+  whileEffect?: boolean;
   /** Posted with the result; [[formula]] is rolled once */
   note?: string;
   /** Offer the caster a button to regain martial focus */

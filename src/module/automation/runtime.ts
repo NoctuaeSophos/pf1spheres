@@ -1308,7 +1308,23 @@ async function applyFailedSave(msg, user) {
     lines.push(fmt("FailConditionsApplied", { conditions: names, rounds }));
   }
   const source = resolveBuff(caster, item, fail.buffId);
-  if (source) {
+  // A performance's buff ends with the performance: tie it to the caster's latest effect from this action
+  const until = fail.whileEffect
+    ? getEffects(caster)
+        .filter((e) => e.itemUuid === item.uuid && e.actionId === action.id)
+        .at(-1)
+    : null;
+  if (source && until) {
+    const data = buffCopy(
+      source,
+      fail.buffLevel?.trim() ? Math.max(1, evalFormula(fail.buffLevel, rd)) : 1,
+      `${source.name} (${caster.name})`,
+      { appliedBy: { casterUuid: caster.uuid, effectId: until.id } },
+      caster,
+    );
+    await target.createEmbeddedDocuments("Item", [data]);
+    lines.push(fmt("FailBuffWhileEffect", { name: source.name, effect: until.name }));
+  } else if (source) {
     const rounds = Math.max(1, await rollTotal(fail.buffRounds || "1", rd));
     const sphere = item.flags?.[MODULE_ID]?.sphere;
     const level = fail.buffLevel?.trim()

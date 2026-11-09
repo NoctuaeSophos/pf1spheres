@@ -159,6 +159,8 @@ export const onRenderActionSheet = (app, html) => {
         <div class="form-fields"><input type="text" data-pf1s="onFail.buffLevel" value="${esc(a.onFail?.buffLevel)}" placeholder="${loc("FailBuffLevelPlaceholder")}"></div></div>
       <div class="form-group"><label>${loc("FailBuffRounds")}</label>
         <div class="form-fields"><input type="text" data-pf1s="onFail.buffRounds" value="${esc(a.onFail?.buffRounds)}" placeholder="1d4"></div></div>
+      <div class="form-group"><label>${loc("FailWhileEffect")}</label>
+        <div class="form-fields"><input type="checkbox" data-pf1s="onFail.whileEffect" ${a.onFail?.whileEffect ? "checked" : ""}></div></div>
       <div class="form-group"><label>${loc("FailNote")}</label>
         <div class="form-fields"><input type="text" data-pf1s="onFail.note" value="${esc(a.onFail?.note)}"></div>
         <p class="hint">${loc("FailNoteHint")}</p></div>

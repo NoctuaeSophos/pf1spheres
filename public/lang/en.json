@@ -337,6 +337,8 @@
       "FailedSave": "{target} failed the save against {source}.",
       "FailConditionsApplied": "{conditions} for {rounds} rounds.",
       "FailBuffApplied": "{name} for {rounds} rounds.",
+      "FailBuffWhileEffect": "{name} until {effect} ends.",
+      "FailWhileEffect": "Buff lasts while this action's effect does",
       "RegainFocusPrompt": "You may regain martial focus as an immediate action.",
       "RegainFocus": "Regain martial focus",
       "FocusRegained": "{name} regains martial focus.",

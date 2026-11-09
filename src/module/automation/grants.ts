@@ -18,6 +18,11 @@ import {
   templateToItemData,
 } from "./logic";
 import type { Grant } from "./logic";
+import {
+  PERFORMANCE_GRANTS,
+  PERFORMANCE_ITEM,
+  PERFORMANCE_TEMPLATES,
+} from "../supplements/performance-logic";
 
 /**
  * Granted actions: an item's flags.pf1spheres.grants add actions to another item on the same actor
@@ -270,17 +275,20 @@ async function syncGrantedActions(actor) {
   const items = actor.items.contents;
   const names = new Set(items.map((i) => i.name.toLowerCase()));
   const wanted = new Map();
-  for (const item of items) {
-    const grants: Grant[] = item.flags?.[MODULE_ID]?.grants ?? [];
+  const want = (grants: Grant[], templates) => {
     for (const grant of grants) {
       const variant = pickVariant(grant, names);
       if (!variant || !grant.target) continue;
       const list = wanted.get(grant.target.toLowerCase()) ?? [];
       if (list.some((w) => w.key === grant.key)) continue;
-      list.push({ key: grant.key, variant, templates: item.flags[MODULE_ID].buffTemplates ?? {} });
+      list.push({ key: grant.key, variant, templates });
       wanted.set(grant.target.toLowerCase(), list);
     }
-  }
+  };
+  for (const item of items)
+    want(item.flags?.[MODULE_ID]?.grants ?? [], item.flags?.[MODULE_ID]?.buffTemplates ?? {});
+  // Supplement: pf1's own Bardic Performance item gets an action for each performance the bard has
+  if (names.has(PERFORMANCE_ITEM.toLowerCase())) want(PERFORMANCE_GRANTS, PERFORMANCE_TEMPLATES);
   await syncGrantedItems(actor);
   for (const target of items) {
     // "@weapon" grants (Cryptic Strike's ghost strikes) go to every weapon and attack with a weapon attack
@@ -444,7 +452,8 @@ export const registerGrants = () => {
       const traditions = actor.items.some(
         (i) => f(i).tradition && i._source.system?.links?.children?.length,
       );
-      if (grants || pool || traditions) queueGrants(actor);
+      const bard = actor.items.some((i) => i.name === PERFORMANCE_ITEM);
+      if (grants || pool || traditions || bard) queueGrants(actor);
     }
   });
 };
