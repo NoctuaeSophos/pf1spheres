@@ -69,10 +69,24 @@ const spCost = (auto) =>
  */
 async function syncSpellPool(actor) {
   const max = actor.system.spheres?.spellPoints?.max ?? 0;
-  let pool = spellPoolItem(actor);
   const options = { [SKIP]: true };
+  let pool = spellPoolItem(actor);
   if (!pool) {
-    if (max <= 0) return;
+    // A spell point feat the user made by hand (tagged spellPoints) becomes the pool, not a second one
+    const own = actor.items.find(
+      (i) => i.type === "feat" && i.system.tag === "spellPoints" && i._source.system?.uses?.per,
+    );
+    if (own) {
+      const upd = { [`flags.${MODULE_ID}.spellPool`]: true };
+      if (!own._source.system.uses.maxFormula)
+        upd["system.uses.maxFormula"] = "@spheres.spellPoints.max";
+      await own.update(upd, options);
+      pool = own;
+    }
+  }
+  if (!pool) {
+    // Only the active GM creates it, so two clients syncing the same actor can't make two
+    if (max <= 0 || !isGMWriter()) return;
     const stored = actor.flags?.[MODULE_ID]?.spellPoints;
     [pool] = await actor.createEmbeddedDocuments(
       "Item",
@@ -100,14 +114,44 @@ async function syncSpellPool(actor) {
     );
   }
   // Own uses come from the saved data: once linked, pf1 prepares an item with the pool's uses, and
-  // reading those would unlink it on the next sync and relink it on the one after
+  // reading those would unlink it on the next sync and relink it on the one after. Spells draw on
+  // their spellbook, and an item already drawing on another pool can't have two.
+  const canLink = (i) => {
+    if (i === pool || i.type === "spell" || i._source.system?.uses?.per) return false;
+    const parent = i.links?.charges;
+    return !parent || parent === pool;
+  };
   const linkable = actor.items.filter((i) => {
-    if (i === pool || i._source.system?.uses?.per) return false;
+    if (!canLink(i)) return false;
     const f = i.flags?.[MODULE_ID] ?? {};
     return f.spellPointItem || Object.values(f.automation ?? {}).some(spCost);
   });
-  // Move each cost into pf1's own fields: the action's charge cost, and a charges modifier per conditional
   const updates = [];
+  // Converted abilities that can't draw on the pool any more go back to the module's spending, so their
+  // cost isn't taken from their own uses instead
+  const reverted = actor.items.filter(
+    (i) => i.flags?.[MODULE_ID]?.spellPointItem && !linkable.includes(i),
+  );
+  for (const item of reverted) {
+    const u = {
+      _id: item.id,
+      [`flags.${MODULE_ID}.-=spellPointItem`]: null,
+      "system.uses.autoDeductChargesCost": "1",
+    };
+    u["system.actions"] = (item.toObject().system.actions ?? []).map((a) => {
+      const cost = a.uses?.autoDeductChargesCost;
+      if (cost && cost !== "0") u[`flags.${MODULE_ID}.automation.${a._id}.sp`] = cost;
+      const conditionals = (a.conditionals ?? []).map((c) => {
+        const mine = (c.modifiers ?? []).find((m) => m._id === stableId(`${c._id}:sp`));
+        if (!mine) return c;
+        u[`flags.${MODULE_ID}.automation.${a._id}.condSp.${c._id}`] = Number(mine.formula) || 0;
+        return { ...c, modifiers: c.modifiers.filter((m) => m !== mine) };
+      });
+      return { ...a, uses: { ...(a.uses ?? {}), autoDeductChargesCost: "" }, conditionals };
+    });
+    updates.push(u);
+  }
+  // Move each cost into pf1's own fields: the action's charge cost, and a charges modifier per conditional
   for (const item of linkable) {
     const auto = item.flags?.[MODULE_ID]?.automation ?? {};
     if (!Object.values(auto).some(spCost) && item.flags[MODULE_ID].spellPointItem) continue;
@@ -150,23 +194,34 @@ async function syncSpellPool(actor) {
     updates.push(u);
   }
   if (updates.length) await actor.updateEmbeddedDocuments("Item", updates, options);
-  const links = linkable.map((i) => ({ uuid: i.getRelativeUUID(actor) }));
-  const current = (pool.system.links?.charges ?? [])
-    .map((l) => l.uuid)
-    .sort()
-    .join();
-  if (
-    current !==
-    links
-      .map((l) => l.uuid)
+  // Links the user added stay; links to deleted or reverted items go
+  const idOf = (uuid) => foundry.utils.parseUuid(uuid, { relative: actor })?.id;
+  const kept = (pool._source.system.links?.charges ?? []).filter((l) => {
+    const item = actor.items.get(idOf(l.uuid));
+    return item && !reverted.includes(item);
+  });
+  const have = new Set(kept.map((l) => idOf(l.uuid)));
+  const links = [
+    ...kept,
+    ...linkable.filter((i) => !have.has(i.id)).map((i) => ({ uuid: i.getRelativeUUID(actor) })),
+  ];
+  const sig = (list) =>
+    list
+      .map((l) => idOf(l.uuid))
       .sort()
-      .join()
-  )
+      .join();
+  if (sig(pool._source.system.links?.charges ?? []) !== sig(links))
     await pool.update({ "system.links.charges": links }, options);
 }
 
 async function runSync(actor) {
   await syncSpellPool(actor);
+  await syncGrantedActions(actor);
+  // A granted action can bring a spell point cost; convert it now rather than on the next sync
+  await syncSpellPool(actor);
+}
+
+async function syncGrantedActions(actor) {
   const items = actor.items.contents;
   const names = new Set(items.map((i) => i.name.toLowerCase()));
   const wanted = new Map();
@@ -292,13 +347,38 @@ const queueGrants = (actor) => {
 
 /** Only the client that changed the item syncs, so each change is written once */
 const onItemChange = (item, options, userId) => {
-  if (options?.[SKIP] || userId !== game.user.id) return;
-  queueGrants(item.parent);
+  if (options?.[SKIP]) return;
+  const actor = item.parent;
+  if (userId === game.user.id) return queueGrants(actor);
+  // A player's change can't create the pool (only the GM does), so the GM checks for a missing one
+  if (
+    isGMWriter() &&
+    actor instanceof Actor &&
+    !spellPoolItem(actor) &&
+    (actor.system.spheres?.spellPoints?.max ?? 0) > 0
+  )
+    queueGrants(actor);
+};
+
+/** Deleting the Spell Points item keeps its value for when the pool comes back, rather than refilling */
+const onItemDeleted = (item, options, userId) => {
+  if (
+    userId === game.user.id &&
+    item.flags?.[MODULE_ID]?.spellPool &&
+    item.parent instanceof Actor &&
+    item.parent.isOwner
+  ) {
+    item.parent.update(
+      { [`flags.${MODULE_ID}.spellPoints`]: item._source.system?.uses?.value ?? 0 },
+      { [SKIP]: true },
+    );
+  }
+  onItemChange(item, options, userId);
 };
 
 export const registerGrants = () => {
   Hooks.on("createItem", (item, options, userId) => onItemChange(item, options, userId));
-  Hooks.on("deleteItem", (item, options, userId) => onItemChange(item, options, userId));
+  Hooks.on("deleteItem", onItemDeleted);
   Hooks.on("updateItem", (item, changed, options, userId) => {
     if (!("name" in changed) && !changed.system?.actions && !changed.flags?.[MODULE_ID]) return;
     onItemChange(item, options, userId);

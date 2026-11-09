@@ -203,10 +203,22 @@ const buffCopy = (source, level: number, name: string, flags: object) => {
   return data;
 };
 
+/**
+ * The buff a request refers to, resolved on the GM's client from the caster's own item: a player's
+ * message names the item and the reference, never the buff data, so it can't have the GM create
+ * arbitrary items on creatures the player doesn't own.
+ */
+const trustedBuff = (caster, msg) => {
+  const item = msg.itemUuid ? fromUuidSync(msg.itemUuid) : null;
+  if (!item || item.actor?.uuid !== caster?.uuid) return null;
+  const data = resolveBuff(caster, item, msg.buffRef);
+  return data?.type === "buff" ? data : null;
+};
+
 async function applyBuff(msg, user) {
   const caster = fromUuidSync(msg.casterUuid);
   if (!userOwns(user, caster)) return;
-  const source = msg.buffData ?? (msg.buffUuid ? fromUuidSync(msg.buffUuid) : null);
+  const source = trustedBuff(caster, msg);
   if (!source) return;
   for (const uuid of msg.targetUuids ?? []) {
     const target = fromUuidSync(uuid);
@@ -265,7 +277,7 @@ async function createZone(msg, user) {
     casterDisposition: msg.casterDisposition,
     casterUuid: caster.uuid,
     buffUuid: msg.buffUuid ?? null,
-    buffData: msg.buffData ?? null,
+    buffData: trustedBuff(caster, msg),
     level: msg.level,
     effectId: msg.effectId,
     regionId: region?.id ?? null,
@@ -517,7 +529,8 @@ async function onPostActionUse(au) {
       who: auto.zone.who ?? "allies",
       casterDisposition: token.disposition,
       casterUuid: actor.uuid,
-      buffData: buff,
+      itemUuid: item.uuid,
+      buffRef: auto.buff?.itemId,
       level,
       effectId: effect.id,
     });
@@ -527,7 +540,8 @@ async function onPostActionUse(au) {
     await requestGM({
       action: "auto.buff",
       casterUuid: actor.uuid,
-      buffData: buff,
+      itemUuid: item.uuid,
+      buffRef: auto.buff?.itemId,
       level,
       targetUuids: [...new Set(uuids)],
       effectId: effect.id,
@@ -576,21 +590,40 @@ async function sweep() {
         });
       }
     }
+    // In combat, timed conditions and buffs end on pf1's turn timing (start or end of a turn), not at the
+    // round boundary, or a 1-round effect could end before the creature's turn comes round
+    const timed = !inStartedCombat(actor);
     const stale = actor.items
       .filter(
         (i) =>
           (i.flags?.[MODULE_ID]?.formulaeExpires ?? Infinity) <= now ||
-          (i.flags?.[MODULE_ID]?.expiresAt ?? Infinity) <= now,
+          (timed && (i.flags?.[MODULE_ID]?.expiresAt ?? Infinity) <= now),
       )
       .map((i) => i.id);
-    if (stale.length) await actor.deleteEmbeddedDocuments("Item", stale);
-    const expired = actor.effects
-      .filter((e) => (e.flags?.[MODULE_ID]?.expiresAt ?? Infinity) <= now)
-      .map((e) => e.id);
-    if (expired.length) await actor.deleteEmbeddedDocuments("ActiveEffect", expired);
+    const expired = timed
+      ? actor.effects
+          .filter((e) => (e.flags?.[MODULE_ID]?.expiresAt ?? Infinity) <= now)
+          .map((e) => e.id)
+      : [];
+    // pf1 may delete the same expired effect on this client; one failure must not stop the sweep
+    try {
+      const items = stale.filter((id) => actor.items.has(id));
+      if (items.length) await actor.deleteEmbeddedDocuments("Item", items);
+      const effects = expired.filter((id) => actor.effects.has(id));
+      if (effects.length) await actor.deleteEmbeddedDocuments("ActiveEffect", effects);
+    } catch (err) {
+      console.warn(`${MODULE_ID} | expiry on ${actor.name}`, err);
+    }
   }
   await sweepOrphans();
 }
+
+/** True if the actor is fighting in a combat that has started */
+const inStartedCombat = (actor) =>
+  game.combats.some(
+    (c) =>
+      c.started && c.combatants.some((cb) => cb.actor === actor || cb.actor?.uuid === actor.uuid),
+  );
 
 /** True if a linked actor has a token on the scene, or an unlinked actor's token is on it */
 const actorOnScene = (actor, scene) =>
@@ -735,7 +768,9 @@ async function onRollSave(actor, result) {
   if (!pending || !Number.isFinite(pending.dc)) return;
   const roll = result?.rolls?.[0] ?? result;
   if (!Number.isFinite(roll?.total)) return;
-  if (!saveFailed(roll.total, roll.dice?.[0]?.total, pending.dc)) return;
+  // A static roll (Take 10 or 20) shows its value as the d20 but is no natural 1 or 20
+  const isStatic = roll.options?.staticRoll !== undefined && roll.options?.staticRoll !== null;
+  if (!saveFailed(roll.total, isStatic ? undefined : roll.dice?.[0]?.total, pending.dc)) return;
   const message = fromUuidSync(pending.reference);
   const item = message?.itemSource;
   const action = message?.actionSource;
@@ -814,18 +849,27 @@ async function applyFailedSave(msg, user) {
       },
       flags: { [MODULE_ID]: { expiresAt: now + rounds * 6 } },
     };
+    // pf1 skips a condition the creature already has or is immune to; only report what took
+    const fresh = conditions.filter((id) => !target.statuses.has(id));
+    if (!fresh.length) continue;
     await target.setConditions(
-      Object.fromEntries(conditions.map((id) => [id, foundry.utils.deepClone(data)])),
+      Object.fromEntries(fresh.map((id) => [id, foundry.utils.deepClone(data)])),
     );
-    const names = conditions.map((id) => pf1.registry.conditions.get(id).name).join(", ");
+    const applied = fresh.filter((id) => target.statuses.has(id));
+    if (!applied.length) continue;
+    const names = applied.map((id) => pf1.registry.conditions.get(id).name).join(", ");
     lines.push(fmt("FailConditionsApplied", { conditions: names, rounds }));
   }
   const source = resolveBuff(caster, item, fail.buffId);
   if (source) {
     const rounds = Math.max(1, await rollTotal(fail.buffRounds || "1", rd));
+    const sphere = item.flags?.[MODULE_ID]?.sphere;
     const level = fail.buffLevel?.trim()
       ? Math.max(1, evalFormula(fail.buffLevel, rd))
-      : Math.max(1, rd.spheres?.cl?.total ?? 1);
+      : Math.max(
+          1,
+          (sphere ? rd.spheres?.cl?.[sphere]?.total : null) ?? rd.spheres?.cl?.total ?? 1,
+        );
     const data = buffCopy(source, level, `${source.name} (${caster.name})`, {
       failBuff: { casterUuid: caster.uuid },
       expiresAt: now + rounds * 6,
