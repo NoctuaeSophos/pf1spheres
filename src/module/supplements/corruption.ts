@@ -172,6 +172,12 @@ export const openCorruption = (actor) => {
 
 /** The spirit feeds when its host rests or gains one of the listed conditions */
 export const registerCorruption = () => {
+  // @corruption.manifestationLevel and the rest, for manifestations that grow with it (Unrestrained)
+  Hooks.on("pf1GetRollData", (doc, result) => {
+    if (!(doc instanceof Actor)) return;
+    const item = corruptionItem(doc);
+    if (item) result.corruption = stateOf(item);
+  });
   Hooks.on("pf1ActorRest", (actor) => {
     if (actor?.isOwner) feed(actor, loc("ReasonRest")).catch(() => {});
   });

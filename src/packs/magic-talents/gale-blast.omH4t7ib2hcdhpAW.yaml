@@ -5,6 +5,77 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: destruction
+    grants:
+      - key: blast:gale-blast
+        target: Destruction Sphere
+        variants:
+          - name: Gale Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - bludgeoning
+                      - nonlethal
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - bludgeoning
+                        - nonlethal
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+            notes:
+              - "Gale Blast: Free trip at range against each creature struck, CMB [[@spheres.cl.destruction.total
+                + @spheres.cam]]; you can't be tripped in return."
+      - key: blast:gale-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Gale Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - bludgeoning
+                      - nonlethal
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - bludgeoning
+                        - nonlethal
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+            notes:
+              - "Gale Blast: Free trip at range against each creature struck, CMB [[@spheres.cl.destruction.total
+                + @spheres.cam]]; you can't be tripped in return."
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Gale Blast
@@ -18,19 +89,7 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions:
-    - _id: cpg6mZacDdzp879o
-      name: Gale Blast
-      actionType: save
-      activation:
-        type: free
-        unchained:
-          cost: 1
-          type: free
-      save:
-        type: ref
-        dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
-        description: ""
+  actions: []
   armorProf: []
   associations:
     classes: []
@@ -60,13 +119,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may change your destructive blast into a forceful wind that deals
-      nonlethal bludgeoning damage. You may make a trip combat maneuver as a
-      free action at range against any creature struck by the attack or that
-      failed their Reflex saving throw if one was required. Your CMB for this
-      check is equal to your caster level + your casting ability modifier. If
-      this check fails, you are not tripped in return.</p>
+    value:
+      "<p>You may change your destructive blast into a forceful wind that deals nonlethal bludgeoning
+      damage. You may make a trip combat maneuver as a free action at range against any creature struck
+      by the attack or that failed their Reflex saving throw if one was required. Your CMB for this check
+      is equal to your caster level + your casting ability modifier. If this check fails, you are not
+      tripped in return.</p>
+
+      "
   disabled: false
   duration:
     units: ""

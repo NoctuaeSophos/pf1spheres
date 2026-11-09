@@ -95,6 +95,16 @@ export const onRenderActionSheet = (app, html) => {
         <div class="form-fields"><input type="text" data-pf1s="buff.level" value="${esc(a.buff?.level)}" placeholder="${loc("BuffLevelPlaceholder")}"></div></div>
       <div class="form-group"><label>${loc("BuffSelf")}</label>
         <div class="form-fields"><input type="checkbox" data-pf1s="buff.self" ${a.buff?.self ? "checked" : ""}></div></div>
+      <div class="form-group"><label>${loc("BuffOthers")}</label>
+        <div class="form-fields"><input type="checkbox" data-pf1s="buff.others" ${a.buff?.others ? "checked" : ""}></div></div>
+
+      <h3 class="form-header">${loc("TempHp")}</h3>
+      <div class="form-group"><label>${loc("TempHpFormula")}</label>
+        <div class="form-fields"><input type="text" data-pf1s="tempHp.formula" value="${esc(a.tempHp?.formula)}" placeholder="2d10 + 2 * @abilities.con.mod">
+        <select data-pf1s="tempHp.who">${opt("self", loc("TempHpSelf"), a.tempHp?.who ?? "self")}${opt("targets", loc("TempHpTargets"), a.tempHp?.who)}</select></div>
+        <p class="hint">${loc("TempHpHint")}</p></div>
+      <div class="form-group"><label>${loc("TempHpStack")}</label>
+        <div class="form-fields"><input type="checkbox" data-pf1s="tempHp.stack" ${a.tempHp?.stack ? "checked" : ""}></div></div>
 
       <h3 class="form-header">${loc("Zone")}</h3>
       <div class="form-group"><label>${loc("ZoneEnabled")}</label>

@@ -5,6 +5,87 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: destruction
+    grants:
+      - key: blast:frost-blast
+        target: Destruction Sphere
+        variants:
+          - name: Frost Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - cold
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - cold
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+              save:
+                type: fort
+                dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+                description: Fortitude negates the effect
+            notes:
+              - "Frost Blast: Struck creatures: Fortitude or staggered for 1 round."
+            automation:
+              onFail:
+                conditions: staggered
+                conditionRounds: "1"
+      - key: blast:frost-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Frost Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - cold
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - cold
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+              save:
+                type: fort
+                dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+                description: Fortitude negates the effect
+            notes:
+              - "Frost Blast: Struck creatures: Fortitude or staggered for 1 round."
+            automation:
+              onFail:
+                conditions: staggered
+                conditionRounds: "1"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Frost Blast
@@ -18,22 +99,7 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions:
-    - _id: y4ggL4i8mCDKL6OR
-      name: Frost Blast
-      actionType: save
-      activation:
-        type: standard
-        unchained:
-          cost: 2
-          type: action
-      save:
-        type: ref
-        dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
-        description: ""
-      duration:
-        value: "1"
-        units: round
+  actions: []
   armorProf: []
   associations:
     classes: []
@@ -63,11 +129,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may change the damage type of your destructive blast to cold. Any
-      creature struck by the attack or that failed their Reflex saving throw if
-      one was required must succeed at a Fortitude save or be staggered for 1
-      round.</p>
+    value:
+      "<p>You may change the damage type of your destructive blast to cold. Any creature struck by
+      the attack or that failed their Reflex saving throw if one was required must succeed at a Fortitude
+      save or be staggered for 1 round.</p>
+
+      "
   disabled: false
   duration:
     units: ""

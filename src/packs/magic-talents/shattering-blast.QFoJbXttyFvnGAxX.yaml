@@ -5,6 +5,73 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: destruction
+    grants:
+      - key: blast:shattering-blast
+        target: Destruction Sphere
+        variants:
+          - name: Shattering Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d4
+                    types:
+                      - sonic
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d4
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - sonic
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+            notes:
+              - "Shattering Blast: Full damage to objects, ignoring up to [[floor(@spheres.cl.destruction.total
+                / 2)]] hardness."
+      - key: blast:shattering-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Shattering Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d4
+                    types:
+                      - sonic
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d4
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - sonic
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+            notes:
+              - "Shattering Blast: Full damage to objects, ignoring up to [[floor(@spheres.cl.destruction.total
+                / 2)]] hardness."
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Shattering Blast
@@ -48,11 +115,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Your destructive blast becomes a sonic lance, shattering whatever it
-      strikes. A shattering blast uses d4 instead of d6 as its damage die and
-      deals sonic damage. The blast does full damage to objects and ignores up
-      to half your caster level in hardness.</p>
+    value:
+      "<p>Your destructive blast becomes a sonic lance, shattering whatever it strikes. A shattering
+      blast uses d4 instead of d6 as its damage die and deals sonic damage. The blast does full damage
+      to objects and ignores up to half your caster level in hardness.</p>
+
+      "
   disabled: false
   duration:
     units: ""

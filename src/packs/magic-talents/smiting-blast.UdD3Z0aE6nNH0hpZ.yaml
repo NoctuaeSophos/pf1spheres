@@ -5,6 +5,79 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: destruction
+    grants:
+      - key: blast:smiting-blast
+        target: Destruction Sphere
+        variants:
+          - name: Smiting Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - untyped
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - untyped
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+            notes:
+              - "Smiting Blast: Good casters deal sacred damage, evil casters profane: full damage to incorporeal
+                creatures, counts as good- or evil-aligned, bypasses all DR. Unusable by neither."
+              - Smiting Blast costs 1 spell point on top of any enhancement.
+            automation:
+              sp: "1"
+      - key: blast:smiting-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Smiting Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - untyped
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - untyped
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+            notes:
+              - "Smiting Blast: Good casters deal sacred damage, evil casters profane: full damage to incorporeal
+                creatures, counts as good- or evil-aligned, bypasses all DR. Unusable by neither."
+              - Smiting Blast costs 1 spell point on top of any enhancement.
+            automation:
+              sp: "1"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Smiting Blast
@@ -48,26 +121,22 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>If you are of good alignment, you may spend a spell point to make your
-      destructive blast deal sacred damage. If you are of evil alignment, you
-      may spend a spell point to have your destructive blast deal profane
-      damage. You cannot use this blast type if you are of neither
-      alignment.</p>
+    value:
+      "<p>If you are of good alignment, you may spend a spell point to make your destructive blast
+      deal sacred damage. If you are of evil alignment, you may spend a spell point to have your destructive
+      blast deal profane damage. You cannot use this blast type if you are of neither alignment.</p>
 
-      <p><strong>Note:</strong> Sacred damage comes from attacks that are
-      heavily infused with the power of sheer good and carry this holy power
-      over as a form of harmful energy to evil-aligned beings. Sacred damage
-      deals full damage to incorporeal targets, and deals damage as if the
-      weapon were good-aligned. As it is not a weapon damage type, it
-      automatically bypasses all damage reduction.</p>
+      <p><strong>Note:</strong> Sacred damage comes from attacks that are heavily infused with the power
+      of sheer good and carry this holy power over as a form of harmful energy to evil-aligned beings.
+      Sacred damage deals full damage to incorporeal targets, and deals damage as if the weapon were good-aligned.
+      As it is not a weapon damage type, it automatically bypasses all damage reduction.</p>
 
-      <p>Profane damage comes from attacks that are heavily infused with the
-      power of sheer evil and carry this unholy power over as a form of harmful
-      energy to good-aligned beings. Profane damage deals full damage to
-      incorporeal targets and deals damage as if the weapon were evil-aligned.
-      As it is not a weapon damage type, it automatically bypasses all damage
-      reduction.</p>
+      <p>Profane damage comes from attacks that are heavily infused with the power of sheer evil and carry
+      this unholy power over as a form of harmful energy to good-aligned beings. Profane damage deals
+      full damage to incorporeal targets and deals damage as if the weapon were evil-aligned. As it is
+      not a weapon damage type, it automatically bypasses all damage reduction.</p>
+
+      "
   disabled: false
   duration:
     units: ""

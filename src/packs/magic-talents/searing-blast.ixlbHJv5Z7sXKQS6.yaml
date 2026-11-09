@@ -5,6 +5,71 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: destruction
+    grants:
+      - key: blast:searing-blast
+        target: Destruction Sphere
+        variants:
+          - name: Searing Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d8
+                    types:
+                      - fire
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d8
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - fire
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+            notes:
+              - "Searing Blast: Fire damage with d8s."
+      - key: blast:searing-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Searing Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d8
+                    types:
+                      - fire
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d8
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - fire
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+            notes:
+              - "Searing Blast: Fire damage with d8s."
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Searing Blast
@@ -48,9 +113,10 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Your destructive blast deals fire damage using d8 instead of d6 as its
-      damage die.</p>
+    value:
+      "<p>Your destructive blast deals fire damage using d8 instead of d6 as its damage die.</p>
+
+      "
   disabled: false
   duration:
     units: ""

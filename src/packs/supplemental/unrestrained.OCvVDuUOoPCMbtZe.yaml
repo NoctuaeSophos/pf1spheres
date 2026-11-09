@@ -38,25 +38,25 @@ system:
     seeInvisibility: false
   changes:
     - _id: rxd6ep3s8hwykrx9
-      formula: "2"
+      formula: 2 + 2 * min(1, floor(@corruption.manifestationLevel / 3))
       operator: add
       priority: 0
       target: skill.acr
       type: untyped
     - _id: n3tqp5yehnpmwd6v
-      formula: "2"
+      formula: 2 + 2 * min(1, floor(@corruption.manifestationLevel / 3))
       operator: add
       priority: 0
       target: skill.clm
       type: untyped
     - _id: oxuurdf8h8plbfha
-      formula: "2"
+      formula: 2 + 2 * min(1, floor(@corruption.manifestationLevel / 3))
       operator: add
       priority: 0
       target: skill.fly
       type: untyped
     - _id: ypaeqzwbhu5e01xs
-      formula: "2"
+      formula: 2 + 2 * min(1, floor(@corruption.manifestationLevel / 3))
       operator: add
       priority: 0
       target: skill.swm
@@ -72,13 +72,13 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: '<p><strong>Possessed manifestation (1st).</strong></p><p><strong>Gift:</strong>
-      +2 on Acrobatics, Climb, Fly and Swim checks (+4 at manifestation level 3).
-      As a swift action you may give the spirit 1 influence to gain freedom of movement
-      for 1 round.</p><p><strong>Stain:</strong> retrieving a stored item takes a
-      standard action, items you drop land 10 ft. away in a random direction, and
-      you take -2 (-4 at manifestation level 3) on saves and CMD against disarm and
-      steal.</p><p><em>Source: Pathfinder RPG Horror Adventures.</em> <a href="https://aonprd.com/CorruptionsDisplay.aspx?ItemName=Possessed">Full
+    value:
+      '<p><strong>Possessed manifestation (1st).</strong></p><p><strong>Gift:</strong> +2 on Acrobatics,
+      Climb, Fly and Swim checks (+4 at manifestation level 3). As a swift action you may give the spirit
+      1 influence to gain freedom of movement for 1 round.</p><p><strong>Stain:</strong> retrieving a
+      stored item takes a standard action, items you drop land 10 ft. away in a random direction, and
+      you take -2 (-4 at manifestation level 3) on saves and CMD against disarm and steal.</p><p><em>Source:
+      Pathfinder RPG Horror Adventures.</em> <a href="https://aonprd.com/CorruptionsDisplay.aspx?ItemName=Possessed">Full
       text</a></p>'
   disabled: false
   duration:

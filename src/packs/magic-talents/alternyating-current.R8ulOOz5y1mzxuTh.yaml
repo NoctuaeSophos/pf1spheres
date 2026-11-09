@@ -5,6 +5,73 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: destruction
+    grants:
+      - key: blast:alternyating-current
+        target: Destruction Sphere
+        variants:
+          - name: Alternyating Current
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - electric
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - electric
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+            notes:
+              - "Alternyating Current: Each creature struck must take a 5-foot step in a direction it chooses,
+                and can't take a 5-foot step on its next turn."
+      - key: blast:alternyating-current:melee
+        target: Destruction Sphere
+        variants:
+          - name: Alternyating Current (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - electric
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - electric
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+            notes:
+              - "Alternyating Current: Each creature struck must take a 5-foot step in a direction it chooses,
+                and can't take a 5-foot step on its next turn."
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Alternyating Current
@@ -48,18 +115,17 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Your destructive blast is a shocking current of latent static
-      electricity built up by cats. An alternyating current blast deals
-      electricity damage. Any creature struck by the attack or that failed their
-      Reflex saving throw if one was required must take a 5-foot step. Affected
-      creatures may take this 5-foot step in any direction they choose. If a
-      creature was forced to take a 5-foot step by this effect, they may not
-      take a 5-foot step during their next turn (but may otherwise move
-      normally). If an affected creature would be forced to take a 5-foot step
-      by this effect and could not, they do not move and cannot take a 5-foot
-      step during their next turn (such as being surrounded by difficult
-      terrain).</p>
+    value:
+      "<p>Your destructive blast is a shocking current of latent static electricity built up by cats.
+      An alternyating current blast deals electricity damage. Any creature struck by the attack or that
+      failed their Reflex saving throw if one was required must take a 5-foot step. Affected creatures
+      may take this 5-foot step in any direction they choose. If a creature was forced to take a 5-foot
+      step by this effect, they may not take a 5-foot step during their next turn (but may otherwise move
+      normally). If an affected creature would be forced to take a 5-foot step by this effect and could
+      not, they do not move and cannot take a 5-foot step during their next turn (such as being surrounded
+      by difficult terrain).</p>
+
+      "
   disabled: false
   duration:
     units: ""

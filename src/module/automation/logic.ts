@@ -19,7 +19,19 @@ export interface ActionAutomation {
   /** Track the result as a sphere effect */
   effect?: { enabled?: boolean; duration?: string; units?: DurationUnit; concentration?: boolean };
   /** Apply one of the actor's buffs to the targets at the caster's level */
-  buff?: { itemId?: string; sphere?: string; self?: boolean; level?: string };
+  buff?: {
+    itemId?: string;
+    sphere?: string;
+    self?: boolean;
+    level?: string;
+    /** Only the targets, never the user, even with no targets (inspire competence, dirge of doom) */
+    others?: boolean;
+  };
+  /**
+   * Temporary hit points for the user, or each target (the user when there are none); a target's own
+   * roll data fills the formula. They replace lower temporary hit points unless they stack.
+   */
+  tempHp?: { formula?: string; who?: "self" | "targets"; stack?: boolean };
   /** Create an area centred on the user that applies the buff to creatures inside */
   zone?: {
     enabled?: boolean;
@@ -120,6 +132,7 @@ export const hasAutomation = (a: ActionAutomation | undefined | null): boolean =
         hasFailEffects(a.onFail) ||
         a.sequence?.role ||
         a.threatNext ||
+        a.tempHp?.formula?.trim() ||
         Number(a.minHD) > 0),
   );
 
@@ -268,6 +281,16 @@ export const pinCasterLevels = (text: string, lookup: (path: string) => number):
     ? text.replace(/@spheres\.(cl(?:\.\w+)?\.total|cam|pam|ms[bd]\.total)\b/g, (_m, path) =>
         String(lookup(path)),
       )
+    : text;
+
+/**
+ * Replaces @caster.<path> references with the caster's roll data at that path, so a buff or formula
+ * evaluated on someone else can still use the caster's numbers (a bard's level, a marshal's tier).
+ * Unknown paths become 0.
+ */
+export const pinCasterRefs = (text: string, lookup: (path: string) => number): string =>
+  typeof text === "string"
+    ? text.replace(/@caster\.([\w.]+\w)/g, (_m, path) => String(lookup(path)))
     : text;
 
 /** Distance between two points in grid units (ft.), given pixels per grid square and feet per square */

@@ -5,6 +5,73 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: destruction
+    grants:
+      - key: blast:electric-blast
+        target: Destruction Sphere
+        variants:
+          - name: Electric Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - electric
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - electric
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+            notes:
+              - "Electric Blast: Creatures in metal armor or made mostly of metal take -3 to AC and on saves
+                against it. Ignites combustibles and melts soft metals."
+      - key: blast:electric-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Electric Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - electric
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - electric
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+            notes:
+              - "Electric Blast: Creatures in metal armor or made mostly of metal take -3 to AC and on saves
+                against it. Ignites combustibles and melts soft metals."
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Electric Blast
@@ -48,13 +115,13 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may change the damage type of your destructive blast from
-      bludgeoning to electricity. Targets wearing metal armor or primarily
-      comprised of metal suffer a -3 penalty to AC and to saving throws against
-      an electric blast. An electric blast can ignite combustibles, and melt
-      metals with a low melting point, such as lead, gold, copper, silver, or
-      bronze.</p>
+    value:
+      "<p>You may change the damage type of your destructive blast from bludgeoning to electricity.
+      Targets wearing metal armor or primarily comprised of metal suffer a -3 penalty to AC and to saving
+      throws against an electric blast. An electric blast can ignite combustibles, and melt metals with
+      a low melting point, such as lead, gold, copper, silver, or bronze.</p>
+
+      "
   disabled: false
   duration:
     units: ""

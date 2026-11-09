@@ -4,11 +4,84 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
-    automation:
-      Sj2NuulUV2vRmQAd:
-        condSp:
-          0a3oKwaYWqMc5c8u: 1
     sphere: destruction
+    grants:
+      - key: blast:hurricane-blast
+        target: Destruction Sphere
+        variants:
+          - name: Hurricane Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - bludgeoning
+                      - nonlethal
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - bludgeoning
+                        - nonlethal
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+            notes:
+              - "Hurricane Blast: The target takes -[[floor(@spheres.cl.destruction.total / 2)]] on ranged attacks
+                and Fly checks for [[1d4]] rounds."
+              - Hurricane Blast costs 1 spell point on top of any enhancement.
+            automation:
+              sp: "1"
+      - key: blast:hurricane-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Hurricane Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - bludgeoning
+                      - nonlethal
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - bludgeoning
+                        - nonlethal
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+            notes:
+              - "Hurricane Blast: The target takes -[[floor(@spheres.cl.destruction.total / 2)]] on ranged attacks
+                and Fly checks for [[1d4]] rounds."
+              - Hurricane Blast costs 1 spell point on top of any enhancement.
+            automation:
+              sp: "1"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Hurricane Blast
@@ -22,20 +95,7 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions:
-    - _id: Sj2NuulUV2vRmQAd
-      name: Hurricane Blast
-      actionType: other
-      activation:
-        type: standard
-        unchained:
-          cost: 2
-          type: action
-      conditionals:
-        - _id: 0a3oKwaYWqMc5c8u
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+  actions: []
   armorProf: []
   associations:
     classes: []
@@ -65,11 +125,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may spend a spell point to change your destructive blast into
-      swirling winds that swirls around the target, dealing nonlethal
-      bludgeoning damage. The target suffers a penalty to ranged attacks and Fly
-      checks equal to 1/2 your caster level for 1d4 rounds.</p>
+    value:
+      "<p>You may spend a spell point to change your destructive blast into swirling winds that swirls
+      around the target, dealing nonlethal bludgeoning damage. The target suffers a penalty to ranged
+      attacks and Fly checks equal to 1/2 your caster level for 1d4 rounds.</p>
+
+      "
   disabled: false
   duration:
     units: ""

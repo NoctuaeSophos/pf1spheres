@@ -5,6 +5,81 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: destruction
+    grants:
+      - key: blast:stone-blast
+        target: Destruction Sphere
+        variants:
+          - name: Stone Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - slashing
+                      - piercing
+                      - bludgeoning
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - slashing
+                        - piercing
+                        - bludgeoning
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+            notes:
+              - "Stone Blast: Ignores spell resistance, spell turning and antimagic, and isn't magical for
+                DR, incorporeal creatures or bonuses on saves against magic."
+      - key: blast:stone-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Stone Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - slashing
+                      - piercing
+                      - bludgeoning
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - slashing
+                        - piercing
+                        - bludgeoning
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+            notes:
+              - "Stone Blast: Ignores spell resistance, spell turning and antimagic, and isn't magical for
+                DR, incorporeal creatures or bonuses on saves against magic."
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Stone Blast
@@ -48,14 +123,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may change the damage type of your destructive blast to slashing,
-      piercing, and bludgeoning. A stone blast ignores spell resistance, spell
-      turning, and can penetrate a globe of invulnerability, antimagic field, or
-      other forms of antimagic, and is not treated as a spell or magical for the
-      purpose of bypassing damage reduction, damaging incorporeal creatures, or
-      for creatures or classes that gain a bonus to saving throws against magic.
-      These stones disappear after 1 minute.</p>
+    value:
+      "<p>You may change the damage type of your destructive blast to slashing, piercing, and bludgeoning.
+      A stone blast ignores spell resistance, spell turning, and can penetrate a globe of invulnerability,
+      antimagic field, or other forms of antimagic, and is not treated as a spell or magical for the purpose
+      of bypassing damage reduction, damaging incorporeal creatures, or for creatures or classes that
+      gain a bonus to saving throws against magic. These stones disappear after 1 minute.</p>
+
+      "
   disabled: false
   duration:
     units: ""

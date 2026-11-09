@@ -4,11 +4,80 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
-    automation:
-      6T3CFpaK5tn12czO:
-        condSp:
-          8vqAVIj3HwA9H9jH: 1
     sphere: destruction
+    grants:
+      - key: blast:static-blast
+        target: Destruction Sphere
+        variants:
+          - name: Static Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - electric
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - electric
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+            notes:
+              - "Static Blast: Free disarm at range against each creature struck, CMB [[@spheres.cl.destruction.total
+                + @spheres.cam]] (+4 against a metal weapon)."
+              - Static Blast costs 1 spell point on top of any enhancement.
+            automation:
+              sp: "1"
+      - key: blast:static-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Static Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - electric
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - electric
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+            notes:
+              - "Static Blast: Free disarm at range against each creature struck, CMB [[@spheres.cl.destruction.total
+                + @spheres.cam]] (+4 against a metal weapon)."
+              - Static Blast costs 1 spell point on top of any enhancement.
+            automation:
+              sp: "1"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Static Blast
@@ -22,24 +91,7 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions:
-    - _id: 6T3CFpaK5tn12czO
-      name: Static Blast
-      actionType: save
-      activation:
-        type: standard
-        unchained:
-          cost: 2
-          type: action
-      save:
-        type: ref
-        dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
-        description: ""
-      conditionals:
-        - _id: 8vqAVIj3HwA9H9jH
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+  actions: []
   armorProf: []
   associations:
     classes: []
@@ -69,13 +121,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may spend a spell point to have your destructive blast deal
-      electricity damage. You may make a disarm attempt at range against any
-      creature struck by the attack or that failed their Reflex saving throw if
-      one was required. Your CMB for this check is equal to your caster level +
-      your casting ability modifier. You receive a +4 bonus on this check
-      against any target that is wielding a metal weapon.</p>
+    value:
+      "<p>You may spend a spell point to have your destructive blast deal electricity damage. You
+      may make a disarm attempt at range against any creature struck by the attack or that failed their
+      Reflex saving throw if one was required. Your CMB for this check is equal to your caster level +
+      your casting ability modifier. You receive a +4 bonus on this check against any target that is wielding
+      a metal weapon.</p>
+
+      "
   disabled: false
   duration:
     units: ""

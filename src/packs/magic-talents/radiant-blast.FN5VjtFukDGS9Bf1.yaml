@@ -5,6 +5,87 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: destruction
+    grants:
+      - key: blast:radiant-blast
+        target: Destruction Sphere
+        variants:
+          - name: Radiant Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d4
+                    types:
+                      - untyped
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d4
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - untyped
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+              save:
+                type: fort
+                dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+                description: Fortitude negates the effect
+            notes:
+              - "Radiant Blast: Struck creatures: Fortitude or everything has concealment to them for 1 round
+                (ignores undead immunities). Against undead and creatures vulnerable to sunlight, roll d8s instead."
+            automation:
+              onFail:
+                note: Treats every creature as having concealment (20%) for 1 round.
+      - key: blast:radiant-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Radiant Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d4
+                    types:
+                      - untyped
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d4
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - untyped
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+              save:
+                type: fort
+                dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+                description: Fortitude negates the effect
+            notes:
+              - "Radiant Blast: Struck creatures: Fortitude or everything has concealment to them for 1 round
+                (ignores undead immunities). Against undead and creatures vulnerable to sunlight, roll d8s instead."
+            automation:
+              onFail:
+                note: Treats every creature as having concealment (20%) for 1 round.
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Radiant Blast
@@ -48,14 +129,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Your destructive blast deals untyped damage, and uses d4 instead of d6
-      as its damage die. Any creature struck by the attack or that failed their
-      Reflex saving throw if one was required must succeed at a Fortitude save
-      or treat all creatures as if they had concealment (20%) for 1 round. This
-      bypasses the immunities of the undead type. The damage die size increases
-      to d8 against undead creatures and any creatures vulnerable to
-      sunlight.</p>
+    value:
+      "<p>Your destructive blast deals untyped damage, and uses d4 instead of d6 as its damage die.
+      Any creature struck by the attack or that failed their Reflex saving throw if one was required must
+      succeed at a Fortitude save or treat all creatures as if they had concealment (20%) for 1 round.
+      This bypasses the immunities of the undead type. The damage die size increases to d8 against undead
+      creatures and any creatures vulnerable to sunlight.</p>
+
+      "
   disabled: false
   duration:
     units: ""

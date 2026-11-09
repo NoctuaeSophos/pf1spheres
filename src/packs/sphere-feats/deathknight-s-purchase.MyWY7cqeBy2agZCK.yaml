@@ -6,6 +6,8 @@ flags:
     automation:
       Jupc94tnwlavyfEr:
         sp: ifelse(gte(@spheres.necrosis, 4), 0, 1)
+        tempHp:
+          formula: floor(@details.level.value / 2) + (max(1, @spheres.necrosis))d6
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -42,8 +44,9 @@ system:
       notes:
         footer:
           - "When a creature in close range (with at least half your character level in Hit Dice) fails a
-            save against a death or negative energy effect: [[floor(@details.level.value / 2) + (max(1, @spheres.necrosis))d6]]
-            temporary hit points for [[max(1, @spheres.necrosis)]] minute(s). Free at four necrosis feats."
+            save against a death or negative energy effect: half your character level + 1d6 per necrosis feat
+            temporary hit points (rolled when used) for [[max(1, @spheres.necrosis)]] minute(s). Free at four
+            necrosis feats."
   armorProf: []
   associations:
     classes: []

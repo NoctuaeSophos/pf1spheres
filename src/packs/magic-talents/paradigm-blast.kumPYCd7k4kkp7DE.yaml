@@ -5,6 +5,79 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: destruction
+    grants:
+      - key: blast:paradigm-blast
+        target: Destruction Sphere
+        variants:
+          - name: Paradigm Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - untyped
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - untyped
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+            notes:
+              - "Paradigm Blast: Lawful casters deal axiomatic damage, chaotic casters anarchic: full damage
+                to incorporeal creatures, counts as law- or chaos-aligned, bypasses all DR. Unusable by neither."
+              - Paradigm Blast costs 1 spell point on top of any enhancement.
+            automation:
+              sp: "1"
+      - key: blast:paradigm-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Paradigm Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - untyped
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - untyped
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+            notes:
+              - "Paradigm Blast: Lawful casters deal axiomatic damage, chaotic casters anarchic: full damage
+                to incorporeal creatures, counts as law- or chaos-aligned, bypasses all DR. Unusable by neither."
+              - Paradigm Blast costs 1 spell point on top of any enhancement.
+            automation:
+              sp: "1"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Paradigm Blast
@@ -48,26 +121,22 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>If you are of lawful alignment, you may spend a spell point to make
-      your destructive blast deal axiomatic damage. If you are of chaotic
-      alignment, you may spend a spell point to have your destructive blast deal
-      anarchic damage. You cannot use this blast type if you are of neither
-      alignment.</p>
+    value:
+      "<p>If you are of lawful alignment, you may spend a spell point to make your destructive blast
+      deal axiomatic damage. If you are of chaotic alignment, you may spend a spell point to have your
+      destructive blast deal anarchic damage. You cannot use this blast type if you are of neither alignment.</p>
 
-      <p><strong>Note:</strong> Axiomatic damage comes from attacks that are
-      heavily infused with the power of sheer law and carry this orderly power
-      over as a form of harmful energy to chaos-aligned beings. Axiomatic damage
-      deals full damage to incorporeal targets, and deals damage as if the
-      weapon were law-aligned. As it is not a weapon damage type, it
-      automatically bypasses all damage reduction.</p>
+      <p><strong>Note:</strong> Axiomatic damage comes from attacks that are heavily infused with the
+      power of sheer law and carry this orderly power over as a form of harmful energy to chaos-aligned
+      beings. Axiomatic damage deals full damage to incorporeal targets, and deals damage as if the weapon
+      were law-aligned. As it is not a weapon damage type, it automatically bypasses all damage reduction.</p>
 
-      <p>Anarchic damage comes from attacks that are heavily infused with the
-      power of sheer chaos and carry this disorderly power over as a form of
-      harmful energy to law-aligned beings. Anarchic damage deals full damage to
-      incorporeal targets and deals damage as if the weapon were chaos-aligned.
-      As it is not a weapon damage type, it automatically bypasses all damage
-      reduction.</p>
+      <p>Anarchic damage comes from attacks that are heavily infused with the power of sheer chaos and
+      carry this disorderly power over as a form of harmful energy to law-aligned beings. Anarchic damage
+      deals full damage to incorporeal targets and deals damage as if the weapon were chaos-aligned. As
+      it is not a weapon damage type, it automatically bypasses all damage reduction.</p>
+
+      "
   disabled: false
   duration:
     units: ""

@@ -4,11 +4,100 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
-    automation:
-      S02zG8FBIPY3jnow:
-        condSp:
-          1veethElVDO974QD: 2
     sphere: destruction
+    grants:
+      - key: blast:radiation-blast
+        target: Destruction Sphere
+        variants:
+          - name: Radiation Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - fire
+                      - untyped
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - fire
+                        - untyped
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+              save:
+                type: fort
+                dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+                description: Fortitude negates the effect
+            notes:
+              - "Radiation Blast: Half fire, half untyped. Damaged creatures: Fortitude or radiation. The area
+                is irradiated for [[@spheres.cl.destruction.total]] minutes."
+              - Radiation Blast costs 2 spell points on top of any enhancement.
+            automation:
+              sp: "2"
+              onFail:
+                note:
+                  Suffers low radiation, or one step worse if already irradiated. Secondary effects use
+                  their own DCs.
+      - key: blast:radiation-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Radiation Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - fire
+                      - untyped
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - fire
+                        - untyped
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+              save:
+                type: fort
+                dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+                description: Fortitude negates the effect
+            notes:
+              - "Radiation Blast: Half fire, half untyped. Damaged creatures: Fortitude or radiation. The area
+                is irradiated for [[@spheres.cl.destruction.total]] minutes."
+              - Radiation Blast costs 2 spell points on top of any enhancement.
+            automation:
+              sp: "2"
+              onFail:
+                note:
+                  Suffers low radiation, or one step worse if already irradiated. Secondary effects use
+                  their own DCs.
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Radiation Blast
@@ -22,27 +111,7 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions:
-    - _id: S02zG8FBIPY3jnow
-      name: Radiation Blast
-      actionType: save
-      activation:
-        type: standard
-        unchained:
-          cost: 2
-          type: action
-      save:
-        type: fort
-        dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
-        description: ""
-      duration:
-        value: "@spheres.cl.destruction.total"
-        units: minute
-      conditionals:
-        - _id: 1veethElVDO974QD
-          name: Spend 2 spell points (option)
-          default: false
-          modifiers: []
+  actions: []
   armorProf: []
   associations:
     classes: []
@@ -72,30 +141,27 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p><strong>Prerequisites:</strong> Destruction sphere (any two (blast
-      type) talents in the fire blast type group), caster level 5th.</p>
+    value:
+      '<p><strong>Prerequisites:</strong> Destruction sphere (any two (blast type) talents in the
+      fire blast type group), caster level 5th.</p>
 
-      <p>You may spend two additional spell points to have your destructive
-      blast do half fire and half untyped damage. Any creature damaged by the
-      attack must succeed at a Fortitude save with your destructive
+      <p>You may spend two additional spell points to have your destructive blast do half fire and half
+      untyped damage. Any creature damaged by the attack must succeed at a Fortitude save with your destructive
       blast&#8217;s DC or suffer the effects of low radiation.</p>
 
-      <p>A creature suffering from radiation instead must succeed at a Fortitude
-      save with your destructive blast&#8217;s DC or have the level of radiation
-      increased by one step, inflicting the new levels primary effect. This
-      effect stacks with the effects of lower radiation levels. Saves against
-      the secondary effects of the radiation are made at their normal save DCs.
-      The target&#8217;s square (or the destructive blast&#8217;s affected area)
-      becomes irradiated for 1 minute per caster level. Any creature passing
-      through an irradiated square must succeed at a Fortitude save DC 14 or be
-      affected by low radiation.</p>
+      <p>A creature suffering from radiation instead must succeed at a Fortitude save with your destructive
+      blast&#8217;s DC or have the level of radiation increased by one step, inflicting the new levels
+      primary effect. This effect stacks with the effects of lower radiation levels. Saves against the
+      secondary effects of the radiation are made at their normal save DCs. The target&#8217;s square
+      (or the destructive blast&#8217;s affected area) becomes irradiated for 1 minute per caster level.
+      Any creature passing through an irradiated square must succeed at a Fortitude save DC 14 or be affected
+      by low radiation.</p>
 
       <p><strong>Radiation</strong><br>
 
-      Radiation is a poison effect, whose initial effect causes Constitution
-      drain and secondary effect causes Strength damage. Radiation dangers are
-      organized into four categories: low, medium, high, and severe.</p>
+      Radiation is a poison effect, whose initial effect causes Constitution drain and secondary effect
+      causes Strength damage. Radiation dangers are organized into four categories: low, medium, high,
+      and severe.</p>
 
       <table class="wiki-content-table">
 
@@ -161,25 +227,24 @@ system:
 
       </table>
 
-      <p><sup>Pathfinder Campaign Setting: Technology Guide &#169; 2014, Paizo
-      Inc.; Authors: James Jacobs and Russ Taylor.</sup></p>
+      <p><sup>Pathfinder Campaign Setting: Technology Guide &#169; 2014, Paizo Inc.; Authors: James Jacobs
+      and Russ Taylor.</sup></p>
 
-      <p><strong>Initial Effect:</strong> Radiation initially deals Constitution
-      drain unless the exposed character succeeds at a Fortitude saving throw. A
-      new saving throw must be attempted to resist radiation&#8217;s initial
-      damage each round a victim remains exposed to it.</p>
+      <p><strong>Initial Effect:</strong> Radiation initially deals Constitution drain unless the exposed
+      character succeeds at a Fortitude saving throw. A new saving throw must be attempted to resist radiation&#8217;s
+      initial damage each round a victim remains exposed to it.</p>
 
-      <p><strong>Secondary Effect:</strong> Secondary effects from radiation
-      deal Strength damage at a much slower rate than most poisons. This
-      secondary effect ends only after a character succeeds at two consecutive
-      Fortitude saving throws to resist secondary radiation damage. If a
-      character has Strength damage equal to his current Strength score, further
-      damage dealt a secondary effect is instead Constitution damage.</p>
+      <p><strong>Secondary Effect:</strong> Secondary effects from radiation deal Strength damage at a
+      much slower rate than most poisons. This secondary effect ends only after a character succeeds at
+      two consecutive Fortitude saving throws to resist secondary radiation damage. If a character has
+      Strength damage equal to his current Strength score, further damage dealt a secondary effect is
+      instead Constitution damage.</p>
 
-      <p><strong>Removing Radiation Effects:</strong> All radiation damage is a
-      poison effect, and as such it can be removed with any effect that
-      neutralizes poison. Ability damage and drain caused by radiation damage
-      can be healed normally.</p>
+      <p><strong>Removing Radiation Effects:</strong> All radiation damage is a poison effect, and as
+      such it can be removed with any effect that neutralizes poison. Ability damage and drain caused
+      by radiation damage can be healed normally.</p>
+
+      '
   disabled: false
   duration:
     units: ""

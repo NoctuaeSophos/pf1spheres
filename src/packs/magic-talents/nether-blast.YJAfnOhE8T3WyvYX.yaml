@@ -5,6 +5,89 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: destruction
+    grants:
+      - key: blast:nether-blast
+        target: Destruction Sphere
+        variants:
+          - name: Nether Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - negative
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - negative
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+              save:
+                type: will
+                dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+                description: Will negates the effect
+            notes:
+              - "Nether Blast: Struck creatures: Will or shaken for 1 round. Undead take no damage; on a failed
+                Will save they are frightened for 1 round instead (ignores undead immunities)."
+            automation:
+              onFail:
+                conditions: shaken
+                conditionRounds: "1"
+      - key: blast:nether-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Nether Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - negative
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - negative
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+              save:
+                type: will
+                dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+                description: Will negates the effect
+            notes:
+              - "Nether Blast: Struck creatures: Will or shaken for 1 round. Undead take no damage; on a failed
+                Will save they are frightened for 1 round instead (ignores undead immunities)."
+            automation:
+              onFail:
+                conditions: shaken
+                conditionRounds: "1"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Nether Blast
@@ -18,22 +101,7 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions:
-    - _id: uCsm34OYEtyN6f8h
-      name: Nether Blast
-      actionType: save
-      activation:
-        type: standard
-        unchained:
-          cost: 2
-          type: action
-      save:
-        type: ref
-        dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
-        description: ""
-      duration:
-        value: "1"
-        units: round
+  actions: []
   armorProf: []
   associations:
     classes: []
@@ -63,13 +131,14 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may change the damage type of your destructive blast to negative
-      energy. Any creature struck by the attack or that failed their Reflex
-      saving throw if one was required must succeed at a Will saving throw or be
-      shaken for 1 round. A nether blast does not damage undead; instead, the
-      undead must succeed at a Will save or become frightened for 1 round. This
-      bypasses the immunities of the undead type.</p>
+    value:
+      "<p>You may change the damage type of your destructive blast to negative energy. Any creature
+      struck by the attack or that failed their Reflex saving throw if one was required must succeed at
+      a Will saving throw or be shaken for 1 round. A nether blast does not damage undead; instead, the
+      undead must succeed at a Will save or become frightened for 1 round. This bypasses the immunities
+      of the undead type.</p>
+
+      "
   disabled: false
   duration:
     units: ""

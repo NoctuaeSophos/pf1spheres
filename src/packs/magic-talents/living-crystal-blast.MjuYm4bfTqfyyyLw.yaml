@@ -4,11 +4,98 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
-    automation:
-      QGiGbABQMlcIsrhX:
-        condSp:
-          OTCXxHEpT73GIyIs: 1
     sphere: destruction
+    grants:
+      - key: blast:living-crystal-blast
+        target: Destruction Sphere
+        variants:
+          - name: Living Crystal Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - piercing
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - piercing
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+              save:
+                type: ref
+                dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+                description: Reflex negates the effect
+            notes:
+              - "Living Crystal Blast: Struck creatures: Reflex or entangled and unable to move (a move action
+                and a Strength or Escape Artist check against DC [[10 + floor(@spheres.cl.destruction.total
+                / 2) + @spheres.cam]] frees it). The area becomes living crystal: creatures entering it save
+                or are entangled too."
+              - Living Crystal Blast costs 1 spell point on top of any enhancement.
+            automation:
+              sp: "1"
+              onFail:
+                conditions: entangled
+                conditionRounds: "10"
+      - key: blast:living-crystal-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Living Crystal Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - piercing
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - piercing
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+              save:
+                type: ref
+                dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+                description: Reflex negates the effect
+            notes:
+              - "Living Crystal Blast: Struck creatures: Reflex or entangled and unable to move (a move action
+                and a Strength or Escape Artist check against DC [[10 + floor(@spheres.cl.destruction.total
+                / 2) + @spheres.cam]] frees it). The area becomes living crystal: creatures entering it save
+                or are entangled too."
+              - Living Crystal Blast costs 1 spell point on top of any enhancement.
+            automation:
+              sp: "1"
+              onFail:
+                conditions: entangled
+                conditionRounds: "10"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Living Crystal Blast
@@ -22,24 +109,7 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions:
-    - _id: QGiGbABQMlcIsrhX
-      name: Living Crystal Blast
-      actionType: save
-      activation:
-        type: standard
-        unchained:
-          cost: 2
-          type: action
-      save:
-        type: ref
-        dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
-        description: ""
-      conditionals:
-        - _id: OTCXxHEpT73GIyIs
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+  actions: []
   armorProf: []
   associations:
     classes: []
@@ -69,23 +139,21 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may spend a spell point to create a living crystal blast, covering
-      the target and their space in a mass of ever shifting and clinging
-      crystals. Your destructive blast deals piercing damage. Any creature
-      struck by the attack or that failed their Reflex saving throw if one was
-      required must succeed at a Reflex save or be entangled and unable to
-      move.</p>
+    value:
+      "<p>You may spend a spell point to create a living crystal blast, covering the target and their
+      space in a mass of ever shifting and clinging crystals. Your destructive blast deals piercing damage.
+      Any creature struck by the attack or that failed their Reflex saving throw if one was required must
+      succeed at a Reflex save or be entangled and unable to move.</p>
 
-      <p>In addition, the target&#8217;s square (or the blast&#8217;s affected
-      area) becomes overgrown with living crystal. Any creature entering an
-      affected square must succeed at a Reflex save or become entangled and
-      unable to move. Breaking free of the entangled condition is a move action,
-      requiring either a Strength check or an Escape Artist check against the
-      living crystal blast&#8217;s save DC. A target may also destroy the
-      crystal on a creature by dealing 3 damage per caster level to the crystal.
-      This removes the entangled condition from the creature. The crystal
-      disappears after 1 minute.</p>
+      <p>In addition, the target&#8217;s square (or the blast&#8217;s affected area) becomes overgrown
+      with living crystal. Any creature entering an affected square must succeed at a Reflex save or become
+      entangled and unable to move. Breaking free of the entangled condition is a move action, requiring
+      either a Strength check or an Escape Artist check against the living crystal blast&#8217;s save
+      DC. A target may also destroy the crystal on a creature by dealing 3 damage per caster level to
+      the crystal. This removes the entangled condition from the creature. The crystal disappears after
+      1 minute.</p>
+
+      "
   disabled: false
   duration:
     units: ""

@@ -3,6 +3,31 @@ _key: "!items!gt2A8c1y5qLtKbr5"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    buffTemplates:
+      imbued-strike:
+        name: Imbued Strike
+        img: icons/svg/aura.svg
+        description:
+          <p>Your weapons deal extra damage (+1, +1 per 5 magic skill bonus, maximum +5) and
+          count as magic for overcoming damage reduction. Doesn't stack with Arcane Strike.</p>
+        changes:
+          - formula: min(5, 1 + floor(@spheres.msb.total / 5))
+            target: wdamage
+            type: untyped
+            operator: add
+        contextNotes:
+          - text: "Imbued Strike: your weapons count as magic against damage reduction"
+            target: attack
+    automation:
+      d8Mj7zdnbMjAdTdl:
+        effect:
+          enabled: true
+          duration: "1"
+          units: round
+        buff:
+          itemId: tpl:imbued-strike
+          self: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Imbued Strike
@@ -23,8 +48,8 @@ system:
       activation:
         type: swift
         unchained:
-          cost: 1
           type: action
+          cost: 1
       duration:
         value: "1"
         units: round
@@ -57,21 +82,18 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p><strong>Prerequisites:</strong> Casting class feature, caster level
-      1st.</p>
+    value: "<p><strong>Prerequisites:</strong> Casting class feature, caster level 1st.</p>
 
-      <p><strong>Benefit:</strong> As a swift action, you can imbue your weapons
-      with a fraction of your power. For 1 round, your weapons deal +1 damage
-      and are treated as magic for the purpose of overcoming damage reduction.
-      For every +5 magic skill bonus you possess, this bonus increases by +1, to
-      a maximum of +5. This ability counts as Arcane Strike for the purposes of
-      qualifying or using feats, items, and abilities, and the bonus from this
-      ability does not stack with the bonus from Arcane Strike. Any feat, item,
-      or ability referencing the caster level of Arcane Strike instead uses the
-      magic skill bonus. In addition, you are considered an arcane caster for
-      the purpose of qualifying for feats that require Arcane Strike as a
-      prerequisite.</p>
+      <p><strong>Benefit:</strong> As a swift action, you can imbue your weapons with a fraction of your
+      power. For 1 round, your weapons deal +1 damage and are treated as magic for the purpose of overcoming
+      damage reduction. For every +5 magic skill bonus you possess, this bonus increases by +1, to a maximum
+      of +5. This ability counts as Arcane Strike for the purposes of qualifying or using feats, items,
+      and abilities, and the bonus from this ability does not stack with the bonus from Arcane Strike.
+      Any feat, item, or ability referencing the caster level of Arcane Strike instead uses the magic
+      skill bonus. In addition, you are considered an arcane caster for the purpose of qualifying for
+      feats that require Arcane Strike as a prerequisite.</p>
+
+      "
   disabled: false
   duration:
     units: ""

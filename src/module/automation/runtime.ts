@@ -26,6 +26,7 @@ import {
   isInoculated,
   parseConditions,
   pinCasterLevels,
+  pinCasterRefs,
   templateToItemData,
   remainingSeconds,
   saveFailed,
@@ -222,13 +223,23 @@ const buffCopy = (source, level: number, name: string, flags: object, caster?) =
   return data;
 };
 
-/** Fixes a buff's references to the caster's sphere values (caster level, casting modifier, MSB/MSD) */
+/**
+ * Fixes a buff's references to the caster's sphere values (caster level, casting modifier, MSB/MSD)
+ * and its @caster.<path> references to the caster's roll data
+ */
 const pinBuffLevels = (data, caster) => {
-  const spheres = caster.getRollData?.()?.spheres ?? caster.system?.spheres ?? {};
+  const rd = caster.getRollData?.() ?? {};
+  const spheres = rd.spheres ?? caster.system?.spheres ?? {};
   const value = (path: string) => Number(foundry.utils.getProperty(spheres, path) ?? 0) || 0;
-  for (const c of data.system?.changes ?? []) c.formula = pinCasterLevels(c.formula, value);
-  for (const n of data.system?.contextNotes ?? []) n.text = pinCasterLevels(n.text, value);
+  const own = casterLookup(rd);
+  const pin = (text) => pinCasterRefs(pinCasterLevels(text, value), own);
+  for (const c of data.system?.changes ?? []) c.formula = pin(c.formula);
+  for (const n of data.system?.contextNotes ?? []) n.text = pin(n.text);
 };
+
+/** Reads a number from a caster's roll data, for @caster.<path> references */
+const casterLookup = (rd) => (path: string) =>
+  Number(foundry.utils.getProperty(rd ?? {}, path) ?? 0) || 0;
 
 /**
  * The buff a request refers to, resolved on the GM's client from the caster's own item: a player's
@@ -764,7 +775,11 @@ function onPreActionUse(au) {
     }
   }
   // Buffs, areas and marks are written by the GM's client; without one, refuse before anything is paid
-  const needsGM = auto.buff?.itemId || auto.zone?.enabled || auto.mark?.label;
+  const needsGM =
+    auto.buff?.itemId ||
+    auto.zone?.enabled ||
+    auto.mark?.label ||
+    (auto.tempHp?.formula?.trim() && auto.tempHp.who === "targets");
   if (needsGM && !game.user.isGM && !game.users.activeGM) {
     ui.notifications.warn(localize("NeedGM"));
     return false;
@@ -803,6 +818,21 @@ async function onPostActionUse(au) {
       turn: c?.turn ?? 0,
       time: game.time.worldTime,
     });
+  }
+
+  if (auto.tempHp?.formula?.trim()) {
+    if (auto.tempHp.who === "targets") {
+      const uuids = (au.shared.targets ?? []).map((t) => t.actor?.uuid).filter(Boolean);
+      if (uuids.length)
+        await requestGM({
+          action: "auto.tempHp",
+          casterUuid: actor.uuid,
+          itemUuid: item.uuid,
+          actionId: action.id,
+          targetUuids: [...new Set(uuids)],
+        });
+      else await giveTempHp(actor, actor, auto.tempHp, actor);
+    } else await giveTempHp(actor, actor, auto.tempHp, actor);
   }
 
   const wantsEffect =
@@ -861,16 +891,17 @@ async function onPostActionUse(au) {
     });
   } else if (buff) {
     const uuids = targets.map((t) => t.actor?.uuid).filter(Boolean);
-    if (auto.buff.self || !uuids.length) uuids.push(actor.uuid);
-    await requestGM({
-      action: "auto.buff",
-      casterUuid: actor.uuid,
-      itemUuid: item.uuid,
-      buffRef: auto.buff?.itemId,
-      level,
-      targetUuids: [...new Set(uuids)],
-      effectId: effect.id,
-    });
+    if (auto.buff.self || (!uuids.length && !auto.buff.others)) uuids.push(actor.uuid);
+    if (uuids.length)
+      await requestGM({
+        action: "auto.buff",
+        casterUuid: actor.uuid,
+        itemUuid: item.uuid,
+        buffRef: auto.buff?.itemId,
+        level,
+        targetUuids: [...new Set(uuids)],
+        effectId: effect.id,
+      });
   }
 
   if (auto.mark?.label && targets.length && token) {
@@ -890,6 +921,52 @@ async function onPostActionUse(au) {
         squadron: auto.mark.squadron === true,
       },
     });
+  }
+}
+
+/* ---------- temporary hit points ---------- */
+
+/**
+ * Rolls temporary hit points for a creature (the caster's @caster.<path> references pinned first, the
+ * rest from the creature's own roll data). They're added to what it has when they stack; otherwise the
+ * higher of the two is kept, as temporary hit points from different sources don't stack.
+ */
+async function giveTempHp(caster, target, spec: { formula?: string; stack?: boolean }, speaker) {
+  const formula = spec.formula ?? "";
+  const text = pinCasterRefs(formula, casterLookup(caster.getRollData()));
+  let total = 0;
+  try {
+    total = Math.floor((await new Roll(text, target.getRollData()).evaluate()).total);
+  } catch (err) {
+    console.warn(`${MODULE_ID} | temporary hp formula "${formula}"`, err);
+    return;
+  }
+  if (!(total > 0)) return;
+  const had = Number(target.system.attributes?.hp?.temp) || 0;
+  const now = spec.stack ? had + total : Math.max(had, total);
+  if (now > had) await target.update({ "system.attributes.hp.temp": now });
+  await ChatMessage.create({
+    speaker: ChatMessage.getSpeaker({ actor: speaker }),
+    content: `<p>${fmt(now > had ? "TempHpGained" : "TempHpKept", {
+      name: target.token?.name ?? target.name,
+      value: now,
+      rolled: total,
+      had,
+    })}</p>`,
+  });
+}
+
+/** A player's action giving temporary hp to its targets; the formula is read from the caster's own item */
+async function applyTempHp(msg, user) {
+  const caster = fromUuidSync(msg.casterUuid);
+  if (!userOwns(user, caster)) return;
+  const item = msg.itemUuid ? fromUuidSync(msg.itemUuid) : null;
+  if (!item || item.actor?.uuid !== caster.uuid) return;
+  const spec = getAutomation(item, msg.actionId)?.tempHp;
+  if (!spec?.formula?.trim()) return;
+  for (const uuid of msg.targetUuids ?? []) {
+    const target = fromUuidSync(uuid);
+    if (target) await giveTempHp(caster, target, spec, caster);
   }
 }
 
@@ -1321,6 +1398,7 @@ function onPreAttackRoll(action, _config, _rollData, rollOptions) {
 export const registerAutomation = () => {
   registerSocketHandler("auto.cleanup", cleanupEffect);
   registerSocketHandler("auto.buff", applyBuff);
+  registerSocketHandler("auto.tempHp", applyTempHp);
   registerSocketHandler("auto.zone", async (msg, user) => {
     await createZone(msg, user);
     queueZones(game.scenes.get(msg.sceneId));

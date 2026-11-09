@@ -5,6 +5,12 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: berserker
+    automation:
+      4N2GsfCfiDINxzXE:
+        focus: require
+        tempHp:
+          formula: "@attributes.bab.total"
+          stack: true
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/berserker.webp
 name: Sanguine Invigoration
@@ -30,6 +36,11 @@ system:
       duration:
         value: "1"
         units: round
+      notes:
+        footer:
+          - "With martial focus, when your melee or thrown weapon attack drops a creature (CR at least half
+            your level): temporary hit points equal to your base attack bonus for 1 round, stacking with the
+            Berserker sphere's. You may also expend focus to remove fatigue or ease exhaustion to fatigue."
   armorProf: []
   associations:
     classes: []

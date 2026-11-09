@@ -5,6 +5,73 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: destruction
+    grants:
+      - key: blast:alkali-blast
+        target: Destruction Sphere
+        variants:
+          - name: Alkali Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d4
+                    types:
+                      - acid
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d4
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - acid
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+            notes:
+              - "Alkali Blast: Free trip at range against each creature struck, CMB [[@spheres.cl.destruction.total
+                + @spheres.cam]]."
+      - key: blast:alkali-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Alkali Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d4
+                    types:
+                      - acid
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d4
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - acid
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+            notes:
+              - "Alkali Blast: Free trip at range against each creature struck, CMB [[@spheres.cl.destruction.total
+                + @spheres.cam]]."
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Alkali Blast
@@ -18,19 +85,7 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions:
-    - _id: m1CiAhzCueQpBenQ
-      name: Alkali Blast
-      actionType: save
-      activation:
-        type: free
-        unchained:
-          cost: 1
-          type: free
-      save:
-        type: ref
-        dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
-        description: ""
+  actions: []
   armorProf: []
   associations:
     classes: []
@@ -60,12 +115,13 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Your destructive blast deals acid damage, using d4 instead of d6 as its
-      damage die. You may make a trip attempt as a free action at range against
-      the target or targets struck by your alkali blast or that failed their
-      Reflex saving throw if one was required. Your CMB for this check is equal
+    value:
+      "<p>Your destructive blast deals acid damage, using d4 instead of d6 as its damage die. You
+      may make a trip attempt as a free action at range against the target or targets struck by your alkali
+      blast or that failed their Reflex saving throw if one was required. Your CMB for this check is equal
       to your caster level + your casting ability modifier.</p>
+
+      "
   disabled: false
   duration:
     units: ""

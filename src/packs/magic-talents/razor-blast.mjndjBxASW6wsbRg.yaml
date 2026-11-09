@@ -5,6 +5,91 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: destruction
+    grants:
+      - key: blast:razor-blast
+        target: Destruction Sphere
+        variants:
+          - name: Razor Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d4
+                    types:
+                      - slashing
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d4
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - slashing
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+              save:
+                type: ref
+                dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+                description: Reflex negates the effect
+            notes:
+              - "Razor Blast: Struck creatures: Reflex or speed halved. Affected squares fill with crystal shards:
+                moving through needs a Reflex save or 1 damage and half speed."
+            automation:
+              onFail:
+                note:
+                  Speed halved for 24 hours, or until it receives magical healing, fast healing or regeneration
+                  (or is treated as a caltrop wound).
+      - key: blast:razor-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Razor Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d4
+                    types:
+                      - slashing
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d4
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - slashing
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+              save:
+                type: ref
+                dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+                description: Reflex negates the effect
+            notes:
+              - "Razor Blast: Struck creatures: Reflex or speed halved. Affected squares fill with crystal shards:
+                moving through needs a Reflex save or 1 damage and half speed."
+            automation:
+              onFail:
+                note:
+                  Speed halved for 24 hours, or until it receives magical healing, fast healing or regeneration
+                  (or is treated as a caltrop wound).
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Razor Blast
@@ -48,25 +133,23 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You craft your destructive blast into a series of jagged crystal
-      shards, dealing slashing damage and using d4 instead of d6 as its damage
-      die. Any creature struck by the attack or that failed their Reflex saving
-      throw if one was required must succeed at a Reflex save or have its
-      movement speed reduced in half until 24 hours pass, or it receives at
-      least 1 point of fast healing/magical healing/regeneration. This effect
-      may also be healed as a caltrop wound. In addition, every space affected
-      by the razor blast becomes covered in jagged crystals. Any creature who
-      moves over such a space must succeed at a Reflex save or suffer 1 point of
-      damage and have its speed reduced by half, as detailed above.</p>
+    value:
+      "<p>You craft your destructive blast into a series of jagged crystal shards, dealing slashing
+      damage and using d4 instead of d6 as its damage die. Any creature struck by the attack or that failed
+      their Reflex saving throw if one was required must succeed at a Reflex save or have its movement
+      speed reduced in half until 24 hours pass, or it receives at least 1 point of fast healing/magical
+      healing/regeneration. This effect may also be healed as a caltrop wound. In addition, every space
+      affected by the razor blast becomes covered in jagged crystals. Any creature who moves over such
+      a space must succeed at a Reflex save or suffer 1 point of damage and have its speed reduced by
+      half, as detailed above.</p>
 
-      <p>A charging or running creature must immediately stop if it fails this
-      saving throw. Any creature moving at half speed or slower can pick its way
-      through the area with no trouble. A creature need only attempt one saving
-      throw per round to avoid this effect, no matter how many affected spaces
-      they cross over that round. Crystals can also be destroyed by dealing 1
-      point of damage per caster level to the crystal in a particular space.
-      Crystal also disappears after 1 minute.</p>
+      <p>A charging or running creature must immediately stop if it fails this saving throw. Any creature
+      moving at half speed or slower can pick its way through the area with no trouble. A creature need
+      only attempt one saving throw per round to avoid this effect, no matter how many affected spaces
+      they cross over that round. Crystals can also be destroyed by dealing 1 point of damage per caster
+      level to the crystal in a particular space. Crystal also disappears after 1 minute.</p>
+
+      "
   disabled: false
   duration:
     units: ""

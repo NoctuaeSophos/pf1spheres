@@ -5,6 +5,73 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: destruction
+    grants:
+      - key: blast:acid-blast
+        target: Destruction Sphere
+        variants:
+          - name: Acid Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - acid
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - acid
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+            notes:
+              - "Acid Blast: Creatures struck take 1 acid damage per damage die ([[ceil(@spheres.cl.destruction.total
+                / 2)]], or [[max(2, @spheres.cl.destruction.total)]] enhanced) the following round."
+      - key: blast:acid-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Acid Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - acid
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - acid
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+            notes:
+              - "Acid Blast: Creatures struck take 1 acid damage per damage die ([[ceil(@spheres.cl.destruction.total
+                / 2)]], or [[max(2, @spheres.cl.destruction.total)]] enhanced) the following round."
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Acid Blast
@@ -48,10 +115,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Your destructive blast deals acid damage. Any creature struck by the
-      attack or that failed their Reflex saving throw if one was required
-      suffers 1 point of acid damage per damage die the following round.</p>
+    value:
+      "<p>Your destructive blast deals acid damage. Any creature struck by the attack or that failed
+      their Reflex saving throw if one was required suffers 1 point of acid damage per damage die the
+      following round.</p>
+
+      "
   disabled: false
   duration:
     units: ""

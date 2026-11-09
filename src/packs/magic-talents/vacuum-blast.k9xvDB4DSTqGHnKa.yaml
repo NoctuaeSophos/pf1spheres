@@ -5,6 +5,73 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: destruction
+    grants:
+      - key: blast:vacuum-blast
+        target: Destruction Sphere
+        variants:
+          - name: Vacuum Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - bludgeoning
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - bludgeoning
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+            notes:
+              - "Vacuum Blast: Free drag at range against each creature struck, CMB [[@spheres.cl.destruction.total
+                + @spheres.cam]], toward the blast's origin; a target pulled into a surface falls prone."
+      - key: blast:vacuum-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Vacuum Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - bludgeoning
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - bludgeoning
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+            notes:
+              - "Vacuum Blast: Free drag at range against each creature struck, CMB [[@spheres.cl.destruction.total
+                + @spheres.cam]], toward the blast's origin; a target pulled into a surface falls prone."
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Vacuum Blast
@@ -18,19 +85,7 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions:
-    - _id: YKv6BvCrkxrL3rql
-      name: Vacuum Blast
-      actionType: save
-      activation:
-        type: free
-        unchained:
-          cost: 1
-          type: free
-      save:
-        type: ref
-        dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
-        description: ""
+  actions: []
   armorProf: []
   associations:
     classes: []
@@ -60,29 +115,25 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Your destructive blast creates a pocket of empty space that pulls
-      things in, dealing bludgeoning damage. You may make a drag combat maneuver
-      as a free action at range against any creature struck by the attack or
-      that failed their Reflex saving throw if one was required. Your CMB for
-      this check is your caster level + your casting ability modifier, and all
-      targets are dragged towards the point of origin of the effect. You do not
-      move with the targets of your drag.</p>
+    value:
+      "<p>Your destructive blast creates a pocket of empty space that pulls things in, dealing bludgeoning
+      damage. You may make a drag combat maneuver as a free action at range against any creature struck
+      by the attack or that failed their Reflex saving throw if one was required. Your CMB for this check
+      is your caster level + your casting ability modifier, and all targets are dragged towards the point
+      of origin of the effect. You do not move with the targets of your drag.</p>
 
-      <p>Targets are typically dragged towards the caster, but if using a talent
-      such as Explosive Orb, the point of origin is the center of the blast. If
-      using Energy Wall, each square of wall is considered the point of origin
-      for those who enter that section. If using Guided Strike, you may choose
-      which direction to pull the target, even pushing them up or down. A target
-      pulled into the ground, or a horizontal surface, is knocked prone if they
-      would have continued past the surface.</p>
+      <p>Targets are typically dragged towards the caster, but if using a talent such as Explosive Orb,
+      the point of origin is the center of the blast. If using Energy Wall, each square of wall is considered
+      the point of origin for those who enter that section. If using Guided Strike, you may choose which
+      direction to pull the target, even pushing them up or down. A target pulled into the ground, or
+      a horizontal surface, is knocked prone if they would have continued past the surface.</p>
 
-      <p>If the target is knocked into a solid object, they suffer 1d6
-      bludgeoning damage, +1d6 for every 5 feet they would have continued past
-      the solid object.</p>
+      <p>If the target is knocked into a solid object, they suffer 1d6 bludgeoning damage, +1d6 for every
+      5 feet they would have continued past the solid object.</p>
 
-      <p>Gaseous creatures are considered vulnerable to the damage dealt by this
-      blast.</p>
+      <p>Gaseous creatures are considered vulnerable to the damage dealt by this blast.</p>
+
+      "
   disabled: false
   duration:
     units: ""

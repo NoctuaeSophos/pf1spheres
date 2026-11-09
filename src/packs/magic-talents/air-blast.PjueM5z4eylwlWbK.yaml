@@ -5,6 +5,77 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: destruction
+    grants:
+      - key: blast:air-blast
+        target: Destruction Sphere
+        variants:
+          - name: Air Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - bludgeoning
+                      - nonlethal
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - bludgeoning
+                        - nonlethal
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+            notes:
+              - "Air Blast: Free bull rush at range against each creature struck, CMB [[@spheres.cl.destruction.total
+                + @spheres.cam]], pushed away from the blast's origin."
+      - key: blast:air-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Air Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+                    types:
+                      - bludgeoning
+                      - nonlethal
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - bludgeoning
+                        - nonlethal
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+            notes:
+              - "Air Blast: Free bull rush at range against each creature struck, CMB [[@spheres.cl.destruction.total
+                + @spheres.cam]], pushed away from the blast's origin."
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Air Blast
@@ -18,19 +89,7 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions:
-    - _id: kibjL5DZPjN0MEQ7
-      name: Air Blast
-      actionType: save
-      activation:
-        type: free
-        unchained:
-          cost: 1
-          type: free
-      save:
-        type: ref
-        dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
-        description: ""
+  actions: []
   armorProf: []
   associations:
     classes: []
@@ -60,24 +119,22 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may change your destructive blast into a blast of air. An air blast
-      deals nonlethal bludgeoning damage. You may make a bull rush as a free
-      action at range against the target or targets struck by your air blast or
-      that failed their Reflex saving throw if one was required. Your CMB for
-      this check is your caster level + your casting ability modifier, and all
-      targets are pushed from the point of origin of the effect. (This is
-      usually yourself, but if using a talent such as Explosive Orb, it would be
-      the center of the blast. If using Energy Wall, each square of wall is
-      considered the center of effect for those who enter that section. If using
-      Guided Strike, you may choose from which direction you want to push the
-      target, even pushing them up or down if you should desire. Pushing a
-      target into the ground knocks them prone if the bull rush is
-      successful.)</p>
+    value:
+      "<p>You may change your destructive blast into a blast of air. An air blast deals nonlethal
+      bludgeoning damage. You may make a bull rush as a free action at range against the target or targets
+      struck by your air blast or that failed their Reflex saving throw if one was required. Your CMB
+      for this check is your caster level + your casting ability modifier, and all targets are pushed
+      from the point of origin of the effect. (This is usually yourself, but if using a talent such as
+      Explosive Orb, it would be the center of the blast. If using Energy Wall, each square of wall is
+      considered the center of effect for those who enter that section. If using Guided Strike, you may
+      choose from which direction you want to push the target, even pushing them up or down if you should
+      desire. Pushing a target into the ground knocks them prone if the bull rush is successful.)</p>
 
-      <p>If the target is knocked into a solid object, they suffer 1d6
-      bludgeoning damage, +1d6 for every 5 feet they would have continued past
-      the barrier. You do not move with the targets of your bull rush.</p>
+      <p>If the target is knocked into a solid object, they suffer 1d6 bludgeoning damage, +1d6 for every
+      5 feet they would have continued past the barrier. You do not move with the targets of your bull
+      rush.</p>
+
+      "
   disabled: false
   duration:
     units: ""

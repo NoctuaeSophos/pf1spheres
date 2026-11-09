@@ -42,6 +42,7 @@ import {
   edgeCrossing,
   effectLabel,
   pinCasterLevels,
+  pinCasterRefs,
   withoutLabel,
   undeadHDLimit,
   killingCurseCount,
@@ -421,6 +422,22 @@ describe("wards and totems", () => {
       "DC [[10 + 4]] MSD [[20]]",
     );
     expect(pinCasterLevels("@spheres.sequence.length", look)).toBe("@spheres.sequence.length");
+  });
+  it("pins @caster references to the caster's roll data", () => {
+    const v = { "classes.bard.level": 13, "details.mythicTier": 5 };
+    const look = (p) => v[p] ?? 0;
+    expect(pinCasterRefs("1 + floor((@caster.classes.bard.level + 1) / 6)", look)).toBe(
+      "1 + floor((13 + 1) / 6)",
+    );
+    expect(pinCasterRefs("@caster.details.mythicTier.", look)).toBe("5.");
+    expect(pinCasterRefs("2d10 + 2 * @abilities.con.mod", look)).toBe(
+      "2d10 + 2 * @abilities.con.mod",
+    );
+    expect(pinCasterRefs("@caster.nothing.here", look)).toBe("0");
+  });
+  it("counts temporary hit points as automation", () => {
+    expect(hasAutomation({ tempHp: { formula: "@attributes.bab.total" } })).toBe(true);
+    expect(hasAutomation({ tempHp: { formula: " " } })).toBe(false);
   });
 });
 

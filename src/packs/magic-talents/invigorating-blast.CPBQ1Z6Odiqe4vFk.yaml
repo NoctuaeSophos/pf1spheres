@@ -4,11 +4,96 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
-    automation:
-      AanJenGGQhW1pQhR:
-        condSp:
-          s7gmRLTQardBfru5: 1
     sphere: destruction
+    grants:
+      - key: blast:invigorating-blast
+        target: Destruction Sphere
+        variants:
+          - name: Invigorating Blast
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d4
+                    types:
+                      - positive
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d4
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - positive
+              notes:
+                footer:
+                  - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+                    bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape)
+                    per blast."
+              save:
+                type: fort
+                dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+                description: Fortitude negates the effect
+            notes:
+              - "Invigorating Blast: Damages only non-living creatures. Living creatures instead gain that many
+                temporary hit points (up to their maximum hp) for 1 hour, and must make the Fortitude save or
+                be dazed for 1 round."
+              - Invigorating Blast costs 1 spell point on top of any enhancement.
+            automation:
+              sp: "1"
+              onFail:
+                conditions: dazed
+                conditionRounds: "1"
+      - key: blast:invigorating-blast:melee
+        target: Destruction Sphere
+        variants:
+          - name: Invigorating Blast (melee)
+            action:
+              damage:
+                parts:
+                  - formula: (ceil(@spheres.cl.destruction.total / 2))d4
+                    types:
+                      - positive
+              conditionals:
+                - _id: HRXuoAzKghxE5S2B
+                  name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+                  default: false
+                  modifiers:
+                    - _id: GhIETS9oXiadwTO0
+                      formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d4
+                      target: damage
+                      subTarget: allDamage
+                      type: untyped
+                      critical: normal
+                      damageType:
+                        - positive
+              notes:
+                footer:
+                  - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not
+                    other damage reduction. One (blast type) and one (blast shape) per blast."
+              actionType: msak
+              range:
+                units: melee
+              ability:
+                attack: str
+              save:
+                type: fort
+                dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
+                description: Fortitude negates the effect
+            notes:
+              - "Invigorating Blast: Damages only non-living creatures. Living creatures instead gain that many
+                temporary hit points (up to their maximum hp) for 1 hour, and must make the Fortitude save or
+                be dazed for 1 round."
+              - Invigorating Blast costs 1 spell point on top of any enhancement.
+            automation:
+              sp: "1"
+              onFail:
+                conditions: dazed
+                conditionRounds: "1"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Invigorating Blast
@@ -22,27 +107,7 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions:
-    - _id: AanJenGGQhW1pQhR
-      name: Invigorating Blast
-      actionType: save
-      activation:
-        type: standard
-        unchained:
-          cost: 2
-          type: action
-      save:
-        type: fort
-        dc: 10 + floor(@spheres.cl.destruction.total / 2) + @spheres.cam
-        description: ""
-      duration:
-        value: "1"
-        units: hour
-      conditionals:
-        - _id: s7gmRLTQardBfru5
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+  actions: []
   armorProf: []
   associations:
     classes: []
@@ -72,13 +137,13 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may spend a spell point to have your destructive blast deal
-      positive energy damage to non-living creatures using d4 instead of d6 as
-      its damage die. Living creatures instead of taking damage gain an equal
-      number of temporary hit points (which cannot exceed their maximum hit
-      points) which last for 1 hour, but also must succeed at a Fortitude save
-      or become dazed for 1 round.</p>
+    value:
+      "<p>You may spend a spell point to have your destructive blast deal positive energy damage
+      to non-living creatures using d4 instead of d6 as its damage die. Living creatures instead of taking
+      damage gain an equal number of temporary hit points (which cannot exceed their maximum hit points)
+      which last for 1 hour, but also must succeed at a Fortitude save or become dazed for 1 round.</p>
+
+      "
   disabled: false
   duration:
     units: ""

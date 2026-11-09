@@ -6,6 +6,34 @@ flags:
   pf1spheres:
     addedIn: fork
     sphere: death
+    buffTemplates:
+      precipice:
+        name: Precipice of Mortality
+        img: icons/svg/aura.svg
+        description:
+          "<p>After being healed: a profane bonus on attack and damage rolls (+1, +1 per 6
+          mageknight levels) for 1 minute.</p>"
+        changes:
+          - formula: 1 + floor(@item.level / 6)
+            target: attack
+            type: profane
+            operator: add
+          - formula: 1 + floor(@item.level / 6)
+            target: damage
+            type: profane
+            operator: add
+        contextNotes: []
+    automation:
+      xe9FqH748j5dz9iy:
+        sp: "1"
+        effect:
+          enabled: true
+          duration: "1"
+          units: minute
+        buff:
+          itemId: tpl:precipice
+          self: true
+          level: "@classes.mageknight.level"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Precipice of Mortality
@@ -19,7 +47,23 @@ system:
     damageMult: 1
   abilityType: su
   acquired: false
-  actions: []
+  actions:
+    - _id: xe9FqH748j5dz9iy
+      name: Precipice of Mortality
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          type: reaction
+          cost: 1
+      range:
+        units: personal
+      duration:
+        value: "1"
+        units: minute
+      notes:
+        footer:
+          - Use when you are healed (positive and negative energy both heal you and neither harms you).
   armorProf: []
   associations:
     classes: []

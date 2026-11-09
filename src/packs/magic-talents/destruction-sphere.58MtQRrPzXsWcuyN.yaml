@@ -6,6 +6,13 @@ flags:
   pf1spheres:
     addedIn: fork
     sphere: destruction
+    automation:
+      cII9ERniPxDNPXbF:
+        condSp:
+          HRXuoAzKghxE5S2B: 1
+      LLRcqDMtX5tjPPCK:
+        condSp:
+          HRXuoAzKghxE5S2B: 1
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/destruction.webp
 name: Destruction Sphere
@@ -19,7 +26,77 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: cII9ERniPxDNPXbF
+      name: Destructive Blast
+      actionType: rsak
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: close
+      touch: true
+      ability:
+        attack: dex
+      damage:
+        parts:
+          - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+            types:
+              - bludgeoning
+      conditionals:
+        - _id: HRXuoAzKghxE5S2B
+          name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+          default: false
+          modifiers:
+            - _id: GhIETS9oXiadwTO0
+              formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+              target: damage
+              subTarget: allDamage
+              type: untyped
+              critical: normal
+              damageType:
+                - bludgeoning
+      notes:
+        footer:
+          - "Ranged touch within close range; counts as a ray. Destructive blast: subject to spell resistance;
+            bypasses DR/magic but not other damage reduction. One (blast type) and one (blast shape) per blast."
+    - _id: LLRcqDMtX5tjPPCK
+      name: Destructive Blast (melee)
+      actionType: msak
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: melee
+      touch: true
+      ability:
+        attack: str
+      damage:
+        parts:
+          - formula: (ceil(@spheres.cl.destruction.total / 2))d6
+            types:
+              - bludgeoning
+      conditionals:
+        - _id: HRXuoAzKghxE5S2B
+          name: "Spend 1 spell point: one damage die per caster level (minimum 2)"
+          default: false
+          modifiers:
+            - _id: GhIETS9oXiadwTO0
+              formula: (max(2, @spheres.cl.destruction.total) - ceil(@spheres.cl.destruction.total / 2))d6
+              target: damage
+              subTarget: allDamage
+              type: untyped
+              critical: normal
+              damageType:
+                - bludgeoning
+      notes:
+        footer:
+          - "Melee touch. Destructive blast: subject to spell resistance; bypasses DR/magic but not other
+            damage reduction. One (blast type) and one (blast shape) per blast."
   armorProf: []
   associations:
     classes: []
@@ -49,11 +126,11 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: "<p>You possess the Destruction magic sphere. Gaining a sphere costs one
-      talent, so this item counts toward your Destruction talents; tick <em>Exclude
-      from Talent Count</em> if the sphere was granted as a bonus (by a class feature,
-      tradition or drawback).</p><p>Base sphere abilities, packages and drawbacks:
-      @UUID[Compendium.pf1spheres.rules.JournalEntry.pcgrw2W6ZhS3GmIA.JournalEntryPage.gmVbVv1G4Yjvctpk]{Destruction
+    value:
+      "<p>You possess the Destruction magic sphere. Gaining a sphere costs one talent, so this item
+      counts toward your Destruction talents; tick <em>Exclude from Talent Count</em> if the sphere was
+      granted as a bonus (by a class feature, tradition or drawback).</p><p>Base sphere abilities, packages
+      and drawbacks: @UUID[Compendium.pf1spheres.rules.JournalEntry.pcgrw2W6ZhS3GmIA.JournalEntryPage.gmVbVv1G4Yjvctpk]{Destruction
       sphere rules}.</p>"
   disabled: false
   duration:
