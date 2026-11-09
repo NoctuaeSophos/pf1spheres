@@ -111,6 +111,12 @@ SPDX-License-Identifier: EUPL-1.2
             </li>
         {{/each }}
         </ol>
+        {{#each drawbacks as |g| }}
+        <div class="flexrow tradition drawback-group">
+            <span class="tradition-kind">{{ g.label }}</span>
+            <span class="tradition-members">{{#each g.items as |d| }}<span class="tradition-member"><a class="pf1s-open-item" data-item-id="{{ d.id }}">{{ d.name }}</a>{{#if d.sphere }} ({{ d.sphere }}){{/if }}</span>{{/each }}</span>
+        </div>
+        {{/each }}
     </div>
     <!-- Spheres with their name, talent count, CL, and talent collabpsible -->
     <ol class="spheres-list">

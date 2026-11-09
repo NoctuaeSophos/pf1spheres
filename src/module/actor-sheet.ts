@@ -90,7 +90,11 @@ export const onActorSheetRender: (
   const renderedTemplate = getRenderedSpheresTab(renderData);
   const spheresBody = body.append($(renderedTemplate));
   activateListeners(app, spheresBody, actor);
-  // Traditions and their members are shown on the Spheres tab instead of crowding the Features list
+  // Traditions, their members and loose drawbacks are shown on the Spheres tab instead of crowding Features
+  for (const g of renderData.drawbacks) {
+    for (const d of g.items)
+      html.find(`.tab[data-tab='feats'] .item[data-item-id='${d.id}']`).remove();
+  }
   for (const t of renderData.traditions) {
     for (const id of [t.id, ...t.members.map((m: { id: string }) => m.id)]) {
       html.find(`.tab[data-tab='feats'] .item[data-item-id='${id}']`).remove();
@@ -132,16 +136,14 @@ const addNavTab = (app: ActorSheetPF, html: JQuery<HTMLElement>) => {
 const getTraditions = (actor: ActorPF) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const items = (actor as any).items.contents as any[];
-  const traditions = items.filter((i) =>
-    ["martial", "casting"].includes(i.flags?.pf1spheres?.tradition),
-  );
+  const traditions = items.filter((i) => traditionKind(i) !== null);
   const inAny = new Set(traditions.flatMap((t) => traditionMemberIds(t)));
   // Features and talents not in any tradition, to pick from
   const candidates = items
     .filter(
       (i) =>
         i.type === "feat" &&
-        !i.flags?.pf1spheres?.tradition &&
+        traditionKind(i) === null &&
         !i.flags?.pf1spheres?.spellPool &&
         !inAny.has(i.id),
     )
@@ -151,10 +153,8 @@ const getTraditions = (actor: ActorPF) => {
     id: t.id,
     name: t.name,
     img: t.img,
-    kind: t.flags.pf1spheres.tradition,
-    kindLabel: localize(
-      t.flags.pf1spheres.tradition === "martial" ? "MartialTradition" : "CastingTradition",
-    ),
+    kind: traditionKind(t),
+    kindLabel: localize(traditionKind(t) === "martial" ? "MartialTradition" : "CastingTradition"),
     members: traditionMemberIds(t)
       .map((id) => items.find((i) => i.id === id))
       .filter(Boolean)
@@ -165,6 +165,66 @@ const getTraditions = (actor: ActorPF) => {
       })),
     candidates,
   }));
+};
+
+/** A tradition item's kind: from the module's flag, or from the compendium's tag */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const traditionKind = (i: any): "martial" | "casting" | null => {
+  const flag = i.flags?.pf1spheres?.tradition;
+  if (flag === "martial" || flag === "casting") return flag;
+  const tags: string[] = i.system?.tags ?? [];
+  if (tags.includes("Martial Tradition")) return "martial";
+  if (tags.includes("Casting Tradition")) return "casting";
+  return null;
+};
+
+/**
+ * Sphere drawbacks and casting drawbacks and boons that aren't in a tradition: shown with the
+ * traditions instead of in Features. Mythic tradition drawbacks stay with the mythic abilities.
+ *
+ * @param actor - The actor
+ * @param inTraditions - Ids already shown as tradition members
+ */
+const getDrawbacks = (actor: ActorPF, inTraditions: Set<string>) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const items = (actor as any).items.contents as any[];
+  const groups = [
+    {
+      key: "sphere",
+      label: localize("SphereDrawbacks"),
+      test: (t: string[]) => t.includes("Sphere Drawback"),
+    },
+    {
+      key: "casting",
+      label: localize("CastingDrawbacks"),
+      test: (t: string[]) => t.includes("Casting Drawback") || t.includes("Casting Boon"),
+    },
+  ];
+  const sphereLabel = (key: string | undefined) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const all = {
+      ...(pf1s.config as any).magicSpheres,
+      ...(pf1s.config as any).combatSpheres,
+      ...(pf1s.config as any).skillSpheres,
+    };
+    return key && all[key] ? getGame().i18n.localize(all[key].label ?? all[key]) : "";
+  };
+  return groups
+    .map((g) => ({
+      label: g.label,
+      items: items
+        .filter(
+          (i) =>
+            i.type === "feat" &&
+            i.system.subType !== "mythic" &&
+            !inTraditions.has(i.id) &&
+            traditionKind(i) === null &&
+            g.test(i.system?.tags ?? []),
+        )
+        .map((i) => ({ id: i.id, name: i.name, sphere: sphereLabel(i.flags?.pf1spheres?.sphere) }))
+        .sort((a, b) => a.name.localeCompare(b.name)),
+    }))
+    .filter((g) => g.items.length);
 };
 
 /**
@@ -189,7 +249,7 @@ const addMember = (actor: any, traditionId: string, itemId: string) => {
   if (!t || !itemId || itemId === traditionId || !actor.items.get(itemId)) return;
   // An item belongs to one tradition at a time
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  for (const other of actor.items.filter((i: any) => i.flags?.pf1spheres?.tradition && i !== t)) {
+  for (const other of actor.items.filter((i: any) => traditionKind(i) !== null && i !== t)) {
     const ids = traditionMemberIds(other);
     if (ids.includes(itemId))
       setMembers(
@@ -438,6 +498,12 @@ const getSpheresData = (app: ActorSheetPF, actor: ActorPF): SpheresTemplateData 
           }
         : null,
     traditions: getTraditions(actor),
+    drawbacks: getDrawbacks(
+      actor,
+      new Set(
+        getTraditions(actor).flatMap((t) => [t.id, ...t.members.map((m: { id: string }) => m.id)]),
+      ),
+    ),
     inoculations: getInoculations(actor),
     sphereCLs,
     sphereBabs,
@@ -654,6 +720,7 @@ export declare class ActorSheetPF extends ActorSheet {
 
 interface SpheresTemplateData {
   dataGroup: string;
+  drawbacks: ReturnType<typeof getDrawbacks>;
   inoculations: ReturnType<typeof getInoculations>;
   traditions: ReturnType<typeof getTraditions>;
   attributeGrid: AttributeData[];
