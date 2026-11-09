@@ -13,6 +13,8 @@ import { DEFAULT_WEATHER, getWeatherEffects, normaliseWeather } from "./conditio
 import type { WeatherEffects, WeatherState } from "./conditions";
 import { castCost, getWeatherCaster, reduceWeather, validateCast } from "./caster";
 import { isGMWriter, registerSocketHandler, requestGM, userOwns } from "../socket";
+import { mountWeatherChart } from "./chart";
+import { openCasterWeather } from "./caster-app";
 
 /** Scene flag holding the weather sliders, whether they apply to tokens, and who controls them */
 export const WEATHER_FLAG = "weather";
@@ -365,6 +367,7 @@ export class WeatherApp extends foundry.applications.api.HandlebarsApplicationMi
       lightning: WeatherApp.#onLightning,
       release: WeatherApp.#onRelease,
       reset: WeatherApp.#onReset,
+      openCaster: WeatherApp.#onOpenCaster,
     },
   };
 
@@ -381,8 +384,18 @@ export class WeatherApp extends foundry.applications.api.HandlebarsApplicationMi
     this.scene ??= canvas?.scene ?? game.scenes.viewed;
     const weather = getSceneWeather(this.scene);
     const effects = getWeatherEffects(weather);
+    // Players see the scene's weather; only the GM edits it here. Players who own a Control Weather
+    // caster get a button to that caster's panel, which changes it by the spell's rules.
+    const readonly = !game.user.isGM;
+    const casters = readonly
+      ? game.actors
+          .filter((a) => a.isOwner && a.type === "character" && getWeatherCaster(a))
+          .map((a) => ({ uuid: a.uuid, name: a.name }))
+      : [];
     return {
       scene: this.scene,
+      readonly,
+      casters,
       weather,
       sliders: weatherSliders(weather, effects, { wind: [1, 7], signed: [-6, 6] }),
       effects,
@@ -399,7 +412,25 @@ export class WeatherApp extends foundry.applications.api.HandlebarsApplicationMi
     };
   }
 
+  _onRender(context, options) {
+    super._onRender?.(context, options);
+    const w = context.weather;
+    mountWeatherChart(this.element, {
+      temperature: w.temperature,
+      humidity: w.humidity,
+      wind: w.wind,
+      max: 7,
+      readonly: context.readonly,
+    });
+  }
+
+  static async #onOpenCaster(_event, target) {
+    const actor = fromUuidSync(target.dataset.actorUuid);
+    if (actor) openCasterWeather(actor);
+  }
+
   static async #onSubmit(_event, _form, formData) {
+    if (!game.user.isGM) return;
     const data = foundry.utils.expandObject(formData.object);
     const current = getSceneWeather(this.scene);
     await this.scene.setFlag(MODULE_ID, WEATHER_FLAG, {
@@ -617,7 +648,8 @@ export const registerWeather = () => {
       icon: "fas fa-cloud-sun-rain",
       order: Object.keys(tokens.tools).length,
       button: true,
-      visible: game.user.isGM,
+      // Everyone can open it to see the weather; editing is the GM's (see WeatherApp)
+      visible: true,
       onChange: () => openWeather(),
     };
   });

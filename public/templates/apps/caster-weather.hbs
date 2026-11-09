@@ -13,14 +13,20 @@ SPDX-License-Identifier: EUPL-1.2
     {{/if}}
 
     {{#each sliders as |s|}}
+        {{#if (eq s.name "wind")}}
         <div class="form-group weather-slider">
-            <label for="pf1s-cw-{{s.name}}">{{s.label}}</label>
+            <label for="pf1s-cw-wind">{{s.label}}</label>
             <div class="form-fields">
-                <input type="range" id="pf1s-cw-{{s.name}}" name="{{s.name}}" min="{{s.min}}" max="{{s.max}}" step="1" value="{{s.value}}">
+                <input type="range" id="pf1s-cw-wind" name="wind" min="{{s.min}}" max="{{s.max}}" step="1" value="{{s.value}}" {{#if ../readonly}}disabled{{/if}}>
                 <span class="weather-value">{{s.display}}</span>
             </div>
         </div>
+        {{else}}
+        <input type="hidden" name="{{s.name}}" value="{{s.value}}">
+        {{/if}}
     {{/each}}
+    <div class="weather-chart" data-weather-chart></div>
+    <p class="hint weather-chart-hint">{{#if readonly}}{{localize "PF1SPHERES.Weather.ChartReadonly"}}{{else}}{{localize "PF1SPHERES.Weather.ChartHint"}}{{/if}}</p>
 
     <div class="weather-options">
         <label class="checkbox"><input type="checkbox" name="persist" {{checked opts.persist}}> {{localize "PF1SPHERES.Weather.OptPersist"}}</label>

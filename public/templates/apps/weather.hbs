@@ -4,14 +4,20 @@ SPDX-License-Identifier: EUPL-1.2
 -->--}}
 <section class="weather-panel">
     {{#each sliders as |s|}}
+        {{#if (eq s.name "wind")}}
         <div class="form-group weather-slider">
-            <label for="pf1s-weather-{{s.name}}">{{s.label}}</label>
+            <label for="pf1s-weather-wind">{{s.label}}</label>
             <div class="form-fields">
-                <input type="range" id="pf1s-weather-{{s.name}}" name="{{s.name}}" min="{{s.min}}" max="{{s.max}}" step="1" value="{{s.value}}">
+                <input type="range" id="pf1s-weather-wind" name="wind" min="{{s.min}}" max="{{s.max}}" step="1" value="{{s.value}}" {{#if ../readonly}}disabled{{/if}}>
                 <span class="weather-value">{{s.display}}</span>
             </div>
         </div>
+        {{else}}
+        <input type="hidden" name="{{s.name}}" value="{{s.value}}">
+        {{/if}}
     {{/each}}
+    <div class="weather-chart" data-weather-chart></div>
+    <p class="hint weather-chart-hint">{{#if readonly}}{{localize "PF1SPHERES.Weather.ChartReadonly"}}{{else}}{{localize "PF1SPHERES.Weather.ChartHint"}}{{/if}}</p>
 
     <div class="weather-conditions">
         <h4>{{localize "PF1SPHERES.Weather.Conditions"}}</h4>
@@ -26,6 +32,16 @@ SPDX-License-Identifier: EUPL-1.2
         {{/if}}
     </div>
 
+    {{#if casters.length}}
+        <div class="form-group">
+            <label>{{localize "PF1SPHERES.Weather.ControlTitle"}}</label>
+            <div class="form-fields">
+                {{#each casters as |c|}}<button type="button" data-action="openCaster" data-actor-uuid="{{c.uuid}}"><i class="fas fa-cloud-bolt"></i> {{c.name}}</button>{{/each}}
+            </div>
+        </div>
+    {{/if}}
+
+    {{#unless readonly}}
     <div class="form-group">
         <label for="pf1s-weather-apply">{{localize "PF1SPHERES.Weather.Apply"}}</label>
         <div class="form-fields">
@@ -43,14 +59,16 @@ SPDX-License-Identifier: EUPL-1.2
         <p class="hint">{{#if sheltered.length}}{{#each sheltered}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}{{else}}{{localize "PF1SPHERES.Weather.NoneSheltered"}}{{/if}}</p>
     </div>
 
+    {{/unless}}
+
     {{#if weather.controller}}
         <div class="form-group">
             <label>{{localize "PF1SPHERES.Weather.Controller"}}</label>
             <div class="form-fields">
                 <span>{{weather.controller.name}} (DC {{weather.controller.dc}})</span>
-                <button type="button" data-action="release">{{localize "PF1SPHERES.Weather.Release"}}</button>
+                {{#unless readonly}}<button type="button" data-action="release">{{localize "PF1SPHERES.Weather.Release"}}</button>{{/unless}}
             </div>
-            <p class="hint">{{localize "PF1SPHERES.Weather.ControllerHint"}}</p>
+            {{#unless readonly}}<p class="hint">{{localize "PF1SPHERES.Weather.ControllerHint"}}</p>{{/unless}}
         </div>
     {{/if}}
 
@@ -66,14 +84,16 @@ SPDX-License-Identifier: EUPL-1.2
             <label for="pf1s-weather-dc">{{localize "PF1SPHERES.Weather.Lightning"}} ({{#if lightning.maximized}}{{lightning.formula}}, {{localize "PF1SPHERES.Weather.MaximizedShort"}}{{else}}{{lightning.formula}}{{/if}})</label>
             <div class="form-fields">
                 <span>DC</span>
-                {{#if weather.controller}}<span>{{lightning.dc}}</span>{{else}}<input type="number" id="pf1s-weather-dc" name="lightningDC" value="{{weather.lightningDC}}" min="1" step="1">{{/if}}
-                <button type="button" data-action="lightning"><i class="fas fa-bolt"></i> {{localize "PF1SPHERES.Weather.Strike"}}</button>
+                {{#if (or weather.controller readonly)}}<span>{{lightning.dc}}</span>{{else}}<input type="number" id="pf1s-weather-dc" name="lightningDC" value="{{weather.lightningDC}}" min="1" step="1">{{/if}}
+                {{#unless readonly}}<button type="button" data-action="lightning"><i class="fas fa-bolt"></i> {{localize "PF1SPHERES.Weather.Strike"}}</button>{{/unless}}
             </div>
             <p class="hint">{{localize "PF1SPHERES.Weather.LightningHint"}}{{#if lightning.perRound}} {{localize "PF1SPHERES.Weather.PerRound"}}{{else}}{{#if lightning.chosen}} {{localize "PF1SPHERES.Weather.Chosen"}}{{/if}}{{/if}}</p>
         </div>
     {{/if}}
 
+    {{#unless readonly}}
     <footer class="form-footer">
         <button type="button" data-action="reset"><i class="fas fa-sun"></i> {{localize "PF1SPHERES.Weather.Reset"}}</button>
     </footer>
+    {{/unless}}
 </section>

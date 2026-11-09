@@ -19,6 +19,7 @@ import {
   rollLightning,
   weatherSliders,
 } from "./weather";
+import { mountWeatherChart } from "./chart";
 
 const fmt = (key: string, data = {}) => game.i18n.format(`PF1SPHERES.Weather.${key}`, data);
 
@@ -155,6 +156,19 @@ export class CasterWeatherApp extends foundry.applications.api.HandlebarsApplica
       mythicTalent: data.mythicTalent ?? this.opts.mythicTalent,
     };
     this.render();
+  }
+
+  _onRender(context, options) {
+    super._onRender?.(context, options);
+    const d = this.draft ?? context.weather ?? {};
+    const current = normaliseWeather(getSceneWeather(this.scene));
+    mountWeatherChart(this.element, {
+      temperature: d.temperature ?? 0,
+      humidity: d.humidity ?? 0,
+      wind: d.wind ?? 1,
+      max: context.max ?? 7,
+      current: { temperature: current.temperature, humidity: current.humidity },
+    });
   }
 
   static async #onCast() {

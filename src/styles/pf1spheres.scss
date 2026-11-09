@@ -414,3 +414,72 @@
     color: var(--color-level-error, #c0392b);
   }
 }
+
+/* Weather chart (src/module/weather/chart.ts): colours as variables so the chart follows the theme */
+.pf1spheres-weather {
+  --pf1s-wx-cell: #f4f6f8;
+  --pf1s-wx-veil: #ffffff;
+  --pf1s-wx-ink: #18212b;
+  --pf1s-wx-muted: #5b6977;
+  --pf1s-wx-line: #b9c3cd;
+  --pf1s-wx-cold: #3d7fc4;
+  --pf1s-wx-heat: #d0612a;
+  --pf1s-wx-wet: #1f9a8f;
+  --pf1s-wx-arid: #b88a2d;
+  --pf1s-wx-storm: #7552b8;
+  --pf1s-wx-snow: #8fb7e6;
+  --pf1s-wx-flood: #0e6f7d;
+  .weather-chart {
+    margin: 0.4em 0;
+  }
+  svg.pf1s-weather-chart {
+    display: block;
+    width: 100%;
+    max-width: 440px;
+    height: auto;
+    margin: 0 auto;
+    touch-action: none;
+    user-select: none;
+    cursor: crosshair;
+    &.readonly {
+      cursor: default;
+    }
+    &:focus-visible {
+      outline: 2px solid var(--color-border-highlight, #ff6400);
+      outline-offset: 2px;
+    }
+  }
+  .pf1s-wx-tick {
+    font-family: var(--font-mono, monospace);
+    font-size: 9px;
+  }
+  .pf1s-wx-axis {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .pf1s-wx-region {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    pointer-events: none;
+    paint-order: stroke;
+    stroke-width: 3px;
+  }
+}
+.theme-dark .pf1spheres-weather,
+.pf1spheres-weather.theme-dark {
+  --pf1s-wx-cell: #232b34;
+  --pf1s-wx-veil: #141a20;
+  --pf1s-wx-ink: #e6ecf2;
+  --pf1s-wx-muted: #a0aebc;
+  --pf1s-wx-line: #3a4654;
+  --pf1s-wx-cold: #6ea8e8;
+  --pf1s-wx-heat: #f08a54;
+  --pf1s-wx-wet: #3cc2b4;
+  --pf1s-wx-arid: #d7a94a;
+  --pf1s-wx-storm: #a58ae6;
+  --pf1s-wx-snow: #a9c9f0;
+  --pf1s-wx-flood: #2bb0bf;
+}

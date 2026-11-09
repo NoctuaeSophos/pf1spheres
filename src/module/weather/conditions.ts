@@ -265,3 +265,46 @@ export const getWeatherEffects = (input: Partial<WeatherState>): WeatherEffects 
 
   return { severities: sev, labels: deduped, changes, contextNotes, notes, lightningDice };
 };
+
+/** Named areas of the weather chart, most specific first; snow and storm overlap as snowstorm or thundersnow */
+export type WeatherRegion =
+  | "thundersnow"
+  | "snowstorm"
+  | "lightning"
+  | "storm"
+  | "flood"
+  | "snow"
+  | "rain"
+  | "arid";
+
+export const WEATHER_REGIONS: WeatherRegion[] = [
+  "thundersnow",
+  "snowstorm",
+  "lightning",
+  "storm",
+  "flood",
+  "snow",
+  "rain",
+  "arid",
+];
+
+/**
+ * The chart area a weather falls in.
+ *
+ * @param effects - The weather's effects
+ * @returns The region, or null for weather with no named precipitation or aridity
+ */
+export const weatherRegion = (effects: WeatherEffects): WeatherRegion | null => {
+  const s = effects.severities;
+  const snowy = s.precipitation >= 2 && s.cold >= 4;
+  const stormy = s.precipitation >= 2 && s.wind >= 4;
+  if (snowy && effects.lightningDice) return "thundersnow";
+  if (snowy && stormy) return "snowstorm";
+  if (effects.lightningDice) return "lightning";
+  if (stormy) return "storm";
+  if (s.precipitation >= 6 && !snowy) return "flood";
+  if (snowy) return "snow";
+  if (s.precipitation >= 2) return "rain";
+  if (s.aridity >= 2) return "arid";
+  return null;
+};

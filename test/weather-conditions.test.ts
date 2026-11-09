@@ -8,6 +8,7 @@ import {
   getSeverities,
   getWeatherEffects,
   normaliseWeather,
+  weatherRegion,
 } from "../src/module/weather/conditions";
 
 const changeFor = (target: string, effects = getWeatherEffects({})) =>
@@ -87,5 +88,26 @@ describe("Weather effects", () => {
     expect(cold.notes.some((n) => n.startsWith("Cold: Fortitude save each hour"))).toBe(true);
     const dry = getWeatherEffects({ humidity: -3 });
     expect(dry.contextNotes).toContainEqual(expect.objectContaining({ target: "allSavingThrows" }));
+  });
+});
+
+describe("weather chart regions", () => {
+  const region = (temperature: number, humidity: number, wind: number) =>
+    weatherRegion(getWeatherEffects({ temperature, humidity, wind }));
+  it("names the plain regions", () => {
+    expect(region(0, 0, 1)).toBeNull();
+    expect(region(0, 2, 1)).toBe("rain");
+    expect(region(-3, 2, 1)).toBe("snow");
+    expect(region(0, 5, 1)).toBe("flood");
+    expect(region(4, -3, 1)).toBe("arid");
+  });
+  it("shows storms only with wind 4+, and lightning from precipitation +3", () => {
+    expect(region(0, 2, 3)).toBe("rain");
+    expect(region(0, 2, 4)).toBe("storm");
+    expect(region(0, 3, 4)).toBe("lightning");
+  });
+  it("keeps snow and storm together where they overlap", () => {
+    expect(region(-3, 2, 4)).toBe("snowstorm");
+    expect(region(-3, 3, 5)).toBe("thundersnow");
   });
 });
