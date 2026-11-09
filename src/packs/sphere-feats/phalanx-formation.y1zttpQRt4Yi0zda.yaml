@@ -3,6 +3,8 @@ _key: "!items!y1zttpQRt4Yi0zda"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    phalanx: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Phalanx Formation
@@ -46,14 +48,15 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p><strong>Prerequisites:</strong> War sphere, Squadron Commander; or
-      Warleader sphere, Troop Commander.</p>
+    value:
+      "<p><strong>Prerequisites:</strong> War sphere, Squadron Commander; or Warleader sphere, Troop
+      Commander.</p>
 
-      <p><strong>Benefit:</strong> While a member of your squadron is adjacent
-      to another member of your squadron, they receive a +2 circumstance bonus
-      to AC and melee attack rolls. This bonus increases by +1 for every
-      additional member adjacent after the first.</p>
+      <p><strong>Benefit:</strong> While a member of your squadron is adjacent to another member of your
+      squadron, they receive a +2 circumstance bonus to AC and melee attack rolls. This bonus increases
+      by +1 for every additional member adjacent after the first.</p>
+
+      "
   disabled: false
   duration:
     units: ""

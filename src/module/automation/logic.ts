@@ -23,7 +23,7 @@ export interface ActionAutomation {
   /** Create an area centred on the user that applies the buff to creatures inside */
   zone?: { enabled?: boolean; radius?: string; who?: ZoneWho; at?: "" | "self" | "template" };
   /** Mark the targets */
-  mark?: { label?: string; attackerNote?: string; defenderNote?: string };
+  mark?: { label?: string; attackerNote?: string; defenderNote?: string; squadron?: boolean };
   /** When a creature fails a save rolled from this action's chat card */
   onFail?: FailEffects;
   /** A prodigy sequence part: an opener starts (or extends) it, a link extends it, a finisher needs a length and ends it */
@@ -88,7 +88,7 @@ export const saveFailed = (total: number, natural: number | undefined, dc: numbe
 };
 
 export type DurationUnit = "round" | "minute" | "hour";
-export type ZoneWho = "allies" | "enemies" | "all" | "inoculated";
+export type ZoneWho = "allies" | "enemies" | "all" | "inoculated" | "squadron";
 
 export const UNIT_SECONDS: Record<DurationUnit, number> = { round: 6, minute: 60, hour: 3600 };
 
@@ -169,7 +169,7 @@ export const zoneAffects = (
 ): boolean => {
   if (!who || who === "all") return true;
   // Inoculated creatures are decided by the caster's list, not disposition; the runtime checks it
-  if (who === "inoculated") return false;
+  if (who === "inoculated" || who === "squadron") return false;
   const same = disposition === casterDisposition;
   return who === "allies" ? same : !same && disposition !== 0;
 };
@@ -593,3 +593,90 @@ export const neutralizerLimits = (upgrades: number) => ({
   attacks: 2 + upgrades,
   minutes: 10 + 10 * upgrades,
 });
+
+/* ---------- squadrons (War sphere Squadron Commander) ---------- */
+
+/**
+ * Allies a squadron holds besides its commander: 3 plus 1 per 5 War caster levels or Diplomacy ranks
+ * (whichever is higher), or with Platoon Commander 4 plus 1 per 2.
+ *
+ * @param warCL - War sphere caster level
+ * @param diplomacy - Diplomacy ranks
+ * @param platoon - Has Platoon Commander
+ */
+export const squadronSize = (warCL: number, diplomacy: number, platoon = false): number => {
+  const best = Math.max(warCL || 0, diplomacy || 0);
+  return platoon ? 4 + Math.floor(best / 2) : 3 + Math.floor(best / 5);
+};
+
+/** What a squadron member adds to a totem's bonuses: +1, and +1 more per 10 War caster levels */
+export const squadronTotemBonus = (warCL: number): number => 1 + Math.floor((warCL || 0) / 10);
+
+/** Change targets that are d20 rolls or numbers a d20 roll is made against (Squadron Commander) */
+const D20_TARGETS = new Set([
+  "attack",
+  "mattack",
+  "rattack",
+  "tattack",
+  "wattack",
+  "sattack",
+  "ac",
+  "aac",
+  "sac",
+  "nac",
+  "tac",
+  "ffac",
+  "allSavingThrows",
+  "fort",
+  "ref",
+  "will",
+  "cmb",
+  "cmd",
+  "ffcmd",
+  "skills",
+  "unskills",
+  "strSkills",
+  "dexSkills",
+  "conSkills",
+  "intSkills",
+  "wisSkills",
+  "chaSkills",
+  "allChecks",
+  "strChecks",
+  "dexChecks",
+  "conChecks",
+  "intChecks",
+  "wisChecks",
+  "chaChecks",
+  "concentration",
+  "cl",
+  "init",
+  "msb",
+  "msd",
+  "sphereConcentration",
+]);
+
+/**
+ * A totem buff's changes for a squadron member: each bonus on a d20 roll or on a number targeted by
+ * one is raised by the squadron bonus. Penalties and other changes are left alone.
+ *
+ * @param changes - The buff's changes
+ * @param bonus - The squadron bonus
+ */
+export const boostTotemChanges = <T extends { formula: string; target: string }>(
+  changes: T[],
+  bonus: number,
+): T[] =>
+  changes.map((c) => {
+    const d20 = D20_TARGETS.has(c.target) || c.target.startsWith("skill.");
+    const penalty = String(c.formula).trim().startsWith("-");
+    return d20 && !penalty && bonus ? { ...c, formula: `(${c.formula}) + ${bonus}` } : c;
+  });
+
+/**
+ * Phalanx Formation: +2 circumstance to AC and melee attacks next to one squadron member, +1 for each
+ * more.
+ *
+ * @param adjacent - Other squadron members adjacent
+ */
+export const phalanxBonus = (adjacent: number): number => (adjacent >= 1 ? 1 + adjacent : 0);

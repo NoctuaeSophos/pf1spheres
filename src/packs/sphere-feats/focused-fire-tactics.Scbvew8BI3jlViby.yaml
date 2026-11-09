@@ -4,9 +4,21 @@ effects: []
 flags:
   pf1spheres:
     automation:
-      kEAvstqVVPqzPptE:
+      pf1sfocusfire001:
+        focus: expend
         condSp:
-          JQzhkPkenG5ZFJoC: 1
+          pf1sfocusfiresp1: 1
+        effect:
+          enabled: true
+          duration: "1"
+          units: round
+        mark:
+          label: Focused fire
+          squadron: true
+          attackerNote:
+            "Focused fire: +1 circumstance on attack and damage against this target for each
+            squadron hit on it this round (stacking)."
+          defenderNote: ""
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -22,7 +34,7 @@ system:
   abilityType: na
   acquired: false
   actions:
-    - _id: kEAvstqVVPqzPptE
+    - _id: pf1sfocusfire001
       name: Focused Fire Tactics
       actionType: other
       activation:
@@ -31,10 +43,15 @@ system:
           cost: 1
           type: action
       conditionals:
-        - _id: JQzhkPkenG5ZFJoC
-          name: Spend 1 spell point
-          default: true
+        - _id: pf1sfocusfiresp1
+          name: Spend a spell point (instead of martial focus)
+          default: false
           modifiers: []
+      notes:
+        effect:
+          - Until the start of your next turn, each squadron hit on the target gives every squadron member
+            +1 circumstance on attack and damage rolls against it (stacking, up to your War caster level or
+            Diplomacy ranks).
   armorProf: []
   associations:
     classes: []
@@ -64,18 +81,18 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p><strong>Prerequisites:</strong> War sphere, Squadron Commander; or
-      Warleader sphere, Troop Commander.</p>
+    value:
+      "<p><strong>Prerequisites:</strong> War sphere, Squadron Commander; or Warleader sphere, Troop
+      Commander.</p>
 
-      <p><strong>Benefit:</strong> As a swift action, you may spend a spell
-      point or expend your martial focus and designate a target. Until the
-      beginning of your next turn, whenever a member of your squadron hits that
-      target, all members of your squadron receive an additional +1 circumstance
-      bonus to attack rolls and damage against that target. Members with
-      iterative attacks can benefit from bonuses generated earlier in the same
-      turn. This bonus stacks with itself, up to a maximum equal to your War
-      caster level or your ranks in Diplomacy, whichever is higher.</p>
+      <p><strong>Benefit:</strong> As a swift action, you may spend a spell point or expend your martial
+      focus and designate a target. Until the beginning of your next turn, whenever a member of your squadron
+      hits that target, all members of your squadron receive an additional +1 circumstance bonus to attack
+      rolls and damage against that target. Members with iterative attacks can benefit from bonuses generated
+      earlier in the same turn. This bonus stacks with itself, up to a maximum equal to your War caster
+      level or your ranks in Diplomacy, whichever is higher.</p>
+
+      "
   disabled: false
   duration:
     units: ""

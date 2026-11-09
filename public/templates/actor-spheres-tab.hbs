@@ -84,13 +84,13 @@ SPDX-License-Identifier: EUPL-1.2
         <button type="button" class="pf1s-clear-marks">{{ localize "PF1SPHERES.Auto.ClearMarks" }}</button>
     </div>
     {{/if }}
-    {{#if inoculations }}
+    {{#each allyLists as |l| }}
     <div class="spheres-inoculations flexrow">
-        <span><strong>{{ localize "PF1SPHERES.Auto.Inoculations" }}</strong> ({{ inoculations.count }}/{{ inoculations.max }}): {{#each inoculations.names }}{{ this }}{{#unless @last }}, {{/unless }}{{else }}<em>{{ localize "PF1SPHERES.Auto.InoculateNone" }}</em>{{/each }}</span>
-        <button type="button" class="pf1s-inoculate">{{ localize "PF1SPHERES.Auto.InoculateTargets" }}</button>
-        <button type="button" class="pf1s-inoculate-clear">{{ localize "PF1SPHERES.Auto.InoculateClear" }}</button>
+        <span><strong>{{ l.label }}</strong> ({{ l.count }}/{{ l.max }}): {{#each l.names }}{{ this }}{{#unless @last }}, {{/unless }}{{else }}<em>{{ localize "PF1SPHERES.Auto.AlliesNone" }}</em>{{/each }}</span>
+        <button type="button" class="pf1s-allies-set" data-list="{{ l.key }}">{{ localize "PF1SPHERES.Auto.AlliesSet" }}</button>
+        <button type="button" class="pf1s-allies-clear" data-list="{{ l.key }}">{{ localize "PF1SPHERES.Auto.InoculateClear" }}</button>
     </div>
-    {{/if }}
+    {{/each }}
     <div class="spheres-traditions">
         <h4 class="block-header flexrow">
             <span>{{ localize "PF1SPHERES.Traditions" }}</span>

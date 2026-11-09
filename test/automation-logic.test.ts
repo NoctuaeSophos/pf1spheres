@@ -7,6 +7,10 @@
 import {
   addLinks,
   applySequenceRole,
+  boostTotemChanges,
+  phalanxBonus,
+  squadronSize,
+  squadronTotemBonus,
   blastDice,
   distanceFt,
   durationSeconds,
@@ -315,5 +319,30 @@ describe("high leadership scores (Ultimate Intrigue)", () => {
   it("keeps multiplying past 27", () => {
     expect(followersAllowed(30)).toEqual([378, 37, 19, 10, 5, 3]);
     expect(followersAllowed(29)).toEqual([303, 30, 15, 8, 4, 2]);
+  });
+});
+
+describe("squadrons", () => {
+  it("sizes the squadron from War CL or Diplomacy, or by Platoon Commander", () => {
+    expect(squadronSize(8, 0)).toBe(4);
+    expect(squadronSize(8, 16)).toBe(6);
+    expect(squadronSize(8, 16, true)).toBe(12);
+  });
+  it("raises a totem's d20 bonuses for members, not its penalties or damage", () => {
+    expect(squadronTotemBonus(8)).toBe(1);
+    expect(squadronTotemBonus(10)).toBe(2);
+    const out = boostTotemChanges(
+      [
+        { formula: "1 + floor(@item.level / 5)", target: "attack" },
+        { formula: "2", target: "damage" },
+        { formula: "-2", target: "ac" },
+        { formula: "1", target: "skill.per" },
+      ],
+      2,
+    );
+    expect(out.map((c) => c.formula)).toEqual(["(1 + floor(@item.level / 5)) + 2", "2", "-2", "(1) + 2"]);
+  });
+  it("gives Phalanx Formation +2 for one neighbour and +1 for each more", () => {
+    expect([0, 1, 2, 3].map(phalanxBonus)).toEqual([0, 2, 3, 4]);
   });
 });

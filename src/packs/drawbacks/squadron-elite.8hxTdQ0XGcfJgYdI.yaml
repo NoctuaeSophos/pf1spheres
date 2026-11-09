@@ -1,11 +1,13 @@
 _id: 8hxTdQ0XGcfJgYdI
-_key: '!items!8hxTdQ0XGcfJgYdI'
+_key: "!items!8hxTdQ0XGcfJgYdI"
 effects: []
 flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
     sphere: war
+    squadronOnly: true
+    squadronCommander: true
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Squadron Elite
@@ -23,8 +25,8 @@ system:
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -40,37 +42,36 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p>Her War sphere magic affects only members of her squadron: creatures
-      outside it can''t benefit from her totems, be rallied, use her momentum, or
-      be part of her mandates.</p><p>Instead of a bonus talent, she gains the Squadron
-      Commander feat (squadron of herself plus 3 allies, +1 per 5 caster levels or
-      5 Diplomacy ranks, whichever is higher; or herself plus one crew or troop).</p><p>Incompatible
-      with Battle Manipulation and Solo Combatant.</p><p><em>Source: Ultimate Spheres
-      of Power.</em> <a href="http://spheresofpower.wikidot.com/casting-traditions#toc237">Full
-      text</a></p>'
+    instructions: ""
+    unidentified: ""
+    value:
+      '<p>Her War sphere magic affects only members of her squadron: creatures outside it can''t
+      benefit from her totems, be rallied, use her momentum, or be part of her mandates.</p><p>Instead
+      of a bonus talent, she gains the Squadron Commander feat (squadron of herself plus 3 allies, +1
+      per 5 caster levels or 5 Diplomacy ranks, whichever is higher; or herself plus one crew or troop).</p><p>Incompatible
+      with Battle Manipulation and Solo Combatant.</p><p><em>Source: Ultimate Spheres of Power.</em> <a
+      href="http://spheresofpower.wikidot.com/casting-traditions#toc237">Full text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -81,26 +82,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Sphere Drawback
+    - Sphere Drawback
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

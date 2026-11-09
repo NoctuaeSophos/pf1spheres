@@ -3,6 +3,8 @@ _key: "!items!mxucim2nx9ZEAcmX"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    platoon: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Platoon Commander
@@ -46,15 +48,16 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p><strong>Prerequisites:</strong> War sphere, Squadron Commander; or
-      Warleader sphere, Troop Commander.</p>
+    value:
+      "<p><strong>Prerequisites:</strong> War sphere, Squadron Commander; or Warleader sphere, Troop
+      Commander.</p>
 
-      <p><strong>Benefit:</strong> The number of members of your squadron
-      increases. Your squadron includes yourself and 4 allies plus an additional
-      ally for every 2 caster levels or ranks in Diplomacy (whichever is higher)
-      you possess. You may add troop or crew creatures to your squadron, with
-      each counting as 4 creatures.</p>
+      <p><strong>Benefit:</strong> The number of members of your squadron increases. Your squadron includes
+      yourself and 4 allies plus an additional ally for every 2 caster levels or ranks in Diplomacy (whichever
+      is higher) you possess. You may add troop or crew creatures to your squadron, with each counting
+      as 4 creatures.</p>
+
+      "
   disabled: false
   duration:
     units: ""

@@ -26,7 +26,7 @@ import {
   persistEffect,
   prodigyLevel,
   setImbue,
-  setInoculated,
+  setAllies,
 } from "./automation/runtime";
 import {
   buildBlastActions,
@@ -35,7 +35,13 @@ import {
   openFormulae,
   rollMsbVsTargets,
 } from "./automation/features";
-import { formatRemaining, inspiredBonus, parseImbuements, sequenceMax } from "./automation/logic";
+import {
+  formatRemaining,
+  inspiredBonus,
+  parseImbuements,
+  sequenceMax,
+  squadronSize,
+} from "./automation/logic";
 
 const effectIdOf = (ev: JQuery.ClickEvent) =>
   (ev.currentTarget as HTMLElement).closest<HTMLElement>("[data-effect-id]")?.dataset.effectId ??
@@ -302,32 +308,57 @@ const removeMember = (actor: any, traditionId: string, itemId: string) => {
     );
 };
 
-/** A scholar's inoculated allies, when she has Inoculations (an item flagged pf1spheres.inoculations) */
-const getInoculations = (actor: ActorPF) => {
+/**
+ * Lists of chosen allies a character keeps: a scholar's inoculated allies (Inoculations) and a
+ * commander's squadron (Squadron Commander or Troop Commander), each with its size limit.
+ */
+const getAllyLists = (actor: ActorPF) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const a = actor as any;
-  if (!a.items.some((i: any) => i.flags?.pf1spheres?.inoculations)) return null;
-  const max = Math.max(1, a.system.abilities?.int?.mod ?? 1);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const g = globalThis as any;
-  const names = (a.flags?.pf1spheres?.inoculated ?? []).map(
-    (u: string) => g.fromUuidSync(u)?.name ?? "?",
-  );
-  return { max, names, count: names.length };
+  const has = (flag: string) => a.items.some((i: any) => i.flags?.pf1spheres?.[flag]);
+  const names = (key: string) =>
+    (a.flags?.pf1spheres?.[key] ?? []).map((u: string) => g.fromUuidSync(u)?.name ?? "?");
+  const lists = [];
+  if (has("inoculations")) {
+    lists.push({
+      key: "inoculated",
+      label: localize("Auto.Inoculations"),
+      max: Math.max(1, a.system.abilities?.int?.mod ?? 1),
+      names: names("inoculated"),
+    });
+  }
+  if (has("squadronCommander")) {
+    const warCL = a.system.spheres?.cl?.war?.total ?? 0;
+    const diplomacy = a.system.skills?.dip?.rank ?? 0;
+    lists.push({
+      key: "squadron",
+      label: localize("Auto.Squadron"),
+      max: squadronSize(warCL, diplomacy, has("platoon")),
+      names: names("squadron"),
+    });
+  }
+  return lists.map((l) => ({ ...l, count: l.names.length }));
 };
 
-const inoculateTargets = async (actor: ActorPF) => {
+/** Sets an ally list from the user's targets, within its size limit */
+const setAlliesFromTargets = async (actor: ActorPF, key: string) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const g = globalThis as any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const a = actor as any;
+  const list = getAllyLists(actor).find((l) => l.key === key);
+  if (!list) return;
   const uuids = [...g.game.user.targets]
     .map((t: any) => t.actor?.uuid)
     .filter((u: string) => u && u !== a.uuid);
-  if (!uuids.length) return g.ui.notifications.warn(localize("Auto.InoculateNone"));
-  const max = Math.max(1, a.system.abilities?.int?.mod ?? 1);
-  if (uuids.length > max)
-    return g.ui.notifications.warn(g.game.i18n.format("PF1SPHERES.Auto.InoculateTooMany", { max }));
-  await setInoculated(actor, uuids);
+  if (!uuids.length) return g.ui.notifications.warn(localize("Auto.AlliesNone"));
+  if (uuids.length > list.max)
+    return g.ui.notifications.warn(
+      g.game.i18n.format("PF1SPHERES.Auto.AlliesTooMany", { max: list.max, list: list.label }),
+    );
+  await setAllies(actor, key, uuids);
 };
 
 const createTradition = async (actor: ActorPF, kind: "martial" | "casting") => {
@@ -536,7 +567,7 @@ const getSpheresData = (app: ActorSheetPF, actor: ActorPF): SpheresTemplateData 
         getTraditions(actor).flatMap((t) => [t.id, ...t.members.map((m: { id: string }) => m.id)]),
       ),
     ),
-    inoculations: getInoculations(actor),
+    allyLists: getAllyLists(actor),
     sphereCLs,
     sphereBabs,
     allSpheres: [...sphereCLs, ...sphereBabs].sort((a, b) => a.sphere.localeCompare(b.sphere)),
@@ -602,8 +633,16 @@ const activateListeners = (app: ActorSheetPF, html: JQuery<HTMLElement>, actor: 
     setSpellPoints(actor, Number((ev.currentTarget as HTMLInputElement).value) || 0);
   });
   html.find(".pf1s-control-weather").on("click", () => openCasterWeather(actor));
-  html.find(".pf1s-inoculate").on("click", () => inoculateTargets(actor));
-  html.find(".pf1s-inoculate-clear").on("click", () => setInoculated(actor, []));
+  html
+    .find(".pf1s-allies-set")
+    .on("click", (ev) =>
+      setAlliesFromTargets(actor, (ev.currentTarget as HTMLElement).dataset.list ?? ""),
+    );
+  html
+    .find(".pf1s-allies-clear")
+    .on("click", (ev) =>
+      setAllies(actor, (ev.currentTarget as HTMLElement).dataset.list ?? "", []),
+    );
   html
     .find(".pf1s-tradition-add")
     .on("click", (ev) =>
@@ -787,7 +826,7 @@ export declare class ActorSheetPF extends ActorSheet {
 interface SpheresTemplateData {
   dataGroup: string;
   drawbacks: ReturnType<typeof getDrawbacks>;
-  inoculations: ReturnType<typeof getInoculations>;
+  allyLists: ReturnType<typeof getAllyLists>;
   traditions: ReturnType<typeof getTraditions>;
   attributeGrid: AttributeData[];
   spellPoints: { value: number; max: number };

@@ -25,6 +25,9 @@ import {
   saveFailed,
   sequenceMax,
   applySequenceRole,
+  boostTotemChanges,
+  phalanxBonus,
+  squadronTotemBonus,
   sequenceTurnStart,
   totalSpCost,
   zoneAffects,
@@ -268,7 +271,13 @@ function onApplyDamage(actor, options) {
 }
 
 export const setInoculated = async (actor, uuids: string[]) =>
-  actor.setFlag(MODULE_ID, "inoculated", [...new Set(uuids)]);
+  setAllies(actor, "inoculated", uuids);
+
+/** Sets one of a character's ally lists (inoculated, squadron); the GM's client re-syncs zones and formations */
+export const setAllies = async (actor, key: string, uuids: string[]) => {
+  if (!["inoculated", "squadron"].includes(key)) return;
+  await actor.setFlag(MODULE_ID, key, [...new Set(uuids)]);
+};
 
 export interface Zone {
   id: string;
@@ -355,32 +364,147 @@ export async function syncZones(scene) {
     const center = tokenCenter(token);
     const inside = new Set(
       (here ? zones : [])
-        .filter((z) =>
-          z.who === "inoculated"
-            ? isInoculated(z.casterUuid, inoculatedBy(z.casterUuid), actor.uuid)
-            : zoneAffects(z.who, z.casterDisposition, token.disposition),
-        )
+        .filter((z) => zoneIncludes(z, actor, token))
         .filter((z) => distanceFt(center, z, scene.grid.size, scene.grid.distance) <= z.radius)
         .map((z) => z.id),
     );
+    // Squadron Commander: a member's copy of a totem buff has its d20 bonuses raised
+    const boosted = new Map(zones.map((z) => [z.id, squadronBoost(z.casterUuid, actor.uuid)]));
     const held = actor.items.filter(
       (i) => i.type === "buff" && i.flags?.[MODULE_ID]?.zoneBuff?.sceneId === scene.id,
     );
     const drop = held
-      .filter((i) => !inside.has(i.flags[MODULE_ID].zoneBuff.zoneId))
+      .filter((i) => {
+        const zb = i.flags[MODULE_ID].zoneBuff;
+        return !inside.has(zb.zoneId) || (zb.boost ?? 0) !== (boosted.get(zb.zoneId) ?? 0);
+      })
       .map((i) => i.id);
     if (drop.length) await actor.deleteEmbeddedDocuments("Item", drop);
-    const have = new Set(held.map((i) => i.flags[MODULE_ID].zoneBuff.zoneId));
+    const have = new Set(
+      held.filter((i) => !drop.includes(i.id)).map((i) => i.flags[MODULE_ID].zoneBuff.zoneId),
+    );
     for (const z of zones.filter((z) => inside.has(z.id) && !have.has(z.id))) {
       const source = z.buffData ?? fromUuidSync(z.buffUuid);
       if (!source) continue;
-      const data = buffCopy(source, z.level, `${source.name} (${z.name})`, {
-        zoneBuff: { sceneId: scene.id, zoneId: z.id },
-      });
+      const boost = boosted.get(z.id) ?? 0;
+      const data = buffCopy(
+        source,
+        z.level,
+        `${source.name} (${z.name}${boost ? `, ${loc("Squadron")}` : ""})`,
+        {
+          zoneBuff: { sceneId: scene.id, zoneId: z.id, boost },
+        },
+      );
+      if (boost) data.system.changes = boostTotemChanges(data.system.changes ?? [], boost);
       await actor.createEmbeddedDocuments("Item", [data]);
     }
   }
+  await syncFormations(scene);
 }
+
+/** Whether a zone's audience includes a creature: by disposition, or by the caster's inoculated or squadron list */
+const zoneIncludes = (z, actor, token) => {
+  if (z.who === "inoculated")
+    return isInoculated(z.casterUuid, inoculatedBy(z.casterUuid), actor.uuid);
+  const caster = fromUuidSync(z.casterUuid);
+  // Squadron Elite: the caster's War magic reaches only their squadron
+  if (z.who === "squadron" || caster?.items?.some((i) => i.flags?.[MODULE_ID]?.squadronOnly)) {
+    return isInoculated(z.casterUuid, squadronOf(z.casterUuid), actor.uuid);
+  }
+  return zoneAffects(z.who, z.casterDisposition, token.disposition);
+};
+
+/* ---------- squadrons ---------- */
+
+/** The allies in a commander's squadron (flags.pf1spheres.squadron) */
+export const squadronOf = (casterUuid: string): string[] =>
+  fromUuidSync(casterUuid)?.flags?.[MODULE_ID]?.squadron ?? [];
+
+/** A commander: has Squadron Commander or Troop Commander (flagged squadronCommander in the pack) */
+export const isCommander = (actor) =>
+  actor?.items?.some((i) => i.flags?.[MODULE_ID]?.squadronCommander) ?? false;
+
+/** The bonus a commander's totems give one creature beyond the base: Squadron Commander's, for members */
+const squadronBoost = (casterUuid: string, uuid: string): number => {
+  const caster = fromUuidSync(casterUuid);
+  if (!isCommander(caster) || !isInoculated(casterUuid, squadronOf(casterUuid), uuid)) return 0;
+  return squadronTotemBonus(caster.system?.spheres?.cl?.war?.total ?? 0);
+};
+
+/**
+ * Phalanx Formation: each squadron member on the scene adjacent to another member gets +2
+ * circumstance to AC and melee attacks, +1 for each more, kept as a buff that follows token moves.
+ */
+async function syncFormations(scene) {
+  const size = scene.grid.size;
+  const tokens = scene.tokens.filter((t) => t.actor && ["character", "npc"].includes(t.actor.type));
+  const keep = new Map();
+  for (const commander of allActors()) {
+    if (!commander.items.some((i) => i.flags?.[MODULE_ID]?.phalanx)) continue;
+    const members = new Set([commander.uuid, ...squadronOf(commander.uuid)]);
+    const squad = tokens.filter((t) => members.has(t.actor.uuid));
+    for (const t of squad) {
+      const near = squad.filter((o) => {
+        if (o === t) return false;
+        // Adjacent: the two tokens' squares touch, sides or corners
+        const gapX = Math.abs(o.x - t.x) - (o.x > t.x ? t.width : o.width) * size;
+        const gapY = Math.abs(o.y - t.y) - (o.y > t.y ? t.height : o.height) * size;
+        return gapX <= 0.5 && gapY <= 0.5;
+      }).length;
+      const bonus = phalanxBonus(near);
+      if (bonus) keep.set(t.actor.uuid, { actor: t.actor, bonus, commander });
+    }
+  }
+  // Add, update or remove each member's formation buff
+  for (const t of tokens) {
+    const actor = t.actor;
+    const want = keep.get(actor.uuid);
+    const held = actor.items.filter((i) => i.flags?.[MODULE_ID]?.formationBuff);
+    for (const h of held) {
+      const fb = h.flags[MODULE_ID].formationBuff;
+      if (!want || fb.commanderUuid !== want.commander.uuid)
+        await actor.deleteEmbeddedDocuments("Item", [h.id]);
+      else if (fb.bonus !== want.bonus) {
+        await h.update({
+          "system.changes": phalanxChanges(want.bonus),
+          [`flags.${MODULE_ID}.formationBuff.bonus`]: want.bonus,
+        });
+      }
+    }
+    if (
+      want &&
+      !held.some((h) => h.flags[MODULE_ID].formationBuff.commanderUuid === want.commander.uuid)
+    ) {
+      await actor.createEmbeddedDocuments("Item", [
+        {
+          name: `${loc("Phalanx")} (${want.commander.name})`,
+          type: "buff",
+          img: "icons/skills/melee/shield-block-gray-orange.webp",
+          system: {
+            subType: "temp",
+            active: true,
+            changes: phalanxChanges(want.bonus),
+            description: { value: `<p>${loc("PhalanxHint")}</p>` },
+          },
+          flags: {
+            [MODULE_ID]: {
+              formationBuff: { commanderUuid: want.commander.uuid, bonus: want.bonus },
+            },
+          },
+        },
+      ]);
+    }
+  }
+}
+
+const phalanxChanges = (bonus: number) =>
+  ["ac", "mattack"].map((target, i) => ({
+    _id: `pf1sphalanx0000${i}`,
+    formula: String(bonus),
+    target,
+    type: "circumstance",
+    operator: "add",
+  }));
 
 const zoneTimers = new Map();
 const zoneQueues = new Map();
@@ -496,8 +620,10 @@ function onPreActionUse(au) {
   const targets = au.shared.targets ?? [];
   for (const t of targets) {
     for (const m of t.document?.getFlag(MODULE_ID, "marks") ?? []) {
-      if (m.sourceUuid === actor.uuid && m.attackerNote)
-        notes.push({ text: `${m.label} (${t.name}): ${m.attackerNote}` });
+      const mine =
+        m.sourceUuid === actor.uuid ||
+        (m.squadron && isInoculated(m.sourceUuid, squadronOf(m.sourceUuid), actor.uuid));
+      if (mine && m.attackerNote) notes.push({ text: `${m.label} (${t.name}): ${m.attackerNote}` });
     }
   }
   const attacker = au.token?.document ?? au.token ?? actor.getActiveTokens?.(false, true)?.[0];
@@ -671,6 +797,7 @@ async function onPostActionUse(au) {
         sourceUuid: actor.uuid,
         sourceName: actor.name,
         effectId: effect.id,
+        squadron: auto.mark.squadron === true,
       },
     });
   }
@@ -1119,6 +1246,12 @@ export const registerAutomation = () => {
     if ("active" in changed) queueSweep();
   });
   Hooks.on("deleteScene", () => queueSweep());
+  Hooks.on("updateActor", (actor, changed) => {
+    const f = changed.flags?.[MODULE_ID] ?? {};
+    if (!("squadron" in f || "-=squadron" in f || "inoculated" in f)) return;
+    for (const scene of new Set([game.scenes.active, game.scenes.viewed].filter(Boolean)))
+      queueZones(scene);
+  });
   Hooks.on("updateRegion", (region, changed) => {
     if ("shapes" in changed)
       onRegionChanged(region, false).catch((err) =>
