@@ -24,13 +24,30 @@ const SKIP = "pf1spheresGrants";
 /** A signature of what a sync would write, so an unchanged target is left alone */
 const signature = (value) => stableId(JSON.stringify(value));
 
+/** One sync chain per actor: a sync reads the items, then writes, so two must never overlap */
+const chains = new Map<string, Promise<void>>();
+
 /**
- * Brings every item that receives granted actions in line with the actor's granting items.
+ * Brings every item that receives granted actions in line with the actor's granting items. Calls for
+ * the same actor run one after another.
  *
  * @param actor - The actor to synchronise
  */
-export async function syncGrants(actor) {
-  if (!actor?.isOwner) return;
+export const syncGrants = (actor): Promise<void> => {
+  if (!actor?.isOwner) return Promise.resolve();
+  const key = actor.uuid;
+  const next = (chains.get(key) ?? Promise.resolve())
+    .then(() => runSync(actor))
+    .catch((err) => console.error(`${MODULE_ID} | granted actions`, err));
+  chains.set(key, next);
+  // Forget the chain once it is idle, so the map doesn't grow with every actor ever synced
+  next.then(() => {
+    if (chains.get(key) === next) chains.delete(key);
+  });
+  return next;
+};
+
+async function runSync(actor) {
   const items = actor.items.contents;
   const names = new Set(items.map((i) => i.name.toLowerCase()));
   const wanted = new Map();
@@ -120,7 +137,7 @@ const queueGrants = (actor) => {
     key,
     setTimeout(() => {
       timers.delete(key);
-      syncGrants(actor).catch((err) => console.error(`${MODULE_ID} | granted actions`, err));
+      syncGrants(actor);
     }, 150),
   );
 };
