@@ -6,9 +6,43 @@ flags:
   pf1spheres:
     automation:
       cJx3TDF8265e3MOz:
-        condSp:
-          7hT9fquKoPf96QGz: 2
+        ghostStrike: true
+        sp: "2"
+        onFail:
+          note:
+            "Permanent curse (your choice): -[[4 + 2 * floor(@spheres.cl.death.total / 5)]] to one
+            ability score; or -[[3 + floor(@spheres.cl.death.total / 5)]] on attacks, saves, ability and
+            skill checks; or a [[min(75, 25 + 5 * floor(@spheres.cl.death.total / 2))]]% chance each turn
+            to take no action."
     sphere: death
+    grants:
+      - key: cryptic:curse
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Curse"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+              save:
+                type: will
+                dc: 10 + floor(@spheres.crypticCL / 2) + @spheres.cam
+                description: Will negates
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Curse. A permanent curse
+                (Will negates); removed by break enchantment, remove curse and the like, or at your death."
+            automation:
+              ghostStrike: true
+              onFail:
+                note:
+                  "Permanent curse (your choice): -[[4 + 2 * floor(@spheres.crypticCL / 5)]] to one ability
+                  score; or -[[3 + floor(@spheres.crypticCL / 5)]] on attacks, saves, ability and skill checks;
+                  or a [[min(75, 25 + 5 * floor(@spheres.crypticCL / 2))]]% chance each turn to take no action."
+              sp: "2"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Curse (Death)
@@ -24,25 +58,30 @@ system:
   acquired: false
   actions:
     - _id: cJx3TDF8265e3MOz
-      name: Curse (Death)
-      actionType: save
+      name: Curse
+      actionType: rsak
+      img: ""
       activation:
-        type: free
+        type: standard
         unchained:
-          cost: 1
-          type: free
+          type: action
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      notes:
+        footer:
+          - "Ghost strike: a ranged touch attack within medium range (or melee touch, rolled with Strength).
+            A negative energy death effect, so undead, constructs and the immune ignore it; subject to spell
+            resistance; doesn't stack with itself."
+          - A permanent curse (Will negates); removed by break enchantment, remove curse and the like, or
+            at your death.
       save:
         type: will
         dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
         description: Will negates
-      duration:
-        value: "1"
-        units: round
-      conditionals:
-        - _id: 7hT9fquKoPf96QGz
-          name: Spend 2 spell points
-          default: true
-          modifiers: []
   armorProf: []
   associations:
     classes: []
@@ -72,93 +111,78 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may spend 2 spell points to make a ghost strike that bestows a
-      permanent curse on the target (Will negates). Curses may be removed with
-      the Break Enchantment Life talent, rituals such as break enchantment or
-      remove curse, wishes, upon your death, or by your choice as a free action,
+    value:
+      "<p>You may spend 2 spell points to make a ghost strike that bestows a permanent curse on the
+      target (Will negates). Curses may be removed with the Break Enchantment Life talent, rituals such
+      as break enchantment or remove curse, wishes, upon your death, or by your choice as a free action,
       but otherwise cannot be dispelled.</p>
 
       <p>Choose one of the following curses to bestow upon the target:</p>
 
       <ul>
 
-      <li>The target suffers a -4 decrease to an ability score plus an
-      additional -2 per 5 caster levels (minimum 1).</li>
+      <li>The target suffers a -4 decrease to an ability score plus an additional -2 per 5 caster levels
+      (minimum 1).</li>
 
-      <li>The target suffers a -3 penalty on all attack rolls, saving throws,
-      ability checks, and skill checks plus an additional -1 per 5 caster
-      levels.</li>
+      <li>The target suffers a -3 penalty on all attack rolls, saving throws, ability checks, and skill
+      checks plus an additional -1 per 5 caster levels.</li>
 
-      <li>Each turn the target has a 25% chance to take no action. This chance
-      increases by 5% per 2 caster levels (maximum 75%).</li>
+      <li>Each turn the target has a 25% chance to take no action. This chance increases by 5% per 2 caster
+      levels (maximum 75%).</li>
 
       </ul>
 
-      <p>Curses do not stack with themselves, but a target can be afflicted by
-      multiple different curses. With GM permission, you may invent your own
-      curse, but it should be of equal power to those listed. The following
-      effects would be considered appropriate:</p>
+      <p>Curses do not stack with themselves, but a target can be afflicted by multiple different curses.
+      With GM permission, you may invent your own curse, but it should be of equal power to those listed.
+      The following effects would be considered appropriate:</p>
 
       <ul>
 
-      <li><strong>Black Mark:</strong> The target is trailed by an unpleasant
-      aura. The target takes a penalty on all Diplomacy and Handle Animal checks
-      equal to 1/2 your caster level. All creatures begin with an attitude of
-      unfriendly towards you (unless their attitude would start worse). Any
-      animals the target interacts with react wildly, with prey animals running
-      away and predator animals baring fangs or even attacking the target.
-      [Gravecaller's HB]</li>
+      <li><strong>Black Mark:</strong> The target is trailed by an unpleasant aura. The target takes a
+      penalty on all Diplomacy and Handle Animal checks equal to 1/2 your caster level. All creatures
+      begin with an attitude of unfriendly towards you (unless their attitude would start worse). Any
+      animals the target interacts with react wildly, with prey animals running away and predator animals
+      baring fangs or even attacking the target. [Gravecaller's HB]</li>
 
-      <li><strong>Clumsy:</strong> The target cannot move faster than half their
-      speed without an Acrobatics check vs. the curse&#8217;s DC. On a failure,
-      the target falls prone.</li>
+      <li><strong>Clumsy:</strong> The target cannot move faster than half their speed without an Acrobatics
+      check vs. the curse&#8217;s DC. On a failure, the target falls prone.</li>
 
-      <li><strong>Extreme Hunger:</strong> The target must eat and drink three
-      times as much as normal every day or begin suffering from thirst and
-      starvation.</li>
+      <li><strong>Extreme Hunger:</strong> The target must eat and drink three times as much as normal
+      every day or begin suffering from thirst and starvation.</li>
 
-      <li><strong>Fumble:</strong> Anytime the victim picks up or retrieves an
-      object (including drawing a weapon or ammunition), there is a 50% chance
-      that he immediately drops it. If ammunition is dropped, the attack being
-      made is lost. Any remaining attacks in a full attack action may still be
-      attempted.</li>
+      <li><strong>Fumble:</strong> Anytime the victim picks up or retrieves an object (including drawing
+      a weapon or ammunition), there is a 50% chance that he immediately drops it. If ammunition is dropped,
+      the attack being made is lost. Any remaining attacks in a full attack action may still be attempted.</li>
 
-      <li><strong>Greater Pain:</strong> Whenever the victim takes damage, he is
-      staggered for 1 round.</li>
+      <li><strong>Greater Pain:</strong> Whenever the victim takes damage, he is staggered for 1 round.</li>
 
-      <li><strong>Magically Conductive:</strong> When the victim is adjacent to
-      the area of a damaging spell or spell-like effect, the area expands to
-      include the victim.</li>
+      <li><strong>Magically Conductive:</strong> When the victim is adjacent to the area of a damaging
+      spell or spell-like effect, the area expands to include the victim.</li>
 
-      <li><strong>Old Age:</strong> The target gains the penalties (but not the
-      benefits) of advancing to the next age category. This does not actually
-      increase their age.</li>
+      <li><strong>Old Age:</strong> The target gains the penalties (but not the benefits) of advancing
+      to the next age category. This does not actually increase their age.</li>
 
-      <li><strong>Phobia:</strong> The target is cursed with a fear of a
-      concept, chosen by the caster (such as crowds, spiders, rats, thunder,
-      loud noises, etc.). Each round the target sees or hears a manifestation of
-      its phobia (such as a spider, or an illusionary spider), the target must
-      succeed at a Will save or be frightened for 1d4 rounds. A target cannot be
-      frightened by the same phobia&#8217;s manifestation more than once per
-      hour (such as the same spider, the same crowd, etc.) but new instances of
-      the phobia work normally. GMs should determine if a phobia is appropriate
-      by considering how frequently the target may encounter it. A phobia which
-      would constantly trigger, such as a phobia towards &#8220;skin&#8221; or
-      &#8220;all clothing&#8221;, would be more debilitating than the chance to
-      take no action from the Curse (ghost strike)&#8217;s base options, and
-      would not be appropriate. This curse is a mind-affecting effect.
-      [Gravecaller's HB]</li>
+      <li><strong>Phobia:</strong> The target is cursed with a fear of a concept, chosen by the caster
+      (such as crowds, spiders, rats, thunder, loud noises, etc.). Each round the target sees or hears
+      a manifestation of its phobia (such as a spider, or an illusionary spider), the target must succeed
+      at a Will save or be frightened for 1d4 rounds. A target cannot be frightened by the same phobia&#8217;s
+      manifestation more than once per hour (such as the same spider, the same crowd, etc.) but new instances
+      of the phobia work normally. GMs should determine if a phobia is appropriate by considering how
+      frequently the target may encounter it. A phobia which would constantly trigger, such as a phobia
+      towards &#8220;skin&#8221; or &#8220;all clothing&#8221;, would be more debilitating than the chance
+      to take no action from the Curse (ghost strike)&#8217;s base options, and would not be appropriate.
+      This curse is a mind-affecting effect. [Gravecaller's HB]</li>
 
-      <li><strong>Repel Healing:</strong> The victim cannot heal naturally, and
-      magical healing heals the victim by only half the usual amount (minimum 1
-      point). Fast healing and regeneration are likewise halved.</li>
+      <li><strong>Repel Healing:</strong> The victim cannot heal naturally, and magical healing heals
+      the victim by only half the usual amount (minimum 1 point). Fast healing and regeneration are likewise
+      halved.</li>
 
-      <li><strong>Unfocused:</strong> The target suffers a penalty equal to your
-      casting ability modifier to all skill checks governed by an attribute of
-      your choice.</li>
+      <li><strong>Unfocused:</strong> The target suffers a penalty equal to your casting ability modifier
+      to all skill checks governed by an attribute of your choice.</li>
 
       </ul>
+
+      "
   disabled: false
   duration:
     units: ""

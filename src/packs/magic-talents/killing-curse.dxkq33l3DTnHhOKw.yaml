@@ -5,6 +5,12 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: death
+    automation:
+      907tMk43LuZg1ler:
+        onFail:
+          conditions: dead
+          conditionRounds: "999999"
+          note: Killed by Killing Curse.
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Killing Curse
@@ -18,7 +24,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 907tMk43LuZg1ler
+      name: Killing Curse
+      actionType: save
+      img: ""
+      activation:
+        type: special
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.crypticCL / 2) + @spheres.cam
+        description: Fortitude negates
+      notes:
+        footer:
+          - "The target failed 3 saves against your ghost strikes within 1 minute: it dies unless it makes
+            this Fortitude save (death effect). Posted automatically on the third failure."
   armorProf: []
   associations:
     classes: []
@@ -48,11 +68,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Your ghost strikes can rip the very soul from the living. If a target
-      fails their saving throws against your ghost strikes 3 times within a
-      1-minute period, they immediately die (Fortitude negates). If a ghost
-      strike does not allow a save, it is not usable with this talent.</p>
+    value:
+      "<p>Your ghost strikes can rip the very soul from the living. If a target fails their saving
+      throws against your ghost strikes 3 times within a 1-minute period, they immediately die (Fortitude
+      negates). If a ghost strike does not allow a save, it is not usable with this talent.</p>
+
+      "
   disabled: false
   duration:
     units: ""

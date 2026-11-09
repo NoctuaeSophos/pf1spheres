@@ -6,9 +6,40 @@ flags:
   pf1spheres:
     automation:
       9TMFPfw2hbKlz24t:
-        condSp:
-          QjWJKLWMiZjLKMim: 1
+        ghostStrike: true
+        sp: "1"
+        onFail:
+          note:
+            An incorporeal target is corporeal for [[max(1, @spheres.cl.death.total)]] rounds; it
+            may save again at the end of each of its turns.
     sphere: death
+    grants:
+      - key: cryptic:spectral-distortion
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Spectral Distortion"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+              save:
+                type: will
+                dc: 10 + floor(@spheres.crypticCL / 2) + @spheres.cam
+                description: Will negates
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Spectral Distortion. An incorporeal
+                target becomes corporeal for 1 round per caster level (Will negates)."
+            automation:
+              ghostStrike: true
+              onFail:
+                note:
+                  An incorporeal target is corporeal for [[max(1, @spheres.crypticCL)]] rounds; it may
+                  save again at the end of each of its turns.
+              sp: "1"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Spectral Distortion
@@ -25,21 +56,28 @@ system:
   actions:
     - _id: 9TMFPfw2hbKlz24t
       name: Spectral Distortion
-      actionType: save
+      actionType: rsak
+      img: ""
       activation:
         type: standard
         unchained:
-          cost: 2
           type: action
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      notes:
+        footer:
+          - "Ghost strike: a ranged touch attack within medium range (or melee touch, rolled with Strength).
+            A negative energy death effect, so undead, constructs and the immune ignore it; subject to spell
+            resistance; doesn't stack with itself."
+          - An incorporeal target becomes corporeal for 1 round per caster level (Will negates).
       save:
         type: will
         dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
-        description: ""
-      conditionals:
-        - _id: QjWJKLWMiZjLKMim
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+        description: Will negates
   armorProf: []
   associations:
     classes: []
@@ -69,13 +107,13 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may spend a spell point to make a ghost strike that disrupts the
-      bonds between layered planes. An incorporeal creature hit by this ghost
-      strike must succeed a Will saving throw or be considered corporeal for a
-      number of rounds equal to your caster level (minimum 1). The creature can
-      attempt another saving throw at the end of their turn to dismiss this
-      effect.</p>
+    value:
+      "<p>You may spend a spell point to make a ghost strike that disrupts the bonds between layered
+      planes. An incorporeal creature hit by this ghost strike must succeed a Will saving throw or be
+      considered corporeal for a number of rounds equal to your caster level (minimum 1). The creature
+      can attempt another saving throw at the end of their turn to dismiss this effect.</p>
+
+      "
   disabled: false
   duration:
     units: ""

@@ -71,7 +71,7 @@ system:
       name: Hallowed Totem
       actionType: other
       img: ""
-      activation: &id001
+      activation:
         type: standard
         unchained:
           type: action
@@ -86,7 +86,11 @@ system:
       name: Unhallowed Totem
       actionType: other
       img: ""
-      activation: *id001
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
       range:
         units: personal
       notes:

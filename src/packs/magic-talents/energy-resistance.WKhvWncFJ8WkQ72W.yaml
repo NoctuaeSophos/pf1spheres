@@ -70,7 +70,7 @@ system:
       name: Energy Resistance (Ward)
       actionType: other
       img: ""
-      activation: &id001
+      activation:
         type: standard
         unchained:
           type: action
@@ -85,7 +85,11 @@ system:
       name: Energy Resistance (Aegis)
       actionType: other
       img: ""
-      activation: *id001
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
       range:
         units: touch
       notes:

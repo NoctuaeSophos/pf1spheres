@@ -7,7 +7,27 @@ flags:
     automation:
       ktMLOfjSokiCOzfc:
         sp: "1"
+        ghostStrike: true
     sphere: death
+    grants:
+      - key: cryptic:drain
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Drain"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Drain. Temporary negative
+                levels (no save)."
+            automation:
+              ghostStrike: true
+              sp: "1"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Drain

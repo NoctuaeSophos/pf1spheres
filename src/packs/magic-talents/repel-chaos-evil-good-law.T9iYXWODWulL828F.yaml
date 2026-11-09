@@ -110,7 +110,7 @@ system:
       name: Repel Evil
       actionType: other
       img: ""
-      activation: &id001
+      activation:
         type: standard
         unchained:
           type: action
@@ -125,7 +125,11 @@ system:
       name: Repel Good
       actionType: other
       img: ""
-      activation: *id001
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
       range:
         units: personal
       notes:
@@ -136,7 +140,11 @@ system:
       name: Repel Law
       actionType: other
       img: ""
-      activation: *id001
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
       range:
         units: personal
       notes:

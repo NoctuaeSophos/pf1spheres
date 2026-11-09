@@ -28,7 +28,7 @@ system:
       name: Mass Reanimate (+1 SP)
       actionType: other
       img: ""
-      activation: &id001
+      activation:
         type: standard
         unchained:
           type: action
@@ -43,7 +43,11 @@ system:
       name: Ghost Strike Cone (+1 SP)
       actionType: other
       img: ""
-      activation: *id001
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
       range:
         units: close
       notes:

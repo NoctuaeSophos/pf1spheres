@@ -38,7 +38,11 @@ system:
     seeInvisibility: false
   changes: []
   classSkills: {}
-  contextNotes: []
+  contextNotes:
+    - text:
+        "Vigilant Sharpshooter: with martial focus you threaten adjacent squares with ranged weapons;
+        ranged attacks of opportunity don't provoke."
+      target: rangedWeapon
   crOffset: ""
   critConfirmBonus: ""
   damage:
@@ -48,15 +52,16 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>As long as you have martial focus, you threaten all squares within 5
-      ft. of yourself with your ranged or thrown weapon. When making an attack
-      of opportunity with a ranged weapon, you do not provoke an attack of
-      opportunity with your ranged attack.</p>
+    value:
+      "<p>As long as you have martial focus, you threaten all squares within 5 ft. of yourself with
+      your ranged or thrown weapon. When making an attack of opportunity with a ranged weapon, you do
+      not provoke an attack of opportunity with your ranged attack.</p>
 
-      <p>You may take this talent a total of twice. If taken a second time,
-      increase the distance that you threaten by +5 ft. <strong>Associated
-      Feat:</strong> Snap Shot, Improved Snap Shot if taken twice.</p>
+      <p>You may take this talent a total of twice. If taken a second time, increase the distance that
+      you threaten by +5 ft. <strong>Associated Feat:</strong> Snap Shot, Improved Snap Shot if taken
+      twice.</p>
+
+      "
   disabled: false
   duration:
     units: ""

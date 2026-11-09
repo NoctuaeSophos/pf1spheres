@@ -6,9 +6,41 @@ flags:
   pf1spheres:
     automation:
       AOChbzvmpLYBTwYD:
-        condSp:
-          IxS2i4yesAssVhnB: 1
+        ghostStrike: true
+        onFail:
+          note:
+            A stabilized creature below 0 hp resumes dying (with the spell point, one below 0 hp dies).
+            If it dies you gain temporary hp equal to twice its Hit Dice and +2 enhancement to Str and
+            Dex (+2 per 8 of its HD) for 10 minutes per its HD.
     sphere: death
+    grants:
+      - key: cryptic:necrotic-feeding
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Necrotic Feeding"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+              save:
+                type: will
+                dc: 10 + floor(@spheres.crypticCL / 2) + @spheres.cam
+                description: Will negates
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Necrotic Feeding. Makes a
+                stable dying creature resume dying, or with a spell point kills one below 0 hp (Will negates),
+                feeding you."
+            automation:
+              ghostStrike: true
+              onFail:
+                note:
+                  A stabilized creature below 0 hp resumes dying (with the spell point, one below 0 hp
+                  dies). If it dies you gain temporary hp equal to twice its Hit Dice and +2 enhancement to
+                  Str and Dex (+2 per 8 of its HD) for 10 minutes per its HD.
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Necrotic Feeding
@@ -25,24 +57,29 @@ system:
   actions:
     - _id: AOChbzvmpLYBTwYD
       name: Necrotic Feeding
-      actionType: save
+      actionType: rsak
+      img: ""
       activation:
         type: standard
         unchained:
-          cost: 2
           type: action
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      notes:
+        footer:
+          - "Ghost strike: a ranged touch attack within medium range (or melee touch, rolled with Strength).
+            A negative energy death effect, so undead, constructs and the immune ignore it; subject to spell
+            resistance; doesn't stack with itself."
+          - Makes a stable dying creature resume dying, or with a spell point kills one below 0 hp (Will negates),
+            feeding you.
       save:
         type: will
         dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
         description: Will negates
-      duration:
-        value: "10"
-        units: minute
-      conditionals:
-        - _id: IxS2i4yesAssVhnB
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
   armorProf: []
   associations:
     classes: []
@@ -72,18 +109,17 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may make a ghost strike that causes a living creature that is below
-      0 hit points but stabilized to resume dying. You may also spend a spell
-      point to make a ghost strike that, when it strikes a target below 0 hit
-      points, kills it instantly (Will negates).</p>
+    value:
+      "<p>You may make a ghost strike that causes a living creature that is below 0 hit points but
+      stabilized to resume dying. You may also spend a spell point to make a ghost strike that, when it
+      strikes a target below 0 hit points, kills it instantly (Will negates).</p>
 
-      <p>If the target fails their saving throw, you gain temporary hit points
-      equal to twice the target&#8217;s Hit Dice, as well as a +2 enhancement
-      bonus to Strength and Dexterity, which increases by +2 for every 8 Hit
-      Dice the target possesses. These effects last for 10 minutes per Hit Die
-      of the slain creature. Bonuses from multiple creatures do not stack; only
-      the highest bonuses apply.</p>
+      <p>If the target fails their saving throw, you gain temporary hit points equal to twice the target&#8217;s
+      Hit Dice, as well as a +2 enhancement bonus to Strength and Dexterity, which increases by +2 for
+      every 8 Hit Dice the target possesses. These effects last for 10 minutes per Hit Die of the slain
+      creature. Bonuses from multiple creatures do not stack; only the highest bonuses apply.</p>
+
+      "
   disabled: false
   duration:
     units: ""

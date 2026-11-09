@@ -6,9 +6,27 @@ flags:
   pf1spheres:
     automation:
       XhzPXwY4JtTgVm8Z:
-        condSp:
-          2MPTRusrrNfoXcfN: 1
+        ghostStrike: true
     sphere: death
+    grants:
+      - key: cryptic:poltergeist
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Poltergeist"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Poltergeist. No save. For
+                1 round per caster level you may impose -3 (-1 more per 6 caster levels) on one of the target's
+                d20 rolls, ending it; with a spell point, once each round without ending it."
+            automation:
+              ghostStrike: true
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Poltergeist
@@ -25,20 +43,25 @@ system:
   actions:
     - _id: XhzPXwY4JtTgVm8Z
       name: Poltergeist
-      actionType: other
+      actionType: rsak
+      img: ""
       activation:
         type: standard
         unchained:
-          cost: 2
           type: action
-      duration:
-        value: "@spheres.cl.death.total"
-        units: round
-      conditionals:
-        - _id: 2MPTRusrrNfoXcfN
-          name: Spend 1 spell point (option)
-          default: false
-          modifiers: []
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      notes:
+        footer:
+          - "Ghost strike: a ranged touch attack within medium range (or melee touch, rolled with Strength).
+            A negative energy death effect, so undead, constructs and the immune ignore it; subject to spell
+            resistance; doesn't stack with itself."
+          - No save. For 1 round per caster level you may impose -3 (-1 more per 6 caster levels) on one of
+            the target's d20 rolls, ending it; with a spell point, once each round without ending it.
   armorProf: []
   associations:
     classes: []
@@ -68,17 +91,17 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may make a ghost strike that attaches a vengeful poltergeist to the
-      target, disrupting their actions. Whenever the target makes a d20 roll
-      within 1 round per caster level, you can choose for them take a -3 penalty
-      to the roll, ending this effect. This penalty is increased by 1 for every
+    value:
+      "<p>You may make a ghost strike that attaches a vengeful poltergeist to the target, disrupting
+      their actions. Whenever the target makes a d20 roll within 1 round per caster level, you can choose
+      for them take a -3 penalty to the roll, ending this effect. This penalty is increased by 1 for every
       6 caster levels you have.</p>
 
-      <p>If you spend a spell point when you use this ghost strike, you can
-      impose the penalty on up to one d20 roll the target makes each round for
-      the effect&#8217;s duration, and imposing the penalty does not end the
-      effect. A creature can only be affected by one poltergeist at a time.</p>
+      <p>If you spend a spell point when you use this ghost strike, you can impose the penalty on up to
+      one d20 roll the target makes each round for the effect&#8217;s duration, and imposing the penalty
+      does not end the effect. A creature can only be affected by one poltergeist at a time.</p>
+
+      "
   disabled: false
   duration:
     units: ""

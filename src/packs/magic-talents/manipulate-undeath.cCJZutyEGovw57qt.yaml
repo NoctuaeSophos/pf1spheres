@@ -6,9 +6,35 @@ flags:
   pf1spheres:
     automation:
       Bm2gjAlG5juoP3By:
-        condSp:
-          rjglUK1mkELImCPG: 1
+        ghostStrike: true
     sphere: death
+    grants:
+      - key: cryptic:manipulate-undeath
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Manipulate Undeath"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+              save:
+                type: will
+                dc: 10 + floor(@spheres.crypticCL / 2) + @spheres.cam
+                description: Will half
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Manipulate Undeath. Harms
+                undead: 1d8 per 2 caster levels (Will half). Spend a spell point to heal the undead by that
+                much instead."
+            automation:
+              ghostStrike: true
+            addDamage:
+              - formula: (max(1, floor(@spheres.crypticCL / 2)))d8
+                types:
+                  - negative
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Manipulate Undeath
@@ -25,21 +51,34 @@ system:
   actions:
     - _id: Bm2gjAlG5juoP3By
       name: Manipulate Undeath
-      actionType: save
+      actionType: rsak
+      img: ""
       activation:
         type: standard
         unchained:
-          cost: 2
           type: action
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      notes:
+        footer:
+          - "Ghost strike: a ranged touch attack within medium range (or melee touch, rolled with Strength).
+            A negative energy death effect, so undead, constructs and the immune ignore it; subject to spell
+            resistance; doesn't stack with itself."
+          - "Harms undead: 1d8 per 2 caster levels (Will half). Spend a spell point to heal the undead by
+            that much instead."
       save:
         type: will
         dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
         description: Will half
-      conditionals:
-        - _id: rjglUK1mkELImCPG
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+      damage:
+        parts:
+          - formula: (max(1, floor(@spheres.cl.death.total / 2)))d8
+            types:
+              - negative
   armorProf: []
   associations:
     classes: []
@@ -69,10 +108,11 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may make a ghost strike that harms undead, dealing 1d8 damage per 2
-      caster levels (minimum 1d8, Will half). You may spend a spell point to
-      instead heal the undead for this amount.</p>
+    value:
+      "<p>You may make a ghost strike that harms undead, dealing 1d8 damage per 2 caster levels (minimum
+      1d8, Will half). You may spend a spell point to instead heal the undead for this amount.</p>
+
+      "
   disabled: false
   duration:
     units: ""

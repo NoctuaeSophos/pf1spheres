@@ -6,9 +6,67 @@ flags:
   pf1spheres:
     automation:
       YUXwRXegE4rKM9zu:
-        condSp:
-          DiIZLR4Cssr5lOhI: 1
+        ghostStrike: true
+        onFail:
+          conditions: sickened
+          conditionRounds: max(1, @spheres.cl.death.total)
+      PRhjW69puu8RWNBp:
+        ghostStrike: true
+        sp: "1"
+        onFail:
+          conditions: nauseated
+          conditionRounds: max(1, @spheres.cl.death.total)
     sphere: death
+    grants:
+      - key: cryptic:sickening
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Sickening"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+              save:
+                type: fort
+                dc: 10 + floor(@spheres.crypticCL / 2) + @spheres.cam
+                description: Fortitude negates (still sickened for 1 round)
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Sickening. Sickened for 1
+                round per caster level; on a successful save, sickened for 1 round."
+            automation:
+              ghostStrike: true
+              onFail:
+                conditions: sickened
+                conditionRounds: max(1, @spheres.crypticCL)
+      - key: cryptic:sickening-1-sp
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Sickening (1 SP)"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+              save:
+                type: fort
+                dc: 10 + floor(@spheres.crypticCL / 2) + @spheres.cam
+                description: Fortitude negates (still sickened for 1 round)
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Sickening (1 SP). Nauseated
+                for 1 round per caster level; on a successful save, sickened for 1 round."
+            automation:
+              ghostStrike: true
+              onFail:
+                conditions: nauseated
+                conditionRounds: max(1, @spheres.crypticCL)
+              sp: "1"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Sickening
@@ -25,24 +83,52 @@ system:
   actions:
     - _id: YUXwRXegE4rKM9zu
       name: Sickening
-      actionType: save
+      actionType: rsak
+      img: ""
       activation:
         type: standard
         unchained:
-          cost: 2
           type: action
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      notes:
+        footer:
+          - "Ghost strike: a ranged touch attack within medium range (or melee touch, rolled with Strength).
+            A negative energy death effect, so undead, constructs and the immune ignore it; subject to spell
+            resistance; doesn't stack with itself."
+          - Sickened for 1 round per caster level; on a successful save, sickened for 1 round.
       save:
         type: fort
         dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
-        description: Fortitude negates
-      duration:
-        value: "@spheres.cl.death.total"
-        units: round
-      conditionals:
-        - _id: DiIZLR4Cssr5lOhI
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+        description: Fortitude negates (still sickened for 1 round)
+    - _id: PRhjW69puu8RWNBp
+      name: Sickening (1 SP)
+      actionType: rsak
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      notes:
+        footer:
+          - "Ghost strike: a ranged touch attack within medium range (or melee touch, rolled with Strength).
+            A negative energy death effect, so undead, constructs and the immune ignore it; subject to spell
+            resistance; doesn't stack with itself."
+          - Nauseated for 1 round per caster level; on a successful save, sickened for 1 round.
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
+        description: Fortitude negates (still sickened for 1 round)
   armorProf: []
   associations:
     classes: []
@@ -72,11 +158,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may make a ghost strike that causes the target to be sickened for 1
-      round per caster level (Fortitude negates). You may spend a spell point to
-      cause the target to instead become nauseated. On a successful save, the
-      target is still sickened for 1 round.</p>
+    value:
+      "<p>You may make a ghost strike that causes the target to be sickened for 1 round per caster
+      level (Fortitude negates). You may spend a spell point to cause the target to instead become nauseated.
+      On a successful save, the target is still sickened for 1 round.</p>
+
+      "
   disabled: false
   duration:
     units: ""

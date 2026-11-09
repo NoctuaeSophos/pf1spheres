@@ -38,7 +38,11 @@ system:
     seeInvisibility: false
   changes: []
   classSkills: {}
-  contextNotes: []
+  contextNotes:
+    - text:
+        "Close Combat Specialist: with martial focus, your ranged attacks don't provoke attacks of
+        opportunity."
+      target: rangedWeapon
   crOffset: ""
   critConfirmBonus: ""
   damage:
@@ -48,11 +52,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>When you have martial focus, you do not provoke an attack of
-      opportunity when making a ranged attack. If you possess the Vigilant
-      Sharpshooter talent, you may flank targets in your threatened area with
-      your ranged weapons.</p>
+    value:
+      "<p>When you have martial focus, you do not provoke an attack of opportunity when making a
+      ranged attack. If you possess the Vigilant Sharpshooter talent, you may flank targets in your threatened
+      area with your ranged weapons.</p>
+
+      "
   disabled: false
   duration:
     units: ""

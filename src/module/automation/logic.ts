@@ -43,6 +43,8 @@ export interface ActionAutomation {
   threatNext?: boolean;
   /** Refused below this many Hit Dice (deific obedience boons) */
   minHD?: number;
+  /** A Death sphere ghost strike: its failed saves count toward Killing Curse */
+  ghostStrike?: boolean;
 }
 
 export interface FailEffects {
@@ -229,6 +231,21 @@ export const withoutLabel = (note: string, label: string): string => {
  */
 export const undeadHDLimit = (deathCL: number, greaterReanimate: number): number =>
   Math.max(0, deathCL) * (greaterReanimate >= 2 ? 5 : greaterReanimate === 1 ? 4 : 2);
+
+/**
+ * Killing Curse: a target's failed saves against the caster's ghost strikes in the last minute, with a
+ * new one added. Three or more means the curse triggers (and the count starts over).
+ *
+ * @param times - World times of earlier failures against this caster
+ * @param now - World time of this failure
+ */
+export const killingCurseCount = (
+  times: number[],
+  now: number,
+): { times: number[]; triggered: boolean } => {
+  const recent = [...(times ?? []).filter((t) => now - t < 60 && t <= now), now];
+  return recent.length >= 3 ? { times: [], triggered: true } : { times: recent, triggered: false };
+};
 
 /** Which way a move crosses an area's edge, if it does and the area watches that direction */
 export const edgeCrossing = (

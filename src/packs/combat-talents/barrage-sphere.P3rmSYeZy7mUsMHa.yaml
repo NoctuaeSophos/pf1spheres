@@ -39,7 +39,9 @@ system:
     seeInvisibility: false
   changes: []
   classSkills: {}
-  contextNotes: []
+  contextNotes:
+    - text: "Barrage (Melee Archer): +1 attack and damage with ranged weapons within 30 ft."
+      target: rangedWeapon
   crOffset: ""
   critConfirmBonus: ""
   damage:
@@ -49,10 +51,11 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: "<p>You possess the Barrage combat sphere. Gaining a sphere costs one talent,
-      so this item counts toward your Barrage talents; tick <em>Exclude from Talent
-      Count</em> if the sphere was granted as a bonus (by a class feature, tradition
-      or drawback).</p><p>Base sphere abilities, packages and drawbacks: @UUID[Compendium.pf1spheres.rules.JournalEntry.6ofS12a3d99UJ840.JournalEntryPage.PCdlQv48li7cm2Ld]{Barrage
+    value:
+      "<p>You possess the Barrage combat sphere. Gaining a sphere costs one talent, so this item
+      counts toward your Barrage talents; tick <em>Exclude from Talent Count</em> if the sphere was granted
+      as a bonus (by a class feature, tradition or drawback).</p><p>Base sphere abilities, packages and
+      drawbacks: @UUID[Compendium.pf1spheres.rules.JournalEntry.6ofS12a3d99UJ840.JournalEntryPage.PCdlQv48li7cm2Ld]{Barrage
       sphere rules}.</p>"
   disabled: false
   duration:

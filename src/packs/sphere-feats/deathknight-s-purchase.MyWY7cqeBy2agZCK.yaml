@@ -5,8 +5,7 @@ flags:
   pf1spheres:
     automation:
       Jupc94tnwlavyfEr:
-        condSp:
-          GPmpGXafq0fjzLcz: 1
+        sp: ifelse(gte(@spheres.necrosis, 4), 0, 1)
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -28,8 +27,8 @@ system:
       activation:
         type: immediate
         unchained:
-          cost: 1
           type: reaction
+          cost: 1
       duration:
         value: "1"
         units: minute
@@ -38,6 +37,13 @@ system:
           name: Spend 1 spell point
           default: true
           modifiers: []
+      range:
+        units: close
+      notes:
+        footer:
+          - "When a creature in close range (with at least half your character level in Hit Dice) fails a
+            save against a death or negative energy effect: [[floor(@details.level.value / 2) + (max(1, @spheres.necrosis))d6]]
+            temporary hit points for [[max(1, @spheres.necrosis)]] minutes. Free at four necrosis feats."
   armorProf: []
   associations:
     classes: []

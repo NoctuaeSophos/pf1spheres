@@ -13,7 +13,35 @@ flags:
             Strength or Dexterity (caster's choice) -[[1d4]] for [[@spheres.cl.death.total]] rounds;
             with the spell point, -[[max(1, floor(@spheres.cl.death.total / 2))]] more (a successful save
             halves it instead). Can't go below 1.
+        ghostStrike: true
     sphere: death
+    grants:
+      - key: cryptic:weakening
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Weakening"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+              save:
+                type: fort
+                dc: 10 + floor(@spheres.crypticCL / 2) + @spheres.cam
+                description: Fortitude negates
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Weakening. Strength or Dexterity
+                penalty (Fortitude negates)."
+            automation:
+              ghostStrike: true
+              onFail:
+                note:
+                  Strength or Dexterity (caster's choice) -[[1d4]] for [[@spheres.crypticCL]] rounds;
+                  with the spell point, -[[max(1, floor(@spheres.crypticCL / 2))]] more (a successful save
+                  halves it instead). Can't go below 1.
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Weakening

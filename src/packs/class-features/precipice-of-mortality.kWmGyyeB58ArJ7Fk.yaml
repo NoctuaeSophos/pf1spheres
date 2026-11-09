@@ -49,11 +49,11 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: '<p><strong>Mystic combat, Dread Crusader only.</strong> You are healed
-      by both positive and negative energy and take no damage from either. Whenever
-      you are healed, you may spend a spell point as an immediate action for a +1
-      profane bonus on attack and damage rolls for 1 minute, +1 per 6 class levels.
-      Counts as a necrosis feat.</p><p><em>Source: Dread Crusader (mageknight archetype),
+    value:
+      '<p><strong>Mystic combat, Dread Crusader only.</strong> You are healed by both positive and
+      negative energy and take no damage from either. Whenever you are healed, you may spend a spell point
+      as an immediate action for a +1 profane bonus on attack and damage rolls for 1 minute, +1 per 6
+      class levels. Counts as a necrosis feat.</p><p><em>Source: Dread Crusader (mageknight archetype),
       The Gravecaller''s Handbook.</em> <a href="http://spheresofpower.wikidot.com/dread-crusader">Full
       text</a></p>'
   disabled: false
@@ -92,6 +92,7 @@ system:
   tags:
     - Dread Crusader
     - Mystic Combat
+    - Necrosis
   target:
     value: ""
   traitCategory: ""

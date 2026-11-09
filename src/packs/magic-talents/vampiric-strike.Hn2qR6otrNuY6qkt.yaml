@@ -6,9 +6,45 @@ flags:
   pf1spheres:
     automation:
       51ZeKBtuaIhM1C9s:
-        condSp:
-          9brL74CHxR6s0WRt: 1
+        ghostStrike: true
+        sp: "1"
+        onFail:
+          note:
+            You gain temporary hit points equal to the damage dealt (at most the target's current
+            hp + Con score) for [[max(1, @spheres.cl.death.total)]] minutes.
     sphere: death
+    grants:
+      - key: cryptic:vampiric-strike
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Vampiric Strike"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+              save:
+                type: fort
+                dc: 10 + floor(@spheres.crypticCL / 2) + @spheres.cam
+                description: Fortitude half
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Vampiric Strike. 1d6 per
+                2 caster levels (Fortitude half); you gain that many temporary hit points for 1 minute per caster
+                level."
+            automation:
+              ghostStrike: true
+              onFail:
+                note:
+                  You gain temporary hit points equal to the damage dealt (at most the target's current
+                  hp + Con score) for [[max(1, @spheres.crypticCL)]] minutes.
+              sp: "1"
+            addDamage:
+              - formula: (max(1, floor(@spheres.crypticCL / 2)))d6
+                types:
+                  - negative
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Vampiric Strike
@@ -25,24 +61,34 @@ system:
   actions:
     - _id: 51ZeKBtuaIhM1C9s
       name: Vampiric Strike
-      actionType: save
+      actionType: rsak
+      img: ""
       activation:
         type: standard
         unchained:
-          cost: 2
           type: action
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      notes:
+        footer:
+          - "Ghost strike: a ranged touch attack within medium range (or melee touch, rolled with Strength).
+            A negative energy death effect, so undead, constructs and the immune ignore it; subject to spell
+            resistance; doesn't stack with itself."
+          - 1d6 per 2 caster levels (Fortitude half); you gain that many temporary hit points for 1 minute
+            per caster level.
       save:
         type: fort
         dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
         description: Fortitude half
-      duration:
-        value: "@spheres.cl.death.total"
-        units: minute
-      conditionals:
-        - _id: 9brL74CHxR6s0WRt
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
+      damage:
+        parts:
+          - formula: (max(1, floor(@spheres.cl.death.total / 2)))d6
+            types:
+              - negative
   armorProf: []
   associations:
     classes: []
@@ -72,15 +118,15 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may spend a spell point to make a ghost strike that deals 1d6
-      damage per 2 caster levels to the target (minimum 1d6) and grants yourself
-      an equal number of temporary hit points that last 1 minute per caster
-      level (Fortitude half). You cannot gain more temporary hit points in this
-      manner than the subject&#8217;s current hit points + their Constitution
-      score. If you strike multiple targets at once with the same vampiric
-      strike (for example, through the Mass Death Magic talent) you cannot gain
-      more temporary hit points than 3 per caster level (minimum 6).</p>
+    value:
+      "<p>You may spend a spell point to make a ghost strike that deals 1d6 damage per 2 caster levels
+      to the target (minimum 1d6) and grants yourself an equal number of temporary hit points that last
+      1 minute per caster level (Fortitude half). You cannot gain more temporary hit points in this manner
+      than the subject&#8217;s current hit points + their Constitution score. If you strike multiple targets
+      at once with the same vampiric strike (for example, through the Mass Death Magic talent) you cannot
+      gain more temporary hit points than 3 per caster level (minimum 6).</p>
+
+      "
   disabled: false
   duration:
     units: ""

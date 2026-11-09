@@ -3,6 +3,30 @@ _key: "!items!jBOxGHsFqvmkm6CD"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    sphere: death
+    automation:
+      XHFrmlnlkYeO2Y9F:
+        ghostStrike: true
+    grants:
+      - key: cryptic:bleeding-wounds
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Bleeding Wounds"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Bleeding Wounds. No save:
+                1 bleed per caster level (minimum 1), or 2 per caster level (minimum 2) with a spell point,
+                until stopped by Heal or magical healing."
+            automation:
+              ghostStrike: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Bleeding Wounds
@@ -16,7 +40,28 @@ system:
     damageMult: 1
   abilityType: su
   acquired: false
-  actions: []
+  actions:
+    - _id: XHFrmlnlkYeO2Y9F
+      name: Bleeding Wounds
+      actionType: rsak
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      notes:
+        footer:
+          - "Ghost strike: a ranged touch attack within medium range (or melee touch, rolled with Strength).
+            A negative energy death effect, so undead, constructs and the immune ignore it; subject to spell
+            resistance; doesn't stack with itself."
+          - "No save: 1 bleed per caster level (minimum 1), or 2 per caster level (minimum 2) with a spell
+            point, until stopped by Heal or magical healing."
   armorProf: []
   associations:
     classes: []
@@ -46,11 +91,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>The mageknight may spend a spell point as a swift action to inflict
-      bleed damage equal to 1/2 her mageknight level (minimum 1) with every
-      attack for a number of rounds equal to her casting ability modifier. Bleed
-      damage does not stack.</p>
+    value:
+      "<p>The mageknight may spend a spell point as a swift action to inflict bleed damage equal
+      to 1/2 her mageknight level (minimum 1) with every attack for a number of rounds equal to her casting
+      ability modifier. Bleed damage does not stack.</p>
+
+      "
   disabled: false
   duration:
     units: ""

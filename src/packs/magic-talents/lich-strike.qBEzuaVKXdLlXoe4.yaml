@@ -6,9 +6,75 @@ flags:
   pf1spheres:
     automation:
       QzgmAfIRsxvprQQv:
-        condSp:
-          oczAS2BejfedImq6: 2
+        ghostStrike: true
+        onFail:
+          conditions: staggered
+          conditionRounds: 1 + floor(@spheres.cl.death.total / 4)
+      qWeFHxsFNGFk938X:
+        ghostStrike: true
+        sp: "2"
+        onFail:
+          conditions: paralyzed
+          conditionRounds: max(1, @spheres.cl.death.total)
+          note:
+            "Paralyzed (seems dead: Perception DC [[15 + @spheres.cl.death.total]] or Heal DC [[15
+            + floor(@spheres.cl.death.total / 2)]] shows it lives); a new Fortitude save each round (full-round
+            action) ends it."
     sphere: death
+    grants:
+      - key: cryptic:lich-strike
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Lich Strike"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+              save:
+                type: fort
+                dc: 10 + floor(@spheres.crypticCL / 2) + @spheres.cam
+                description: Fortitude negates
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Lich Strike. Staggered for
+                1 round + 1 per 4 caster levels."
+            automation:
+              ghostStrike: true
+              onFail:
+                conditions: staggered
+                conditionRounds: 1 + floor(@spheres.crypticCL / 4)
+      - key: cryptic:lich-strike-2-sp
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Lich Strike (2 SP)"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+              save:
+                type: fort
+                dc: 10 + floor(@spheres.crypticCL / 2) + @spheres.cam
+                description: Fortitude negates (staggered 1 round instead)
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Lich Strike (2 SP). Paralyzed
+                for 1 round per caster level; on a successful save, staggered for 1 round."
+            automation:
+              ghostStrike: true
+              onFail:
+                conditions: paralyzed
+                conditionRounds: max(1, @spheres.crypticCL)
+                note:
+                  "Paralyzed (seems dead: Perception DC [[15 + @spheres.crypticCL]] or Heal DC [[15 +
+                  floor(@spheres.crypticCL / 2)]] shows it lives); a new Fortitude save each round (full-round
+                  action) ends it."
+              sp: "2"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Lich Strike
@@ -25,24 +91,52 @@ system:
   actions:
     - _id: QzgmAfIRsxvprQQv
       name: Lich Strike
-      actionType: save
+      actionType: rsak
+      img: ""
       activation:
         type: standard
         unchained:
-          cost: 2
           type: action
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      notes:
+        footer:
+          - "Ghost strike: a ranged touch attack within medium range (or melee touch, rolled with Strength).
+            A negative energy death effect, so undead, constructs and the immune ignore it; subject to spell
+            resistance; doesn't stack with itself."
+          - Staggered for 1 round + 1 per 4 caster levels.
       save:
         type: fort
         dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
         description: Fortitude negates
-      duration:
-        value: "@spheres.cl.death.total"
-        units: round
-      conditionals:
-        - _id: oczAS2BejfedImq6
-          name: Spend 2 spell points (option)
-          default: false
-          modifiers: []
+    - _id: qWeFHxsFNGFk938X
+      name: Lich Strike (2 SP)
+      actionType: rsak
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      notes:
+        footer:
+          - "Ghost strike: a ranged touch attack within medium range (or melee touch, rolled with Strength).
+            A negative energy death effect, so undead, constructs and the immune ignore it; subject to spell
+            resistance; doesn't stack with itself."
+          - Paralyzed for 1 round per caster level; on a successful save, staggered for 1 round.
+      save:
+        type: fort
+        dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
+        description: Fortitude negates (staggered 1 round instead)
   armorProf: []
   associations:
     classes: []
@@ -72,19 +166,18 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may make a ghost strike that emulates the power of a lich&#8217;s
-      touch, incapacitating the target. The target is staggered for 1 round plus
-      1 round per 4 caster levels (Fortitude negates). If you spend 2 additional
-      spell points, the target is instead paralyzed for 1 round per caster level
-      (Fortitude negates). On a successful save to avoid paralysis, the target
-      is instead staggered for 1 round. A target paralyzed by this ghost strike
-      is allowed a new Fortitude save each round to end this effect early. This
-      is a fullround action that does not provoke an attack of opportunity.</p>
+    value:
+      "<p>You may make a ghost strike that emulates the power of a lich&#8217;s touch, incapacitating
+      the target. The target is staggered for 1 round plus 1 round per 4 caster levels (Fortitude negates).
+      If you spend 2 additional spell points, the target is instead paralyzed for 1 round per caster level
+      (Fortitude negates). On a successful save to avoid paralysis, the target is instead staggered for
+      1 round. A target paralyzed by this ghost strike is allowed a new Fortitude save each round to end
+      this effect early. This is a fullround action that does not provoke an attack of opportunity.</p>
 
-      <p>A creature paralyzed by the Lich Strike talent seems dead, though a
-      Perception check (DC 15 + caster level) or Heal check (DC 15 + 1/2 caster
-      level) reveals that the creature is still alive.</p>
+      <p>A creature paralyzed by the Lich Strike talent seems dead, though a Perception check (DC 15 +
+      caster level) or Heal check (DC 15 + 1/2 caster level) reveals that the creature is still alive.</p>
+
+      "
   disabled: false
   duration:
     units: ""

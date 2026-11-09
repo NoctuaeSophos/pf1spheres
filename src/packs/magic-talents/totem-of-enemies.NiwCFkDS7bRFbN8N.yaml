@@ -195,7 +195,7 @@ system:
       name: Totem of Enemies (Evil)
       actionType: other
       img: ""
-      activation: &id001
+      activation:
         type: standard
         unchained:
           type: action
@@ -211,7 +211,11 @@ system:
       name: Totem of Enemies (Lawful)
       actionType: other
       img: ""
-      activation: *id001
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
       range:
         units: personal
       notes:
@@ -223,7 +227,11 @@ system:
       name: Totem of Enemies (Chaotic)
       actionType: other
       img: ""
-      activation: *id001
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
       range:
         units: personal
       notes:
@@ -235,7 +243,11 @@ system:
       name: Totem of Enemies (Neutral)
       actionType: other
       img: ""
-      activation: *id001
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
       range:
         units: personal
       notes:

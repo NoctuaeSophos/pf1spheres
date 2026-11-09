@@ -6,9 +6,42 @@ flags:
   pf1spheres:
     automation:
       nTEGbOY1xHvAV8Dn:
-        condSp:
-          RlzGW7hUNwOdqryz: 1
+        ghostStrike: true
+        sp: "1"
+        onFail:
+          note:
+            For [[max(1, @spheres.cl.death.total)]] minutes an unintelligent undead obeys you, or
+            an intelligent one is friendly (opposed Charisma checks for unusual orders). Threatening it
+            breaks the effect.
     sphere: death
+    grants:
+      - key: cryptic:command-undead
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Command Undead"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+              save:
+                type: will
+                dc: 10 + floor(@spheres.crypticCL / 2) + @spheres.cam
+                description: Will negates
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Command Undead. Control or
+                befriend an undead for 1 minute per caster level (Will negates)."
+            automation:
+              ghostStrike: true
+              onFail:
+                note:
+                  For [[max(1, @spheres.crypticCL)]] minutes an unintelligent undead obeys you, or an
+                  intelligent one is friendly (opposed Charisma checks for unusual orders). Threatening it
+                  breaks the effect.
+              sp: "1"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Command Undead
@@ -25,24 +58,28 @@ system:
   actions:
     - _id: nTEGbOY1xHvAV8Dn
       name: Command Undead
-      actionType: save
+      actionType: rsak
+      img: ""
       activation:
         type: standard
         unchained:
-          cost: 2
           type: action
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      notes:
+        footer:
+          - "Ghost strike: a ranged touch attack within medium range (or melee touch, rolled with Strength).
+            A negative energy death effect, so undead, constructs and the immune ignore it; subject to spell
+            resistance; doesn't stack with itself."
+          - Control or befriend an undead for 1 minute per caster level (Will negates).
       save:
         type: will
         dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
         description: Will negates
-      duration:
-        value: "@spheres.cl.death.total"
-        units: minute
-      conditionals:
-        - _id: RlzGW7hUNwOdqryz
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
   armorProf: []
   associations:
     classes: []
@@ -72,22 +109,20 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may spend a spell point to make a ghost strike that grants you a
-      measure of control over an undead creature (Will negates). For 1 minute
-      per caster level, an unintelligent undead creature falls under your
-      control or an intelligent undead becomes friendly toward you. You can give
-      an intelligent undead creature orders, but you must win an opposed
-      Charisma check to convince it to do anything it would not ordinarily do.
-      Retries are not allowed. An intelligent commanded undead never obeys
-      suicidal or obviously harmful orders, but it might be convinced that
-      something very dangerous is worth doing. Any act by you or your apparent
-      allies that threatens the commanded undead (regardless of its
-      Intelligence) breaks this effect.</p>
+    value:
+      "<p>You may spend a spell point to make a ghost strike that grants you a measure of control
+      over an undead creature (Will negates). For 1 minute per caster level, an unintelligent undead creature
+      falls under your control or an intelligent undead becomes friendly toward you. You can give an intelligent
+      undead creature orders, but you must win an opposed Charisma check to convince it to do anything
+      it would not ordinarily do. Retries are not allowed. An intelligent commanded undead never obeys
+      suicidal or obviously harmful orders, but it might be convinced that something very dangerous is
+      worth doing. Any act by you or your apparent allies that threatens the commanded undead (regardless
+      of its Intelligence) breaks this effect.</p>
 
-      <p>Your commands are not telepathic; the undead creature must be able to
-      hear you. Intelligent undead remember they were manipulated and may seek
-      revenge.</p>
+      <p>Your commands are not telepathic; the undead creature must be able to hear you. Intelligent undead
+      remember they were manipulated and may seek revenge.</p>
+
+      "
   disabled: false
   duration:
     units: ""

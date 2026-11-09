@@ -21,6 +21,7 @@ import {
   durationSeconds,
   fillNote,
   hasAutomation,
+  killingCurseCount,
   hasFailEffects,
   isInoculated,
   parseConditions,
@@ -1099,12 +1100,44 @@ async function onRollSave(actor, result) {
   const message = fromUuidSync(pending.reference);
   const item = message?.itemSource;
   const action = message?.actionSource;
-  if (!item || !action || !hasFailEffects(getAutomation(item, action.id).onFail)) return;
+  const auto = item && action ? getAutomation(item, action.id) : null;
+  if (!auto || !(hasFailEffects(auto.onFail) || auto.ghostStrike)) return;
   await requestGM({
     action: "auto.failedSave",
     messageUuid: pending.reference,
     targetUuid: actor.uuid,
   });
+}
+
+/**
+ * Killing Curse: three failed saves against the caster's ghost strikes within a minute, and the GM's
+ * client puts the curse's Fortitude-or-die card in chat from the caster's Killing Curse.
+ */
+async function countKillingCurse(caster, target) {
+  const curse = caster.items.find((i) => i.name === "Killing Curse");
+  if (!curse) return;
+  const all = caster.getFlag(MODULE_ID, "killingCurse") ?? {};
+  const key = target.uuid.replaceAll(".", "_");
+  const { times, triggered } = killingCurseCount(all[key] ?? [], game.time.worldTime);
+  await caster.update({ [`flags.${MODULE_ID}.killingCurse.${key}`]: times });
+  const name = target.token?.name ?? target.name;
+  if (!triggered) {
+    await ChatMessage.create({
+      content: `<p>${fmt("KillingCurseCount", { name, count: times.length })}</p>`,
+      speaker: ChatMessage.getSpeaker({ actor: caster }),
+      whisper: game.users
+        .filter((u) => u.isGM || caster.testUserPermission(u, "OWNER"))
+        .map((u) => u.id),
+    });
+    return;
+  }
+  const action = curse.actions?.contents?.[0];
+  if (action) await curse.use({ actionId: action.id, skipDialog: true, chatMessage: true });
+  else
+    await ChatMessage.create({
+      content: `<p>${fmt("KillingCurseTriggered", { name })}</p>`,
+      speaker: ChatMessage.getSpeaker({ actor: caster }),
+    });
 }
 
 const rollTotal = async (formula, rollData): Promise<number> => {
@@ -1137,8 +1170,9 @@ async function applyFailedSave(msg, user) {
   const action = message?.actionSource;
   const caster = item?.actor;
   if (!caster || !action) return;
-  const fail = getAutomation(item, action.id).onFail;
-  if (!hasFailEffects(fail)) return;
+  const auto = getAutomation(item, action.id);
+  const fail = auto.onFail ?? {};
+  if (!hasFailEffects(fail) && !auto.ghostStrike) return;
   // The scholar and her inoculated allies ignore the harmful effects of her alchemical items
   if (
     isAlchemical(item) &&
@@ -1150,6 +1184,8 @@ async function applyFailedSave(msg, user) {
   const failed = message.getFlag(MODULE_ID, "failedSaves") ?? [];
   if (failed.includes(target.uuid)) return;
   await message.setFlag(MODULE_ID, "failedSaves", [...failed, target.uuid]);
+  if (auto.ghostStrike) await countKillingCurse(caster, target);
+  if (!hasFailEffects(fail)) return;
 
   const rd = action.getRollData?.() ?? item.getRollData();
   const now = game.time.worldTime;
@@ -1304,6 +1340,17 @@ export const registerAutomation = () => {
       Object.values(doc.system?.skills?.crf?.subSkills ?? {}).find((sk) =>
         /alchem/i.test(sk?.name ?? ""),
       )?.rank ?? 0;
+    // Ghastly Powers: a class level serves as the caster level for Cryptic Strike
+    const deathCL = doc.system?.spheres?.cl?.death?.total ?? 0;
+    const cryptic = doc.items?.find((i) => i.flags?.[MODULE_ID]?.crypticClassLevel);
+    result.spheres.crypticCL = Math.max(
+      deathCL,
+      cryptic ? doc.classes?.[cryptic.flags[MODULE_ID].crypticClassLevel]?.level ?? 0 : 0,
+    );
+    // Necrosis feats scale with how many the character has
+    result.spheres.necrosis =
+      doc.items?.filter((i) => i.type === "feat" && (i.system?.tags ?? []).includes("Necrosis"))
+        .length ?? 0;
     const seq = getSequence(doc);
     result.spheres ??= {};
     result.spheres.sequence = {

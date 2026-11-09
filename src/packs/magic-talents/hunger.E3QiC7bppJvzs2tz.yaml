@@ -6,9 +6,46 @@ flags:
   pf1spheres:
     automation:
       xh5pDJhfq8V85U5y:
-        condSp:
-          Eo9lMZsWDzTmUYiV: 1
+        ghostStrike: true
+        sp: "1"
+        onFail:
+          conditions: fatigued
+          conditionRounds: "14400"
+          note:
+            "[[(max(1, @spheres.cl.death.total))d8]] nonlethal starvation damage. The fatigue and
+            this damage can't be healed, even by magic, until the target eats; repeat hungers don't
+            stack (the highest damage applies)."
     sphere: death
+    grants:
+      - key: cryptic:hunger
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Hunger"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+              save:
+                type: will
+                dc: 10 + floor(@spheres.crypticCL / 2) + @spheres.cam
+                description: Will negates
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Hunger. Fatigued and 1d8
+                nonlethal per caster level, as starvation, until the target eats."
+            automation:
+              ghostStrike: true
+              onFail:
+                conditions: fatigued
+                conditionRounds: "14400"
+                note:
+                  "[[(max(1, @spheres.crypticCL))d8]] nonlethal starvation damage. The fatigue and this
+                  damage can't be healed, even by magic, until the target eats; repeat hungers don't stack
+                  (the highest damage applies)."
+              sp: "1"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Hunger
@@ -25,21 +62,28 @@ system:
   actions:
     - _id: xh5pDJhfq8V85U5y
       name: Hunger
-      actionType: save
+      actionType: rsak
+      img: ""
       activation:
         type: standard
         unchained:
-          cost: 2
           type: action
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      notes:
+        footer:
+          - "Ghost strike: a ranged touch attack within medium range (or melee touch, rolled with Strength).
+            A negative energy death effect, so undead, constructs and the immune ignore it; subject to spell
+            resistance; doesn't stack with itself."
+          - Fatigued and 1d8 nonlethal per caster level, as starvation, until the target eats.
       save:
         type: will
         dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
         description: Will negates
-      conditionals:
-        - _id: Eo9lMZsWDzTmUYiV
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
   armorProf: []
   associations:
     classes: []
@@ -69,18 +113,17 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may spend a spell point to make a ghost strike that saps a creature
-      of its energy (Will negates). On a failed save, the subject is fatigued
-      and takes nonlethal damage equal to 1d8 per caster level. This is
-      considered starvation damage, and as such the fatigue and nonlethal damage
-      cannot be healed, even by magic, until the target consumes some sort of
-      food (a standard action, assuming the food is on hand and need not be dug
-      out of a backpack first). If no food is available, the target begins to
-      attempt Constitution checks per day as normal for starvation.</p>
+    value:
+      "<p>You may spend a spell point to make a ghost strike that saps a creature of its energy (Will
+      negates). On a failed save, the subject is fatigued and takes nonlethal damage equal to 1d8 per
+      caster level. This is considered starvation damage, and as such the fatigue and nonlethal damage
+      cannot be healed, even by magic, until the target consumes some sort of food (a standard action,
+      assuming the food is on hand and need not be dug out of a backpack first). If no food is available,
+      the target begins to attempt Constitution checks per day as normal for starvation.</p>
 
-      <p>Multiple applications of hunger do not stack; only the highest
-      nonlethal damage applies.</p>
+      <p>Multiple applications of hunger do not stack; only the highest nonlethal damage applies.</p>
+
+      "
   disabled: false
   duration:
     units: ""

@@ -271,6 +271,8 @@
       "AlliesSet": "Set from targets",
       "AlliesNone": "Target the allies, then press Set from targets.",
       "AlliesTooMany": "{list}: at most {max} allies.",
+      "KillingCurseCount": "Killing Curse: {name} has failed {count} of 3 saves against your ghost strikes this minute.",
+      "KillingCurseTriggered": "Killing Curse: {name} has failed 3 saves against your ghost strikes; Fortitude or die.",
       "Phalanx": "Phalanx Formation",
       "PhalanxHint": "Next to other members of the squadron: +2 circumstance to AC and melee attacks, +1 per extra adjacent member. Kept up to date as tokens move.",
       "NeedHD": "This needs {need} Hit Dice; you have {have}.",

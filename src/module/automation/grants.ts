@@ -258,6 +258,14 @@ async function runSync(actor) {
   await syncSpellPool(actor);
 }
 
+/** A weapon or attack item whose own first action is a weapon attack */
+const isWeaponAttack = (item) => {
+  if (!["weapon", "attack"].includes(item.type)) return false;
+  const granted = item.flags?.[MODULE_ID]?.granted ?? {};
+  const own = (item._source.system?.actions ?? []).find((a) => !(a._id in granted));
+  return ["mwak", "rwak", "twak"].includes(own?.actionType);
+};
+
 async function syncGrantedActions(actor) {
   const items = actor.items.contents;
   const names = new Set(items.map((i) => i.name.toLowerCase()));
@@ -275,7 +283,11 @@ async function syncGrantedActions(actor) {
   }
   await syncGrantedItems(actor);
   for (const target of items) {
-    const want = wanted.get(target.name.toLowerCase()) ?? [];
+    // "@weapon" grants (Cryptic Strike's ghost strikes) go to every weapon and attack with a weapon attack
+    const want = [
+      ...(wanted.get(target.name.toLowerCase()) ?? []),
+      ...(isWeaponAttack(target) ? wanted.get("@weapon") ?? [] : []),
+    ];
     const flags = target.flags?.[MODULE_ID] ?? {};
     const granted = flags.granted ?? {};
     if (!want.length && !Object.keys(granted).length) continue;

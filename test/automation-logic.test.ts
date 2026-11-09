@@ -44,6 +44,7 @@ import {
   pinCasterLevels,
   withoutLabel,
   undeadHDLimit,
+  killingCurseCount,
 } from "../src/module/automation/logic";
 import type { Grant } from "../src/module/automation/logic";
 import { minionHD, readMinions, undeadPools } from "../src/module/supplements/undead-logic";
@@ -477,5 +478,16 @@ describe("possessed corruption", () => {
       influence: 1,
       attempts: 0,
     });
+  });
+});
+
+describe("killing curse", () => {
+  it("triggers on the third failed save within a minute", () => {
+    let r = killingCurseCount([], 0);
+    expect(r).toEqual({ times: [0], triggered: false });
+    r = killingCurseCount(r.times, 12);
+    expect(r.triggered).toBe(false);
+    expect(killingCurseCount(r.times, 54)).toEqual({ times: [], triggered: true });
+    expect(killingCurseCount([0, 12], 70)).toEqual({ times: [12, 70], triggered: false });
   });
 });

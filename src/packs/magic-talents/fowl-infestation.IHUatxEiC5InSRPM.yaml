@@ -6,10 +6,40 @@ flags:
   pf1spheres:
     automation:
       NUbewnAa13PUVOIq:
-        condSp:
-          JwOkKOuwtgcVlSwA: 1
-          5bZTDXgvg2jxX4EF: 1
+        ghostStrike: true
+        sp: "1"
+        onFail:
+          note:
+            "Permanently plagued by birds: drawing a weapon or item has a 50% chance to produce a
+            hostile live bird instead."
     sphere: death
+    grants:
+      - key: cryptic:fowl-infestation
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Fowl Infestation"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+              save:
+                type: will
+                dc: 10 + floor(@spheres.crypticCL / 2) + @spheres.cam
+                description: Will negates
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Fowl Infestation. A permanent
+                curse of birds (Will negates); spend another spell point for the same bird every time."
+            automation:
+              ghostStrike: true
+              onFail:
+                note:
+                  "Permanently plagued by birds: drawing a weapon or item has a 50% chance to produce
+                  a hostile live bird instead."
+              sp: "1"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Fowl Infestation
@@ -26,25 +56,28 @@ system:
   actions:
     - _id: NUbewnAa13PUVOIq
       name: Fowl Infestation
-      actionType: save
+      actionType: rsak
+      img: ""
       activation:
         type: standard
         unchained:
-          cost: 2
           type: action
+          cost: 2
+      range:
+        units: medium
+      touch: true
+      ability:
+        attack: dex
+      notes:
+        footer:
+          - "Ghost strike: a ranged touch attack within medium range (or melee touch, rolled with Strength).
+            A negative energy death effect, so undead, constructs and the immune ignore it; subject to spell
+            resistance; doesn't stack with itself."
+          - A permanent curse of birds (Will negates); spend another spell point for the same bird every time.
       save:
         type: will
         dc: 10 + floor(@spheres.cl.death.total / 2) + @spheres.cam
         description: Will negates
-      conditionals:
-        - _id: JwOkKOuwtgcVlSwA
-          name: Spend 1 spell point
-          default: true
-          modifiers: []
-        - _id: 5bZTDXgvg2jxX4EF
-          name: Spend 1 spell point (option)
-          default: false
-          modifiers: []
   armorProf: []
   associations:
     classes: []
@@ -74,22 +107,21 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may spend a spell point to make a ghost strike that permanently
-      curses the target to become plagued by chickens, ducks, or another similar
-      bird of your choice (Will negates). Whenever the target draws a weapon or
-      pulls an item out of a container, they have a 50% chance of drawing a live
-      bird instead. The bird&#8217;s starting attitude toward the target is
-      hostile, and will react appropriately to being drawn out by its ankles (or
-      other part of its body). A bird&#8217;s body created by this effect
-      disappears if it dies.</p>
+    value:
+      "<p>You may spend a spell point to make a ghost strike that permanently curses the target to
+      become plagued by chickens, ducks, or another similar bird of your choice (Will negates). Whenever
+      the target draws a weapon or pulls an item out of a container, they have a 50% chance of drawing
+      a live bird instead. The bird&#8217;s starting attitude toward the target is hostile, and will react
+      appropriately to being drawn out by its ankles (or other part of its body). A bird&#8217;s body
+      created by this effect disappears if it dies.</p>
 
-      <p>If you spend an additional spell point when casting this sphere effect,
-      the target always draws the same live bird, even if it was killed
-      previously. Drawing this bird causes it to disappear from wherever it was
-      and appear in the target&#8217;s hands. The bird remembers the target and
-      will behave appropriately, usually becoming angrier with each draw. With
-      enough time, some birds may realize peace was never an option.</p>
+      <p>If you spend an additional spell point when casting this sphere effect, the target always draws
+      the same live bird, even if it was killed previously. Drawing this bird causes it to disappear from
+      wherever it was and appear in the target&#8217;s hands. The bird remembers the target and will behave
+      appropriately, usually becoming angrier with each draw. With enough time, some birds may realize
+      peace was never an option.</p>
+
+      "
   disabled: false
   duration:
     units: ""

@@ -6,6 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
     sphere: death
+    crypticClassLevel: mageknight
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Ghastly Powers
@@ -49,12 +50,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: '<p>At 1st level gain the Death sphere with the Necromantic Limit drawback
-      (you can''t reanimate), taking Cryptic Strike as that drawback''s bonus talent.
-      Your class level is your caster level for Cryptic Strike.</p><p><strong>Replaces:</strong>
-      the mageknight''s 1st-level bonus magic talent and resist magic.</p><p><em>Source:
-      Dread Crusader (mageknight archetype), The Gravecaller''s Handbook.</em> <a
-      href="http://spheresofpower.wikidot.com/dread-crusader">Full text</a></p>'
+    value:
+      '<p>At 1st level gain the Death sphere with the Necromantic Limit drawback (you can''t reanimate),
+      taking Cryptic Strike as that drawback''s bonus talent. Your class level is your caster level for
+      Cryptic Strike.</p><p><strong>Replaces:</strong> the mageknight''s 1st-level bonus magic talent
+      and resist magic.</p><p><em>Source: Dread Crusader (mageknight archetype), The Gravecaller''s Handbook.</em>
+      <a href="http://spheresofpower.wikidot.com/dread-crusader">Full text</a></p>'
   disabled: false
   duration:
     units: ""

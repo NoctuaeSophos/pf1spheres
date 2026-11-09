@@ -46,7 +46,11 @@ system:
     seeInvisibility: false
   changes: []
   classSkills: {}
-  contextNotes: []
+  contextNotes:
+    - text:
+        "Dagger Dancer: +3 circumstance to confirm critical hits with daggers (+6 at BAB +10); draw
+        or sheathe daggers as a free action."
+      target: critical
   crOffset: ""
   critConfirmBonus: ""
   damage:
@@ -56,11 +60,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You can draw or sheath a dagger as a free action and you gain a +3
-      circumstance bonus on attack rolls to confirm critical hits with daggers.
-      At +10 base attack bonus, this circumstance bonus increases to +6.
-      <strong>Associated Feat:</strong> Critical Focus</p>
+    value:
+      "<p>You can draw or sheath a dagger as a free action and you gain a +3 circumstance bonus on
+      attack rolls to confirm critical hits with daggers. At +10 base attack bonus, this circumstance
+      bonus increases to +6. <strong>Associated Feat:</strong> Critical Focus</p>
+
+      "
   disabled: false
   duration:
     units: ""

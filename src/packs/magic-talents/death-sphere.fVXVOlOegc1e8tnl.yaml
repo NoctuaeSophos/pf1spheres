@@ -11,11 +11,13 @@ flags:
         onFail:
           conditions: fatigued
           conditionRounds: "@spheres.cl.death.total"
+        ghostStrike: true
       VoL3a6R3gUIrxaa9:
         sp: "1"
         onFail:
           conditions: exhausted
           conditionRounds: 10 * @spheres.cl.death.total
+        ghostStrike: true
       9Pz7whRiXUYuHVy5:
         sp: "1"
         effect:
@@ -23,6 +25,57 @@ flags:
           duration: "@spheres.cl.death.total"
           units: minute
           concentration: false
+    grants:
+      - key: cryptic:exhausting-strike
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Exhausting Strike"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+              save:
+                type: fort
+                dc: 10 + floor(@spheres.crypticCL / 2) + @spheres.cam
+                description: Fortitude negates
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Exhausting Strike. Fatigued
+                for 1 round per caster level (Fortitude negates)."
+            automation:
+              ghostStrike: true
+              onFail:
+                conditions: fatigued
+                conditionRounds: "@spheres.crypticCL"
+      - key: cryptic:exhausting-strike-1-sp
+        target: "@weapon"
+        variants:
+          - requires:
+              - Cryptic Strike
+            name: "Cryptic: Exhausting Strike (1 SP)"
+            action:
+              activation:
+                type: standard
+                unchained:
+                  type: action
+                  cost: 2
+              save:
+                type: fort
+                dc: 10 + floor(@spheres.crypticCL / 2) + @spheres.cam
+                description: Fortitude negates
+            notes:
+              - "Cryptic Strike: if this attack hits, the target is also struck by Exhausting Strike (1 SP).
+                Exhausted for 1 minute per caster level (Fortitude negates; still fatigued for 1 round on a
+                success)."
+            automation:
+              ghostStrike: true
+              onFail:
+                conditions: exhausted
+                conditionRounds: 10 * @spheres.crypticCL
+              sp: "1"
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Death Sphere
@@ -41,7 +94,7 @@ system:
       name: Exhausting Strike
       actionType: rsak
       img: ""
-      activation: &id001
+      activation:
         type: standard
         unchained:
           type: action
@@ -65,7 +118,11 @@ system:
       name: Exhausting Strike (1 SP)
       actionType: rsak
       img: ""
-      activation: *id001
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
       range:
         units: medium
       touch: true
@@ -85,7 +142,11 @@ system:
       name: Reanimate
       actionType: other
       img: ""
-      activation: *id001
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
       range:
         units: touch
       notes:
