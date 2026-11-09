@@ -99,8 +99,10 @@ async function syncSpellPool(actor) {
       options,
     );
   }
+  // Own uses come from the saved data: once linked, pf1 prepares an item with the pool's uses, and
+  // reading those would unlink it on the next sync and relink it on the one after
   const linkable = actor.items.filter((i) => {
-    if (i === pool || i.system.uses?.per) return false;
+    if (i === pool || i._source.system?.uses?.per) return false;
     const f = i.flags?.[MODULE_ID] ?? {};
     return f.spellPointItem || Object.values(f.automation ?? {}).some(spCost);
   });
