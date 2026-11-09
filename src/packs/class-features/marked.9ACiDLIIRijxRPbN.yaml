@@ -3,6 +3,21 @@ _key: "!items!9ACiDLIIRijxRPbN"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    automation:
+      WIlkLWevd90gvvHA:
+        effect:
+          enabled: true
+          duration: "1"
+          units: minute
+        mark:
+          label: Marked (Aridan)
+          attackerNote:
+            -2 on its saves against your spells, spell-like and sphere abilities; you get
+            +2 on saves against its.
+          defenderNote:
+            "Aridan's mark: -2 on your saves against his spells, spell-like and sphere abilities;
+            he has +2 against yours."
 folder: null
 img: icons/svg/item-bag.svg
 name: Marked
@@ -16,7 +31,20 @@ system:
     damageMult: 1
   abilityType: su
   acquired: false
-  actions: []
+  actions:
+    - _id: WIlkLWevd90gvvHA
+      name: Mark
+      actionType: other
+      img: ""
+      activation:
+        type: swift
+        unchained:
+          type: swift
+          cost: 1
+      range: melee
+      notes:
+        footer:
+          - "After dealing weapon damage. Lasts 1 minute. Mass Marking: more than one mark at a time."
   armorProf: []
   associations:
     classes: []
@@ -46,15 +74,15 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>At 7th level, a mageknight who successfully deals damage with a weapon
-      or natural attack to a target may, as a swift action, leave a magical mark
-      on that target. The target suffers a -2 penalty to saving throws against
-      the spells, spelllike abilities, and sphere abilities of the mageknight,
-      and the mageknight gains a +2 bonus to saving throws against the spells,
-      spell-like abilities, and sphere abilities of the target. This mark lasts
-      for 1 minute. The mageknight may not have more than 1 mark active at a
-      time; giving a second mark causes the first to be dismissed.</p>
+    value:
+      "<p>At 7th level, a mageknight who successfully deals damage with a weapon or natural attack
+      to a target may, as a swift action, leave a magical mark on that target. The target suffers a -2
+      penalty to saving throws against the spells, spelllike abilities, and sphere abilities of the mageknight,
+      and the mageknight gains a +2 bonus to saving throws against the spells, spell-like abilities, and
+      sphere abilities of the target. This mark lasts for 1 minute. The mageknight may not have more than
+      1 mark active at a time; giving a second mark causes the first to be dismissed.</p>
+
+      "
   disabled: false
   duration:
     units: ""

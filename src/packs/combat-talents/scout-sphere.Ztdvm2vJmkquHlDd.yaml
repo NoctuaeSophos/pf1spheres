@@ -1,11 +1,21 @@
 _id: Ztdvm2vJmkquHlDd
-_key: '!items!Ztdvm2vJmkquHlDd'
+_key: "!items!Ztdvm2vJmkquHlDd"
 effects: []
 flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
     sphere: scout
+    automation:
+      yxYGYwVkmJReboPm:
+        effect:
+          enabled: true
+        mark:
+          label: Scouted
+          attackerNote: Weaknesses identified.
+          defenderNote:
+            "Identify Rhythms: Sophos has +[[1 + floor(@skills.per.rank / 4)]] dodge AC against
+            your attacks (while focused)."
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/scout.webp
 name: Scout Sphere
@@ -19,12 +29,25 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: yxYGYwVkmJReboPm
+      name: Scout
+      actionType: other
+      img: ""
+      activation:
+        type: swift
+        unchained:
+          type: swift
+          cost: 1
+      range: close
+      notes:
+        footer:
+          - "Identify the target's weaknesses: DC 10 + CR, Perception at -5 or the right Knowledge."
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -40,34 +63,35 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p>You possess the Scout combat sphere. Gaining a sphere costs one talent,
-      so this item counts toward your Scout talents; tick <em>Exclude from Talent
-      Count</em> if the sphere was granted as a bonus (by a class feature, tradition
-      or drawback).</p><p>Base sphere abilities, packages and drawbacks: @UUID[Compendium.pf1spheres.rules.JournalEntry.6ofS12a3d99UJ840.JournalEntryPage.aNEAY2YPgEgpwvup]{Scout
-      sphere rules}.</p>'
+    instructions: ""
+    unidentified: ""
+    value:
+      "<p>You possess the Scout combat sphere. Gaining a sphere costs one talent, so this item counts
+      toward your Scout talents; tick <em>Exclude from Talent Count</em> if the sphere was granted as
+      a bonus (by a class feature, tradition or drawback).</p><p>Base sphere abilities, packages and drawbacks:
+      @UUID[Compendium.pf1spheres.rules.JournalEntry.6ofS12a3d99UJ840.JournalEntryPage.aNEAY2YPgEgpwvup]{Scout
+      sphere rules}.</p>"
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -78,26 +102,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: combatTalent
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Base Sphere
+    - Base Sphere
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

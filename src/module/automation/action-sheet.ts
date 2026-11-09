@@ -29,7 +29,9 @@ export const onRenderActionSheet = (app, html) => {
   if (!nav || !body || nav.querySelector(`[data-tab='${TAB}']`)) return;
 
   const a = getAutomation(item, action.id);
-  const buffs = item.actor ? item.actor.items.filter((i) => i.type === "buff") : [];
+  // Buffs on the actor, plus templates the item carries itself ("tpl:<key>"), which work from the compendium
+  const templates = Object.entries(item.flags?.[MODULE_ID]?.buffTemplates ?? {}).map(([k, t]) => ({ id: `tpl:${k}`, name: `${t.name} (${loc("Template")})` }));
+  const buffs = [...templates, ...(item.actor ? item.actor.items.filter((i) => i.type === "buff") : [])];
   const spheres = Object.entries(pf1s.config.magicSpheres)
     .map(([k, v]) => [k, game.i18n.localize(v.label)])
     .sort((x, y) => x[1].localeCompare(y[1]));

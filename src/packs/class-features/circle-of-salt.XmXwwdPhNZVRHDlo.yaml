@@ -3,6 +3,34 @@ _key: "!items!XmXwwdPhNZVRHDlo"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    grants:
+      - key: explosive:dispelling-detonations
+        target: Flashbangs
+        variants:
+          - requires:
+              - Circle of Salt
+              - Silver
+            name: "Throw: Dispelling Detonations [explosive]"
+            notes:
+              - "Failed save: the target suffers a targeted greater dispel magic at caster level equal to your
+                scholar level (Circle of Salt + Silver)."
+              - You cannot choose which effect is dispelled.
+            automation:
+              focus: expend
+              onFail:
+                note:
+                  "Targeted greater dispel magic (no choosing the effect): dispel check [[1d20 + min(20,
+                  @classes.scholar.level)]]."
+          - name: "Throw: Dispelling Detonations [explosive]"
+            notes:
+              - "Failed save: the target suffers a targeted dispel magic at caster level equal to your scholar
+                level."
+              - You cannot choose which effect is dispelled.
+            automation:
+              focus: expend
+              onFail:
+                note: "Targeted dispel magic (no choosing the effect): dispel check [[1d20 + min(10, @classes.scholar.level)]]."
 folder: null
 img: icons/svg/item-bag.svg
 name: Circle of Salt
@@ -46,41 +74,36 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>The scholar carefully lays out an unbroken circle of salt, creating a
-      protective circle around herself and up to 1 adjacent ally per 2 class
-      levels (minimum 1) that lasts for a number of rounds equal to the
-      scholar&#8217;s Intelligence bonus (minimum 1). If a protected ally moves
-      outside of the square they occupied when the circle was created, the
-      protective energy is disrupted and the effect immediately ends. While
-      within this circle, the scholar and protected allies gain a circumstance
-      bonus to saving throws against spells, spell-like abilities, and
-      supernatural effects equal to the scholar&#8217;s Intelligence bonus
-      (minimum 1). Whenever the scholar succeeds on a saving throw against such
-      an effect while protected by the circle, she immediately regains her
-      martial focus if it is currently expended.</p>
+    value:
+      "<p>The scholar carefully lays out an unbroken circle of salt, creating a protective circle
+      around herself and up to 1 adjacent ally per 2 class levels (minimum 1) that lasts for a number
+      of rounds equal to the scholar&#8217;s Intelligence bonus (minimum 1). If a protected ally moves
+      outside of the square they occupied when the circle was created, the protective energy is disrupted
+      and the effect immediately ends. While within this circle, the scholar and protected allies gain
+      a circumstance bonus to saving throws against spells, spell-like abilities, and supernatural effects
+      equal to the scholar&#8217;s Intelligence bonus (minimum 1). Whenever the scholar succeeds on a
+      saving throw against such an effect while protected by the circle, she immediately regains her martial
+      focus if it is currently expended.</p>
 
-      <p>In addition, while within the circle, the scholar and affected allies
-      are also protected from bodily contact by summoned creatures and
-      incorporeal undead. This causes the natural weapons and touch attacks of
-      such creatures to fail and the creatures to recoil if such attacks require
-      touching the warded creature. The protection ends if the warded creature
-      takes any hostile action against a blocked creature, and that creature may
-      pass through the barrier (though other creatures are still warded as
-      normal).</p>
+      <p>In addition, while within the circle, the scholar and affected allies are also protected from
+      bodily contact by summoned creatures and incorporeal undead. This causes the natural weapons and
+      touch attacks of such creatures to fail and the creatures to recoil if such attacks require touching
+      the warded creature. The protection ends if the warded creature takes any hostile action against
+      a blocked creature, and that creature may pass through the barrier (though other creatures are still
+      warded as normal).</p>
 
       <ul>
 
-      <li><strong>Dispelling Detonations [explosive]:</strong> The scholar adds
-      a mixture of silver, salt, lead, and other materials which naturally
-      disrupt magical energies to her flashbangs. Creatures that fail their save
-      against the flashbang&#8217;s initial effect are also subject to a
-      targeted dispel magic spell, using the scholar&#8217;s level as the caster
-      level. This cannot be used to target a specific spell effect. If the
-      scholar also possesses the silver material imposition, this instead acts
-      as a targeted greater dispel magic effect.</li>
+      <li><strong>Dispelling Detonations [explosive]:</strong> The scholar adds a mixture of silver, salt,
+      lead, and other materials which naturally disrupt magical energies to her flashbangs. Creatures
+      that fail their save against the flashbang&#8217;s initial effect are also subject to a targeted
+      dispel magic spell, using the scholar&#8217;s level as the caster level. This cannot be used to
+      target a specific spell effect. If the scholar also possesses the silver material imposition, this
+      instead acts as a targeted greater dispel magic effect.</li>
 
       </ul>
+
+      "
   disabled: false
   duration:
     units: ""

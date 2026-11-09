@@ -3,6 +3,26 @@ _key: "!items!vLFcKDdzOwO9Xf6v"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    grants:
+      - key: explosive:spore-threads
+        target: Flashbangs
+        variants:
+          - name: "Throw: Spore Threads [explosive]"
+            notes:
+              - "Failed save: entangled for 1d6 rounds, and confused for every round it stays entangled (mind-affecting
+                poison)."
+              - "Escape: Strength or Escape Artist check against the flashbang DC, or by taking fire damage
+                equal to your scholar level."
+            automation:
+              focus: expend
+              onFail:
+                conditions: entangled,confused
+                conditionRounds: 1d6
+                note:
+                  Entangled and confused by spores. Escape with a Strength or Escape Artist check (DC
+                  [[10 + floor(@classes.scholar.level / 2) + @abilities.int.mod]]) or by taking [[@classes.scholar.level]]
+                  fire damage; confusion ends with the entanglement.
 folder: null
 img: icons/svg/item-bag.svg
 name: Cordyceps Mycelium
@@ -46,53 +66,45 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>The scholar learns how to cultivate and distill the cordyceps-family of
-      fungus, that have been studied to override the nervous systems of living
-      or dead creatures to create a zombie-like state.</p>
+    value:
+      '<p>The scholar learns how to cultivate and distill the cordyceps-family of fungus, that have
+      been studied to override the nervous systems of living or dead creatures to create a zombie-like
+      state.</p>
 
-      <p>The scholar may cultivate cordyceps spores during an 8 hour rest,
-      keeping them in a small container, such as a bottle or potion vial. The
-      scholar may activate this imposition by spreading these spores onto a
-      corpse within her natural reach, raising it as a yellow musk zombie
-      (Pathfinder RPG Bestiary pg. 285), a special zombie that is treated as a
-      plant and gains plant immunities instead of being undead. The corpse must
-      have a number of Hit Dice less than or equal to her scholar level or this
-      imposition has no effect. The yellow musk zombie understands and follows
-      the scholar&#8217;s commands to the best of its ability.</p>
+      <p>The scholar may cultivate cordyceps spores during an 8 hour rest, keeping them in a small container,
+      such as a bottle or potion vial. The scholar may activate this imposition by spreading these spores
+      onto a corpse within her natural reach, raising it as a yellow musk zombie (Pathfinder RPG Bestiary
+      pg. 285), a special zombie that is treated as a plant and gains plant immunities instead of being
+      undead. The corpse must have a number of Hit Dice less than or equal to her scholar level or this
+      imposition has no effect. The yellow musk zombie understands and follows the scholar&#8217;s commands
+      to the best of its ability.</p>
 
-      <p>If the yellow musk zombie moves more than 100 feet away from the
-      scholar, the spores disperse 1d4 rounds later and the yellow musk zombie
-      is destroyed, regardless of whether or not it returns to the
-      scholar&#8217;s side during that time. The scholar may not have more than
-      one yellow musk zombie active with this ability at a time. As long as the
-      yellow musk zombie is not destroyed, the spores can be reclaimed into its
-      vial by touching the yellow musk zombie as a swift action. This destroys
-      the yellow musk zombie and returns the corpse to normal. The cordycep
-      spores can only be used for 10 minutes per scholar level each day. These
-      minutes do not need to be consecutive, but they must be spent in 10-minute
-      increments.</p>
+      <p>If the yellow musk zombie moves more than 100 feet away from the scholar, the spores disperse
+      1d4 rounds later and the yellow musk zombie is destroyed, regardless of whether or not it returns
+      to the scholar&#8217;s side during that time. The scholar may not have more than one yellow musk
+      zombie active with this ability at a time. As long as the yellow musk zombie is not destroyed, the
+      spores can be reclaimed into its vial by touching the yellow musk zombie as a swift action. This
+      destroys the yellow musk zombie and returns the corpse to normal. The cordycep spores can only be
+      used for 10 minutes per scholar level each day. These minutes do not need to be consecutive, but
+      they must be spent in 10-minute increments.</p>
 
       <ul>
 
-      <li><strong>Spore Threads [explosive]:</strong> The scholar may enhance
-      her flashbangs with strengthened cordycep cultures, causing targets who
-      fail their save to be entangled for 1d6 rounds, in addition to the normal
-      effects. A target may escape this entangle by attempting a Strength check
-      or Escape Artist check with a DC equal to the scholar&#8217;s flashbang DC
-      or by taking a number of points of fire damage equal to the
-      scholar&#8217;s class level. Each round the target is entangled by this
-      effect, the target is confused. The confusion is a mind-affecting poison
-      effect.</li>
+      <li><strong>Spore Threads [explosive]:</strong> The scholar may enhance her flashbangs with strengthened
+      cordycep cultures, causing targets who fail their save to be entangled for 1d6 rounds, in addition
+      to the normal effects. A target may escape this entangle by attempting a Strength check or Escape
+      Artist check with a DC equal to the scholar&#8217;s flashbang DC or by taking a number of points
+      of fire damage equal to the scholar&#8217;s class level. Each round the target is entangled by this
+      effect, the target is confused. The confusion is a mind-affecting poison effect.</li>
 
       </ul>
 
-      <p><strong>Special:</strong>* If a <a href="/stitcher">stitcher</a> gains
-      this material imposition, they may treat the yellow musk zombie as an
-      undead raised by her reanimate sphere effect for the purposes of talents
-      and effects. The yellow musk zombie does not count against the
-      stitcher&#8217;s maximum number of undead she may have reanimated at a
-      time.</p>
+      <p><strong>Special:</strong>* If a <a href="/stitcher">stitcher</a> gains this material imposition,
+      they may treat the yellow musk zombie as an undead raised by her reanimate sphere effect for the
+      purposes of talents and effects. The yellow musk zombie does not count against the stitcher&#8217;s
+      maximum number of undead she may have reanimated at a time.</p>
+
+      '
   disabled: false
   duration:
     units: ""

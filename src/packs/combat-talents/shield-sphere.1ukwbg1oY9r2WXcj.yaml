@@ -1,11 +1,25 @@
 _id: 1ukwbg1oY9r2WXcj
-_key: '!items!1ukwbg1oY9r2WXcj'
+_key: "!items!1ukwbg1oY9r2WXcj"
 effects: []
 flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
     sphere: shield
+    buffTemplates:
+      active-defense:
+        name: Active Defense
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Shield sphere: spend an attack of opportunity (or expend martial focus) before
+          an attack roll to raise your shield bonus by +2, +1 per 4 BAB, against that attack.</p>"
+        changes:
+          - formula: 2 + floor(@attributes.bab.total / 4)
+            target: sac
+            type: base
+            operator: add
+    grantItems:
+      - active-defense
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/shield.webp
 name: Shield Sphere
@@ -23,8 +37,8 @@ system:
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -40,34 +54,35 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p>You possess the Shield combat sphere. Gaining a sphere costs one talent,
-      so this item counts toward your Shield talents; tick <em>Exclude from Talent
-      Count</em> if the sphere was granted as a bonus (by a class feature, tradition
-      or drawback).</p><p>Base sphere abilities, packages and drawbacks: @UUID[Compendium.pf1spheres.rules.JournalEntry.6ofS12a3d99UJ840.JournalEntryPage.dH2aeRBVjs9uWpwh]{Shield
-      sphere rules}.</p>'
+    instructions: ""
+    unidentified: ""
+    value:
+      "<p>You possess the Shield combat sphere. Gaining a sphere costs one talent, so this item counts
+      toward your Shield talents; tick <em>Exclude from Talent Count</em> if the sphere was granted as
+      a bonus (by a class feature, tradition or drawback).</p><p>Base sphere abilities, packages and drawbacks:
+      @UUID[Compendium.pf1spheres.rules.JournalEntry.6ofS12a3d99UJ840.JournalEntryPage.dH2aeRBVjs9uWpwh]{Shield
+      sphere rules}.</p>"
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -78,26 +93,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: combatTalent
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Base Sphere
+    - Base Sphere
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

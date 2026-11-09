@@ -56,9 +56,11 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>As a move action, you may regain your martial focus and end the
-      battered condition, if you have it.</p>
+    value:
+      "<p>As a move action, you may regain your martial focus and end the battered condition, if
+      you have it.</p>
+
+      "
   disabled: false
   duration:
     units: ""

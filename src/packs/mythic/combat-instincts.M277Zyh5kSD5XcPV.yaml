@@ -1,10 +1,58 @@
 _id: M277Zyh5kSD5XcPV
-_key: '!items!M277Zyh5kSD5XcPV'
+_key: "!items!M277Zyh5kSD5XcPV"
 effects: []
 flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    buffTemplates:
+      combat-instincts:
+        name: Combat Instincts
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Mythic tradition quality (1/day, immediate action, 3 rounds): + tier to AC, MSD,
+          CMD and all saves; miss chance 50% + 5% per tier against all effects. Activate the aftermath
+          buff when it ends.</p>"
+        changes:
+          - formula: "@details.mythicTier"
+            target: ac
+            type: untyped
+            operator: add
+          - formula: "@details.mythicTier"
+            target: cmd
+            type: untyped
+            operator: add
+          - formula: "@details.mythicTier"
+            target: allSavingThrows
+            type: untyped
+            operator: add
+          - formula: "@details.mythicTier"
+            target: msd
+            type: untyped
+            operator: add
+      combat-instincts-aftermath:
+        name: Combat Instincts (Aftermath)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>After Combat Instincts ends: −2 × tier to AC, MSB, CMD and saves until 8 hours
+          of rest. Nothing else removes it.</p><p>(pf1 already applies AC penalties to CMD, so CMD has
+          no separate Change.)</p>"
+        changes:
+          - formula: -2 * @details.mythicTier
+            target: ac
+            type: untyped
+            operator: add
+          - formula: -2 * @details.mythicTier
+            target: allSavingThrows
+            type: untyped
+            operator: add
+          - formula: -2 * @details.mythicTier
+            target: msb
+            type: untyped
+            operator: add
+    grantItems:
+      - combat-instincts
+      - combat-instincts-aftermath
 folder: null
 img: icons/svg/item-bag.svg
 name: Combat Instincts
@@ -22,8 +70,8 @@ system:
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,38 +87,37 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p>Once per day, as an immediate action, activate for 3 rounds: add your
-      tier to AC, MSD, CMD and all saves, and gain a 50% + 5% per tier miss chance
-      against all effects, including ones that don''t target you. This miss chance
-      doesn''t stack with other miss chances (use the highest).</p><p>When it ends,
-      take a penalty of twice your tier to AC, MSB, CMD and saves until you complete
-      8 hours of rest; nothing else removes it, including effects that shorten rest
-      or reverse time. You can activate at a lower tier than your actual tier to shrink
-      both the bonus and the penalty.</p><p><em>Source: Mythic Spheres.</em> <a href="http://spheresofpower.wikidot.com/mythic-spheres#toc25">Full
-      text</a></p>'
+    instructions: ""
+    unidentified: ""
+    value:
+      '<p>Once per day, as an immediate action, activate for 3 rounds: add your tier to AC, MSD,
+      CMD and all saves, and gain a 50% + 5% per tier miss chance against all effects, including ones
+      that don''t target you. This miss chance doesn''t stack with other miss chances (use the highest).</p><p>When
+      it ends, take a penalty of twice your tier to AC, MSB, CMD and saves until you complete 8 hours
+      of rest; nothing else removes it, including effects that shorten rest or reverse time. You can activate
+      at a lower tier than your actual tier to shrink both the bonus and the penalty.</p><p><em>Source:
+      Mythic Spheres.</em> <a href="http://spheresofpower.wikidot.com/mythic-spheres#toc25">Full text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -81,26 +128,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Mythic Tradition Quality
+    - Mythic Tradition Quality
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: '1'
+    autoDeductChargesCost: "1"
+    maxFormula: "1"
     per: day
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

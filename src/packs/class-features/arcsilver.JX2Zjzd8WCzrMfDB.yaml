@@ -3,6 +3,23 @@ _key: "!items!JX2Zjzd8WCzrMfDB"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    grants:
+      - key: explosive:voltaic-bursts
+        target: Flashbangs
+        variants:
+          - name: "Throw: Voltaic Bursts [explosive]"
+            addDamage:
+              - formula: (floor(@classes.scholar.level / 2))d6
+                types:
+                  - electric
+            notes:
+              - "Extra electricity damage: 1d6 per two scholar levels. A successful Fortitude save halves only
+                this extra damage (not automated; adjust by hand)."
+              - "Arcing: every creature adjacent to the target makes a Reflex save or takes electricity damage
+                equal to your scholar level (GM adjudicates)."
+            automation:
+              focus: expend
 folder: null
 img: icons/svg/item-bag.svg
 name: Arcsilver
@@ -46,26 +63,25 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>The scholar learns how to use arcsilver to disperse and manipulate
-      electricity to her advantage. The scholar may activate this imposition to
-      apply arcsilver coils strategically upon her person, granting her
-      electricity resistance 5 for a number of rounds equal to her practitioner
-      modifier (minimum 1). This electricity resistance increases by 5 for every
-      5 class levels the scholar possesses beyond 5th.</p>
+    value:
+      "<p>The scholar learns how to use arcsilver to disperse and manipulate electricity to her advantage.
+      The scholar may activate this imposition to apply arcsilver coils strategically upon her person,
+      granting her electricity resistance 5 for a number of rounds equal to her practitioner modifier
+      (minimum 1). This electricity resistance increases by 5 for every 5 class levels the scholar possesses
+      beyond 5th.</p>
 
       <ul>
 
-      <li><strong>Voltaic Bursts [explosive]:</strong> The scholar may apply
-      coils of arcsilver and other conductive metals to her flashbangs, allowing
-      them to deal an additional 1d6 electricity damage per two class levels she
-      possesses; creatures who succeed at their Fortitude save against the
-      flashbang take 1/2 damage from this effect. Additionally, all creatures
-      adjacent to the target must also succeed at a Reflex saving throw or
-      suffer an amount of electricity damage equal to her class level as
-      electricity leaps from the original target.</li>
+      <li><strong>Voltaic Bursts [explosive]:</strong> The scholar may apply coils of arcsilver and other
+      conductive metals to her flashbangs, allowing them to deal an additional 1d6 electricity damage
+      per two class levels she possesses; creatures who succeed at their Fortitude save against the flashbang
+      take 1/2 damage from this effect. Additionally, all creatures adjacent to the target must also succeed
+      at a Reflex saving throw or suffer an amount of electricity damage equal to her class level as electricity
+      leaps from the original target.</li>
 
       </ul>
+
+      "
   disabled: false
   duration:
     units: ""

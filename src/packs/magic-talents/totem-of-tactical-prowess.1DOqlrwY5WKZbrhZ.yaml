@@ -5,6 +5,48 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: war
+    automation:
+      5PStjebQYpkIisFt:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: allies
+        buff:
+          itemId: tpl:totem-of-tactical-prowess
+          sphere: war
+    buffTemplates:
+      totem-of-tactical-prowess:
+        name: Totem of Tactical Prowess
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War totem: bonuses to attack or AC from battlefield positioning (flanking, higher
+          ground, cover) rise by 1, +1 per 5 caster levels.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Totem of Tactical Prowess: flanking, higher ground and cover bonuses +[[1 + floor(@item.level
+              / 5)]]"
+            target: attack
+          - text: "Totem of Tactical Prowess: cover bonuses to AC +[[1 + floor(@item.level / 5)]]"
+            target: ac
+      flanking-totem-of-tactical-prowess:
+        name: Flanking (Totem of Tactical Prowess)
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Flanking +2 to attack, raised by Totem of Tactical Prowess: +1, +1 per 5 War
+          caster levels.</p>"
+        changes:
+          - formula: 2 + 1 + floor(@spheres.cl.war.total / 5)
+            target: attack
+            type: untyped
+            operator: add
+    grantItems:
+      - flanking-totem-of-tactical-prowess
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: Totem Of Tactical Prowess
@@ -18,7 +60,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 5PStjebQYpkIisFt
+      name: Totem of Tactical Prowess
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels. Concentration, or 1 spell point for 1 minute per caster
+            level."
   armorProf: []
   associations:
     classes: []
@@ -48,10 +105,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Whenever you or your allies would gain a bonus to attack rolls or to AC
-      due to battlefield positioning, such as flanking, higher ground, or cover,
-      that bonus is increased by 1, +1 per 5 caster levels.</p>
+    value:
+      "<p>Whenever you or your allies would gain a bonus to attack rolls or to AC due to battlefield
+      positioning, such as flanking, higher ground, or cover, that bonus is increased by 1, +1 per 5 caster
+      levels.</p>
+
+      "
   disabled: false
   duration:
     units: ""

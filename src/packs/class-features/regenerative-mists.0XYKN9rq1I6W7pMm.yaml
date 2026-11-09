@@ -1,10 +1,38 @@
 _id: 0XYKN9rq1I6W7pMm
-_key: '!items!0XYKN9rq1I6W7pMm'
+_key: "!items!0XYKN9rq1I6W7pMm"
 effects: []
 flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    automation:
+      7LcawJU96JpZja7q:
+        focus: expend
+        effect:
+          enabled: true
+          duration: "@abilities.int.mod"
+          units: round
+        zone:
+          enabled: true
+          radius: "30"
+          who: allies
+        buff:
+          itemId: tpl:regenerative-mists
+          level: "@classes.scholar.level"
+    buffTemplates:
+      regenerative-mists:
+        name: Regenerative Mists
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Doctor: fast healing equal to half the doctor's class level while starting a
+          turn in the mist (only creatures under her inoculations). The doctor regains martial focus if
+          she begins and ends her turn inside.</p>"
+        changes: []
+        contextNotes:
+          - text:
+              "Regenerative Mists: fast healing [[floor(@item.level / 2)]] at the start of your turn
+              (inoculated only)"
+            target: allSavingThrows
 folder: null
 img: icons/svg/item-bag.svg
 name: Regenerative Mists
@@ -18,12 +46,26 @@ system:
     damageMult: 1
   abilityType: ex
   acquired: false
-  actions: []
+  actions:
+    - _id: 7LcawJU96JpZja7q
+      name: Regenerative Mists
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range: close
+      notes:
+        footer:
+          - "With a flashbang: 30 ft. radius mist (drawn around you; move it to the flashbang's target),
+            lasting Int modifier rounds. Uses a healer's kit."
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,40 +81,39 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p>From 7th level, when you throw a flashbang you can expend your martial
-      focus and one healer''s kit use to fill a 30-ft.-radius sphere centered on the
-      target with clear mist. It lasts a number of rounds equal to your Int modifier;
-      it cannot pass through solid walls or floors but can spread through open windows
-      and very porous surfaces.</p><p>You and creatures protected by your inoculations
-      gain fast healing equal to half your scholar level (rounded down) on each turn
-      they begin inside the mist. If you begin and end your turn in it, you can regain
-      your martial focus as an immediate action any time before your next turn starts.</p><p><strong>Replaces:</strong>
-      Material imposition gained at 7th level.</p><p><em>Source: Doctor (scholar archetype)
-      wiki page.</em> <a href="http://spheresofpower.wikidot.com/doctor#toc3">Full
+    instructions: ""
+    unidentified: ""
+    value:
+      '<p>From 7th level, when you throw a flashbang you can expend your martial focus and one healer''s
+      kit use to fill a 30-ft.-radius sphere centered on the target with clear mist. It lasts a number
+      of rounds equal to your Int modifier; it cannot pass through solid walls or floors but can spread
+      through open windows and very porous surfaces.</p><p>You and creatures protected by your inoculations
+      gain fast healing equal to half your scholar level (rounded down) on each turn they begin inside
+      the mist. If you begin and end your turn in it, you can regain your martial focus as an immediate
+      action any time before your next turn starts.</p><p><strong>Replaces:</strong> Material imposition
+      gained at 7th level.</p><p><em>Source: Doctor (scholar archetype) wiki page.</em> <a href="http://spheresofpower.wikidot.com/doctor#toc3">Full
       text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -83,26 +124,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Doctor
+    - Doctor
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

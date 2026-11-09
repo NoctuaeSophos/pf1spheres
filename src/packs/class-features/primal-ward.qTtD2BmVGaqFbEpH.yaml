@@ -1,5 +1,5 @@
 _id: qTtD2BmVGaqFbEpH
-_key: '!items!qTtD2BmVGaqFbEpH'
+_key: "!items!qTtD2BmVGaqFbEpH"
 effects: []
 flags:
   pf1: {}
@@ -22,8 +22,8 @@ system:
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -37,50 +37,50 @@ system:
     seeInDarkness: false
     seeInvisibility: false
   changes:
-  - _id: 42hyszq03ry149pt
-    formula: max(2, @spheres.cam) + floor((@classes.sphereDruid.level + 2) / 4)
-    operator: add
-    priority: 0
-    target: ac
-    type: untyped
-  - _id: wjbk44jtp844a8y3
-    formula: max(2, @spheres.cam) + floor((@classes.sphereDruid.level + 2) / 4)
-    operator: add
-    priority: 0
-    target: cmd
-    type: untyped
+    - _id: 42hyszq03ry149pt
+      formula: max(2, @spheres.cam) + floor((@classes.sphereDruid.level + 2) / 4)
+      operator: add
+      priority: 0
+      target: ac
+      type: untyped
+    - _id: wjbk44jtp844a8y3
+      formula: max(2, @spheres.cam) + floor((@classes.sphereDruid.level + 2) / 4)
+      operator: add
+      priority: 0
+      target: cmd
+      type: untyped
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p>While wearing no armor and carrying no shield, adds her casting ability
-      modifier (minimum 2) to AC and CMD. The bonus grows by +1 at 2nd level and every
-      4 levels after (6th, 10th, 14th, 18th).</p><p>The AC bonus applies against touch
-      attacks and while flat-footed. It''s lost while she wears any armor or carries
-      a shield, and doesn''t stack with the monk AC bonus or similar abilities.</p><p><strong>Replaces:</strong>
-      Spontaneous Casting (on a sphere druid: Natural Magic).</p><p><em>Source: The
-      Warden.</em> <a href="http://spheresofpower.wikidot.com/avatar#toc5">Full text</a></p>'
+    instructions: ""
+    unidentified: ""
+    value:
+      '<p>While wearing no armor and carrying no shield, adds her casting ability modifier (minimum
+      2) to AC and CMD. The bonus grows by +1 at 2nd level and every 4 levels after (6th, 10th, 14th,
+      18th).</p><p>The AC bonus applies against touch attacks and while flat-footed. It''s lost while
+      she wears any armor or carries a shield, and doesn''t stack with the monk AC bonus or similar abilities.</p><p><strong>Replaces:</strong>
+      Spontaneous Casting (on a sphere druid: Natural Magic).</p><p><em>Source: The Warden.</em> <a href="http://spheresofpower.wikidot.com/avatar#toc5">Full
+      text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -91,27 +91,27 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Avatar
-  - Sphere Druid
+    - Avatar
+    - Sphere Druid
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

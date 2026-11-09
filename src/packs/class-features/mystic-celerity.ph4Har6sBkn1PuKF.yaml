@@ -3,6 +3,10 @@ _key: "!items!ph4Har6sBkn1PuKF"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    automation:
+      XwxOgJgHkfhvPFDc:
+        sp: "1"
 folder: null
 img: icons/svg/item-bag.svg
 name: Mystic Celerity
@@ -16,7 +20,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: XwxOgJgHkfhvPFDc
+      name: Mystic Celerity
+      actionType: other
+      img: ""
+      activation:
+        type: free
+        unchained:
+          type: free
+          cost: 0
+      range:
+        units: personal
+      notes:
+        footer:
+          - Quicken (see the feature).
   armorProf: []
   associations:
     classes: []
@@ -46,12 +64,13 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Once per round, when using any ability gained through the mystic combat
-      class feature, the mageknight may spend an extra spell point to decrease
-      that ability&#8217;s required action by one step: standard actions become
-      move actions, swift actions become free actions, etc. This cannot reduce
-      an immediate action.</p>
+    value:
+      "<p>Once per round, when using any ability gained through the mystic combat class feature,
+      the mageknight may spend an extra spell point to decrease that ability&#8217;s required action by
+      one step: standard actions become move actions, swift actions become free actions, etc. This cannot
+      reduce an immediate action.</p>
+
+      "
   disabled: false
   duration:
     units: ""

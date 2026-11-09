@@ -1,11 +1,37 @@
 _id: nWgyebExHRIYuVYW
-_key: '!items!nWgyebExHRIYuVYW'
+_key: "!items!nWgyebExHRIYuVYW"
 effects: []
 flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
     sphere: war
+    automation:
+      XDihAvIAwAyDFEhp:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.war.total"
+          units: minute
+        zone:
+          enabled: true
+          radius: 50 + 5 * floor(@spheres.cl.war.total / 2)
+          who: allies
+        buff:
+          itemId: tpl:totem-of-war
+          sphere: war
+    buffTemplates:
+      totem-of-war:
+        name: Totem of War
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>War sphere totem: you and allies in it gain a +2 circumstance bonus on weapon
+          damage, +1 per 5 caster levels.</p>"
+        changes:
+          - formula: 2 + floor(@spheres.cl.war.total / 5)
+            target: wdamage
+            type: circumstance
+            operator: add
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/war.webp
 name: War Sphere
@@ -19,12 +45,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: XDihAvIAwAyDFEhp
+      name: Totem of War
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Totem: 50 ft. + 5 ft. per 2 caster levels, centred on you, drawn on the scene. Concentration,
+            or 1 spell point for 1 minute per caster level."
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -40,34 +81,35 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p>You possess the War magic sphere. Gaining a sphere costs one talent,
-      so this item counts toward your War talents; tick <em>Exclude from Talent Count</em>
-      if the sphere was granted as a bonus (by a class feature, tradition or drawback).</p><p>Base
-      sphere abilities, packages and drawbacks: @UUID[Compendium.pf1spheres.rules.JournalEntry.pcgrw2W6ZhS3GmIA.JournalEntryPage.4cnb45aZfioaRB2F]{War
-      sphere rules}.</p>'
+    instructions: ""
+    unidentified: ""
+    value:
+      "<p>You possess the War magic sphere. Gaining a sphere costs one talent, so this item counts
+      toward your War talents; tick <em>Exclude from Talent Count</em> if the sphere was granted as a
+      bonus (by a class feature, tradition or drawback).</p><p>Base sphere abilities, packages and drawbacks:
+      @UUID[Compendium.pf1spheres.rules.JournalEntry.pcgrw2W6ZhS3GmIA.JournalEntryPage.4cnb45aZfioaRB2F]{War
+      sphere rules}.</p>"
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -78,26 +120,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: magicTalent
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Base Sphere
+    - Base Sphere
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

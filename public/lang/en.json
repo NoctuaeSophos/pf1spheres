@@ -162,6 +162,7 @@
       "MarkAttacker": "Note on your attacks against them",
       "MarkDefender": "Note on their attacks against you",
       "MarkHint": "[[formula]] in a note is filled with your numbers when the mark is placed.",
+      "Template": "carried by this item",
       "OnFail": "On a failed save",
       "OnFailHint": "When a creature fails the save rolled from this action's chat card, the GM's client applies these to it.",
       "FailConditions": "Conditions",

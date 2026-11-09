@@ -1,11 +1,34 @@
 _id: S7WGzBkhO0i6weG9
-_key: '!items!S7WGzBkhO0i6weG9'
+_key: "!items!S7WGzBkhO0i6weG9"
 effects: []
 flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
     sphere: protection
+    automation:
+      Xa33RkzExC2OKjMI:
+        sp: "1"
+        effect:
+          enabled: true
+          duration: "@spheres.cl.protection.total"
+          units: hour
+          concentration: false
+        buff:
+          itemId: tpl:aegis-deflection
+          sphere: protection
+    buffTemplates:
+      aegis-deflection:
+        name: "Aegis: Deflection"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Protection sphere base aegis: +1 deflection to AC, +1 per 5 caster levels. Lasts
+          1 hour per caster level.</p>"
+        changes:
+          - formula: 1 + floor(@spheres.cl.protection.total / 5)
+            target: ac
+            type: deflection
+            operator: add
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Protection Sphere
@@ -19,12 +42,25 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Xa33RkzExC2OKjMI
+      name: Deflection Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 spell point, 1 hour per caster level. Target a creature, or none for yourself."
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -40,35 +76,35 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p>You possess the Protection magic sphere. Gaining a sphere costs one
-      talent, so this item counts toward your Protection talents; tick <em>Exclude
-      from Talent Count</em> if the sphere was granted as a bonus (by a class feature,
-      tradition or drawback).</p><p>Base sphere abilities, packages and drawbacks:
-      @UUID[Compendium.pf1spheres.rules.JournalEntry.pcgrw2W6ZhS3GmIA.JournalEntryPage.MD1IfBcSxtwPR1uM]{Protection
-      sphere rules}.</p>'
+    instructions: ""
+    unidentified: ""
+    value:
+      "<p>You possess the Protection magic sphere. Gaining a sphere costs one talent, so this item
+      counts toward your Protection talents; tick <em>Exclude from Talent Count</em> if the sphere was
+      granted as a bonus (by a class feature, tradition or drawback).</p><p>Base sphere abilities, packages
+      and drawbacks: @UUID[Compendium.pf1spheres.rules.JournalEntry.pcgrw2W6ZhS3GmIA.JournalEntryPage.MD1IfBcSxtwPR1uM]{Protection
+      sphere rules}.</p>"
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -79,26 +115,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: magicTalent
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Base Sphere
+    - Base Sphere
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

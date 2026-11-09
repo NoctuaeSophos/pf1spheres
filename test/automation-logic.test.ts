@@ -14,7 +14,12 @@ import {
   formulaeCapacity,
   formulaeDailyUses,
   hasAutomation,
+  buildGrantedAction,
   hasFailEffects,
+  mergeGrantAutomation,
+  pickVariant,
+  stableId,
+  templateToItemData,
   parseConditions,
   saveFailed,
   inspiredBonus,
@@ -28,6 +33,7 @@ import {
   totalSpCost,
   zoneAffects,
 } from "../src/module/automation/logic";
+import type { Grant } from "../src/module/automation/logic";
 
 describe("costs", () => {
   test("base plus chosen conditionals", () => {
@@ -148,5 +154,72 @@ describe("failed saves", () => {
     expect(hasFailEffects({ conditions: "  ", conditionRounds: "1d4" })).toBe(false);
     expect(hasFailEffects({ regainFocus: true })).toBe(true);
     expect(hasAutomation({ onFail: { buffId: "abc" } })).toBe(true);
+  });
+});
+
+describe("granted actions", () => {
+  const throwAction = {
+    _id: "base0000base0000",
+    name: "Throw",
+    damage: { parts: [{ formula: "1d8", types: ["bludgeoning"] }] },
+    save: { type: "fort", dc: "10 + @abilities.int.mod" },
+    notes: { effect: ["Failed save: blinded and deafened."] },
+  };
+  const dispel: Grant = {
+    key: "explosive:dispelling-detonations",
+    target: "Flashbangs",
+    variants: [
+      { requires: ["Silver", "Circle of Salt"], name: "Greater", automation: { onFail: { note: "greater" } } },
+      { name: "Plain", automation: { onFail: { note: "plain" } } },
+    ],
+  };
+
+  it("picks the first variant whose required items are present", () => {
+    expect(pickVariant(dispel, new Set(["silver", "circle of salt"]))?.name).toBe("Greater");
+    expect(pickVariant(dispel, new Set(["silver"]))?.name).toBe("Plain");
+  });
+
+  it("gives an action the same id every time, and different keys different ids", () => {
+    expect(stableId("explosive:a")).toBe(stableId("explosive:a"));
+    expect(stableId("explosive:a")).not.toBe(stableId("explosive:b"));
+    expect(stableId("explosive:a")).toMatch(/^[A-Za-z0-9]{16}$/);
+  });
+
+  it("builds on the base action: extra damage, DC bonus and notes", () => {
+    const a = buildGrantedAction(
+      throwAction,
+      { name: "Sonic", addDamage: [{ formula: "(@classes.scholar.level)d6", types: ["sonic"] }], dcBonus: "1", notes: ["Sonic."] },
+      "explosive:sonic",
+    );
+    expect(a._id).toBe(stableId("explosive:sonic"));
+    expect(a.name).toBe("Sonic");
+    expect(a.damage.parts.map((p) => p.formula)).toEqual(["1d8", "(@classes.scholar.level)d6"]);
+    expect(a.save.dc).toBe("10 + @abilities.int.mod + 1");
+    expect(a.notes.effect).toEqual(["Failed save: blinded and deafened.", "Sonic."]);
+    expect(throwAction.damage.parts).toHaveLength(1);
+  });
+
+  it("merges automation: keeps the base's on-fail, adds a condition group and a template buff", () => {
+    const base = { onFail: { conditions: "blind, deaf", conditionRounds: "1d4+1", regainFocus: true } };
+    const merged = mergeGrantAutomation(base, {
+      focus: "expend",
+      onFail: { conditions: "staggered", conditionRounds: "1", buffTemplate: "inhibited", buffRounds: "1d4" },
+    });
+    expect(merged.focus).toBe("expend");
+    expect(merged.onFail).toEqual({
+      conditions: "blind, deaf",
+      conditionRounds: "1d4+1",
+      regainFocus: true,
+      buffId: "tpl:inhibited",
+      buffRounds: "1d4",
+      more: [{ conditions: "staggered", rounds: "1" }],
+    });
+    expect(base.onFail).not.toHaveProperty("buffId");
+  });
+
+  it("turns a buff template into buff item data", () => {
+    const data = templateToItemData({ name: "Inhibited", changes: [{ formula: "-2", target: "cl" }] });
+    expect(data.type).toBe("buff");
+    expect(data.system.changes[0]).toMatchObject({ formula: "-2", target: "cl", type: "untyped", operator: "add" });
   });
 });

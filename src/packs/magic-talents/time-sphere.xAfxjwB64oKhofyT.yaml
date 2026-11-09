@@ -1,11 +1,75 @@
 _id: xAfxjwB64oKhofyT
-_key: '!items!xAfxjwB64oKhofyT'
+_key: "!items!xAfxjwB64oKhofyT"
 effects: []
 flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
     sphere: time
+    automation:
+      Hfc2nwJ7jxmvLoE8:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.time.total"
+          units: round
+        buff:
+          itemId: tpl:haste-time-sphere
+          sphere: time
+      AQ77MylhDdsc1Iyv:
+        effect:
+          enabled: true
+          concentration: true
+          duration: "@spheres.cl.time.total"
+          units: round
+        buff:
+          itemId: tpl:slow-time-sphere
+          sphere: time
+    buffTemplates:
+      haste-time-sphere:
+        name: Haste (Time Sphere)
+        img: icons/svg/ice-aura.svg
+        description:
+          <p>Time sphere alter time. Set this buff's level to the caster's Time caster level
+          when applying it to someone else. +10 ft. enhancement to all speeds (+10 per 5 CL), +1 attack
+          and +1 dodge to AC and Reflex (+1 per 10 CL). Concentration, or 1 spell point for 1 round per
+          caster level.</p>
+        changes:
+          - formula: 10 + 10 * floor(@item.level / 5)
+            target: allSpeeds
+            type: enh
+            operator: add
+          - formula: 1 + floor(@item.level / 10)
+            target: attack
+            type: untyped
+            operator: add
+          - formula: 1 + floor(@item.level / 10)
+            target: ac
+            type: dodge
+            operator: add
+          - formula: 1 + floor(@item.level / 10)
+            target: ref
+            type: dodge
+            operator: add
+      slow-time-sphere:
+        name: Slow (Time Sphere)
+        img: icons/svg/ice-aura.svg
+        description:
+          <p>Time sphere alter time (Will negates). Set the level to the caster's Time caster
+          level. Speeds halved; −1 to attack, AC and Reflex (−1 more per 10 CL).</p>
+        changes:
+          - formula: -1 - floor(@item.level / 10)
+            target: attack
+            type: untyped
+            operator: add
+          - formula: -1 - floor(@item.level / 10)
+            target: ac
+            type: untyped
+            operator: add
+          - formula: -1 - floor(@item.level / 10)
+            target: ref
+            type: untyped
+            operator: add
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/time.webp
 name: Time Sphere
@@ -19,12 +83,36 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: Hfc2nwJ7jxmvLoE8
+      name: Haste
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range: touch
+    - _id: AQ77MylhDdsc1Iyv
+      name: Slow
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range: touch
+      save:
+        type: will
+        dc: 10 + floor(@spheres.cl.time.total / 2) + @spheres.cam
+        description: Will negates
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -40,34 +128,35 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p>You possess the Time magic sphere. Gaining a sphere costs one talent,
-      so this item counts toward your Time talents; tick <em>Exclude from Talent Count</em>
-      if the sphere was granted as a bonus (by a class feature, tradition or drawback).</p><p>Base
-      sphere abilities, packages and drawbacks: @UUID[Compendium.pf1spheres.rules.JournalEntry.pcgrw2W6ZhS3GmIA.JournalEntryPage.cF1CHBGl1hQqT533]{Time
-      sphere rules}.</p>'
+    instructions: ""
+    unidentified: ""
+    value:
+      "<p>You possess the Time magic sphere. Gaining a sphere costs one talent, so this item counts
+      toward your Time talents; tick <em>Exclude from Talent Count</em> if the sphere was granted as a
+      bonus (by a class feature, tradition or drawback).</p><p>Base sphere abilities, packages and drawbacks:
+      @UUID[Compendium.pf1spheres.rules.JournalEntry.pcgrw2W6ZhS3GmIA.JournalEntryPage.cF1CHBGl1hQqT533]{Time
+      sphere rules}.</p>"
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -78,26 +167,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: magicTalent
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Base Sphere
+    - Base Sphere
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

@@ -3,6 +3,23 @@ _key: "!items!9xpPmTLXOTt9vsvV"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    grants:
+      - key: explosive:sonic-shriekers
+        target: Flashbangs
+        variants:
+          - name: "Throw: Sonic Shriekers [explosive]"
+            addDamage:
+              - formula: (@classes.scholar.level)d6
+                types:
+                  - sonic
+            dcBonus: 1 + floor(@classes.scholar.level / 5)
+            notes:
+              - "Extra sonic damage: 1d6 per scholar level; save DC +1, plus 1 per five scholar levels."
+              - A successful Fortitude save halves only this extra damage (not automated; adjust by hand).
+              - The damage and effects also work on objects and undead.
+            automation:
+              focus: expend
 folder: null
 img: icons/svg/item-bag.svg
 name: Howling Herbology
@@ -46,31 +63,28 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>The mandrake root is feared in myth and legend for its ability to rend
-      the life from mortals with its banshee-like wail. The scholar knows that
-      while much of this is simply myth, the root does contain certain
-      properties that gave rise to the legends. By ingesting a small portion of
-      ground mandrake root mixed with various catalyzing agents, the scholar is
-      able to unleash a piercing scream that deals an amount of sonic damage
-      equal to 1d4 per class level to all creatures within a 30 ft. radius
-      (Fortitude save for half). This ability affects objects and undead. The
-      scholar herself is immune to the damage from this effect.</p>
+    value:
+      "<p>The mandrake root is feared in myth and legend for its ability to rend the life from mortals
+      with its banshee-like wail. The scholar knows that while much of this is simply myth, the root does
+      contain certain properties that gave rise to the legends. By ingesting a small portion of ground
+      mandrake root mixed with various catalyzing agents, the scholar is able to unleash a piercing scream
+      that deals an amount of sonic damage equal to 1d4 per class level to all creatures within a 30 ft.
+      radius (Fortitude save for half). This ability affects objects and undead. The scholar herself is
+      immune to the damage from this effect.</p>
 
       <ul>
 
-      <li><strong>Sonic Shriekers [explosive]:</strong> Scholars with the
-      howling herbology material imposition may enhance their flashbangs with
-      mandrake root, granting them thunderous power. In addition to the
-      flashbang&#8217;s normal effects, the target also takes 1d6 points of
-      sonic damage per class level the scholar possesses, and the DC for
-      Fortitude saves against flashbangs modified with this imposition increases
-      by 1, +1 for every 5 class levels the scholar possesses. Creatures who
-      succeed on their Fortitude save against the flashbang take 1/2 damage from
-      this effect. The damage and effects from this ability apply to objects and
-      undead.</li>
+      <li><strong>Sonic Shriekers [explosive]:</strong> Scholars with the howling herbology material imposition
+      may enhance their flashbangs with mandrake root, granting them thunderous power. In addition to
+      the flashbang&#8217;s normal effects, the target also takes 1d6 points of sonic damage per class
+      level the scholar possesses, and the DC for Fortitude saves against flashbangs modified with this
+      imposition increases by 1, +1 for every 5 class levels the scholar possesses. Creatures who succeed
+      on their Fortitude save against the flashbang take 1/2 damage from this effect. The damage and effects
+      from this ability apply to objects and undead.</li>
 
       </ul>
+
+      "
   disabled: false
   duration:
     units: ""

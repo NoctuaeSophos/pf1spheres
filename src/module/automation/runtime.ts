@@ -18,6 +18,7 @@ import {
   hasAutomation,
   hasFailEffects,
   parseConditions,
+  templateToItemData,
   remainingSeconds,
   saveFailed,
   sequenceMax,
@@ -156,11 +157,27 @@ async function cleanupEffect(msg, user) {
 /* ---------- buffs applied to targets ---------- */
 
 /**
+ * A buff reference in automation settings: an id of a buff on the actor, or "tpl:<key>" for a template
+ * carried in the automation's own item (flags.pf1spheres.buffTemplates), which lets compendium items
+ * bring their buffs with them.
+ *
+ * @returns Buff item data, or null
+ */
+export const resolveBuff = (actor, item, ref: string | undefined) => {
+  if (!ref) return null;
+  if (ref.startsWith("tpl:")) {
+    const t = item?.flags?.[MODULE_ID]?.buffTemplates?.[ref.slice(4)];
+    return t ? templateToItemData(t) : null;
+  }
+  return actor?.items.get(ref)?.toObject() ?? null;
+};
+
+/**
  * A copy of a caster's buff, active at the given level. The source's start time is dropped: pf1 only
  * fills it in on updates, so a copied start would make the new buff look already expired.
  */
 const buffCopy = (source, level: number, name: string, flags: object) => {
-  const data = source.toObject();
+  const data = typeof source.toObject === "function" ? source.toObject() : foundry.utils.deepClone(source);
   delete data._id;
   data.name = name;
   data.system.level = level;
@@ -173,7 +190,7 @@ const buffCopy = (source, level: number, name: string, flags: object) => {
 async function applyBuff(msg, user) {
   const caster = fromUuidSync(msg.casterUuid);
   if (!userOwns(user, caster)) return;
-  const source = fromUuidSync(msg.buffUuid);
+  const source = msg.buffData ?? (msg.buffUuid ? fromUuidSync(msg.buffUuid) : null);
   if (!source) return;
   for (const uuid of msg.targetUuids ?? []) {
     const target = fromUuidSync(uuid);
@@ -196,6 +213,7 @@ export interface Zone {
   casterDisposition: number;
   casterUuid: string;
   buffUuid: string | null;
+  buffData?: object | null;
   level: number;
   effectId: string;
   regionId: string | null;
@@ -228,6 +246,7 @@ async function createZone(msg, user) {
     casterDisposition: msg.casterDisposition,
     casterUuid: caster.uuid,
     buffUuid: msg.buffUuid ?? null,
+    buffData: msg.buffData ?? null,
     level: msg.level,
     effectId: msg.effectId,
     regionId: region?.id ?? null,
@@ -246,7 +265,7 @@ async function removeZones(scene, ids: string[]) {
 /** Gives each creature inside a zone that zone's buff, and takes it away when they leave */
 export async function syncZones(scene) {
   if (!scene || !isGMWriter()) return;
-  const zones = getZones(scene).filter((z) => z.buffUuid);
+  const zones = getZones(scene).filter((z) => z.buffData || z.buffUuid);
   const seen = new Set();
   for (const token of scene.tokens) {
     const actor = token.actor;
@@ -268,7 +287,7 @@ export async function syncZones(scene) {
     if (drop.length) await actor.deleteEmbeddedDocuments("Item", drop);
     const have = new Set(held.map((i) => i.flags[MODULE_ID].zoneBuff.zoneId));
     for (const z of zones.filter((z) => inside.has(z.id) && !have.has(z.id))) {
-      const source = fromUuidSync(z.buffUuid);
+      const source = z.buffData ?? fromUuidSync(z.buffUuid);
       if (!source) continue;
       const data = buffCopy(source, z.level, `${source.name} (${z.name})`, { zoneBuff: { sceneId: scene.id, zoneId: z.id } });
       await actor.createEmbeddedDocuments("Item", [data]);
@@ -426,7 +445,7 @@ async function onPostActionUse(au) {
   const level = auto.buff?.level?.trim()
     ? Math.max(1, evalFormula(auto.buff.level, rd))
     : Math.max(1, (sphere ? rd.spheres?.cl?.[sphere]?.total : null) ?? rd.spheres?.cl?.total ?? 1);
-  const buff = auto.buff?.itemId ? actor.items.get(auto.buff.itemId) : null;
+  const buff = resolveBuff(actor, item, auto.buff?.itemId);
   const token = attackerDoc(au, actor);
   const targets = au.shared.targets ?? [];
 
@@ -441,7 +460,7 @@ async function onPostActionUse(au) {
       who: auto.zone.who ?? "allies",
       casterDisposition: token.disposition,
       casterUuid: actor.uuid,
-      buffUuid: buff?.uuid ?? null,
+      buffData: buff,
       level,
       effectId: effect.id,
     });
@@ -451,7 +470,7 @@ async function onPostActionUse(au) {
     await requestGM({
       action: "auto.buff",
       casterUuid: actor.uuid,
-      buffUuid: buff.uuid,
+      buffData: buff,
       level,
       targetUuids: [...new Set(uuids)],
       effectId: effect.id,
@@ -687,10 +706,19 @@ async function applyFailedSave(msg, user) {
   const rd = action.getRollData?.() ?? item.getRollData();
   const now = game.time.worldTime;
   const lines = [];
-  const conditions = parseConditions(fail.conditions).filter((id) => pf1.registry.conditions.get(id));
-  if (conditions.length) {
-    const rounds = Math.max(1, await rollTotal(fail.conditionRounds || "1", rd));
-    const combat = game.combat?.started ? game.combat : null;
+  // The main conditions, plus groups with their own duration (an [explosive] adding to a flashbang's);
+  // a condition in several groups lasts the longest of them, since pf1 won't stack one on itself
+  const groups = [{ conditions: fail.conditions, rounds: fail.conditionRounds }, ...(fail.more ?? [])];
+  const longest = new Map<string, number>();
+  for (const group of groups) {
+    const conditions = parseConditions(group.conditions).filter((id) => pf1.registry.conditions.get(id));
+    if (!conditions.length) continue;
+    const rounds = Math.max(1, await rollTotal(group.rounds || "1", rd));
+    for (const id of conditions) longest.set(id, Math.max(longest.get(id) ?? 0, rounds));
+  }
+  const combat = game.combat?.started ? game.combat : null;
+  for (const rounds of new Set(longest.values())) {
+    const conditions = [...longest].filter(([, r]) => r === rounds).map(([id]) => id);
     const data = {
       duration: {
         rounds,
@@ -704,7 +732,7 @@ async function applyFailedSave(msg, user) {
     const names = conditions.map((id) => pf1.registry.conditions.get(id).name).join(", ");
     lines.push(fmt("FailConditionsApplied", { conditions: names, rounds }));
   }
-  const source = fail.buffId ? caster.items.get(fail.buffId) : null;
+  const source = resolveBuff(caster, item, fail.buffId);
   if (source) {
     const rounds = Math.max(1, await rollTotal(fail.buffRounds || "1", rd));
     const level = fail.buffLevel?.trim() ? Math.max(1, evalFormula(fail.buffLevel, rd)) : Math.max(1, rd.spheres?.cl?.total ?? 1);

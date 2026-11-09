@@ -1,5 +1,5 @@
 _id: 6gqr48Gwr8F34kXp
-_key: '!items!6gqr48Gwr8F34kXp'
+_key: "!items!6gqr48Gwr8F34kXp"
 effects: []
 flags:
   pf1: {}
@@ -22,8 +22,8 @@ system:
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -37,49 +37,48 @@ system:
     seeInDarkness: false
     seeInvisibility: false
   changes:
-  - _id: mcmnmw7cz9jfp0no
-    formula: floor(@classes.scholar.level / 2) - 1
-    operator: add
-    priority: 0
-    target: spellPoints
-    type: untyped
-  - _id: p0xc0a2nlit2i234
-    formula: floor(@classes.scholar.level * 0.75) - floor(@classes.scholar.level /
-      2)
-    operator: add
-    priority: 0
-    target: sphereclTime
-    type: untyped
+    - _id: mcmnmw7cz9jfp0no
+      formula: floor(@classes.scholar.level / 2) - 1
+      operator: add
+      priority: 0
+      target: spellPoints
+      type: untyped
+    - _id: p0xc0a2nlit2i234
+      formula: floor(@classes.scholar.level * 0.75) - floor(@classes.scholar.level / 2)
+      operator: add
+      priority: 0
+      target: sphereclTime
+      type: untyped
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p><strong>Prerequisites:</strong> Chronomancy, Amateur.</p><p>While you
-      possess your timepiece, you gain three more Time sphere talents and count as
-      a Mid-Caster for your Time sphere caster level. Your spell pool becomes half
-      your scholar level + your Int modifier.</p><p><em>Source: Scholar wiki page
-      [CS].</em> <a href="http://spheresofpower.wikidot.com/scholar#toc16">Full text</a></p>'
+    instructions: ""
+    unidentified: ""
+    value:
+      '<p><strong>Prerequisites:</strong> Chronomancy, Amateur.</p><p>While you possess your timepiece,
+      you gain three more Time sphere talents and count as a Mid-Caster for your Time sphere caster level.
+      Your spell pool becomes half your scholar level + your Int modifier.</p><p><em>Source: Scholar wiki
+      page [CS].</em> <a href="http://spheresofpower.wikidot.com/scholar#toc16">Full text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -90,26 +89,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Scholar's Knack
+    - Scholar's Knack
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

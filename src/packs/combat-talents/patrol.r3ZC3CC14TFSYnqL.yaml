@@ -5,6 +5,29 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: guardian
+    automation:
+      GeQbaZIXSgzeL5sW:
+        focus: require
+        effect:
+          enabled: true
+          duration: "1"
+          units: round
+        zone:
+          enabled: true
+          radius: 10 + 5 + 5 * floor(@attributes.bab.total / 4)
+          who: enemies
+    buffTemplates:
+      patrol:
+        name: Patrol
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Guardian sphere (martial focus, full-round action): threatened area grows by
+          5 ft. + 5 ft. per 4 BAB (25 ft. at BAB 16), applied after reach. Until your next turn you can
+          make attacks of opportunity against anything provoking in that area, moving to reach it within
+          your base speed. Quick Ward and Response Time trigger on this.</p>"
+        changes: []
+    grantItems:
+      - patrol
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/guardian.webp
 name: Patrol
@@ -19,14 +42,21 @@ system:
   abilityType: na
   acquired: false
   actions:
-    - _id: T28Wozfg2lLK6MTF
+    - _id: GeQbaZIXSgzeL5sW
       name: Patrol
       actionType: other
+      img: ""
       activation:
         type: full
         unchained:
-          cost: 3
-          type: action
+          type: full
+          cost: 1
+      range:
+        units: personal
+      notes:
+        footer:
+          - Threatened area grows by 5 ft. + 5 ft. per 4 BAB until your next turn (drawn on the scene). Attacks
+            of opportunity against anything provoking in it; move within your base speed to reach it.
   armorProf: []
   associations:
     classes: []
@@ -56,21 +86,20 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>As long as you have martial focus, as a full-round action you may
-      increase your threatened area by 5 ft., +5 ft. for every 4 points of base
-      attack bonus you possess. This increased threatened area is applied after
-      the effects of the reach weapon special feature. Until the beginning of
-      your next turn, you may make attacks of opportunity against any creature
-      in this threatened area that provokes attacks of opportunity. You may move
-      to bring the creature that provokes the attack of opportunity within your
-      reach as part of these attacks, provided your total movement before your
-      next turn does not exceed your base speed. Any movement you make provokes
-      attacks of opportunity as normal. <strong>Associated Feat:</strong> Combat
-      Patrol.</p>
+    value:
+      "<p>As long as you have martial focus, as a full-round action you may increase your threatened
+      area by 5 ft., +5 ft. for every 4 points of base attack bonus you possess. This increased threatened
+      area is applied after the effects of the reach weapon special feature. Until the beginning of your
+      next turn, you may make attacks of opportunity against any creature in this threatened area that
+      provokes attacks of opportunity. You may move to bring the creature that provokes the attack of
+      opportunity within your reach as part of these attacks, provided your total movement before your
+      next turn does not exceed your base speed. Any movement you make provokes attacks of opportunity
+      as normal. <strong>Associated Feat:</strong> Combat Patrol.</p>
 
-      <p>Talents with the (zone) tag grant additional effects to this ability.
-      Each patrol may only benefit from one (zone) talent.</p>
+      <p>Talents with the (zone) tag grant additional effects to this ability. Each patrol may only benefit
+      from one (zone) talent.</p>
+
+      "
   disabled: false
   duration:
     units: ""

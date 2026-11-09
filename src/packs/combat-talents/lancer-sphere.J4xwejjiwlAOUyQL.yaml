@@ -1,11 +1,23 @@
 _id: J4xwejjiwlAOUyQL
-_key: '!items!J4xwejjiwlAOUyQL'
+_key: "!items!J4xwejjiwlAOUyQL"
 effects: []
 flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
     sphere: lancer
+    automation:
+      RVy0UaYyuJr6gBvJ:
+        effect:
+          enabled: true
+        mark:
+          label: Impaled (Elmorn)
+          attackerNote:
+            "Impaled: can't move and is battered; your impaling weapon ignores its armor,
+            natural armor and shield bonuses."
+          defenderNote:
+            "Impaled by Elmorn: casting needs a concentration check (DC 10 + his CMB + spell
+            level)."
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/lancer.webp
 name: Lancer Sphere
@@ -19,12 +31,26 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: RVy0UaYyuJr6gBvJ
+      name: Impale
+      actionType: other
+      img: ""
+      activation:
+        type: attack
+        unchained:
+          type: attack
+          cost: 1
+      range: melee
+      notes:
+        footer:
+          - Take -2 on a melee attack-action attack; on a hit the target is impaled (pulled into reach, can't
+            move, battered).
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -40,34 +66,35 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p>You possess the Lancer combat sphere. Gaining a sphere costs one talent,
-      so this item counts toward your Lancer talents; tick <em>Exclude from Talent
-      Count</em> if the sphere was granted as a bonus (by a class feature, tradition
-      or drawback).</p><p>Base sphere abilities, packages and drawbacks: @UUID[Compendium.pf1spheres.rules.JournalEntry.6ofS12a3d99UJ840.JournalEntryPage.R3Pzw2eTyaM7CKFV]{Lancer
-      sphere rules}.</p>'
+    instructions: ""
+    unidentified: ""
+    value:
+      "<p>You possess the Lancer combat sphere. Gaining a sphere costs one talent, so this item counts
+      toward your Lancer talents; tick <em>Exclude from Talent Count</em> if the sphere was granted as
+      a bonus (by a class feature, tradition or drawback).</p><p>Base sphere abilities, packages and drawbacks:
+      @UUID[Compendium.pf1spheres.rules.JournalEntry.6ofS12a3d99UJ840.JournalEntryPage.R3Pzw2eTyaM7CKFV]{Lancer
+      sphere rules}.</p>"
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -78,26 +105,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: combatTalent
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Base Sphere
+    - Base Sphere
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

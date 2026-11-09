@@ -3,6 +3,14 @@ _key: "!items!NZSNQsIzWHNu8iu2"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    automation:
+      0fUreUyEz05poWxf:
+        sp: "1"
+        effect:
+          enabled: true
+          duration: "1"
+          units: round
 folder: null
 img: icons/svg/item-bag.svg
 name: Spell Shield
@@ -16,7 +24,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 0fUreUyEz05poWxf
+      name: Spell Shield
+      actionType: other
+      img: ""
+      activation:
+        type: swift
+        unchained:
+          type: swift
+          cost: 1
+      range:
+        units: personal
+      notes:
+        footer:
+          - Spell resistance 15 + level until the start of your next turn.
   armorProf: []
   associations:
     classes: []
@@ -46,10 +68,11 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>As an immediate action, the mageknight may spend a spell point to grant
-      herself spell resistance equal to 15 + her mageknight level until the
-      start of her next turn.</p>
+    value:
+      "<p>As an immediate action, the mageknight may spend a spell point to grant herself spell resistance
+      equal to 15 + her mageknight level until the start of her next turn.</p>
+
+      "
   disabled: false
   duration:
     units: ""

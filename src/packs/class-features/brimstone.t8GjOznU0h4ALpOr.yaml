@@ -3,6 +3,25 @@ _key: "!items!t8GjOznU0h4ALpOr"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    grants:
+      - key: explosive:sulfuric-detonations
+        target: Flashbangs
+        variants:
+          - name: "Throw: Sulfuric Detonations [explosive]"
+            addDamage:
+              - formula: (floor(@classes.scholar.level / 2))d6
+                types:
+                  - fire
+            notes:
+              - "Extra fire damage: 1d6 per two scholar levels. A successful Fortitude save halves only this
+                extra damage (not automated; adjust by hand)."
+              - Smoke fills a radius of 5 ft. + 5 ft. per four scholar levels around the target for 1 minute
+                (strong wind clears it in 1 round).
+              - Anyone in the smoke makes a Fortitude save at the flashbang DC or is sickened while inside and
+                for 1d4 rounds after leaving (GM adjudicates).
+            automation:
+              focus: expend
 folder: null
 img: icons/svg/item-bag.svg
 name: Brimstone
@@ -46,34 +65,31 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Brimstone, also known as sulfur, has effects that can ward off illness
-      and disease when used in small and controlled amounts. The scholar may
-      activate this imposition by snapping a small piece of brimstone in two and
-      placing it in a vest pocket or pouch resting between the nose and heart of
-      a target creature within reach, granting a +1 competence bonus to
-      Fortitude saves, +1 per 5 class levels she possesses. This bonus lasts for
-      a number of minutes equal to 1 + her Intelligence modifier. While a
-      creature is benefiting from this imposition, any time a creature attempts
-      a bite or swallow whole against them, that creature must succeed at a
-      Fortitude saving throw or be nauseated for 1 round.</p>
+    value:
+      "<p>Brimstone, also known as sulfur, has effects that can ward off illness and disease when
+      used in small and controlled amounts. The scholar may activate this imposition by snapping a small
+      piece of brimstone in two and placing it in a vest pocket or pouch resting between the nose and
+      heart of a target creature within reach, granting a +1 competence bonus to Fortitude saves, +1 per
+      5 class levels she possesses. This bonus lasts for a number of minutes equal to 1 + her Intelligence
+      modifier. While a creature is benefiting from this imposition, any time a creature attempts a bite
+      or swallow whole against them, that creature must succeed at a Fortitude saving throw or be nauseated
+      for 1 round.</p>
 
       <ul>
 
-      <li><strong>Sulfuric Detonations [explosive]:</strong> The scholar may
-      enhance her flashbangs with large doses of brimstone, causing them to
-      smoke and burn. In addition to the flashbang&#8217;s normal effects, the
-      target also takes 1d6 points of fire damage per 2 class levels the scholar
-      possesses; creatures who succeed on their Fortitude save against the
-      flashbang take 1/2 damage from this effect. In addition, noxious smoke
-      fills a radius around the target equal to 5 ft. + 5 ft. per four class
-      levels the scholar possesses, causing any creature that is in the smoke to
-      make a Fortitude save against the flashbang&#8217;s original DC or be
-      sickened for as long as they remain in the effect and for 1d4 rounds
-      thereafter. The smoke dissipates naturally after 1 minute, and is
-      dispersed in 1 round by strong or stronger winds.</li>
+      <li><strong>Sulfuric Detonations [explosive]:</strong> The scholar may enhance her flashbangs with
+      large doses of brimstone, causing them to smoke and burn. In addition to the flashbang&#8217;s normal
+      effects, the target also takes 1d6 points of fire damage per 2 class levels the scholar possesses;
+      creatures who succeed on their Fortitude save against the flashbang take 1/2 damage from this effect.
+      In addition, noxious smoke fills a radius around the target equal to 5 ft. + 5 ft. per four class
+      levels the scholar possesses, causing any creature that is in the smoke to make a Fortitude save
+      against the flashbang&#8217;s original DC or be sickened for as long as they remain in the effect
+      and for 1d4 rounds thereafter. The smoke dissipates naturally after 1 minute, and is dispersed in
+      1 round by strong or stronger winds.</li>
 
       </ul>
+
+      "
   disabled: false
   duration:
     units: ""

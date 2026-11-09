@@ -40,6 +40,7 @@ import { getWeatherEffects } from "./weather/conditions";
 import { openCasterWeather } from "./weather/caster-app";
 import { registerSocket } from "./socket";
 import { registerAutomation, endEffect, getEffects } from "./automation/runtime";
+import { registerGrants, syncGrants } from "./automation/grants";
 import { onRenderActionSheet } from "./automation/action-sheet";
 import { buildBlastActions, openFormulae, rollMsbVsTargets } from "./automation/features";
 
@@ -76,11 +77,14 @@ declare global {
   // eslint-disable-next-line
   var pf1s: {
     config: typeof PF1S;
+    syncGrants: typeof syncGrants;
   };
 }
 
 globalThis.pf1s = {
   config: { ...PF1S },
+  /** Re-applies granted actions and items on an actor (normally automatic) */
+  syncGrants,
 };
 
 // Initialize module
@@ -133,6 +137,7 @@ Hooks.once("init", () => {
   registerSocket();
   registerWeather();
   registerAutomation();
+  registerGrants();
 
   // Call hooks after derived config has been initialised
   Hooks.callAll("pf1spheresPostInit");

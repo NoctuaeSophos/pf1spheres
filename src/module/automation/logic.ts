@@ -43,11 +43,13 @@ export interface FailEffects {
   note?: string;
   /** Offer the caster a button to regain martial focus */
   regainFocus?: boolean;
+  /** More conditions with their own duration */
+  more?: { conditions?: string; rounds?: string }[];
 }
 
 /** True when a failed save has anything to do */
 export const hasFailEffects = (f: FailEffects | undefined | null): boolean =>
-  Boolean(f && (f.conditions?.trim() || f.buffId || f.note?.trim() || f.regainFocus));
+  Boolean(f && (f.conditions?.trim() || f.buffId || f.note?.trim() || f.regainFocus || f.more?.some((g) => g.conditions?.trim())));
 
 /** Condition ids from "blind, deaf" or "blind deaf" */
 export const parseConditions = (text: string | undefined): string[] =>
@@ -256,4 +258,141 @@ export const targetMsd = (msb: number, msd: number, spellCl: number, hd: number)
   if (msb > 0) return { value: msd, estimate: false };
   if (spellCl > 0) return { value: 11 + spellCl, estimate: true };
   return { value: 11 + hd, estimate: true };
+};
+
+/* ---------- buff templates ---------- */
+
+/** A buff carried in an item's flags.pf1spheres.buffTemplates */
+export interface BuffTemplate {
+  name: string;
+  img?: string;
+  description?: string;
+  changes?: { formula: string; target: string; type?: string; operator?: string }[];
+  contextNotes?: { text: string; target: string }[];
+}
+
+/**
+ * Item data for a buff template, ready to be copied onto a creature.
+ *
+ * @param t - The template
+ * @returns pf1 buff item source data
+ */
+export const templateToItemData = (t: BuffTemplate) => ({
+  name: t.name,
+  type: "buff",
+  img: t.img || "icons/svg/aura.svg",
+  system: {
+    subType: "temp",
+    active: false,
+    description: { value: t.description ?? "" },
+    changes: (t.changes ?? []).map((c, i) => ({
+      _id: `pf1stpl${String(i).padStart(9, "0")}`,
+      operator: "add",
+      type: "untyped",
+      ...c,
+    })),
+    contextNotes: t.contextNotes ?? [],
+  },
+});
+
+/* ---------- granted actions ---------- */
+
+/** One version of a granted action; the first whose required items are all present is used */
+export interface GrantVariant {
+  /** Names of other items the actor must have */
+  requires?: string[];
+  name: string;
+  /** Merged over a copy of the target item's first own action */
+  action?: Record<string, unknown>;
+  addDamage?: { formula: string; types: string[] }[];
+  /** Added to the base action's save DC */
+  dcBonus?: string;
+  /** Appended to the action's effect notes */
+  notes?: string[];
+  /** Merged over the base action's automation; onFail.buffTemplate names a template on the granting item */
+  automation?: ActionAutomation & { onFail?: FailEffects & { buffTemplate?: string } };
+}
+
+/** An action an item adds to another item on the same actor (an imposition's [explosive] on Flashbangs) */
+export interface Grant {
+  /** Unique per granted action; two items granting the same key add it once */
+  key: string;
+  /** Name of the item that receives the action */
+  target: string;
+  variants: GrantVariant[];
+}
+
+/**
+ * The variant to use given the names of the items an actor has.
+ *
+ * @param grant - The grant
+ * @param names - Lower-cased item names on the actor
+ */
+export const pickVariant = (grant: Grant, names: Set<string>): GrantVariant | null =>
+  grant.variants?.find((v) => (v.requires ?? []).every((n) => names.has(n.toLowerCase()))) ?? null;
+
+const ID_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+/**
+ * A stable 16-character id for a string, so a granted action keeps its id (and its settings) across syncs.
+ *
+ * @param text - The grant key
+ */
+export const stableId = (text: string): string => {
+  let h1 = 0x811c9dc5;
+  let h2 = 0x01000193;
+  let out = "";
+  for (let round = 0; out.length < 16; round++) {
+    for (let i = 0; i < text.length; i++) {
+      const c = text.charCodeAt(i) + round;
+      h1 = Math.imul(h1 ^ c, 0x01000193) >>> 0;
+      h2 = Math.imul(h2 + c, 0x5bd1e995) >>> 0;
+    }
+    out += ID_CHARS[h1 % 62] + ID_CHARS[h2 % 62] + ID_CHARS[(h1 >>> 8) % 62] + ID_CHARS[(h2 >>> 8) % 62];
+  }
+  return out.slice(0, 16);
+};
+
+const isObject = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null && !Array.isArray(v);
+const merge = (a: Record<string, unknown>, b: Record<string, unknown>): Record<string, unknown> => {
+  const out = { ...a };
+  for (const [k, v] of Object.entries(b)) out[k] = isObject(v) && isObject(out[k]) ? merge(out[k] as Record<string, unknown>, v) : v;
+  return out;
+};
+
+/**
+ * Builds a granted action from the target's base action and a variant.
+ *
+ * @param base - Source data of the target item's first own action (may be undefined)
+ * @param variant - The chosen variant
+ * @param key - The grant key, which fixes the action id
+ */
+export const buildGrantedAction = (base: Record<string, any> | undefined, variant: GrantVariant, key: string) => {
+  const a: Record<string, any> = merge(JSON.parse(JSON.stringify(base ?? {})), variant.action ?? {});
+  a._id = stableId(key);
+  a.name = variant.name;
+  if (variant.addDamage?.length) a.damage = { ...(a.damage ?? {}), parts: [...(a.damage?.parts ?? []), ...variant.addDamage] };
+  if (variant.dcBonus && a.save?.dc) a.save = { ...a.save, dc: `${a.save.dc} + ${variant.dcBonus}` };
+  if (variant.notes?.length) a.notes = { ...(a.notes ?? {}), effect: [...(a.notes?.effect ?? []), ...variant.notes] };
+  return a;
+};
+
+/**
+ * The automation for a granted action: the base action's, with the variant's merged over it. Extra
+ * conditions keep the base ones and get their own duration; a buff template becomes a "tpl:" reference.
+ *
+ * @param base - The base action's automation
+ * @param variant - The variant's automation
+ */
+export const mergeGrantAutomation = (base: ActionAutomation = {}, variant: GrantVariant["automation"] = {}): ActionAutomation => {
+  const { onFail: vFail, ...rest } = variant ?? {};
+  const out: ActionAutomation = { ...JSON.parse(JSON.stringify(base)), ...rest };
+  if (vFail) {
+    const { buffTemplate, conditions, conditionRounds, ...failRest } = vFail;
+    const onFail: FailEffects = { ...(base.onFail ?? {}), ...failRest };
+    if (buffTemplate) onFail.buffId = `tpl:${buffTemplate}`;
+    if (conditions?.trim()) onFail.more = [...(onFail.more ?? []), { conditions, rounds: conditionRounds || base.onFail?.conditionRounds || "1" }];
+    out.onFail = onFail;
+  }
+  return out;
 };

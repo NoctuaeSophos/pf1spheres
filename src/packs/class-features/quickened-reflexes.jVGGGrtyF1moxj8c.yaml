@@ -3,6 +3,29 @@ _key: "!items!jVGGGrtyF1moxj8c"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    automation:
+      3sa8NAR3ZNqoFWYk:
+        sp: "1"
+        effect:
+          enabled: true
+          duration: "@spheres.cam"
+          units: round
+        buff:
+          itemId: tpl:quickened-reflexes
+          self: true
+    buffTemplates:
+      quickened-reflexes:
+        name: Quickened Reflexes
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Mystic combat (1 spell point, swift action): dodge bonus to AC equal to half
+          mageknight level (minimum 1) for rounds equal to the casting ability modifier.</p>"
+        changes:
+          - formula: max(1, floor(@classes.mageknight.level / 2))
+            target: ac
+            type: dodge
+            operator: add
 folder: null
 img: icons/svg/item-bag.svg
 name: Quickened Reflexes
@@ -16,7 +39,22 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: 3sa8NAR3ZNqoFWYk
+      name: Quickened Reflexes
+      actionType: other
+      img: ""
+      activation:
+        type: swift
+        unchained:
+          type: swift
+          cost: 1
+      range:
+        units: personal
+      notes:
+        footer:
+          - "Mystic combat: dodge bonus to AC equal to half mageknight level for rounds equal to the casting
+            ability modifier."
   armorProf: []
   associations:
     classes: []
@@ -46,10 +84,11 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>The mageknight may spend a spell point as a swift action to gain a
-      dodge bonus to AC equal to half her mageknight level (minimum 1) for a
-      number of rounds equal to her casting ability modifier.</p>
+    value:
+      "<p>The mageknight may spend a spell point as a swift action to gain a dodge bonus to AC equal
+      to half her mageknight level (minimum 1) for a number of rounds equal to her casting ability modifier.</p>
+
+      "
   disabled: false
   duration:
     units: ""

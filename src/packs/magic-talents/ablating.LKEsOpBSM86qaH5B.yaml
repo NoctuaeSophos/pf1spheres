@@ -5,6 +5,26 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      sInZmutIMxMkNNou:
+        sp: "1"
+        effect:
+          enabled: true
+          duration: "@spheres.cl.protection.total"
+          units: hour
+          concentration: false
+        buff:
+          itemId: tpl:aegis-ablating
+          sphere: protection
+    buffTemplates:
+      aegis-ablating:
+        name: "Aegis: Ablating"
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>Miss chance equal to the ablation rate: 20% + 5% per 3 caster levels, maximum
+          50% (50% at caster level 13). Each miss caused by it lowers the rate by 5%; the aegis ends at
+          0%. Only the highest miss chance applies. Track the rate in this buff's level.</p>"
+        changes: []
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Ablating
@@ -18,7 +38,20 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: sInZmutIMxMkNNou
+      name: Ablating Aegis
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 spell point, 1 hour per caster level. Target a creature, or none for yourself."
   armorProf: []
   associations:
     classes: []
@@ -48,17 +81,16 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that has a chance of negating attacks against
-      the protected creature. When created, the aegis has an ablation rate of
-      20% + 5% for every 3 caster levels, maximum 50%. The aegis acts as a miss
-      chance equal to its ablation rate against attacks, and whenever the
-      protected creature is missed due to miss chance, its ablation rate drops
-      by 5%. When the ablation rate becomes equal to or less than 0, the aegis
-      ends, even if the duration has not yet expired. If the character has a
-      miss chance from another source, only the highest miss chance applies, and
-      the aegis is only reduced if its ablation rate is higher than all other
-      miss chances.</p>
+    value:
+      "<p>You may create an aegis that has a chance of negating attacks against the protected creature.
+      When created, the aegis has an ablation rate of 20% + 5% for every 3 caster levels, maximum 50%.
+      The aegis acts as a miss chance equal to its ablation rate against attacks, and whenever the protected
+      creature is missed due to miss chance, its ablation rate drops by 5%. When the ablation rate becomes
+      equal to or less than 0, the aegis ends, even if the duration has not yet expired. If the character
+      has a miss chance from another source, only the highest miss chance applies, and the aegis is only
+      reduced if its ablation rate is higher than all other miss chances.</p>
+
+      "
   disabled: false
   duration:
     units: ""

@@ -5,6 +5,50 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: protection
+    automation:
+      LotF1KSnoAEhi2UY:
+        sp: "1"
+        effect:
+          enabled: true
+          duration: "@spheres.cl.protection.total"
+          units: hour
+          concentration: false
+        buff:
+          itemId: tpl:aegis-armored-magic-armor
+          sphere: protection
+      dERuiU89dmtt2MMR:
+        sp: "1"
+        effect:
+          enabled: true
+          duration: "@spheres.cl.protection.total"
+          units: hour
+          concentration: false
+        buff:
+          itemId: tpl:aegis-armored-magic-shield
+          sphere: protection
+    buffTemplates:
+      aegis-armored-magic-armor:
+        name: "Aegis: Armored Magic (Armor)"
+        img: icons/svg/ice-aura.svg
+        description:
+          <p>+3 armor bonus to AC, +1 per 5 caster levels; also works against incorporeal attacks.
+          Doesn't stack with other armor bonuses.</p>
+        changes:
+          - formula: 3 + floor(@spheres.cl.protection.total / 5)
+            target: aac
+            type: base
+            operator: add
+      aegis-armored-magic-shield:
+        name: "Aegis: Armored Magic (Shield)"
+        img: icons/svg/ice-aura.svg
+        description:
+          <p>+1 shield bonus to AC, +1 per 5 caster levels; also works against incorporeal
+          attacks. Doesn't stack with other shield bonuses.</p>
+        changes:
+          - formula: 1 + floor(@spheres.cl.protection.total / 5)
+            target: sac
+            type: base
+            operator: add
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/protection.webp
 name: Armored Magic
@@ -18,7 +62,33 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: LotF1KSnoAEhi2UY
+      name: Armored Aegis (Armor)
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 spell point, 1 hour per caster level. Target a creature, or none for yourself."
+    - _id: dERuiU89dmtt2MMR
+      name: Armored Aegis (Shield)
+      actionType: other
+      img: ""
+      activation:
+        type: standard
+        unchained:
+          type: action
+          cost: 2
+      range: touch
+      notes:
+        footer:
+          - "Aegis: touch, 1 spell point, 1 hour per caster level. Target a creature, or none for yourself."
   armorProf: []
   associations:
     classes: []
@@ -48,12 +118,13 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>You may create an aegis that wraps the target in protective barriers,
-      granting them either a +3 armor bonus or a +1 shield bonus to AC (your
-      choice). This does not stack with other armor or shield bonuses, but does
-      apply against attacks made by incorporeal creatures. These bonuses
-      increase by +1 for every 5 caster levels you possess.</p>
+    value:
+      "<p>You may create an aegis that wraps the target in protective barriers, granting them either
+      a +3 armor bonus or a +1 shield bonus to AC (your choice). This does not stack with other armor
+      or shield bonuses, but does apply against attacks made by incorporeal creatures. These bonuses increase
+      by +1 for every 5 caster levels you possess.</p>
+
+      "
   disabled: false
   duration:
     units: ""

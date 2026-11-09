@@ -3,6 +3,10 @@ _key: "!items!jgeXvOdMGvOnUTn0"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    automation:
+      dy0JVGyPyfdUUmoC:
+        sp: "1"
 folder: null
 img: icons/svg/item-bag.svg
 name: Resilience of Soul
@@ -16,7 +20,21 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: dy0JVGyPyfdUUmoC
+      name: Resilience of Soul
+      actionType: other
+      img: ""
+      activation:
+        type: immediate
+        unchained:
+          type: immediate
+          cost: 0
+      range:
+        units: personal
+      notes:
+        footer:
+          - Reroll a failed save (see the feature).
   armorProf: []
   associations:
     classes: []
@@ -46,10 +64,11 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>As an immediate action, the mageknight may spend a spell point to
-      reroll a saving throw she just failed. She must take the second result,
-      even if it is worse.</p>
+    value:
+      "<p>As an immediate action, the mageknight may spend a spell point to reroll a saving throw
+      she just failed. She must take the second result, even if it is worse.</p>
+
+      "
   disabled: false
   duration:
     units: ""

@@ -5,6 +5,20 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: scout
+    buffTemplates:
+      identify-rhythms:
+        name: Identify Rhythms
+        img: icons/svg/ice-aura.svg
+        description:
+          "<p>With martial focus, after a successful scout against a creature: +1 dodge to
+          AC against its attacks, +1 per 4 Perception ranks.</p>"
+        changes:
+          - formula: 1 + floor(@skills.per.rank / 4)
+            target: ac
+            type: dodge
+            operator: add
+    grantItems:
+      - identify-rhythms
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/scout.webp
 name: Identify Rhythms
@@ -48,11 +62,12 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>As long as you have martial focus, whenever you have successfully used
-      the scout ability against a creature, you gain a +1 dodge bonus to AC
-      against all of their attacks. For every 4 ranks in Perception you possess,
-      this dodge bonus increases by +1.</p>
+    value:
+      "<p>As long as you have martial focus, whenever you have successfully used the scout ability
+      against a creature, you gain a +1 dodge bonus to AC against all of their attacks. For every 4 ranks
+      in Perception you possess, this dodge bonus increases by +1.</p>
+
+      "
   disabled: false
   duration:
     units: ""

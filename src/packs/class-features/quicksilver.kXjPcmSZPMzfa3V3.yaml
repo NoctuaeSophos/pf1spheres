@@ -3,6 +3,19 @@ _key: "!items!kXjPcmSZPMzfa3V3"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    grants:
+      - key: explosive:mercurial-bursts
+        target: Flashbangs
+        variants:
+          - name: "Throw: Mercurial Bursts [explosive]"
+            notes:
+              - "Failed save: Wisdom damage of 1d4, rising to 2d4 at 8th level and 3d4 at 16th."
+              - "Poison effect: a creature's resistance to poison applies to its save against this flashbang."
+            automation:
+              focus: expend
+              onFail:
+                note: "Poisoned by mercury: takes [[(1 + floor(@classes.scholar.level / 8))d4]] Wisdom damage."
 folder: null
 img: icons/svg/item-bag.svg
 name: Quicksilver
@@ -46,26 +59,25 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Also known as mercury, this strange, mercurial liquid is commonly drawn
-      from cinnabar. Quite toxic, this shifting liquid can act as quite a
-      slippery surface. This functions as a splash weapon the scholar can use as
-      a ranged touch attack with a range increment of 10 feet, creating a puddle
-      of quicksilver with a radius of 15 feet, plus 5 feet per 5 scholar levels
-      she possesses; causing all creatures that attempt to enter or move through
-      the area to attempt at a Reflex saving throw or immediately fall prone.
-      This puddle lasts for 1d4 rounds.</p>
+    value:
+      "<p>Also known as mercury, this strange, mercurial liquid is commonly drawn from cinnabar.
+      Quite toxic, this shifting liquid can act as quite a slippery surface. This functions as a splash
+      weapon the scholar can use as a ranged touch attack with a range increment of 10 feet, creating
+      a puddle of quicksilver with a radius of 15 feet, plus 5 feet per 5 scholar levels she possesses;
+      causing all creatures that attempt to enter or move through the area to attempt at a Reflex saving
+      throw or immediately fall prone. This puddle lasts for 1d4 rounds.</p>
 
       <ul>
 
-      <li><strong>Mercurial Bursts [explosive]:</strong> The scholar may enhance
-      her flashbangs with mercury, causing targets who fail their save to take
-      1d4 points of Wisdom damage, plus an additional 1d4 points of Wisdom
-      damage at 8th and 16th level, in addition to the normal effects. This is a
-      poison effect, and creatures with resistance to poison apply that
-      resistance to their save against the flashbang&#8217;s effects.</li>
+      <li><strong>Mercurial Bursts [explosive]:</strong> The scholar may enhance her flashbangs with mercury,
+      causing targets who fail their save to take 1d4 points of Wisdom damage, plus an additional 1d4
+      points of Wisdom damage at 8th and 16th level, in addition to the normal effects. This is a poison
+      effect, and creatures with resistance to poison apply that resistance to their save against the
+      flashbang&#8217;s effects.</li>
 
       </ul>
+
+      "
   disabled: false
   duration:
     units: ""

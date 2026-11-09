@@ -1,10 +1,13 @@
 _id: CHsqVt850aMIhjl4
-_key: '!items!CHsqVt850aMIhjl4'
+_key: "!items!CHsqVt850aMIhjl4"
 effects: []
 flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    automation:
+      0xzI2Ock7U98xoBL:
+        sp: "1"
 folder: null
 img: icons/svg/item-bag.svg
 name: Quick Ward
@@ -18,12 +21,26 @@ system:
     damageMult: 1
   abilityType: su
   acquired: false
-  actions: []
+  actions:
+    - _id: 0xzI2Ock7U98xoBL
+      name: Quick Ward
+      actionType: other
+      img: ""
+      activation:
+        type: free
+        unchained:
+          type: free
+          cost: 0
+      range:
+        units: personal
+      notes:
+        footer:
+          - Create a ward as part of the patrol action.
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,34 +56,34 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p><strong>Trigger:</strong> using patrol. <strong>Cost:</strong> 1 spell
-      point.</p><p>Create one ward as part of the patrol action itself. Only wards
-      that normally take a standard action to create qualify.</p><p><em>Source: Ultimate
-      Spheres of Power.</em> <a href="http://spheresofpower.wikidot.com/marshal-controller#toc11">Full
+    instructions: ""
+    unidentified: ""
+    value:
+      '<p><strong>Trigger:</strong> using patrol. <strong>Cost:</strong> 1 spell point.</p><p>Create
+      one ward as part of the patrol action itself. Only wards that normally take a standard action to
+      create qualify.</p><p><em>Source: Ultimate Spheres of Power.</em> <a href="http://spheresofpower.wikidot.com/marshal-controller#toc11">Full
       text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -77,27 +94,27 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Marshal Controller
-  - Mystic Combat
+    - Marshal Controller
+    - Mystic Combat
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat
