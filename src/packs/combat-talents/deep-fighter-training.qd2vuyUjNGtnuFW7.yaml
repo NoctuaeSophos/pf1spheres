@@ -103,5 +103,15 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Gnome Hooked Hammer"
+    - "Hand Crossbow"
+    - "Mancatcher"
+    - "Rapier"
+    - "Poisoned Sand Tube"
+    - "Sanpkhang"
+    - "Scorpion Whip"
+    - "Shortsword"
+    - "Spinal Sword"
+    - "Whip"
 type: feat

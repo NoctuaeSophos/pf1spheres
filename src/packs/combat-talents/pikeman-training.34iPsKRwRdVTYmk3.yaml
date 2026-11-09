@@ -104,5 +104,16 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Bardiche"
+    - "Bec de Corbin"
+    - "Bill"
+    - "Glaive"
+    - "Glaive-Guisarme"
+    - "Guisarme"
+    - "Halberd"
+    - "Hooked Lance"
+    - "Lance"
+    - "Mancatcher"
+    - "Ranseur"
 type: feat

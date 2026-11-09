@@ -102,5 +102,18 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Battle Ladder"
+    - "Battle Stein"
+    - "Battle Wrench"
+    - "Climbing Pick"
+    - "Fishing Tackle"
+    - "Garrote"
+    - "Grappling Hook"
+    - "Iron Brush"
+    - "Machete"
+    - "Net"
+    - "Ten Foot Pole"
+    - "Torch"
+    - "Whip"
 type: feat

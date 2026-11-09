@@ -103,5 +103,15 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Boarding Axe"
+    - "Boarding Gaff"
+    - "Boarding Pike"
+    - "Cat-o'-Nine-Tails"
+    - "Cutlass"
+    - "Duelist Sword"
+    - "Grappling Hook"
+    - "Pistol"
+    - "Rapier"
+    - "Sea-Knife"
 type: feat

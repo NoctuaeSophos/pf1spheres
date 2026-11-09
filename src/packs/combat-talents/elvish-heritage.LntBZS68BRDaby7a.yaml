@@ -101,5 +101,15 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Elven Branched Spear"
+    - "Elven Curve Blade"
+    - "Longbow"
+    - "Longsword"
+    - "Rapier"
+    - "Scimitar"
+    - "Shortsword"
+    - "Shortbow"
+    - "Two-bladed Scimitar"
+    - "Two-Bladed Sword"
 type: feat

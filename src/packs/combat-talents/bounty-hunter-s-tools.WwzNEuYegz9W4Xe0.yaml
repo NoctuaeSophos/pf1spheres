@@ -102,5 +102,16 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Bola"
+    - "Garrote"
+    - "Grappling Hook"
+    - "Harpoon"
+    - "Kyoketsu Shoge"
+    - "Lasso"
+    - "Mancatcher"
+    - "Net"
+    - "Net Launcher"
+    - "Sap"
+    - "Whip"
 type: feat

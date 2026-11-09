@@ -102,5 +102,13 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Bola"
+    - "Lance"
+    - "Lasso"
+    - "Longbow"
+    - "Musket"
+    - "Pistol"
+    - "Scimitar"
+    - "Shortbow"
 type: feat

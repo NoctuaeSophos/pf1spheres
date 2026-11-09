@@ -105,5 +105,6 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "firearm"
 type: feat

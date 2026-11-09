@@ -19,7 +19,9 @@ system:
   abilityType: na
   acquired: false
   actions: []
-  armorProf: []
+  armorProf:
+    - "Light Wooden Shield"
+    - "Light Steel Shield"
   associations:
     classes: []
   attackBonus: ""
@@ -102,5 +104,14 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Deer Horn Knife"
+    - "Greatsword"
+    - "Halberd"
+    - "Longbow"
+    - "Longsword"
+    - "Musket"
+    - "Pistol"
+    - "Shortbow"
+    - "Shortsword"
 type: feat

@@ -1,9 +1,13 @@
 _id: U0kINDFLf7VpTqFG
-_key: '!items!U0kINDFLf7VpTqFG'
+_key: "!items!U0kINDFLf7VpTqFG"
 effects: []
 flags:
   pf1: {}
   pf1spheres:
+    focusAlternative:
+      sphere: guardian
+      cost: 1
+      noRequire: true
     addedIn: fork
 folder: null
 img: icons/svg/item-bag.svg
@@ -22,8 +26,8 @@ system:
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,33 +43,33 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p>Whenever a Guardian sphere ability would require her to spend her martial
       focus, she may spend a spell point instead.</p><p>She can use her patrol ability
       even while she lacks martial focus.</p><p><em>Source: Ultimate Spheres of Power.</em>
       <a href="http://spheresofpower.wikidot.com/marshal-controller#toc8">Full text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -76,27 +80,27 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Marshal Controller
-  - Mystic Combat
+    - Marshal Controller
+    - Mystic Combat
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

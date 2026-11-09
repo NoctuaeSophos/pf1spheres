@@ -101,5 +101,13 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Battle Wrench"
+    - "Hand Crossbow"
+    - "Light Crossbow"
+    - "Heavy Crossbow"
+    - "Repeating Light Crossbow"
+    - "Repeating Heavy Crossbow"
+    - "Double Crossbow"
+    - "Net Launcher"
 type: feat

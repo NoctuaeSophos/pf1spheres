@@ -1,9 +1,10 @@
 _id: xaGoceAI0kkYqFyM
-_key: '!items!xaGoceAI0kkYqFyM'
+_key: "!items!xaGoceAI0kkYqFyM"
 effects: []
 flags:
   pf1: {}
   pf1spheres:
+    spellPoolFeature: true
     addedIn: fork
 folder: null
 img: icons/svg/item-bag.svg
@@ -18,12 +19,32 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: pf1spoolxspend00
+      name: Spend a spell point
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      uses:
+        autoDeductChargesCost: "1"
+    - _id: pf1spoolxregain0
+      name: Regain a spell point
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      uses:
+        autoDeductChargesCost: "-1"
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,33 +60,33 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p>Spell points = sphere druid level + casting ability modifier (minimum
       1). Refills once per day after about 8 hours of rest.</p><p><em>Source: Ultimate
       Spheres of Power.</em> <a href="http://spheresofpower.wikidot.com/sphere-druid#toc1">Full
       text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -76,26 +97,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Sphere Druid
+    - Sphere Druid
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

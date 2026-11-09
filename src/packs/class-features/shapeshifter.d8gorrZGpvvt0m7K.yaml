@@ -34,7 +34,12 @@ system:
     noMediumEncumbrance: false
     seeInDarkness: false
     seeInvisibility: false
-  changes: []
+  changes:
+    - _id: pf1sclfullshapes
+      formula: "@classes.shifter.level - floor(@classes.shifter.level * 0.75)"
+      operator: add
+      target: sphereclAlteration
+      type: untyped
   classSkills: {}
   contextNotes: []
   crOffset: ""

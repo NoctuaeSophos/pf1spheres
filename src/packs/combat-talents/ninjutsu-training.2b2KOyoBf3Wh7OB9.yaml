@@ -108,5 +108,15 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Kama"
+    - "Kusarigama"
+    - "Nunchaku"
+    - "Rope Dart"
+    - "Sai"
+    - "Shortsword"
+    - "Shortbow"
+    - "Shuriken"
+    - "Siangham"
+    - "Wakizashi"
 type: feat

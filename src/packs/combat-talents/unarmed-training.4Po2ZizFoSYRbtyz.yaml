@@ -107,5 +107,19 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Blade Boot"
+    - "Brass Knuckles"
+    - "Cestus"
+    - "Dan Bong"
+    - "Emei Piercer"
+    - "Gauntlet"
+    - "Katar"
+    - "Knuckle Axe"
+    - "Punching Dagger"
+    - "Rope Gauntlet"
+    - "Sap"
+    - "Scizore"
+    - "Spiked Gauntlet"
+    - "Tekko-Kagi"
 type: feat

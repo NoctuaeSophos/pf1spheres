@@ -101,5 +101,16 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Double-Chained Kama"
+    - "Double Walking Stick Katana"
+    - "Dual Blade"
+    - "Katana"
+    - "Kama"
+    - "Kusarigama"
+    - "Longbow"
+    - "Naginata"
+    - "Nodachi"
+    - "Tetsubo"
+    - "Wakizashi"
 type: feat

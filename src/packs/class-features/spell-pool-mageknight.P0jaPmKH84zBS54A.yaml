@@ -2,6 +2,8 @@ _id: P0jaPmKH84zBS54A
 _key: "!items!P0jaPmKH84zBS54A"
 effects: []
 flags:
+  pf1spheres:
+    spellPoolFeature: true
   pf1: {}
 folder: null
 img: icons/svg/item-bag.svg
@@ -16,7 +18,27 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: pf1spoolPspend00
+      name: Spend a spell point
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      uses:
+        autoDeductChargesCost: "1"
+    - _id: pf1spoolPregain0
+      name: Regain a spell point
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+      uses:
+        autoDeductChargesCost: "-1"
   armorProf: []
   associations:
     classes: []

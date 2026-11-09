@@ -34,7 +34,12 @@ system:
     noMediumEncumbrance: false
     seeInDarkness: false
     seeInvisibility: false
-  changes: []
+  changes:
+    - _id: pf1sclfullweavee
+      formula: "@classes.elementalist.level - floor(@classes.elementalist.level * 0.75)"
+      operator: add
+      target: sphereclDestruction
+      type: untyped
   classSkills: {}
   contextNotes: []
   crOffset: ""

@@ -4,6 +4,7 @@ effects: []
 flags:
   pf1: {}
   pf1spheres:
+    armorTraining: true
     sphere: equipment
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/equipment.webp

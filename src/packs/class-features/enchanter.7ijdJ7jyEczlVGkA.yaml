@@ -34,7 +34,12 @@ system:
     noMediumEncumbrance: false
     seeInDarkness: false
     seeInvisibility: false
-  changes: []
+  changes:
+    - _id: pf1sclfullenchan
+      formula: "@classes.eliciter.level - floor(@classes.eliciter.level * 0.75)"
+      operator: add
+      target: sphereclMind
+      type: untyped
   classSkills: {}
   contextNotes: []
   crOffset: ""

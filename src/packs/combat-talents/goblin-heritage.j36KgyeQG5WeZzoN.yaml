@@ -104,5 +104,16 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Brutal Bola"
+    - "Dogslicer"
+    - "Garrote"
+    - "Horsechopper"
+    - "Light Flail"
+    - "Machete"
+    - "Sap"
+    - "Shortbow"
+    - "Spiked Chain"
+    - "Swordbreaker Dagger"
+    - "Torch"
 type: feat

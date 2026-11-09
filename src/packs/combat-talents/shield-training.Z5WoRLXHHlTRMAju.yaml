@@ -19,7 +19,9 @@ system:
   abilityType: na
   acquired: false
   actions: []
-  armorProf: []
+  armorProf:
+    - "shl"
+    - "twr"
   associations:
     classes: []
   attackBonus: ""

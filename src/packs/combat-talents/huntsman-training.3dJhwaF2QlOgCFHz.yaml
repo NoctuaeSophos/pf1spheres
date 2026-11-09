@@ -103,5 +103,15 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Atlatl"
+    - "Bolas"
+    - "Boomerang"
+    - "Handaxe"
+    - "Harpoon"
+    - "Longbow"
+    - "Net"
+    - "Shortbow"
+    - "Throwing Axe"
+    - "Tube Arrow Shooter"
 type: feat

@@ -236,6 +236,31 @@ export const onActorDerivedPreparation = (actor: ActorPF): void => {
   const stored = item ? item.system.uses?.value : actor.flags.pf1spheres?.spellPoints;
   pool.value = Math.min(pool.max, Math.max(0, typeof stored === "number" ? stored : pool.max));
   sphereData.martialFocus = actor.flags.pf1spheres?.martialFocus === true ? 1 : 0;
+  applyArmorTraining(actor);
+};
+
+const ARMOR_TIERS = ["lgt", "med", "hvy"];
+
+/**
+ * Armor Training grants light and medium armor, or medium and heavy for someone already proficient
+ * with light armor; taken again it climbs further. It depends on proficiencies from other sources, so
+ * the module adds it here, after pf1 has totalled everything else.
+ *
+ * @param actor - The actor being prepared
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const applyArmorTraining = (actor: any): void => {
+  const count = actor.items?.filter?.((i: any) => i.flags?.pf1spheres?.armorTraining === true).length ?? 0;
+  const prof = actor.system.traits?.armorProf;
+  // total is a getter that rebuilds from its parts; item proficiencies live in standard
+  if (!count || !(prof?.standard instanceof Set)) return;
+  const have = new Set<string>(prof.total ?? []);
+  for (let n = 0; n < count; n++) {
+    for (const t of ARMOR_TIERS.filter((tier) => !have.has(tier)).slice(0, 2)) {
+      have.add(t);
+      prof.standard.add(t);
+    }
+  }
 };
 
 /**

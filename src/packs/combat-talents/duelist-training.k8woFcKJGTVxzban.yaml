@@ -101,5 +101,17 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Bastard Sword"
+    - "Butterfly Knife"
+    - "Double Chicken Saber"
+    - "Dual Blade"
+    - "Dueling Sword"
+    - "Estoc"
+    - "Greatsword"
+    - "Longsword"
+    - "Pistol"
+    - "Rapier"
+    - "Shortsword"
+    - "Swordbreaker Dagger"
 type: feat

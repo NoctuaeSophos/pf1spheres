@@ -106,5 +106,11 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Butterfly Knife"
+    - "Longsword"
+    - "Rapier"
+    - "Scimitar"
+    - "Spiral Rapier"
+    - "Sword Cane"
 type: feat

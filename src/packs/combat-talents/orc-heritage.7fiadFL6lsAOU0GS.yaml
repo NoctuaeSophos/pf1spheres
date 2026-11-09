@@ -101,5 +101,16 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Battle Axe"
+    - "Dire Flail"
+    - "Falchion"
+    - "Flail"
+    - "Greataxe"
+    - "Handaxe"
+    - "Heavy Flail"
+    - "Orc Double Axe"
+    - "Orc Skull Ram"
+    - "Spiked Chain"
+    - "Throwing Axe"
 type: feat

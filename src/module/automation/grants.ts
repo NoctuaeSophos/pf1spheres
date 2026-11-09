@@ -67,6 +67,18 @@ const spCost = (auto) =>
  * column, deducts it, refuses when short and refills it on rest. Abilities with uses of their own keep
  * the module's own spending, since linking would replace their uses.
  */
+/** Spend and regain one point at a time; a negative charge cost is pf1's recharge */
+const POOL_ACTIONS = [
+  { _id: "pf1spoolspend000", name: "Spend a spell point", cost: "1" },
+  { _id: "pf1spoolregain00", name: "Regain a spell point", cost: "-1" },
+].map(({ _id, name, cost }) => ({
+  _id,
+  name,
+  actionType: "other",
+  activation: { type: "free", unchained: { cost: 1, type: "free" } },
+  uses: { autoDeductChargesCost: cost },
+}));
+
 async function syncSpellPool(actor) {
   const max = actor.system.spheres?.spellPoints?.max ?? 0;
   const options = { [SKIP]: true };
@@ -106,6 +118,7 @@ async function syncSpellPool(actor) {
               value: typeof stored === "number" ? stored : max,
               autoDeductChargesCost: "1",
             },
+            actions: POOL_ACTIONS,
           },
           flags: { [MODULE_ID]: { spellPool: true } },
         },
@@ -113,6 +126,8 @@ async function syncSpellPool(actor) {
       options,
     );
   }
+  if (!pool._source.system?.actions?.length)
+    await pool.update({ "system.actions": POOL_ACTIONS }, options);
   // Own uses come from the saved data: once linked, pf1 prepares an item with the pool's uses, and
   // reading those would unlink it on the next sync and relink it on the one after. Spells draw on
   // their spellbook, and an item already drawing on another pool can't have two.
@@ -124,7 +139,8 @@ async function syncSpellPool(actor) {
   const linkable = actor.items.filter((i) => {
     if (!canLink(i)) return false;
     const f = i.flags?.[MODULE_ID] ?? {};
-    return f.spellPointItem || Object.values(f.automation ?? {}).some(spCost);
+    // Spell Pool class features show the pool and carry spend/regain actions that act on it
+    return f.spellPoolFeature || f.spellPointItem || Object.values(f.automation ?? {}).some(spCost);
   });
   const updates = [];
   // Converted abilities that can't draw on the pool any more go back to the module's spending, so their

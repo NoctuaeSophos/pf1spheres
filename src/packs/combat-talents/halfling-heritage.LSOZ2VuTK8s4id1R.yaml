@@ -111,5 +111,12 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Double Sling"
+    - "Sling"
+    - "Halfling Rope-Shot"
+    - "Halfling Sling Staff"
+    - "Machete"
+    - "Sling Glove"
+    - "War Razor"
 type: feat

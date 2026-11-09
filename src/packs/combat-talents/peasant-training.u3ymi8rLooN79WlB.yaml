@@ -102,5 +102,17 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Ankus"
+    - "Crook"
+    - "Fishing Tackle"
+    - "Handaxe"
+    - "Heavy Pick"
+    - "Light Hammer"
+    - "Light Pick"
+    - "Machete"
+    - "Net"
+    - "Pickaxe"
+    - "Scythe"
+    - "Trident"
 type: feat

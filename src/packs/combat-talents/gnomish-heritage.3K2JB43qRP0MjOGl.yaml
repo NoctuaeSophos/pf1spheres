@@ -101,5 +101,14 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Heavy Crank Crossbow"
+    - "Light Crank Crossbow"
+    - "Battle Ladder"
+    - "Flailpole"
+    - "Flask Thrower"
+    - "Gnome Flick-Mace"
+    - "Gnome Hooked Hammer"
+    - "Gnome Pincher"
+    - "Piston Maul"
 type: feat

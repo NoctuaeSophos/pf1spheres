@@ -104,5 +104,17 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Battle Axe"
+    - "Dwarven Boulder Helmet"
+    - "Earth Breaker"
+    - "Greataxe"
+    - "Greatclub"
+    - "Handaxe"
+    - "Heavy Pick"
+    - "Light Hammer"
+    - "Light Pick"
+    - "Pickaxe"
+    - "Throwing Axe"
+    - "Warhammer"
 type: feat

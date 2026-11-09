@@ -102,5 +102,15 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Cat-o'-nine-tails Whip"
+    - "Chakram"
+    - "Khopesh"
+    - "Kukri"
+    - "Ranseur"
+    - "Rope Dart"
+    - "Scimitar"
+    - "Shortbow"
+    - "Tekko-Kagi"
+    - "Tiger Fork"
 type: feat

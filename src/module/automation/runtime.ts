@@ -425,6 +425,20 @@ export const marksPlacedBy = (actor) => {
 
 /* ---------- action use ---------- */
 
+/**
+ * A feature on the actor that lets spell points stand in for martial focus for this item's sphere
+ * (flags.pf1spheres.focusAlternative: { sphere, cost, noRequire }).
+ */
+const focusAlternative = (actor, item) => {
+  const sphere = item.flags?.[MODULE_ID]?.sphere;
+  if (!sphere) return null;
+  for (const i of actor.items) {
+    const alt = i.flags?.[MODULE_ID]?.focusAlternative;
+    if (alt && (alt.sphere === sphere || alt.sphere === "*")) return alt;
+  }
+  return null;
+};
+
 function onPreActionUse(au) {
   const actor = au.actor;
   const item = au.item;
@@ -459,9 +473,23 @@ function onPreActionUse(au) {
     return false;
   }
   const focus = actor.flags?.[MODULE_ID]?.martialFocus === true;
-  if ((auto.focus === "require" || auto.focus === "expend") && !focus) {
-    ui.notifications.warn(loc("NeedFocus"));
-    return false;
+  let focusMode = auto.focus ?? "";
+  let spForFocus = 0;
+  if ((focusMode === "require" || focusMode === "expend") && !focus) {
+    // A feature like Mystic Guardianship lets spell points stand in for martial focus in one sphere
+    const alt = focusAlternative(actor, item);
+    if (focusMode === "require" && alt?.noRequire) focusMode = "";
+    else if (focusMode === "expend" && alt) {
+      spForFocus = Math.max(0, Number(alt.cost ?? 1));
+      if (sp + spForFocus > pool) {
+        ui.notifications.warn(fmt("NotEnoughSP", { cost: sp + spForFocus, value: pool }));
+        return false;
+      }
+      focusMode = "";
+    } else {
+      ui.notifications.warn(loc("NeedFocus"));
+      return false;
+    }
   }
   // Buffs, areas and marks are written by the GM's client; without one, refuse before anything is paid
   const needsGM = auto.buff?.itemId || auto.zone?.enabled || auto.mark?.label;
@@ -469,10 +497,11 @@ function onPreActionUse(au) {
     ui.notifications.warn(localize("NeedGM"));
     return false;
   }
-  au.shared.pf1spheres = { sp, focus: auto.focus ?? "", auto };
+  au.shared.pf1spheres = { sp: sp + spForFocus, focus: focusMode, auto };
   if (sp) notes.push({ text: fmt("SpentSP", { cost: sp }) });
-  if (auto.focus === "expend") notes.push({ text: loc("ExpendsFocus") });
-  if (auto.focus === "restore") notes.push({ text: loc("RestoresFocus") });
+  if (spForFocus) notes.push({ text: fmt("SpentSPForFocus", { cost: spForFocus }) });
+  if (focusMode === "expend") notes.push({ text: loc("ExpendsFocus") });
+  if (focusMode === "restore") notes.push({ text: loc("RestoresFocus") });
 }
 
 async function onPostActionUse(au) {

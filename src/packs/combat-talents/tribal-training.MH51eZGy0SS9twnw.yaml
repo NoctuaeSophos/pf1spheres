@@ -105,5 +105,16 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Atlatl Dart"
+    - "Battle Poi"
+    - "Boomerang"
+    - "Greatclub"
+    - "Hunga Munga"
+    - "Klar"
+    - "Knobkerrie"
+    - "Rhomphaia"
+    - "Tepoztopilli"
+    - "Terbutje"
+    - "Wahaika"
 type: feat

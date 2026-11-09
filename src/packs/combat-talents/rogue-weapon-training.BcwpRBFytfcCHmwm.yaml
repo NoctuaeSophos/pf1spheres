@@ -104,5 +104,19 @@ system:
     per: null
     rechargeFormula: ""
     value: 0
-  weaponProf: []
+  weaponProf:
+    - "Blade Boot"
+    - "Butterfly Knife"
+    - "Garrote"
+    - "Hand Crossbow"
+    - "Kukri"
+    - "Rapier"
+    - "Sap"
+    - "Shortsword"
+    - "Shortbow"
+    - "Starknife"
+    - "Switchblade Knife"
+    - "Sword Cane"
+    - "War Razor"
+    - "Whip"
 type: feat
