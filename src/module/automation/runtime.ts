@@ -537,6 +537,12 @@ function onPreActionUse(au) {
       return false;
     }
   }
+  // Some abilities open up with Hit Dice, like deific obedience boons
+  const hd = actor.system.attributes?.hd?.total ?? 0;
+  if (Number(auto.minHD) > hd) {
+    ui.notifications.warn(fmt("NeedHD", { need: auto.minHD, have: hd }));
+    return false;
+  }
   // A finisher needs a sequence of at least its length
   if (auto.sequence?.role === "finisher") {
     const have = getSequence(actor).length;

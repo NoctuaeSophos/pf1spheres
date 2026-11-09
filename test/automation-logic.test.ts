@@ -36,6 +36,11 @@ import {
   zoneAffects,
 } from "../src/module/automation/logic";
 import type { Grant } from "../src/module/automation/logic";
+import {
+  cohortMaxLevel,
+  followersAllowed,
+  leadershipScores,
+} from "../src/module/supplements/leadership-logic";
 
 describe("costs", () => {
   test("base plus chosen conditionals", () => {
@@ -277,6 +282,27 @@ describe("sequence parts", () => {
     expect(applySequenceRole({ length: 6, linked: false, imbue: "" }, "link", 6).length).toBe(6);
   });
   it("a finisher ends the sequence", () => {
-    expect(applySequenceRole({ length: 5, linked: true, imbue: "Life: Regenerate" }, "finisher", 6)).toEqual(none);
+    expect(
+      applySequenceRole({ length: 5, linked: true, imbue: "Life: Regenerate" }, "finisher", 6),
+    ).toEqual(none);
+  });
+});
+
+describe("leadership", () => {
+  const aridan = { level: 16, chaMod: 9, mythicTier: 5, active: {}, misc: 0 };
+  it("adds level, Charisma, mythic tier and the modifiers for each audience", () => {
+    expect(leadershipScores(aridan)).toEqual({ base: 30, cohort: 30, followers: 30 });
+    expect(
+      leadershipScores({ ...aridan, active: { renown: true, stronghold: true, companion: true } }),
+    ).toEqual({ base: 32, cohort: 30, followers: 34 });
+  });
+  it("caps the cohort two levels below the leader", () => {
+    expect(cohortMaxLevel(30, 16)).toBe(14);
+    expect(cohortMaxLevel(10, 16)).toBe(7);
+  });
+  it("reads followers from the table, capped at its last row", () => {
+    expect(followersAllowed(30)).toEqual([135, 13, 7, 4, 2, 2]);
+    expect(followersAllowed(13)).toEqual([10, 1, 0, 0, 0, 0]);
+    expect(followersAllowed(5)).toEqual([0, 0, 0, 0, 0, 0]);
   });
 });

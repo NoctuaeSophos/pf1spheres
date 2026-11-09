@@ -6,6 +6,7 @@
 
 import type { ActorPF, PF1ActorSpheresData, SpheresTalentsRecord } from "./actor-data";
 import { SpheresActorSettings } from "./apps/SpheresActorSettings";
+import { hasLeadership, openLeadership } from "./supplements/leadership";
 import type { CombatSphere, ItemPF, MagicSphere, Sphere } from "./item-data";
 import { enforce, getGame, localize } from "./util";
 import { setSpellPoints } from "./actor";
@@ -52,6 +53,15 @@ export const onActorSheetHeaderButtons = (
       label: localize("SpherePlural"),
       onclick: (_) => new SpheresActorSettings(actor).render(true),
     });
+    // Not a Spheres feature (see supplements/leadership.ts)
+    if (hasLeadership(actor)) {
+      buttons.unshift({
+        class: "pf1spheres-leadership",
+        icon: "fas fa-flag",
+        label: localize("Leadership.Button"),
+        onclick: (_) => openLeadership(actor),
+      });
+    }
   }
 };
 

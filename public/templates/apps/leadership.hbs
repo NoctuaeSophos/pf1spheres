@@ -1,0 +1,52 @@
+{{!--<!--
+SPDX-FileCopyrightText: 2026 NoctuaeSophos
+SPDX-License-Identifier: EUPL-1.2
+-->--}}
+<section class="leadership-panel">
+    <p class="hint">
+        {{localize "PF1SPHERES.Leadership.Score"}}: <strong>{{scores.base}}</strong>
+        ({{localize "PF1SPHERES.Leadership.Level"}} {{input.level}} + {{localize "PF1SPHERES.Leadership.Cha"}} {{input.chaMod}}{{#if mythic}} + {{localize "PF1SPHERES.Leadership.Tier"}} {{input.mythicTier}}{{/if}}{{#if input.misc}} + {{input.misc}}{{/if}} + {{localize "PF1SPHERES.Leadership.Modifiers"}}).
+        {{localize "PF1SPHERES.Leadership.CohortScore"}} {{scores.cohort}}, {{localize "PF1SPHERES.Leadership.FollowerScore"}} {{scores.followers}}.
+    </p>
+    <fieldset>
+        <legend>{{localize "PF1SPHERES.Leadership.Modifiers"}}</legend>
+        <div class="leadership-mods">
+        {{#each modifiers as |m|}}
+            <label class="checkbox"><input type="checkbox" name="active.{{m.key}}" {{#if m.checked}}checked{{/if}} {{#unless ../editable}}disabled{{/unless}}> {{m.label}} ({{m.sign}})</label>
+        {{/each}}
+        </div>
+        <div class="form-group"><label>{{localize "PF1SPHERES.Leadership.Misc"}}</label><div class="form-fields"><input type="number" name="misc" value="{{input.misc}}" step="1"></div></div>
+    </fieldset>
+    <fieldset>
+        <legend>{{localize "PF1SPHERES.Leadership.Cohort"}}</legend>
+        <p class="hint">{{localize "PF1SPHERES.Leadership.CohortMax"}}: <strong>{{cohortMax}}</strong>{{#if cohortTier}}, {{localize "PF1SPHERES.Leadership.CohortTier"}} {{cohortTier}}{{/if}}.</p>
+        <div class="form-group">
+            <label>{{localize "PF1SPHERES.Leadership.Cohort"}}</label>
+            <div class="form-fields">
+                <select name="cohortUuid">
+                    <option value="">—</option>
+                    {{#each cohortOptions as |o|}}<option value="{{o.uuid}}" {{#if o.selected}}selected{{/if}}>{{o.name}}</option>{{/each}}
+                </select>
+                {{#if cohort}}<button type="button" data-action="openCohort"><i class="fas fa-user"></i></button>{{/if}}
+            </div>
+        </div>
+        {{#if cohort}}<p class="hint {{#if (gt cohort.level cohortMax)}}leadership-over{{/if}}">{{cohort.name}}: {{localize "PF1SPHERES.Leadership.Level"}} {{cohort.level}}{{#if (gt cohort.level cohortMax)}} — {{localize "PF1SPHERES.Leadership.TooHigh"}}{{/if}}</p>{{/if}}
+    </fieldset>
+    <fieldset>
+        <legend>{{localize "PF1SPHERES.Leadership.Followers"}}</legend>
+        <table class="leadership-followers">
+            <thead><tr><th>{{localize "PF1SPHERES.Leadership.Level"}}</th><th>{{localize "PF1SPHERES.Leadership.Allowed"}}</th><th>{{localize "PF1SPHERES.Leadership.Have"}}</th><th>{{localize "PF1SPHERES.Leadership.Who"}}</th></tr></thead>
+            <tbody>
+            {{#each followers as |f|}}
+                <tr class="{{#if f.over}}leadership-over{{/if}}">
+                    <td>{{f.level}}</td><td>{{f.allowed}}</td>
+                    <td><input type="number" name="followers.{{f.level}}.count" value="{{f.count}}" min="0" step="1"></td>
+                    <td><input type="text" name="followers.{{f.level}}.notes" value="{{f.notes}}"></td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+        {{#if mythicFollowers}}<p class="hint">{{localize "PF1SPHERES.Leadership.MythicFollowers"}}</p>{{/if}}
+    </fieldset>
+    <div class="form-group stacked"><label>{{localize "PF1SPHERES.Leadership.Notes"}}</label><textarea name="notes" rows="3">{{notes}}</textarea></div>
+</section>

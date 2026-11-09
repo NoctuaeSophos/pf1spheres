@@ -30,6 +30,8 @@ export interface ActionAutomation {
   sequence?: { role?: "" | "opener" | "link" | "finisher"; min?: number };
   /** The user's next attack roll this turn automatically threatens a critical (Executioner) */
   threatNext?: boolean;
+  /** Refused below this many Hit Dice (deific obedience boons) */
+  minHD?: number;
 }
 
 export interface FailEffects {
@@ -103,7 +105,8 @@ export const hasAutomation = (a: ActionAutomation | undefined | null): boolean =
         a.mark?.label ||
         hasFailEffects(a.onFail) ||
         a.sequence?.role ||
-        a.threatNext),
+        a.threatNext ||
+        Number(a.minHD) > 0),
   );
 
 /**

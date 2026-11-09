@@ -1,10 +1,66 @@
 _id: 0EOsYuC7TL96ZdXb
-_key: '!items!0EOsYuC7TL96ZdXb'
+_key: "!items!0EOsYuC7TL96ZdXb"
 effects: []
 flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    buffTemplates:
+      obedience:
+        name: Irori's Obedience
+        img: icons/magic/holy/prayer-hands-glowing-yellow.webp
+        description: <p>+4 sacred bonus on all Knowledge checks until the next obedience.</p>
+        changes:
+          - formula: "4"
+            target: skill.kar
+            type: sacred
+          - formula: "4"
+            target: skill.kdu
+            type: sacred
+          - formula: "4"
+            target: skill.ken
+            type: sacred
+          - formula: "4"
+            target: skill.kge
+            type: sacred
+          - formula: "4"
+            target: skill.khi
+            type: sacred
+          - formula: "4"
+            target: skill.klo
+            type: sacred
+          - formula: "4"
+            target: skill.kna
+            type: sacred
+          - formula: "4"
+            target: skill.kno
+            type: sacred
+          - formula: "4"
+            target: skill.kpl
+            type: sacred
+          - formula: "4"
+            target: skill.kre
+            type: sacred
+    automation:
+      pf1sirorioblig01:
+        effect:
+          enabled: true
+          duration: "24"
+          units: hour
+        buff:
+          itemId: tpl:obedience
+          self: true
+          level: "@attributes.hd.total"
+      pf1sirorihypno01:
+        minHD: 12
+      pf1sirorideaze02:
+        minHD: 12
+      pf1sirorisugge03:
+        minHD: 12
+      pf1sirorirepair4:
+        minHD: 16
+      pf1sirorihover05:
+        minHD: 20
 folder: null
 img: icons/svg/item-bag.svg
 name: Irori's Obedience
@@ -18,12 +74,105 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: pf1sirorioblig01
+      name: Perform obedience
+      actionType: other
+      activation:
+        type: hour
+        cost: 1
+      notes:
+        effect:
+          - +4 sacred bonus on all Knowledge checks for the day (profane if you are evil).
+    - _id: pf1sirorihypno01
+      name: "Cloud the Mind: Hypnotism (12 HD, 3/day)"
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + 1 + @abilities.cha.mod
+        description: Will negates
+      uses:
+        self:
+          value: 3
+          maxFormula: "3"
+          per: day
+      notes:
+        effect:
+          - Spell-like ability, caster level equal to your Hit Dice. Exalted boon 1.
+    - _id: pf1sirorideaze02
+      name: "Cloud the Mind: Daze Monster (12 HD, 2/day)"
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + 2 + @abilities.cha.mod
+        description: Will negates
+      uses:
+        self:
+          value: 2
+          maxFormula: "2"
+          per: day
+      notes:
+        effect:
+          - Spell-like ability, caster level equal to your Hit Dice. Exalted boon 1.
+    - _id: pf1sirorisugge03
+      name: "Cloud the Mind: Suggestion (12 HD, 1/day)"
+      actionType: save
+      activation:
+        type: standard
+        unchained:
+          cost: 2
+          type: action
+      save:
+        type: will
+        dc: 10 + 3 + @abilities.cha.mod
+        description: Will negates
+      uses:
+        self:
+          value: 1
+          maxFormula: "1"
+          per: day
+      notes:
+        effect:
+          - Spell-like ability, caster level equal to your Hit Dice. Exalted boon 1.
+    - _id: pf1sirorirepair4
+      name: Repair the Damaged Body (16 HD, 3/day)
+      actionType: other
+      activation:
+        type: free
+      uses:
+        self:
+          value: 3
+          maxFormula: "3"
+          per: day
+      notes:
+        effect:
+          - "Exalted boon 2: a conjuration (healing) spell you cast with a range of touch has close range
+            instead."
+    - _id: pf1sirorihover05
+      name: Walk Above the Earth (20 HD)
+      actionType: other
+      activation:
+        type: free
+      notes:
+        effect:
+          - "Exalted boon 3: hover just above solid ground as levitate, at your normal speed; immune to most
+            difficult terrain and pressure-triggered traps; no levitate attack penalty unless you've risen
+            with a move action."
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,37 +188,46 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p><strong>Ritual (1 hour, divided equally):</strong> drill with a weapon
-      or unarmed attacks, read a text you have never read before, and braid a lock
-      of hair while contemplating the multiverse. Then wear the braid around your
-      neck for the rest of the day.</p><p><strong>Benefit:</strong> +4 sacred or profane
-      bonus on all Knowledge checks. Good characters take sacred and evil characters
-      take profane. If you are neither, choose one the first time you perform the
-      obedience; that choice is permanent.</p><p><em>Source: Inner Sea Gods pg. 84.</em>
-      <a href="https://www.aonprd.com/DeityDisplay.aspx?ItemName=Irori">Full text</a></p>'
+    instructions: ""
+    unidentified: ""
+    value:
+      '<p><strong>Ritual (1 hour, divided equally):</strong> drill with a weapon or unarmed attacks,
+      read a text you have never read before, and braid a lock of hair while contemplating the multiverse.
+      Then wear the braid around your neck for the rest of the day.</p><p><strong>Benefit:</strong> +4
+      sacred or profane bonus on all Knowledge checks. Good characters take sacred and evil characters
+      take profane. If you are neither, choose one the first time you perform the obedience; that choice
+      is permanent.</p><p><em>Source: Inner Sea Gods pg. 84.</em> <a href="https://www.aonprd.com/DeityDisplay.aspx?ItemName=Irori">Full
+      text</a></p><p><strong>Boons</strong> (Inner Sea Gods pg. 84). Exalted, used without evangelist,
+      exalted or sentinel levels: 12 HD Cloud the Mind of the Unwary (hypnotism 3/day, daze monster 2/day
+      or suggestion 1/day); 16 HD Repair the Damaged Body; 20 HD Walk Above the Earth. Evangelist: Expansive
+      Knowledge (identify 3/day, fox''s cunning 2/day or secret page 1/day); Inevitable Fist (unarmed
+      strikes one size larger and axiomatic for HD rounds/day); Runic Form (nine tattoos of mind, body
+      and spirit). Sentinel: Masterful Warrior (true strike 1/day, false life 2/day or haste 3/day); Secrets
+      of the Enemy (Knowledge check DC 10 + enemy HD for +2 attack and damage against it); Perfection
+      of Form (+4 on saves against poison, magical disease and ability damage, drain or negative levels;
+      immune to mundane disease).</p><p><em>Not Spheres content: this belongs in the krune-table module
+      or a separate supplement and lives here for now.</em></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -80,27 +238,27 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Deific Obedience
-  - Irori
+    - Deific Obedience
+    - Irori
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat
