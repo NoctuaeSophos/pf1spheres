@@ -35,6 +35,13 @@ if (import.meta.hot) {
 import * as PF1S from "./config";
 import { registerSphereFilter } from "./compendium-browser";
 import { onChangeEditorRender } from "./change-editor";
+import { openWeather, registerWeather, syncSceneWeather } from "./weather/weather";
+import { getWeatherEffects } from "./weather/conditions";
+import { openCasterWeather } from "./weather/caster-app";
+import { registerSocket } from "./socket";
+import { registerAutomation, endEffect, getEffects } from "./automation/runtime";
+import { onRenderActionSheet } from "./automation/action-sheet";
+import { buildBlastActions, openFormulae, rollMsbVsTargets } from "./automation/features";
 
 export { PF1S as config };
 
@@ -123,6 +130,10 @@ Hooks.once("init", () => {
     sort: 2_600,
   };
 
+  registerSocket();
+  registerWeather();
+  registerAutomation();
+
   // Call hooks after derived config has been initialised
   Hooks.callAll("pf1spheresPostInit");
 });
@@ -184,6 +195,8 @@ Hooks.once("setup", () => {
   if (moduleData) {
     moduleData.api = {
       config: pf1s.config,
+      weather: { open: openWeather, control: openCasterWeather, sync: syncSceneWeather, effects: getWeatherEffects },
+      automation: { effects: getEffects, endEffect, buildBlastActions, openFormulae, rollMsbVsTargets },
       _internal: {
         packUtils: undefined,
         devUtils: undefined,
@@ -193,6 +206,8 @@ Hooks.once("setup", () => {
 });
 
 Hooks.on("renderItemSheetPF", onItemSheetRender);
+
+Hooks.on("renderItemActionSheet", onRenderActionSheet);
 
 Hooks.on("renderActorSheetPF", onActorSheetRender);
 

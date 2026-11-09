@@ -36,7 +36,19 @@ system:
     noMediumEncumbrance: false
     seeInDarkness: false
     seeInvisibility: false
-  changes: []
+  changes:
+  - _id: gmr1ne0chbktaz43
+    formula: (@spheres.cam - @abilities.con.mod) * @classes.soulWeaver.level
+    operator: add
+    priority: 0
+    target: mhp
+    type: untyped
+  - _id: t08f1pi4okczcwed
+    formula: '@spheres.cam - @abilities.con.mod'
+    operator: add
+    priority: 0
+    target: fort
+    type: untyped
   classSkills: {}
   contextNotes: []
   crOffset: ''

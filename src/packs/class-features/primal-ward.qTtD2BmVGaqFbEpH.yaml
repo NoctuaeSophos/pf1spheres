@@ -36,7 +36,19 @@ system:
     noMediumEncumbrance: false
     seeInDarkness: false
     seeInvisibility: false
-  changes: []
+  changes:
+  - _id: 42hyszq03ry149pt
+    formula: max(2, @spheres.cam) + floor((@classes.sphereDruid.level + 2) / 4)
+    operator: add
+    priority: 0
+    target: ac
+    type: untyped
+  - _id: wjbk44jtp844a8y3
+    formula: max(2, @spheres.cam) + floor((@classes.sphereDruid.level + 2) / 4)
+    operator: add
+    priority: 0
+    target: cmd
+    type: untyped
   classSkills: {}
   contextNotes: []
   crOffset: ''

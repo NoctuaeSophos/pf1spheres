@@ -236,3 +236,109 @@
     text-align: center;
   }
 }
+
+// Weather panel
+.pf1spheres-weather {
+  .weather-slider .form-fields {
+    gap: 0.5em;
+    input[type="range"] {
+      flex: 1;
+    }
+    .weather-value {
+      flex: 0 0 8.5em;
+      text-align: right;
+    }
+  }
+  .weather-conditions {
+    margin: 0.5em 0;
+    h4 {
+      margin: 0 0 0.25em;
+    }
+    .weather-labels {
+      font-weight: bold;
+      margin: 0 0 0.25em;
+    }
+    .weather-notes {
+      margin: 0.25em 0 0;
+      padding-left: 1.2em;
+      li {
+        margin-bottom: 0.15em;
+      }
+    }
+  }
+  input[name="lightningDC"] {
+    flex: 0 0 4em;
+  }
+  .form-footer {
+    margin-top: 0.5em;
+  }
+}
+
+.pf1spheres-caster-weather {
+  .weather-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+    margin: 0.4em 0;
+    select {
+      width: auto;
+      margin-left: 0.4em;
+    }
+  }
+  .weather-problems {
+    color: var(--color-level-error, #b30000);
+    margin: 0.25em 0 0;
+    padding-left: 1.2em;
+  }
+  .weather-actions {
+    gap: 0.5em;
+    margin: 0.4em 0;
+  }
+}
+.tab.spheres .spheres-resources .pf1s-control-weather {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+// Sequence, active effects and marks on the Spheres tab
+.tab.spheres {
+  .spheres-sequence,
+  .spheres-marks {
+    gap: 0.4em;
+    align-items: center;
+    margin: 0.25em 0;
+    button {
+      flex: 0 0 auto;
+      width: auto;
+    }
+    .pf1s-seq-imbue {
+      flex: 0 0 10em;
+    }
+  }
+  .spheres-effects {
+    margin: 0.25em 0 0.5em;
+    .sphere-effect {
+      align-items: center;
+      gap: 0.4em;
+      padding: 2px 0;
+      .effect-img {
+        flex: 0 0 24px;
+        height: 24px;
+        border: none;
+      }
+      .effect-time {
+        flex: 0 0 7em;
+        text-align: right;
+      }
+      button {
+        flex: 0 0 auto;
+        width: auto;
+      }
+    }
+  }
+}
+.pf1spheres-formulae .formulae-table {
+  input[type="number"] {
+    width: 3.5em;
+  }
+}

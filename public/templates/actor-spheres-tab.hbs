@@ -23,11 +23,54 @@ SPDX-License-Identifier: EUPL-1.2
                 <span>/ {{ spellPoints.max }}</span>
             </div>
         {{/if }}
+        {{#if weatherCaster }}
+            <button type="button" class="pf1s-control-weather"><i class="fas fa-cloud-bolt"></i> {{ localize "PF1SPHERES.Weather.ControlButton" }}</button>
+        {{/if }}
+        {{#if alchemist }}
+            <button type="button" class="pf1s-prepare-formulae"><i class="fas fa-flask"></i> {{ localize "PF1SPHERES.Auto.PrepareFormulae" }}</button>
+        {{/if }}
+        {{#if blaster }}
+            <button type="button" class="pf1s-build-blasts" data-tooltip="PF1SPHERES.Auto.BuildBlastsHint"><i class="fas fa-burst"></i> {{ localize "PF1SPHERES.Auto.BuildBlasts" }}</button>
+        {{/if }}
+        {{#if spellPoints.max }}
+            <button type="button" class="pf1s-msb-vs" data-tooltip="PF1SPHERES.Auto.MsbVsHint"><i class="fas fa-wand-sparkles"></i> {{ localize "PF1SPHERES.Auto.MsbVs" }}</button>
+        {{/if }}
         <div class="form-group martial-focus" data-tooltip="@spheres.martialFocus">
             <label>{{ localize "PF1SPHERES.MartialFocus" }}</label>
             <input type="checkbox" name="flags.pf1spheres.martialFocus" data-dtype="Boolean" {{checked martialFocus}}>
         </div>
     </div>
+    {{#if sequence }}
+    <div class="spheres-sequence flexrow">
+        <label><strong>{{ localize "PF1SPHERES.Auto.Sequence" }}</strong>: {{ sequence.length }} / {{ sequence.max }}{{#if sequence.length}} ({{ localize "PF1SPHERES.Auto.Inspired" }} +{{ sequence.bonus }}){{/if}}</label>
+        <button type="button" class="pf1s-seq-add" data-tooltip="PF1SPHERES.Auto.AddLink"><i class="fas fa-plus"></i></button>
+        <button type="button" class="pf1s-seq-sub" data-tooltip="PF1SPHERES.Auto.LoseLink"><i class="fas fa-minus"></i></button>
+        <button type="button" class="pf1s-seq-end">{{ localize "PF1SPHERES.Auto.EndSequence" }}</button>
+        <input type="text" class="pf1s-seq-imbue" value="{{ sequence.imbue }}" placeholder="{{ localize "PF1SPHERES.Auto.Imbue" }}">
+    </div>
+    {{/if }}
+    {{#if effects.length }}
+    <div class="spheres-effects">
+        <h4 class="block-header">{{ localize "PF1SPHERES.Auto.ActiveEffects" }}</h4>
+        <ol class="item-list">
+            {{#each effects as |e|}}
+                <li class="flexrow sphere-effect" data-effect-id="{{ e.id }}">
+                    <img src="{{ e.img }}" alt="" class="effect-img">
+                    <span class="effect-name">{{ e.name }}</span>
+                    <span class="effect-time">{{#if e.concentration}}{{ localize "PF1SPHERES.Auto.Concentrating" }}{{else}}{{ e.remaining }}{{/if}}</span>
+                    {{#if e.canPersist}}<button type="button" class="pf1s-effect-persist" data-tooltip="PF1SPHERES.Auto.PersistHint">{{ localize "PF1SPHERES.Auto.Persist" }}</button>{{/if}}
+                    <button type="button" class="pf1s-effect-end">{{ localize "PF1SPHERES.Auto.End" }}</button>
+                </li>
+            {{/each}}
+        </ol>
+    </div>
+    {{/if }}
+    {{#if marks.length }}
+    <div class="spheres-marks flexrow">
+        <span><strong>{{ localize "PF1SPHERES.Auto.YourMarks" }}</strong>: {{#each marks}}{{ this.label }} ({{ this.token }}){{#unless @last}}, {{/unless}}{{/each}}</span>
+        <button type="button" class="pf1s-clear-marks">{{ localize "PF1SPHERES.Auto.ClearMarks" }}</button>
+    </div>
+    {{/if }}
     <!-- Spheres with their name, talent count, CL, and talent collabpsible -->
     <ol class="spheres-list">
         {{#each allSpheres as |sphere|}}

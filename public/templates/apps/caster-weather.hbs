@@ -1,0 +1,71 @@
+{{!--<!--
+SPDX-FileCopyrightText: 2026 NoctuaeSophos
+SPDX-License-Identifier: EUPL-1.2
+-->--}}
+<section class="weather-panel caster-weather">
+    <p class="hint">
+        {{localize "PF1SPHERES.Weather.CasterSummary"}}: CL {{caster.casterLevel}}, DC {{caster.dc}},
+        {{localize "PF1SPHERES.Weather.MaxSeverity"}} {{max}}, {{localize "PF1SPHERES.Weather.Categories"}} {{changed}}/{{categoriesAllowed}}.
+        {{localize "PF1SPHERES.SpellPoints"}}: {{sp.value}}/{{sp.max}}.
+    </p>
+    {{#if controller}}
+        <p class="hint"><strong>{{localize "PF1SPHERES.Weather.Controller"}}:</strong> {{controller.name}}{{#if mine}} ({{localize "PF1SPHERES.Weather.You"}}){{/if}}</p>
+    {{/if}}
+
+    {{#each sliders as |s|}}
+        <div class="form-group weather-slider">
+            <label for="pf1s-cw-{{s.name}}">{{s.label}}</label>
+            <div class="form-fields">
+                <input type="range" id="pf1s-cw-{{s.name}}" name="{{s.name}}" min="{{s.min}}" max="{{s.max}}" step="1" value="{{s.value}}">
+                <span class="weather-value">{{s.display}}</span>
+            </div>
+        </div>
+    {{/each}}
+
+    <div class="weather-options">
+        <label class="checkbox"><input type="checkbox" name="persist" {{checked opts.persist}}> {{localize "PF1SPHERES.Weather.OptPersist"}}</label>
+        {{#if caster.severeWeather}}<label class="checkbox"><input type="checkbox" name="severe" {{checked opts.severe}}> {{localize "PF1SPHERES.Weather.OptSevere"}}</label>{{/if}}
+        {{#if caster.greaterWeather}}
+            <label>{{localize "PF1SPHERES.Weather.OptGreater"}}
+                <select name="greater" data-dtype="Number">
+                    {{#each greaterChoices}}<option value="{{this}}" {{#if (eq this ../opts.greater)}}selected{{/if}}>+{{this}}</option>{{/each}}
+                </select>
+            </label>
+        {{/if}}
+        {{#if caster.climate}}<label class="checkbox"><input type="checkbox" name="climate" {{checked opts.climate}}> {{localize "PF1SPHERES.Weather.OptClimate"}}</label>{{/if}}
+        {{#if caster.mythicTalent}}<label class="checkbox"><input type="checkbox" name="mythicTalent" {{checked opts.mythicTalent}} {{#unless caster.mythicTalent.uses}}disabled{{/unless}}> {{localize "PF1SPHERES.Weather.OptMythic"}} ({{caster.mythicTalent.uses}})</label>{{/if}}
+    </div>
+
+    <div class="weather-conditions">
+        <h4>{{localize "PF1SPHERES.Weather.Conditions"}}</h4>
+        <p class="weather-labels">{{conditions}}</p>
+        {{#if changes.length}}<p class="weather-mods"><strong>{{localize "PF1SPHERES.Weather.Modifiers"}}:</strong> {{#each changes}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</p>{{/if}}
+        <p class="hint">{{duration}}. {{speed}}. {{area}}.</p>
+        <p class="weather-cost"><strong>{{localize "PF1SPHERES.Weather.Cost"}}:</strong> {{#if useMythic}}{{localize "PF1SPHERES.Weather.CostMythic"}}{{else}}{{cost}} {{localize "PF1SPHERES.SpellPoints"}}{{/if}}</p>
+        {{#if problems.length}}<ul class="weather-problems">{{#each problems}}<li>{{this}}</li>{{/each}}</ul>{{/if}}
+    </div>
+
+    <div class="form-fields weather-actions">
+        <button type="button" data-action="cast" {{#unless canCast}}disabled{{/unless}}><i class="fas fa-cloud-bolt"></i> {{localize "PF1SPHERES.Weather.Cast"}}</button>
+        {{#if mine}}<button type="button" data-action="release">{{localize "PF1SPHERES.Weather.Release"}}</button>{{/if}}
+    </div>
+
+    {{#if bolt}}
+        <div class="form-group">
+            <label>{{localize "PF1SPHERES.Weather.Lightning"}} ({{bolt.formula}}{{#if bolt.maximized}}, {{localize "PF1SPHERES.Weather.MaximizedShort"}}{{/if}}, DC {{bolt.dc}})</label>
+            <div class="form-fields"><button type="button" data-action="lightning"><i class="fas fa-bolt"></i> {{localize "PF1SPHERES.Weather.Strike"}}</button></div>
+            <p class="hint">{{#if bolt.perRound}}{{localize "PF1SPHERES.Weather.PerRound"}}{{else}}{{localize "PF1SPHERES.Weather.Chosen"}}{{/if}}</p>
+        </div>
+    {{/if}}
+
+    {{#if mantle}}
+        <div class="form-group">
+            <label>{{localize "PF1SPHERES.Weather.ClearSkies"}} (−{{mantle.steps}})</label>
+            <div class="form-fields">
+                <button type="button" data-action="mantle" {{#if mantle.tooMany}}disabled{{/if}}>{{localize "PF1SPHERES.Weather.Bestow"}} ({{mantle.cost}} SP)</button>
+                <button type="button" data-action="unmantle">{{localize "PF1SPHERES.Weather.RemoveMantle"}}</button>
+            </div>
+            <p class="hint">{{#if mantle.count}}{{localize "PF1SPHERES.Weather.Targets"}}: {{#each mantle.targets}}{{this}}{{#unless @last}}, {{/unless}}{{/each}} ({{mantle.count}}/{{mantle.maxTargets}}). {{mantle.duration}}.{{else}}{{localize "PF1SPHERES.Weather.MantleHint"}}{{/if}}</p>
+        </div>
+    {{/if}}
+</section>

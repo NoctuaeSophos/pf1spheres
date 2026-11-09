@@ -36,7 +36,13 @@ system:
     noMediumEncumbrance: false
     seeInDarkness: false
     seeInvisibility: false
-  changes: []
+  changes:
+  - _id: 2si8l7wcp2kmukce
+    formula: '1'
+    operator: add
+    priority: 0
+    target: nac
+    type: untyped
   classSkills: {}
   contextNotes: []
   crOffset: ''

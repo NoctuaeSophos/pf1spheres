@@ -10,6 +10,26 @@ import type { CombatSphere, ItemPF, MagicSphere, Sphere } from "./item-data";
 import { enforce, getGame, localize } from "./util";
 import { renderPf1sTemplate } from "./preloadTemplates";
 import { activateSphereTooltip } from "./sphere-tooltip";
+import { getWeatherCaster } from "./weather/caster";
+import { openCasterWeather } from "./weather/caster-app";
+import {
+  changeSequence,
+  clearMyMarks,
+  effectRemaining,
+  endEffect,
+  endSequence,
+  getEffects,
+  getSequence,
+  marksPlacedBy,
+  persistEffect,
+  prodigyLevel,
+  setImbue,
+} from "./automation/runtime";
+import { buildBlastActions, isAlchemist, isBlaster, openFormulae, rollMsbVsTargets } from "./automation/features";
+import { formatRemaining, inspiredBonus, sequenceMax } from "./automation/logic";
+
+const effectIdOf = (ev: JQuery.ClickEvent) =>
+  (ev.currentTarget as HTMLElement).closest<HTMLElement>("[data-effect-id]")?.dataset.effectId ?? "";
 
 export const onActorSheetHeaderButtons = (
   sheet: ActorSheetPF,
@@ -185,6 +205,23 @@ const getSpheresData = (app: ActorSheetPF, actor: ActorPF): SpheresTemplateData 
     attributeGrid,
     spellPoints: { value: spheres.spellPoints.value, max: spheres.spellPoints.max },
     martialFocus: spheres.martialFocus === 1,
+    weatherCaster: getWeatherCaster(actor as never) !== null,
+    alchemist: isAlchemist(actor),
+    blaster: isBlaster(actor),
+    effects: getEffects(actor).map((e) => ({
+      ...e,
+      remaining: formatRemaining(effectRemaining(e)),
+      canPersist: e.concentration && Boolean(e.persistSeconds),
+    })),
+    marks: marksPlacedBy(actor),
+    sequence:
+      prodigyLevel(actor) > 0
+        ? {
+            ...getSequence(actor),
+            max: sequenceMax(prodigyLevel(actor)),
+            bonus: inspiredBonus(getSequence(actor).length),
+          }
+        : null,
     sphereCLs,
     sphereBabs,
     allSpheres: [...sphereCLs, ...sphereBabs].sort((a, b) => a.sphere.localeCompare(b.sphere)),
@@ -212,6 +249,17 @@ const activateListeners = (app: ActorSheetPF, html: JQuery<HTMLElement>, actor: 
   html.find(".talent .talent-icon").on("click", (event) => app._onItemRoll(event));
 
   html.find(".sphere-label").on("click", _openSphereJournal);
+  html.find(".pf1s-control-weather").on("click", () => openCasterWeather(actor));
+  html.find(".pf1s-prepare-formulae").on("click", () => openFormulae(actor));
+  html.find(".pf1s-build-blasts").on("click", () => buildBlastActions(actor));
+  html.find(".pf1s-msb-vs").on("click", () => rollMsbVsTargets(actor));
+  html.find(".pf1s-effect-end").on("click", (ev) => endEffect(actor, effectIdOf(ev)));
+  html.find(".pf1s-effect-persist").on("click", (ev) => persistEffect(actor, effectIdOf(ev)));
+  html.find(".pf1s-clear-marks").on("click", () => clearMyMarks(actor));
+  html.find(".pf1s-seq-add").on("click", () => changeSequence(actor, 1));
+  html.find(".pf1s-seq-sub").on("click", () => changeSequence(actor, -1));
+  html.find(".pf1s-seq-end").on("click", () => endSequence(actor));
+  html.find(".pf1s-seq-imbue").on("change", (ev) => setImbue(actor, (ev.currentTarget as HTMLInputElement).value));
 
   html
     // @ts-expect-error Incorrect types
@@ -343,6 +391,12 @@ interface SpheresTemplateData {
   attributeGrid: AttributeData[];
   spellPoints: { value: number; max: number };
   martialFocus: boolean;
+  weatherCaster: boolean;
+  alchemist: boolean;
+  blaster: boolean;
+  effects: unknown[];
+  marks: unknown[];
+  sequence: unknown;
   sphereCLs: SphereData[];
   sphereBabs: SphereData[];
   allSpheres: SphereData[];

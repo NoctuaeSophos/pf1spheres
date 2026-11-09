@@ -36,7 +36,19 @@ system:
     noMediumEncumbrance: false
     seeInDarkness: false
     seeInvisibility: false
-  changes: []
+  changes:
+  - _id: nl133vg8my9dhnzh
+    formula: '@classes.scholar.level - floor(@classes.scholar.level / 2)'
+    operator: add
+    priority: 0
+    target: spellPoints
+    type: untyped
+  - _id: c0caijieh6ze80tu
+    formula: '@classes.scholar.level - floor(@classes.scholar.level * 0.75)'
+    operator: add
+    priority: 0
+    target: sphereclTime
+    type: untyped
   classSkills: {}
   contextNotes: []
   crOffset: ''

@@ -32,6 +32,15 @@ export interface PF1ModuleData extends Game.ModuleData<foundry.packages.ModuleDa
 }
 export interface PF1SpheresApi {
   config: typeof pf1s.config;
+  /** Weather panel: open it, sync a scene's tokens, or compute effects for slider values */
+  weather: {
+    open: (scene?: unknown) => unknown;
+    control: (actor: unknown) => unknown;
+    sync: (scene: unknown) => Promise<void>;
+    effects: typeof import("./weather/conditions").getWeatherEffects;
+  };
+  /** Sphere automation: tracked effects, blast builder, formulae preparation, magic skill checks */
+  automation: Record<string, (...args: never[]) => unknown>;
   _internal: {
     packUtils: PackUtils | undefined;
     devUtils: DevUtils | undefined;

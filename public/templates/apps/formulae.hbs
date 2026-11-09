@@ -1,0 +1,43 @@
+{{!--<!--
+SPDX-FileCopyrightText: 2026 NoctuaeSophos
+SPDX-License-Identifier: EUPL-1.2
+-->--}}
+<section class="formulae-panel">
+    <p class="hint">
+        {{localize "PF1SPHERES.Auto.CraftRanks"}}: {{ranks}}.
+        {{localize "PF1SPHERES.Auto.Capacity"}}: {{prepared}}/{{cap.max}}.
+        {{localize "PF1SPHERES.Auto.PerBatch"}}: {{cap.perBatch}}.
+    </p>
+    <table class="formulae-table">
+        <thead><tr><th>{{localize "PF1SPHERES.Auto.Formulae"}}</th><th>#</th><th>{{localize "PF1SPHERES.Auto.Options"}}</th></tr></thead>
+        <tbody>
+        {{#each rows as |r|}}
+            <tr>
+                <td>{{r.name}}</td>
+                <td><input type="number" name="f.{{r.id}}.quantity" value="{{r.quantity}}" min="0" step="1"></td>
+                <td>
+                    {{#if r.dcChoices}}
+                        <select name="f.{{r.id}}.dc" data-dtype="Number">
+                            {{#each r.dcChoices}}<option value="{{this}}" {{#if (eq this r.dc)}}selected{{/if}}>DC {{this}}</option>{{/each}}
+                        </select>
+                    {{/if}}
+                    {{#if r.upgradable}}
+                        <label>{{localize "PF1SPHERES.Auto.Upgrades"}} <input type="number" name="f.{{r.id}}.upgrades" value="{{r.upgrades}}" min="0" step="1"></label>
+                    {{/if}}
+                    {{#if r.hasEnergy}}
+                        <select name="f.{{r.id}}.energy">
+                            <option value="">—</option>
+                            {{#each ../energies}}<option value="{{this}}" {{#if (eq this r.energy)}}selected{{/if}}>{{this}}</option>{{/each}}
+                        </select>
+                    {{/if}}
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <p class="hint">{{localize "PF1SPHERES.Auto.FormulaeHint"}}</p>
+    {{#if over}}<p class="weather-problems">{{localize "PF1SPHERES.Auto.OverCapacity"}}</p>{{/if}}
+    <footer class="form-footer">
+        <button type="button" data-action="prepare" {{#if over}}disabled{{/if}}><i class="fas fa-flask"></i> {{localize "PF1SPHERES.Auto.Prepare"}} ({{wanted}})</button>
+    </footer>
+</section>

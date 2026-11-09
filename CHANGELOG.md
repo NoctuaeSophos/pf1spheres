@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.9.5](https://github.com/NoctuaeSophos/pf1spheres/compare/v0.9.4...v0.9.5) (2026-11-09)
+
+### Features
+
+* Weather panel for GMs (cloud button in the token tools, or `game.modules.get("pf1spheres").api.weather.open()`): Wind, Temperature (Cold to Heat) and Humidity (Aridity to Precipitation) sliders per scene, with the resulting Weather sphere conditions listed. "Apply to tokens on this scene" gives every creature token a managed Weather buff carrying the ranged attack, Perception and Fly penalties plus reminders for exposure, storms, snow and fog, and keeps it in sync as sliders and tokens change. Selected tokens can be sheltered, and a storm's lightning can be rolled against targeted tokens with their Reflex saves
+* Control Weather for casters: a "Control Weather" button on a Weather-sphere caster's Spheres tab opens a panel bounded by their limits (maximum severity, categories per casting with Greater Weather and Mythic Rapid Weather, Severe Weather), with casting options and their spell point cost (Lengthened Weather, Climate, or a Mythic Talent use instead). It deducts the cost and has the GM's client change the scene; releasing control restores the weather from before. Instant Weather, Rapid Weather, Greater Size and Grand Weather show in the panel
+* Storm lightning follows the controlling caster: their DC, maximized with Deadly Weather, Storm Lord aiming and frequency, and Ship Smasher/Ship Killer reminders. Scene weather is in roll data as `@spheres.weather` (severities, storm, lightning formula, dc, mine)
+* Clear Skies mantles: a caster bestows their mantle on targeted tokens (1 spell point, 2 for several with Encompassing Weather), and those tokens' Weather buff uses the milder weather
+* Atmospheric Imbuement: during a storm of rain and wind 4+, the caster's Weather buff adds a reminder to spell attack cards that their air, electric and sonic blasts ignore spell resistance
+* Spheres automation on every action (a "Spheres" tab in pf1's action editor):
+  * spell point costs (a formula, plus extra per chosen conditional) and martial focus (requires, expends or restores), checked before use and deducted after; cards show what was spent
+  * tracked sphere effects: listed under Active effects on the Spheres tab with time left; concentration effects prompt their caster each turn and offer "Persist (1 SP)"; effects end on schedule and remove whatever they applied
+  * buffs for targets: a copy of one of the caster's buffs goes on each target (or the caster), with its level set to the caster level in the chosen sphere, or a custom formula
+  * areas: totems and wards draw a scene Region and give their buff to allies, enemies or everyone inside, adding and removing it as tokens move
+  * marks: targets carry a mark with notes shown on the marker's attacks against them and on their attacks against the marker (for Scout and Identify Rhythms, Marked, Impale)
+* Destructive blast builder: one button builds blast actions from a caster's (blast type) and (blast shape) talents, with dice from caster level, damage type, spell point cost, save rider and the full-dice option
+* Alchemy formulae preparation: a panel to prepare formulae within the prepared limit (half Craft (alchemy) ranks + formulae talents), making consumables that expire after 24 hours (Salve heals by ranks and practitioner modifier, Neutralizer resistance, Focusing Formula restores martial focus, Panacea and Ambrosia by Craft DC)
+* Prodigy sequences: length, maximum, decay at the start of a turn without a new link, breaking conditions and the imbued sphere on the Spheres tab, in roll data as `@spheres.sequence`; Inspired Sequence applies its insight bonus
+* Magic skill checks against targets: d20 + MSB against each target's MSD, estimating MSD for non-spherecasters
+* Mythic Talent and Mythic Sphere Mastery (Beastmastery)
+* Changes for the Chronomancy knacks (Time caster level and spell pool from the timepiece), Living Death (Lichling), Mother's Gift: Surprisingly Tough and Primal Ward
+
 ## [0.9.4](https://github.com/NoctuaeSophos/pf1spheres/compare/v0.9.3...v0.9.4) (2026-11-08)
 
 ### Features
