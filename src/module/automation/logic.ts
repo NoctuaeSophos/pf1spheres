@@ -47,8 +47,8 @@ export interface FailEffects {
   note?: string;
   /** Offer the caster a button to regain martial focus */
   regainFocus?: boolean;
-  /** More conditions with their own duration */
-  more?: { conditions?: string; rounds?: string }[];
+  /** More conditions with their own duration, each applied only when its formula (if any) is non-zero */
+  more?: { conditions?: string; rounds?: string; when?: string }[];
 }
 
 /** True when a failed save has anything to do */

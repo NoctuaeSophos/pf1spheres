@@ -877,6 +877,8 @@ async function applyFailedSave(msg, user) {
   ];
   const longest = new Map<string, number>();
   for (const group of groups) {
+    // A group can depend on the caster, like flashbangs blinding only at 5 Craft (alchemy) ranks
+    if (group.when?.trim() && !evalFormula(group.when, rd)) continue;
     const conditions = parseConditions(group.conditions).filter((id) =>
       pf1.registry.conditions.get(id),
     );
@@ -1008,6 +1010,10 @@ export const registerAutomation = () => {
   });
   Hooks.on("pf1GetRollData", (doc, result) => {
     if (!(doc instanceof Actor)) return;
+    // Craft (alchemy) ranks, for abilities that improve with them (flashbangs at 5)
+    result.spheres ??= {};
+    result.spheres.alchemyRanks =
+      Object.values(doc.system?.skills?.crf?.subSkills ?? {}).find((sk) => /alchem/i.test(sk?.name ?? ""))?.rank ?? 0;
     const seq = getSequence(doc);
     result.spheres ??= {};
     result.spheres.sequence = {

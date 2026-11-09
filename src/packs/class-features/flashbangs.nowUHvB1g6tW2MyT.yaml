@@ -8,14 +8,16 @@ flags:
     automation:
       1eehg93u9k44glfd:
         onFail:
-          conditions: blind, deaf
-          conditionRounds: 1d4+1
+          conditions: deaf
+          conditionRounds: 1d4 + gte(@spheres.alchemyRanks, 5)
           regainFocus: true
-      t6vm1vv1plxyyzhk:
-        onFail:
-          conditions: deaf, dazzled
-          conditionRounds: 1d4
-          regainFocus: true
+          more:
+            - conditions: blind
+              rounds: 1d4 + gte(@spheres.alchemyRanks, 5)
+              when: gte(@spheres.alchemyRanks, 5)
+            - conditions: dazzled
+              rounds: 1d4 + gte(@spheres.alchemyRanks, 5)
+              when: lt(@spheres.alchemyRanks, 5)
 folder: null
 img: icons/svg/item-bag.svg
 name: Flashbangs
@@ -43,7 +45,7 @@ system:
           type: action
       damage:
         parts:
-          - formula: 1d8
+          - formula: 1d(4 + 4 * gte(@spheres.alchemyRanks, 5))
             types:
               - bludgeoning
               - piercing
@@ -53,47 +55,15 @@ system:
       name: Throw
       notes:
         effect:
-          - "Failed save: blinded and deafened for 1d4+1 rounds, applied when the save is rolled from this
-            card; you may regain martial focus as an immediate action."
+          - "Failed save: deafened and dazzled for 1d4 rounds, or blinded and deafened for 1d4+1 with 5+ Craft
+            (alchemy) ranks; applied when the save is rolled from this card. You may regain martial focus
+            as an immediate action."
       range:
         units: ft
         value: 30 + 10 * @classes.scholar.level
       save:
         dc: 10 + floor(@classes.scholar.level / 2) + @abilities.int.mod
-        description: blinded and deafened for [[1d4+1]] rounds
-        type: fort
-      touch: true
-    - _id: t6vm1vv1plxyyzhk
-      ability:
-        attack: dex
-        damage: ""
-        damageMult: 1
-      actionType: rwak
-      activation:
-        type: standard
-        unchained:
-          cost: 2
-          type: action
-      damage:
-        parts:
-          - formula: 1d4
-            types:
-              - bludgeoning
-              - piercing
-              - slashing
-      duration:
-        units: inst
-      name: Throw (under 5 Craft (alchemy) ranks)
-      notes:
-        effect:
-          - "Failed save: deafened and dazzled for 1d4 rounds, applied when the save is rolled from this card;
-            you may regain martial focus as an immediate action."
-      range:
-        units: ft
-        value: 30 + 10 * @classes.scholar.level
-      save:
-        dc: 10 + floor(@classes.scholar.level / 2) + @abilities.int.mod
-        description: deafened and dazzled for [[1d4]] rounds
+        description: deafened, and dazzled (blinded at 5+ Craft (alchemy) ranks)
         type: fort
       touch: true
   armorProf: []
