@@ -25,9 +25,9 @@ flags:
         name: Regenerative Mists
         img: icons/svg/ice-aura.svg
         description:
-          "<p>Doctor: fast healing equal to half the doctor's class level while starting a
-          turn in the mist (only creatures under her inoculations). The doctor regains martial focus if
-          she begins and ends her turn inside.</p>"
+          "<p>Doctor: fast healing equal to half the doctor's class level for creatures that
+          start their turn in the mist (only those under the doctor's inoculations). The doctor regains
+          martial focus by beginning and ending their turn inside.</p>"
         changes: []
         contextNotes:
           - text:

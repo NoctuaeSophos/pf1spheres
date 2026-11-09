@@ -11,7 +11,9 @@ import { MODULE_ID, localize } from "../util";
 import {
   blastDice,
   formulaeCapacity,
+  formulaeCraftDC,
   formulaeDailyUses,
+  neutralizerLimits,
   neutralizerResistance,
   parseBlastType,
   salveFormula,
@@ -186,6 +188,59 @@ export const formulaeTalents = (actor) =>
 
 export const isAlchemist = (actor) => formulaeTalents(actor).length > 0;
 
+/** What a formulae does and what its upgrades add, for the prepare window */
+const formulaeDetails = (name, c, ranks, pam) => {
+  switch (name) {
+    case "Salve":
+      return {
+        effect: fmt("SalveEffect", { heal: salveFormula(ranks, pam, c.upgrades) }),
+        upgrade: loc("SalveUpgrade"),
+      };
+    case "Elixir":
+      return {
+        effect: fmt("ElixirNote", { die: Math.min(12, 4 + 2 * c.upgrades) }),
+        upgrade: loc("ElixirUpgrade"),
+      };
+    case "Panacea":
+      return {
+        effect: fmt("Removes", { list: panaceaList(c.dc) }),
+        upgrade: loc("PanaceaUpgrade"),
+      };
+    case "Ambrosia":
+      return {
+        effect: fmt("Cures", { list: AMBROSIA[c.dc] ?? AMBROSIA[25] }),
+        upgrade: loc("AmbrosiaUpgrade"),
+      };
+    case "Neutralizer": {
+      const { attacks, minutes } = neutralizerLimits(c.upgrades);
+      const energy = c.energy || loc("ChooseEnergy");
+      return {
+        effect: fmt("NeutralizerNote", {
+          er: neutralizerResistance(ranks),
+          energy,
+          attacks,
+          minutes,
+        }),
+        upgrade: loc("NeutralizerUpgrade"),
+      };
+    }
+    case "Focusing Formula":
+      return {
+        effect: fmt("FocusingEffect", { uses: 1 + c.upgrades }),
+        upgrade: loc("FocusingUpgrade"),
+      };
+    default:
+      return { effect: "", upgrade: "" };
+  }
+};
+
+/** A Panacea removes the conditions of its DC and every lower one */
+const panaceaList = (dc) =>
+  Object.entries(PANACEA)
+    .filter(([k]) => Number(k) <= (dc ?? 20))
+    .map(([, v]) => v)
+    .join("; ");
+
 const PANACEA = {
   20: "Deafened, fatigued, shaken, sickened",
   30: "Diseased, exhausted, nauseated, poisoned, staggered",
@@ -270,7 +325,7 @@ const formulaeItem = (talent, actor, opts) => {
       base.name = `${talent.name} DC ${opts.dc} (${loc("Formulae")})`;
       base.system.actions.push(
         action(loc("Drink"), {
-          notes: { footer: [fmt("Removes", { list: PANACEA[opts.dc] ?? PANACEA[20] })] },
+          notes: { footer: [fmt("Removes", { list: panaceaList(opts.dc) })] },
         }),
       );
       break;
@@ -291,6 +346,7 @@ const formulaeItem = (talent, actor, opts) => {
               fmt("NeutralizerNote", {
                 er: neutralizerResistance(ranks),
                 energy: opts.energy || loc("ChooseEnergy"),
+                ...neutralizerLimits(opts.upgrades),
               }),
             ],
           },
@@ -365,7 +421,9 @@ export class FormulaeApp extends foundry.applications.api.HandlebarsApplicationM
         ...c,
         dcChoices:
           t.name === "Panacea" ? [20, 30, 40] : t.name === "Ambrosia" ? [25, 35, 40, 50] : null,
-        upgradable: ["Salve", "Elixir", "Focusing Formula"].includes(t.name),
+        upgradable: ["Salve", "Elixir", "Neutralizer", "Focusing Formula"].includes(t.name),
+        craftDC: formulaeCraftDC(t.name, c),
+        ...formulaeDetails(t.name, c, ranks, this.actor.system.spheres?.pam ?? 0),
         hasEnergy: t.name === "Neutralizer",
       };
     });

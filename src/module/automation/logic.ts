@@ -552,3 +552,41 @@ export const isInoculated = (
   inoculated: string[] | undefined,
   uuid: string,
 ): boolean => uuid === casterUuid || (inoculated ?? []).includes(uuid);
+
+/* ---------- formulae details ---------- */
+
+export interface FormulaeChoice {
+  upgrades: number;
+  dc?: number;
+  energy?: string;
+}
+
+/** Base Craft DC and the DC added per upgrade for each formulae; Panacea and Ambrosia pick a DC instead */
+export const FORMULAE_DC: Record<string, { base: number; step: number }> = {
+  Salve: { base: 15, step: 10 },
+  Elixir: { base: 20, step: 5 },
+  Neutralizer: { base: 20, step: 10 },
+  "Focusing Formula": { base: 15, step: 10 },
+};
+
+/**
+ * The Craft DC a formulae needs with the chosen options.
+ *
+ * @param name - The formulae talent
+ * @param c - The choices
+ */
+export const formulaeCraftDC = (name: string, c: FormulaeChoice): number => {
+  const rule = FORMULAE_DC[name];
+  if (rule) return rule.base + rule.step * Math.max(0, c.upgrades || 0);
+  return c.dc ?? 20;
+};
+
+/**
+ * Neutralizer: attacks it absorbs and minutes it lasts with upgrades.
+ *
+ * @param upgrades - Number of +10 DC upgrades
+ */
+export const neutralizerLimits = (upgrades: number) => ({
+  attacks: 2 + upgrades,
+  minutes: 10 + 10 * upgrades,
+});
