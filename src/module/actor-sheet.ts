@@ -25,6 +25,7 @@ import {
   persistEffect,
   prodigyLevel,
   setImbue,
+  setInoculated,
 } from "./automation/runtime";
 import {
   buildBlastActions,
@@ -197,6 +198,34 @@ const removeMember = (actor: any, traditionId: string, itemId: string) => {
       t,
       traditionMemberIds(t).filter((id) => id !== itemId),
     );
+};
+
+/** A scholar's inoculated allies, when she has Inoculations (an item flagged pf1spheres.inoculations) */
+const getInoculations = (actor: ActorPF) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const a = actor as any;
+  if (!a.items.some((i: any) => i.flags?.pf1spheres?.inoculations)) return null;
+  const max = Math.max(1, a.system.abilities?.int?.mod ?? 1);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const g = globalThis as any;
+  const names = (a.flags?.pf1spheres?.inoculated ?? []).map(
+    (u: string) => g.fromUuidSync(u)?.name ?? "?",
+  );
+  return { max, names, count: names.length };
+};
+
+const inoculateTargets = async (actor: ActorPF) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const g = globalThis as any;
+  const a = actor as any;
+  const uuids = [...g.game.user.targets]
+    .map((t: any) => t.actor?.uuid)
+    .filter((u: string) => u && u !== a.uuid);
+  if (!uuids.length) return g.ui.notifications.warn(localize("Auto.InoculateNone"));
+  const max = Math.max(1, a.system.abilities?.int?.mod ?? 1);
+  if (uuids.length > max)
+    return g.ui.notifications.warn(g.game.i18n.format("PF1SPHERES.Auto.InoculateTooMany", { max }));
+  await setInoculated(actor, uuids);
 };
 
 const createTradition = async (actor: ActorPF, kind: "martial" | "casting") => {
@@ -399,6 +428,7 @@ const getSpheresData = (app: ActorSheetPF, actor: ActorPF): SpheresTemplateData 
           }
         : null,
     traditions: getTraditions(actor),
+    inoculations: getInoculations(actor),
     sphereCLs,
     sphereBabs,
     allSpheres: [...sphereCLs, ...sphereBabs].sort((a, b) => a.sphere.localeCompare(b.sphere)),
@@ -432,6 +462,8 @@ const activateListeners = (app: ActorSheetPF, html: JQuery<HTMLElement>, actor: 
     setSpellPoints(actor, Number((ev.currentTarget as HTMLInputElement).value) || 0);
   });
   html.find(".pf1s-control-weather").on("click", () => openCasterWeather(actor));
+  html.find(".pf1s-inoculate").on("click", () => inoculateTargets(actor));
+  html.find(".pf1s-inoculate-clear").on("click", () => setInoculated(actor, []));
   html.find(".pf1s-tradition-add").on("change", (ev) => {
     const el = ev.currentTarget as HTMLSelectElement;
     addMember(actor, el.dataset.traditionId ?? "", el.value);
@@ -612,6 +644,7 @@ export declare class ActorSheetPF extends ActorSheet {
 
 interface SpheresTemplateData {
   dataGroup: string;
+  inoculations: ReturnType<typeof getInoculations>;
   traditions: ReturnType<typeof getTraditions>;
   attributeGrid: AttributeData[];
   spellPoints: { value: number; max: number };

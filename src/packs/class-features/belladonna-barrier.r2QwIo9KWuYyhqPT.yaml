@@ -18,6 +18,7 @@ flags:
                 note:
                   "Poisoned by belladonna: takes [[(1 + floor(@classes.scholar.level / 8))d6]] Strength
                   damage."
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Belladonna Barrier

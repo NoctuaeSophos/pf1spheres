@@ -26,6 +26,7 @@ flags:
                 note:
                   Staggered for 1d4 rounds. If it was already staggered by Glacial Percussion, it is paralyzed
                   for 1 round instead.
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Ammonium Nitrate

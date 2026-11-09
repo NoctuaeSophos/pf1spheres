@@ -23,6 +23,7 @@ flags:
                   Entangled and confused by spores. Escape with a Strength or Escape Artist check (DC
                   [[10 + floor(@classes.scholar.level / 2) + @abilities.int.mod]]) or by taking [[@classes.scholar.level]]
                   fire damage; confusion ends with the entanglement.
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Cordyceps Mycelium

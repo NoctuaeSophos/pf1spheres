@@ -15,7 +15,8 @@ flags:
         zone:
           enabled: true
           radius: "30"
-          who: allies
+          who: inoculated
+          at: template
         buff:
           itemId: tpl:regenerative-mists
           level: "@classes.scholar.level"
@@ -52,15 +53,15 @@ system:
       actionType: other
       img: ""
       activation:
-        type: standard
-        unchained:
-          type: action
-          cost: 2
+        type: special
       range: close
       notes:
         footer:
-          - "With a flashbang: 30 ft. radius mist (drawn around you; move it to the flashbang's target),
-            lasting Int modifier rounds. Uses a healer's kit."
+          - Place the 30 ft. mist where the flashbang hit; it covers you and your inoculated allies. Uses
+            a healer's kit.
+      measureTemplate:
+        type: circle
+        size: "30"
   armorProf: []
   associations:
     classes: []

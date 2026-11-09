@@ -23,6 +23,7 @@ flags:
               onFail:
                 conditions: blind
                 conditionRounds: 2d4
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Thermite

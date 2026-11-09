@@ -21,6 +21,7 @@ flags:
                 hand).
             automation:
               focus: expend
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Gold

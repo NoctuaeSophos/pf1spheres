@@ -250,7 +250,8 @@ const ARMOR_TIERS = ["lgt", "med", "hvy"];
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const applyArmorTraining = (actor: any): void => {
-  const count = actor.items?.filter?.((i: any) => i.flags?.pf1spheres?.armorTraining === true).length ?? 0;
+  const count =
+    actor.items?.filter?.((i: any) => i.flags?.pf1spheres?.armorTraining === true).length ?? 0;
   const prof = actor.system.traits?.armorProf;
   // total is a getter that rebuilds from its parts; item proficiencies live in standard
   if (!count || !(prof?.standard instanceof Set)) return;

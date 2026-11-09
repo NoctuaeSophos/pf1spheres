@@ -18,6 +18,7 @@ import {
   fillNote,
   hasAutomation,
   hasFailEffects,
+  isInoculated,
   parseConditions,
   templateToItemData,
   remainingSeconds,
@@ -234,6 +235,41 @@ async function applyBuff(msg, user) {
 
 /* ---------- zones ---------- */
 
+const zoneCenter = (auto, au, token) => {
+  const tpl = au.shared?.template;
+  if (auto.zone?.at === "template" && tpl) return { x: tpl.x, y: tpl.y };
+  return tokenCenter(token);
+};
+
+/* ---------- inoculations ---------- */
+
+/** The creatures a scholar inoculated (flags.pf1spheres.inoculated on her actor) */
+export const inoculatedBy = (casterUuid: string): string[] =>
+  fromUuidSync(casterUuid)?.flags?.[MODULE_ID]?.inoculated ?? [];
+
+/** Items whose harmful effects inoculations stop: flagged alchemical, or of the Alchemy sphere */
+const isAlchemical = (item) =>
+  item?.flags?.[MODULE_ID]?.alchemical === true || item?.flags?.[MODULE_ID]?.sphere === "alchemy";
+
+/** Damage from a scholar's alchemical item is ignored by her and the allies she inoculated (healing still applies) */
+function onApplyDamage(actor, options) {
+  if (!(options?.value > 0)) return;
+  const item = options.message?.itemSource ?? options.item;
+  const caster = item?.actor;
+  if (
+    !caster ||
+    !isAlchemical(item) ||
+    !caster.items.some((i) => i.flags?.[MODULE_ID]?.inoculations)
+  )
+    return;
+  if (!isInoculated(caster.uuid, caster.flags?.[MODULE_ID]?.inoculated, actor.uuid)) return;
+  options.value = 0;
+  ui.notifications.info(fmt("InoculatedDamage", { name: actor.token?.name ?? actor.name }));
+}
+
+export const setInoculated = async (actor, uuids: string[]) =>
+  actor.setFlag(MODULE_ID, "inoculated", [...new Set(uuids)]);
+
 export interface Zone {
   id: string;
   name: string;
@@ -267,6 +303,11 @@ async function createZone(msg, user) {
       flags: { [MODULE_ID]: { zoneId: msg.zoneId } },
     },
   ]);
+  // The zone's Region replaces the template the user placed for it
+  if (msg.templateUuid) {
+    const tpl = fromUuidSync(msg.templateUuid);
+    if (tpl?.parent?.id === scene.id) await tpl.delete().catch(() => {});
+  }
   const zones = getZones(scene);
   zones.push({
     id: msg.zoneId,
@@ -314,7 +355,11 @@ export async function syncZones(scene) {
     const center = tokenCenter(token);
     const inside = new Set(
       (here ? zones : [])
-        .filter((z) => zoneAffects(z.who, z.casterDisposition, token.disposition))
+        .filter((z) =>
+          z.who === "inoculated"
+            ? isInoculated(z.casterUuid, inoculatedBy(z.casterUuid), actor.uuid)
+            : zoneAffects(z.who, z.casterDisposition, token.disposition),
+        )
         .filter((z) => distanceFt(center, z, scene.grid.size, scene.grid.distance) <= z.radius)
         .map((z) => z.id),
     );
@@ -524,12 +569,21 @@ async function onPostActionUse(au) {
   const rd = au.shared.rollData ?? actor.getRollData();
   await spendResources(actor, { sp: state.sp, focus: state.focus });
   if (auto.sequence?.role) {
-    const next = applySequenceRole(getSequence(actor), auto.sequence.role, sequenceMax(prodigyLevel(actor)));
+    const next = applySequenceRole(
+      getSequence(actor),
+      auto.sequence.role,
+      sequenceMax(prodigyLevel(actor)),
+    );
     await actor.update({ [`flags.${MODULE_ID}.sequence`]: next });
   }
   if (auto.threatNext) {
     const c = game.combat?.started ? game.combat : null;
-    await actor.setFlag(MODULE_ID, "threatNext", { combatId: c?.id ?? null, round: c?.round ?? 0, turn: c?.turn ?? 0, time: game.time.worldTime });
+    await actor.setFlag(MODULE_ID, "threatNext", {
+      combatId: c?.id ?? null,
+      round: c?.round ?? 0,
+      turn: c?.turn ?? 0,
+      time: game.time.worldTime,
+    });
   }
 
   const wantsEffect =
@@ -571,7 +625,9 @@ async function onPostActionUse(au) {
       sceneId: token.parent.id,
       zoneId: foundry.utils.randomID(),
       name: effect.name,
-      center: tokenCenter(token),
+      // Centered on the template the user placed, when the action has one and the zone asks for it
+      center: zoneCenter(auto, au, token),
+      templateUuid: auto.zone?.at === "template" ? au.shared?.template?.uuid ?? null : null,
       radius: Math.max(5, evalFormula(auto.zone.radius, rd)),
       who: auto.zone.who ?? "allies",
       casterDisposition: token.disposition,
@@ -861,6 +917,13 @@ async function applyFailedSave(msg, user) {
   if (!caster || !action) return;
   const fail = getAutomation(item, action.id).onFail;
   if (!hasFailEffects(fail)) return;
+  // The scholar and her inoculated allies ignore the harmful effects of her alchemical items
+  if (
+    isAlchemical(item) &&
+    caster.items.some((i) => i.flags?.[MODULE_ID]?.inoculations) &&
+    isInoculated(caster.uuid, caster.flags?.[MODULE_ID]?.inoculated, target.uuid)
+  )
+    return;
   // Rerolling a failed save must not apply everything twice
   const failed = message.getFlag(MODULE_ID, "failedSaves") ?? [];
   if (failed.includes(target.uuid)) return;
@@ -1013,7 +1076,9 @@ export const registerAutomation = () => {
     // Craft (alchemy) ranks, for abilities that improve with them (flashbangs at 5)
     result.spheres ??= {};
     result.spheres.alchemyRanks =
-      Object.values(doc.system?.skills?.crf?.subSkills ?? {}).find((sk) => /alchem/i.test(sk?.name ?? ""))?.rank ?? 0;
+      Object.values(doc.system?.skills?.crf?.subSkills ?? {}).find((sk) =>
+        /alchem/i.test(sk?.name ?? ""),
+      )?.rank ?? 0;
     const seq = getSequence(doc);
     result.spheres ??= {};
     result.spheres.sequence = {
@@ -1059,6 +1124,7 @@ export const registerAutomation = () => {
   );
   Hooks.on("pf1PreActorRollSave", onPreRollSave);
   Hooks.on("pf1PreAttackRoll", onPreAttackRoll);
+  Hooks.on("pf1ApplyDamage", onApplyDamage);
   Hooks.on("pf1ActorRollSave", (actor, result) => {
     onRollSave(actor, result).catch((err) => console.error(`${MODULE_ID} | failed save`, err));
   });

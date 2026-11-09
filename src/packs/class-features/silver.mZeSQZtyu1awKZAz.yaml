@@ -31,6 +31,7 @@ flags:
               focus: expend
               onFail:
                 note: "Targeted dispel magic (no choosing the effect): dispel check [[1d20 + min(10, @classes.scholar.level)]]."
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Silver

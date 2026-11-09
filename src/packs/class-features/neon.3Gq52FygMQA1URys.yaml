@@ -32,6 +32,7 @@ flags:
           - formula: "-20"
             target: skill.ste
             type: untyped
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Neon

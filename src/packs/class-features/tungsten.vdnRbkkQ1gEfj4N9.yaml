@@ -39,6 +39,7 @@ flags:
           - formula: "-2"
             target: cmd
             type: untyped
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Tungsten

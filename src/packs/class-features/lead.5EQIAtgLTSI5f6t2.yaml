@@ -55,6 +55,7 @@ flags:
               - Moderate wind disperses it in 4 rounds, strong wind in 1 round (GM adjudicates).
             automation:
               focus: expend
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Lead

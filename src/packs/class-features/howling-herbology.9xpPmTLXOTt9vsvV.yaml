@@ -20,6 +20,7 @@ flags:
               - The damage and effects also work on objects and undead.
             automation:
               focus: expend
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Howling Herbology

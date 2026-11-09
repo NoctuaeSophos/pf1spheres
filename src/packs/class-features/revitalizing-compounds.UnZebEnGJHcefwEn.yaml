@@ -1,10 +1,11 @@
 _id: UnZebEnGJHcefwEn
-_key: '!items!UnZebEnGJHcefwEn'
+_key: "!items!UnZebEnGJHcefwEn"
 effects: []
 flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Revitalizing Compounds
@@ -22,8 +23,8 @@ system:
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,40 +40,39 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p>From 3rd level, when you prepare an alchemical item you can make a
-      Heal check (you may take 10 but not 20) and expend one healer''s kit use, as
-      with the hit point option of medical training. When the item is used, you and
-      inoculated allies in its area regain hit points as if you had treated them with
-      medical training using that Heal result. Creatures the item would normally damage
-      take half damage (minimum 1) and gain a +2 bonus on saves against its effects.</p><p>Single-target
-      items such as Alchemy sphere salves can also be modified this way. Each instance
-      of this healing counts against the creature''s daily limit for your medical
-      training.</p><p><strong>Replaces:</strong> Material imposition gained at 3rd
-      level.</p><p><em>Source: Doctor (scholar archetype) wiki page.</em> <a href="http://spheresofpower.wikidot.com/doctor#toc2">Full
-      text</a></p>'
+    instructions: ""
+    unidentified: ""
+    value:
+      '<p>From 3rd level, when you prepare an alchemical item you can make a Heal check (you may
+      take 10 but not 20) and expend one healer''s kit use, as with the hit point option of medical training.
+      When the item is used, you and inoculated allies in its area regain hit points as if you had treated
+      them with medical training using that Heal result. Creatures the item would normally damage take
+      half damage (minimum 1) and gain a +2 bonus on saves against its effects.</p><p>Single-target items
+      such as Alchemy sphere salves can also be modified this way. Each instance of this healing counts
+      against the creature''s daily limit for your medical training.</p><p><strong>Replaces:</strong>
+      Material imposition gained at 3rd level.</p><p><em>Source: Doctor (scholar archetype) wiki page.</em>
+      <a href="http://spheresofpower.wikidot.com/doctor#toc2">Full text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -83,26 +83,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Doctor
+    - Doctor
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

@@ -16,6 +16,7 @@ flags:
               focus: expend
               onFail:
                 note: "Poisoned by mercury: takes [[(1 + floor(@classes.scholar.level / 8))d4]] Wisdom damage."
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Quicksilver

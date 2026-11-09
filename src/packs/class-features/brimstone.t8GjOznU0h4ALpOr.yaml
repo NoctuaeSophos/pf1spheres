@@ -22,6 +22,7 @@ flags:
                 for 1d4 rounds after leaving (GM adjudicates).
             automation:
               focus: expend
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Brimstone

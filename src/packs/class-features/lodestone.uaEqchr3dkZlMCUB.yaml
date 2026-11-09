@@ -31,6 +31,7 @@ flags:
           "<p>Lodestone flakes cling to this creature: attacks against it with metal weapons
           gain a circumstance bonus of +1, plus 1 per three levels of the scholar who threw them.</p>"
         changes: []
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Lodestone

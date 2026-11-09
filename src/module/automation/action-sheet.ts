@@ -102,7 +102,10 @@ export const onRenderActionSheet = (app, html) => {
         <p class="hint">${loc("ZoneHint")}</p></div>
       <div class="form-group"><label>${loc("ZoneRadius")}</label>
         <div class="form-fields"><input type="text" data-pf1s="zone.radius" value="${esc(a.zone?.radius)}" placeholder="50 + 5 * floor(@spheres.cl.war.total / 2)">
-        <select data-pf1s="zone.who">${opt("allies", loc("Allies"), a.zone?.who ?? "allies")}${opt("enemies", loc("Enemies"), a.zone?.who)}${opt("all", loc("Everyone"), a.zone?.who)}</select></div></div>
+        <select data-pf1s="zone.who">${opt("allies", loc("Allies"), a.zone?.who ?? "allies")}${opt("enemies", loc("Enemies"), a.zone?.who)}${opt("all", loc("Everyone"), a.zone?.who)}${opt("inoculated", loc("Inoculated"), a.zone?.who)}</select></div></div>
+      <div class="form-group"><label>${loc("ZoneAt")}</label>
+        <div class="form-fields"><select data-pf1s="zone.at">${opt("", loc("ZoneAtSelf"), a.zone?.at)}${opt("template", loc("ZoneAtTemplate"), a.zone?.at)}</select></div>
+        <p class="hint">${loc("ZoneAtHint")}</p></div>
 
       <h3 class="form-header">${loc("Mark")}</h3>
       <div class="form-group"><label>${loc("MarkLabel")}</label>

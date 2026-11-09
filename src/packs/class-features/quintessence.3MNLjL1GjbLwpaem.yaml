@@ -36,6 +36,7 @@ flags:
           - formula: -(1 + floor(@item.level / 3))
             target: spherecl
             type: untyped
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Quintessence

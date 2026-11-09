@@ -25,6 +25,7 @@ flags:
                   Blinded and shedding bright light out to [[30 + 5 * floor(@classes.scholar.level / 2)]]
                   ft.; dispels darkness of spell level [[floor(@classes.scholar.level / 2)]] or lower in that
                   area.
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Magnesium

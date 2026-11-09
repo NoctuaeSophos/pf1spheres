@@ -18,6 +18,7 @@ flags:
             - conditions: dazzled
               rounds: 1d4 + gte(@spheres.alchemyRanks, 5)
               when: lt(@spheres.alchemyRanks, 5)
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Flashbangs

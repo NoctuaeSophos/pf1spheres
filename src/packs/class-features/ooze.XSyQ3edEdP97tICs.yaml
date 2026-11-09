@@ -22,6 +22,7 @@ flags:
                 no higher than your scholar level (Fortitude save at the flashbang DC resists).
             automation:
               focus: expend
+    alchemical: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Ooze

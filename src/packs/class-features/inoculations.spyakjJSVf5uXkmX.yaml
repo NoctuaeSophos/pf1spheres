@@ -1,10 +1,11 @@
 _id: spyakjJSVf5uXkmX
-_key: '!items!spyakjJSVf5uXkmX'
+_key: "!items!spyakjJSVf5uXkmX"
 effects: []
 flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    inoculations: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Inoculations
@@ -22,8 +23,8 @@ system:
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,35 +40,35 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p>At 1st level and at the start of each day, choose a number of allies
-      up to your Int bonus (minimum 1). You and those allies are immune to the harmful
-      effects of your alchemical items and material impositions, hit point damage
-      included, but still receive their beneficial effects such as healing.</p><p><strong>Replaces:</strong>
-      Careful packer.</p><p><em>Source: Doctor (scholar archetype) wiki page.</em>
-      <a href="http://spheresofpower.wikidot.com/doctor#toc1">Full text</a></p>'
+    instructions: ""
+    unidentified: ""
+    value:
+      '<p>At 1st level and at the start of each day, choose a number of allies up to your Int bonus
+      (minimum 1). You and those allies are immune to the harmful effects of your alchemical items and
+      material impositions, hit point damage included, but still receive their beneficial effects such
+      as healing.</p><p><strong>Replaces:</strong> Careful packer.</p><p><em>Source: Doctor (scholar archetype)
+      wiki page.</em> <a href="http://spheresofpower.wikidot.com/doctor#toc1">Full text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -78,26 +79,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Doctor
+    - Doctor
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

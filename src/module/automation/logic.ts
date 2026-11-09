@@ -21,7 +21,7 @@ export interface ActionAutomation {
   /** Apply one of the actor's buffs to the targets at the caster's level */
   buff?: { itemId?: string; sphere?: string; self?: boolean; level?: string };
   /** Create an area centred on the user that applies the buff to creatures inside */
-  zone?: { enabled?: boolean; radius?: string; who?: ZoneWho };
+  zone?: { enabled?: boolean; radius?: string; who?: ZoneWho; at?: "" | "self" | "template" };
   /** Mark the targets */
   mark?: { label?: string; attackerNote?: string; defenderNote?: string };
   /** When a creature fails a save rolled from this action's chat card */
@@ -86,7 +86,7 @@ export const saveFailed = (total: number, natural: number | undefined, dc: numbe
 };
 
 export type DurationUnit = "round" | "minute" | "hour";
-export type ZoneWho = "allies" | "enemies" | "all";
+export type ZoneWho = "allies" | "enemies" | "all" | "inoculated";
 
 export const UNIT_SECONDS: Record<DurationUnit, number> = { round: 6, minute: 60, hour: 3600 };
 
@@ -165,6 +165,8 @@ export const zoneAffects = (
   disposition: number,
 ): boolean => {
   if (!who || who === "all") return true;
+  // Inoculated creatures are decided by the caster's list, not disposition; the runtime checks it
+  if (who === "inoculated") return false;
   const same = disposition === casterDisposition;
   return who === "allies" ? same : !same && disposition !== 0;
 };
@@ -526,9 +528,27 @@ export const parseImbuements = (html: string): { sphere: string; entries: ImbueE
  * @param role - The action's part
  * @param max - The prodigy's maximum length
  */
-export const applySequenceRole = (s: SequenceState, role: string | undefined, max: number): SequenceState => {
+export const applySequenceRole = (
+  s: SequenceState,
+  role: string | undefined,
+  max: number,
+): SequenceState => {
   if (role === "finisher") return { length: 0, linked: false, imbue: "" };
-  if (role === "opener") return s.length > 0 ? addLinks(s, 1, max) : { ...s, length: Math.min(1, max), linked: true };
+  if (role === "opener")
+    return s.length > 0 ? addLinks(s, 1, max) : { ...s, length: Math.min(1, max), linked: true };
   if (role === "link" && s.length > 0) return addLinks(s, 1, max);
   return s;
 };
+
+/**
+ * Whether a creature is protected by a scholar's inoculations: the scholar herself or an ally she chose.
+ *
+ * @param casterUuid - The scholar
+ * @param inoculated - The uuids she inoculated
+ * @param uuid - The creature
+ */
+export const isInoculated = (
+  casterUuid: string,
+  inoculated: string[] | undefined,
+  uuid: string,
+): boolean => uuid === casterUuid || (inoculated ?? []).includes(uuid);
