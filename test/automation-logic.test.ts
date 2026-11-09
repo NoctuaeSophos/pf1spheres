@@ -301,8 +301,19 @@ describe("leadership", () => {
     expect(cohortMaxLevel(10, 16)).toBe(7);
   });
   it("reads followers from the table, capped at its last row", () => {
-    expect(followersAllowed(30)).toEqual([135, 13, 7, 4, 2, 2]);
+    expect(followersAllowed(25)).toEqual([135, 13, 7, 4, 2, 2]);
     expect(followersAllowed(13)).toEqual([10, 1, 0, 0, 0, 0]);
     expect(followersAllowed(5)).toEqual([0, 0, 0, 0, 0, 0]);
+  });
+});
+
+describe("high leadership scores (Ultimate Intrigue)", () => {
+  it("matches the rule's worked scores of 26 and 27", () => {
+    expect(followersAllowed(26)).toEqual([168, 16, 8, 4, 2, 2]);
+    expect(followersAllowed(27)).toEqual([202, 20, 10, 5, 3, 2]);
+  });
+  it("keeps multiplying past 27", () => {
+    expect(followersAllowed(30)).toEqual([378, 37, 19, 10, 5, 3]);
+    expect(followersAllowed(29)).toEqual([303, 30, 15, 8, 4, 2]);
   });
 });

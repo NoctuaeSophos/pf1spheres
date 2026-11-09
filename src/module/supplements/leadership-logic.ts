@@ -88,6 +88,25 @@ export const leadershipScores = (i: LeadershipInput) => {
 export const cohortMaxLevel = (cohortScore: number, leaderLevel: number) =>
   Math.max(0, Math.min(row(cohortScore)[0], leaderLevel - 2));
 
+/**
+ * 1st-level followers above a score of 25, by the "High Leadership Scores and Followers" rule (Ultimate
+ * Intrigue p. 130, used at this table): each 2 points multiplies the count by 1.5, rounded down, and an
+ * even score averages its odd neighbours.
+ */
+const highFirst = (score: number): number => {
+  if (score <= 25) return 135;
+  if (score % 2 === 1) return Math.floor(highFirst(score - 2) * 1.5);
+  return Math.floor((highFirst(score - 1) + highFirst(score + 1)) / 2);
+};
+
 /** Followers allowed at each level 1 to 6 */
-export const followersAllowed = (followerScore: number) =>
-  [0, 1, 2, 3, 4, 5].map((n) => row(followerScore)[1][n] ?? 0);
+export const followersAllowed = (followerScore: number): number[] => {
+  const score = Math.floor(followerScore);
+  if (score <= 25) return [0, 1, 2, 3, 4, 5].map((n) => row(score)[1][n] ?? 0);
+  // Above 25: 2nd level is a tenth of 1st, and each level after is half the one before, rounded up
+  const first = highFirst(score);
+  const counts = [first, Math.floor(first / 10)];
+  for (let n = 2; n < 6; n++) counts.push(Math.ceil(counts[n - 1] / 2));
+  if (score === 26) counts[5] = 2;
+  return counts;
+};
