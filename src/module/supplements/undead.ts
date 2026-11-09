@@ -22,7 +22,10 @@ const CHANNEL_CLASSES = ["cleric", "oracle", "warpriest", "antipaladin", "necrom
 
 /** The actor's pool sources: Death sphere, animate dead in a spellbook, Command Undead */
 const sources = (a) => {
-  const hasDeath = a.items.some((i) => i.name === "Death Sphere");
+  // Necromantic Limit taken as "no reanimate" (Ghastly Powers flags it) leaves no reanimate pool
+  const hasDeath =
+    a.items.some((i) => i.name === "Death Sphere") &&
+    !a.items.some((i) => i.flags?.[MODULE_ID]?.noReanimate);
   // Temporary caster level boosts (buffs such as Draw Magic) don't raise the limit
   const temp = [...(a.changes ?? [])]
     .filter((c) => c.parent?.type === "buff" && ["spherecl", "sphereclDeath"].includes(c.target))

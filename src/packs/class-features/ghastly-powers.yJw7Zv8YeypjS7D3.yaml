@@ -7,6 +7,7 @@ flags:
     addedIn: fork
     sphere: death
     crypticClassLevel: mageknight
+    noReanimate: true
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/death.webp
 name: Ghastly Powers
