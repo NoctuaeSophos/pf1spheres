@@ -221,3 +221,18 @@
     grid-template-columns: repeat(7, minmax(0, 1fr));
   }
 }
+
+// Spell pool and martial focus row on the Spheres tab
+.tab.spheres .spheres-resources {
+  gap: 1em;
+  margin: 0.25em 0 0.5em;
+  .form-group {
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0.4em;
+  }
+  .spell-points input {
+    width: 3.5em;
+    text-align: center;
+  }
+}

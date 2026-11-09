@@ -65,6 +65,8 @@ export const onActorBasePreparation = (actor: ActorPF): void => {
 
   // Set base MSB and MSD
   sphereData.msb.base = baseMSB;
+  // Spell pools from all casting classes stack, so the base is the sum of casting class levels
+  sphereData.spellPoints.base = baseMSB;
   sphereData.msd.base = baseMSB + 11;
 
   // Base Caster Level after fractional BAB check
@@ -179,6 +181,8 @@ const getBlankSphereData = (): PF1ActorSpheresData => {
     msd: valueDataTemplate(),
     concentration: totalTemplate(),
     bab: fillSpheres(Object.keys(pf1s.config.combatSpheres) as CombatSphere[], totalModTemplate),
+    spellPoints: { base: 0, bonus: 0, max: 0, value: 0 },
+    martialFocus: 0,
     talents: {
       ...fillSpheres(
         [
@@ -190,6 +194,37 @@ const getBlankSphereData = (): PF1ActorSpheresData => {
       ),
     },
   };
+};
+
+/**
+ * Finishes spell pool and martial focus data once Changes (and with them the CAM) are applied.
+ *
+ * @param actor - The actor whose data is being prepared
+ */
+export const onActorDerivedPreparation = (actor: ActorPF): void => {
+  const sphereData = actor.system.spheres;
+  if (!sphereData) return;
+  const pool = sphereData.spellPoints;
+  const casting = pool.base > 0 ? Math.max(1, pool.base + sphereData.cam) : 0;
+  pool.max = Math.max(0, casting + pool.bonus);
+  const stored = actor.flags.pf1spheres?.spellPoints;
+  pool.value = Math.min(pool.max, Math.max(0, typeof stored === "number" ? stored : pool.max));
+  sphereData.martialFocus = actor.flags.pf1spheres?.martialFocus === true ? 1 : 0;
+};
+
+/**
+ * Refills the spell pool when the actor rests and restores daily uses.
+ *
+ * @param actor - The resting actor
+ * @param options - The rest options
+ */
+export const onActorRest = (actor: ActorPF, options: { restoreDailyUses?: boolean }): void => {
+  if (options.restoreDailyUses === false) return;
+  if (!actor.isOwner) return;
+  const max = actor.system.spheres?.spellPoints.max ?? 0;
+  if (max > 0 && actor.flags.pf1spheres?.spellPoints !== max) {
+    actor.update({ "flags.pf1spheres.spellPoints": max });
+  }
 };
 
 export interface ItemSphereClData {

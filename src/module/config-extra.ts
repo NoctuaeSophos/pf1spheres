@@ -75,6 +75,11 @@ export const PF1CONFIG_EXTRA = {
       category: "sphereValues",
       sort: 45751,
     },
+    spellPoints: {
+      label: "PF1SPHERES.SpellPoints",
+      category: "sphereValues",
+      sort: 45760,
+    },
     "~spherebabBase": {
       label: "PF1.BAB",
       category: "sphereValues",

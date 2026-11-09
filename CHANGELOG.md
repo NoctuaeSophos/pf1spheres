@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.9.4](https://github.com/NoctuaeSophos/pf1spheres/compare/v0.9.3...v0.9.4) (2026-11-08)
+
+### Features
+
+* spell pool tracking: the pool is the total of all casting class levels plus the casting ability modifier (minimum 1), counted once across multiclassing; a new "Spell Points" Change target adds extra points (Extra Spell Points, the scholar's timepiece). The Spheres tab shows remaining points, editable, and pf1's rest refills them. Formulas can read `@spheres.spellPoints.value` and `@spheres.spellPoints.max`
+* martial focus toggle on the Spheres tab, readable as `@spheres.martialFocus` (1 or 0)
+
 ## [0.9.3](https://github.com/NoctuaeSophos/pf1spheres/compare/v0.9.2...v0.9.3) (2026-11-08)
 
 ### Features

@@ -14,7 +14,7 @@
 import { registerSettings } from "./settings";
 import { preloadTemplates } from "./preloadTemplates";
 import { onItemSheetRender } from "./item-sheet";
-import { onActorBasePreparation } from "./actor";
+import { onActorBasePreparation, onActorDerivedPreparation, onActorRest } from "./actor";
 import { localizeChanges, onAddDefaultChanges, onGetChangeFlat, registerChanges } from "./changes";
 import { MODULE_ID, getGame } from "./util";
 import type { PF1ModuleData } from "./common-data";
@@ -201,6 +201,10 @@ Hooks.on("renderChangeEditor", onChangeEditorRender);
 Hooks.on("getActorSheetPFHeaderButtons", onActorSheetHeaderButtons);
 
 Hooks.on("pf1PrepareBaseActorData", onActorBasePreparation);
+
+Hooks.on("pf1PrepareDerivedActorData", onActorDerivedPreparation);
+
+Hooks.on("pf1ActorRest", onActorRest);
 
 Hooks.on("pf1GetChangeFlat", onGetChangeFlat);
 

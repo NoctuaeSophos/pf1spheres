@@ -183,6 +183,8 @@ const getSpheresData = (app: ActorSheetPF, actor: ActorPF): SpheresTemplateData 
   return {
     dataGroup: "primary",
     attributeGrid,
+    spellPoints: { value: spheres.spellPoints.value, max: spheres.spellPoints.max },
+    martialFocus: spheres.martialFocus === 1,
     sphereCLs,
     sphereBabs,
     allSpheres: [...sphereCLs, ...sphereBabs].sort((a, b) => a.sphere.localeCompare(b.sphere)),
@@ -339,6 +341,8 @@ export declare class ActorSheetPF extends ActorSheet {
 interface SpheresTemplateData {
   dataGroup: string;
   attributeGrid: AttributeData[];
+  spellPoints: { value: number; max: number };
+  martialFocus: boolean;
   sphereCLs: SphereData[];
   sphereBabs: SphereData[];
   allSpheres: SphereData[];

@@ -1711,6 +1711,7 @@ exports[`Actor base data preparation with fractional base bonuses > matches the 
       "concentration": {
         "total": 0,
       },
+      "martialFocus": 0,
       "msb": {
         "base": 6,
         "modCap": 0,
@@ -1723,6 +1724,12 @@ exports[`Actor base data preparation with fractional base bonuses > matches the 
       },
       "oam": 0,
       "pam": 0,
+      "spellPoints": {
+        "base": 6,
+        "bonus": 0,
+        "max": 0,
+        "value": 0,
+      },
       "talents": {
         "alchemy": {
           "excluded": 0,
@@ -3819,6 +3826,7 @@ exports[`Actor base data preparation without fractional base bonuses > matches t
       "concentration": {
         "total": 0,
       },
+      "martialFocus": 0,
       "msb": {
         "base": 6,
         "modCap": 0,
@@ -3831,6 +3839,12 @@ exports[`Actor base data preparation without fractional base bonuses > matches t
       },
       "oam": 0,
       "pam": 0,
+      "spellPoints": {
+        "base": 6,
+        "bonus": 0,
+        "max": 0,
+        "value": 0,
+      },
       "talents": {
         "alchemy": {
           "excluded": 0,

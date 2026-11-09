@@ -129,6 +129,10 @@ export const getChangeFlatTargets = (): Record<SphereChangeTarget, ChangeFlatTar
   sphereConcentration: {
     default: ["system.spheres.concentration.total"],
   },
+  // Extra spell points (feats like Extra Spell Points, the scholar's timepiece)
+  spellPoints: {
+    default: ["system.spheres.spellPoints.bonus"],
+  },
   // MSD
   msd: {
     default: ["system.spheres.msd.total"],

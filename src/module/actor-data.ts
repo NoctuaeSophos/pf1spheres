@@ -33,6 +33,10 @@ export interface SpheresActorFlags {
   operativeAbility?: Ability | "";
   /** Whether the actor sheet shows the Spheres tab; hidden unless enabled */
   showSpheresTab?: boolean;
+  /** Remaining spell points; undefined means a full pool */
+  spellPoints?: number;
+  /** Whether the actor currently has martial focus */
+  martialFocus?: boolean;
 }
 
 export declare class ActorPF extends Actor {
@@ -90,6 +94,10 @@ export interface PF1ActorSpheresData {
   msd: ValueData<number>;
   bab: CombatSpheresRecord;
   talents: SpheresTalentsRecord;
+  /** Spell pool: casting class levels + CAM (minimum 1), plus Changes to the spellPoints target */
+  spellPoints: { base: number; bonus: number; max: number; value: number };
+  /** 1 while the actor has martial focus, else 0 */
+  martialFocus: number;
 }
 
 type MagicSpheresRecord = {
