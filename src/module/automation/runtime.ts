@@ -16,6 +16,7 @@ import {
   alignmentMatches,
   distanceFt,
   edgeCrossing,
+  effectLabel,
   durationSeconds,
   fillNote,
   hasAutomation,
@@ -411,14 +412,20 @@ export async function syncZones(scene) {
       const source = z.buffData ?? fromUuidSync(z.buffUuid);
       if (!source) continue;
       const boost = boosted.get(z.id) ?? 0;
+      // Named for the caster, as applied buffs are, and the squadron bonus when it has one
+      const caster = fromUuidSync(z.casterUuid);
+      const from = [
+        z.casterUuid !== actor.uuid ? caster?.token?.name ?? caster?.name : null,
+        boost ? loc("Squadron") : null,
+      ].filter(Boolean);
       const data = buffCopy(
         source,
         z.level,
-        `${source.name} (${z.name}${boost ? `, ${loc("Squadron")}` : ""})`,
+        from.length ? `${source.name} (${from.join(", ")})` : source.name,
         {
           zoneBuff: { sceneId: scene.id, zoneId: z.id, boost },
         },
-        fromUuidSync(z.casterUuid),
+        caster,
       );
       if (boost) data.system.changes = boostTotemChanges(data.system.changes ?? [], boost);
       await actor.createEmbeddedDocuments("Item", [data]);
@@ -791,7 +798,7 @@ async function onPostActionUse(au) {
   const concentration = auto.effect?.enabled ? auto.effect.concentration === true : false;
   const effect: TrackedEffect = {
     id: foundry.utils.randomID(),
-    name: action.name && action.name !== item.name ? `${item.name}: ${action.name}` : item.name,
+    name: effectLabel(item.name, action.name),
     img: item.img,
     itemUuid: item.uuid,
     actionId: action.id,

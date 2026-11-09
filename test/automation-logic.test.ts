@@ -40,6 +40,7 @@ import {
   zoneAffects,
   alignmentMatches,
   edgeCrossing,
+  effectLabel,
   pinCasterLevels,
 } from "../src/module/automation/logic";
 import type { Grant } from "../src/module/automation/logic";
@@ -380,6 +381,17 @@ describe("wards and totems", () => {
     expect(edgeCrossing(true, false, "both")).toBe("leave");
     expect(edgeCrossing(true, true, "both")).toBe(null);
     expect(edgeCrossing(false, true, "")).toBe(null);
+  });
+  it("names effects without repeating the talent", () => {
+    expect(effectLabel("Totem Of Stability", "Totem of Stability")).toBe("Totem of Stability");
+    expect(effectLabel("Totem Of Allegiance", "Totem of Allegiance (Lawful)")).toBe(
+      "Totem of Allegiance (Lawful)",
+    );
+    expect(effectLabel("Repel Chaos/Evil/Good/Law", "Repel Chaos")).toBe("Repel Chaos");
+    expect(effectLabel("Resistance", "Resistance Aegis")).toBe("Resistance Aegis");
+    expect(effectLabel("War Sphere", "Totem of War")).toBe("War Sphere: Totem of War");
+    expect(effectLabel("Flashbangs", "Throw")).toBe("Flashbangs: Throw");
+    expect(effectLabel("Flashbangs", undefined)).toBe("Flashbangs");
   });
   it("pins the caster's sphere values", () => {
     const v = { "cl.protection.total": 9, "cl.total": 12, cam: 4, "msd.total": 20 };

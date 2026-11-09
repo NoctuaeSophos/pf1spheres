@@ -202,6 +202,18 @@ export const alignmentMatches = (
   return c[1] === (align === "good" ? "g" : "e");
 };
 
+/**
+ * The name of an action's tracked effect: the action's own name when it already names the talent
+ * (Totem of Allegiance (Lawful), Repel Chaos, Resistance Aegis), else "Talent: Action".
+ */
+export const effectLabel = (itemName: string, actionName: string | undefined): string => {
+  if (!actionName) return itemName;
+  const a = actionName.toLowerCase();
+  const i = itemName.toLowerCase();
+  if (a === i || a.split(/\s+/)[0] === i.split(/[\s/]+/)[0]) return actionName;
+  return `${itemName}: ${actionName}`;
+};
+
 /** Which way a move crosses an area's edge, if it does and the area watches that direction */
 export const edgeCrossing = (
   wasInside: boolean,
