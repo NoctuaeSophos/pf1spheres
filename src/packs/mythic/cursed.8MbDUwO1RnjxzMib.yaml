@@ -83,11 +83,12 @@ system:
   showInQuickbar: false
   simple: false
   soundEffect: ""
-  subType: classFeat
+  subType: mythic
   summons: false
   tag: ""
   tags:
     - Mythic Tradition Drawback
+    - Mythic
   target:
     value: ""
   traitCategory: ""

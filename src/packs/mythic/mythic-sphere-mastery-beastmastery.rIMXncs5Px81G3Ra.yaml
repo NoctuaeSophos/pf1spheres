@@ -85,13 +85,14 @@ system:
   showInQuickbar: false
   simple: false
   soundEffect: ""
-  subType: classFeat
+  subType: mythic
   summons: false
   tag: ""
   tags:
     - Mythic Sphere Mastery
     - Path Ability
     - Path Feature
+    - Mythic
   target:
     value: ""
   traitCategory: ""

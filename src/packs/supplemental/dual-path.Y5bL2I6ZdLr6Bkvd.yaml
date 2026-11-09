@@ -7,7 +7,7 @@ flags:
     addedIn: fork
 folder: null
 img: icons/svg/item-bag.svg
-name: Dual Path
+name: Dual Path (Mythic)
 sort: 0
 system:
   ability:
@@ -85,11 +85,12 @@ system:
   showInQuickbar: false
   simple: false
   soundEffect: ""
-  subType: feat
+  subType: mythic
   summons: false
   tag: ""
   tags:
     - Mythic Feat
+    - Mythic
   target:
     value: ""
   traitCategory: ""

@@ -84,11 +84,12 @@ system:
   showInQuickbar: false
   simple: false
   soundEffect: ""
-  subType: feat
+  subType: mythic
   summons: false
   tag: ""
   tags:
     - Mythic Feat
+    - Mythic
   target:
     value: ""
   traitCategory: ""

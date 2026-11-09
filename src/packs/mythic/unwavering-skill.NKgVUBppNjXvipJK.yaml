@@ -83,11 +83,13 @@ system:
   showInQuickbar: false
   simple: false
   soundEffect: ""
-  subType: classFeat
+  subType: mythic
   summons: false
   tag: ""
   tags:
     - Gifted
+    - Mythic
+    - Path Ability
   target:
     value: ""
   traitCategory: ""

@@ -85,11 +85,12 @@ system:
   showInQuickbar: false
   simple: false
   soundEffect: ""
-  subType: classFeat
+  subType: mythic
   summons: false
   tag: ""
   tags:
-    - Mythic Ability
+    - Mythic
+    - Base Mythic Ability
     - Optional Rule
   target:
     value: ""

@@ -94,12 +94,15 @@ system:
   showInQuickbar: false
   simple: false
   soundEffect: ""
-  subType: classFeat
+  subType: mythic
   summons: false
   tag: ""
   tags:
     - Gifted
     - Mythic Sphere Mastery
+    - Mythic
+    - Path Feature
+    - Path Ability
   target:
     value: ""
   traitCategory: ""

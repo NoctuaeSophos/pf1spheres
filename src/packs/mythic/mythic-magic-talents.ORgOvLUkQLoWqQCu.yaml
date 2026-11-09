@@ -87,11 +87,13 @@ system:
   showInQuickbar: false
   simple: false
   soundEffect: ""
-  subType: classFeat
+  subType: mythic
   summons: false
   tag: ""
   tags:
     - Spheremaster
+    - Mythic
+    - Path Ability
   target:
     value: ""
   traitCategory: ""

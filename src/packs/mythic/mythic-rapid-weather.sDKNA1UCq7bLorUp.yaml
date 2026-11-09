@@ -84,12 +84,14 @@ system:
   showInQuickbar: false
   simple: false
   soundEffect: ""
-  subType: classFeat
+  subType: mythic
   summons: false
   tag: ""
   tags:
     - Mythic Class Feature
     - Tempestarii
+    - Mythic
+    - Path Ability
   target:
     value: ""
   traitCategory: ""

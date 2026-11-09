@@ -94,12 +94,13 @@ system:
   showInQuickbar: false
   simple: false
   soundEffect: ""
-  subType: classFeat
+  subType: mythic
   summons: false
   tag: ""
   tags:
     - Mythic Sphere Talent
     - Path Ability
+    - Mythic
   target:
     value: ""
   traitCategory: ""
