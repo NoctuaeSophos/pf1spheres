@@ -1,5 +1,5 @@
 _id: K3ixqSlNOyLLbixE
-_key: '!items!K3ixqSlNOyLLbixE'
+_key: "!items!K3ixqSlNOyLLbixE"
 effects: []
 flags:
   pf1: {}
@@ -11,7 +11,7 @@ img: icons/svg/item-bag.svg
 name: Tempestarii
 sort: 0
 system:
-  alignment: ''
+  alignment: ""
   armorProf: []
   bab: low
   changeFlags:
@@ -64,10 +64,10 @@ system:
     swm: false
     umd: false
   contextNotes: []
-  customHD: ''
+  customHD: ""
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p>Prestige class for weather mages who command the skies, from speeding
       an airship along to tearing an enemy vessel down.</p><p><strong>Requirements:</strong>
       caster level 5 with the Weather sphere; the Weather sphere; 5 ranks in Knowledge
@@ -82,7 +82,7 @@ system:
       text</a></p>'
   fc:
     alt:
-      notes: ''
+      notes: ""
       value: 0
     hp:
       value: 0
@@ -98,36 +98,36 @@ system:
   links:
     children: []
     classAssociations:
-    - level: 1
-      name: Weapon and Armor Proficiency (Tempestarii)
-      uuid: Compendium.pf1spheres.class-features.Item.DEfxgcjfgCV87gCV
-    - level: 1
-      name: Casting (Tempestarii)
-      uuid: Compendium.pf1spheres.class-features.Item.P366bWRFy75gpLja
-    - level: 1
-      name: Spell Pool (Tempestarii)
-      uuid: Compendium.pf1spheres.class-features.Item.hXuYPM4VR8HW5Vkj
-    - level: 1
-      name: Magic Talents (Tempestarii)
-      uuid: Compendium.pf1spheres.class-features.Item.FKKofm6dvkMFEwp1
-    - level: 1
-      name: Rapid Weather
-      uuid: Compendium.pf1spheres.class-features.Item.NsrvLhJvRwXMHPT0
-    - level: 2
-      name: Ship Smasher
-      uuid: Compendium.pf1spheres.class-features.Item.W0ZdaURSS0nIhpsO
-    - level: 3
-      name: Grand Weather
-      uuid: Compendium.pf1spheres.class-features.Item.zIzE6kHNiYwQF2jt
-    - level: 4
-      name: Ship Killer
-      uuid: Compendium.pf1spheres.class-features.Item.KPM7PIKGqIQIPj2K
-    - level: 5
-      name: Deadly Weather
-      uuid: Compendium.pf1spheres.class-features.Item.jldEGg3BEQy7uL1h
-    - level: 5
-      name: Instant Weather
-      uuid: Compendium.pf1spheres.class-features.Item.BSrgIXqxtkxwCbVJ
+      - level: 1
+        name: Weapon and Armor Proficiency (Tempestarii)
+        uuid: Compendium.pf1spheres.class-features.Item.DEfxgcjfgCV87gCV
+      - level: 1
+        name: Casting (Tempestarii)
+        uuid: Compendium.pf1spheres.class-features.Item.P366bWRFy75gpLja
+      - level: 1
+        name: Spell Pool (Tempestarii)
+        uuid: Compendium.pf1spheres.class-features.Item.hXuYPM4VR8HW5Vkj
+      - level: 1
+        name: Magic Talents (Tempestarii)
+        uuid: Compendium.pf1spheres.class-features.Item.FKKofm6dvkMFEwp1
+      - level: 1
+        name: Rapid Weather
+        uuid: Compendium.pf1spheres.class-features.Item.NsrvLhJvRwXMHPT0
+      - level: 2
+        name: Ship Smasher
+        uuid: Compendium.pf1spheres.class-features.Item.W0ZdaURSS0nIhpsO
+      - level: 3
+        name: Grand Weather
+        uuid: Compendium.pf1spheres.class-features.Item.zIzE6kHNiYwQF2jt
+      - level: 4
+        name: Ship Killer
+        uuid: Compendium.pf1spheres.class-features.Item.KPM7PIKGqIQIPj2K
+      - level: 5
+        name: Deadly Weather
+        uuid: Compendium.pf1spheres.class-features.Item.jldEGg3BEQy7uL1h
+      - level: 5
+        name: Instant Weather
+        uuid: Compendium.pf1spheres.class-features.Item.BSrgIXqxtkxwCbVJ
   savingThrows:
     fort:
       value: low
@@ -138,9 +138,9 @@ system:
   scriptCalls: []
   skillsPerLevel: 4
   subType: prestige
-  tag: ''
+  tag: ""
   tags:
-  - Tempestarii
-  wealth: ''
+    - Tempestarii
+  wealth: ""
   weaponProf: []
 type: class

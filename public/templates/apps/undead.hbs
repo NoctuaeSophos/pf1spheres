@@ -1,0 +1,38 @@
+{{!--<!--
+SPDX-FileCopyrightText: 2026 NoctuaeSophos
+SPDX-License-Identifier: EUPL-1.2
+-->--}}
+<section class="undead-panel">
+    {{#each pools as |p|}}
+    <fieldset>
+        <legend>{{p.label}}: <span class="{{#if p.over}}undead-over{{/if}}">{{p.used}} / {{p.limit}} {{localize "PF1SPHERES.Undead.HD"}}</span></legend>
+        <p class="hint">{{p.hint}}</p>
+        <div class="form-group">
+            <label>{{localize "PF1SPHERES.Undead.Bonus"}}</label>
+            <div class="form-fields"><span>{{p.base}} +</span><input type="number" name="bonus.{{p.key}}" value="{{p.bonus}}" step="1"></div>
+        </div>
+        <table class="undead-list">
+            <thead><tr><th>{{localize "PF1SPHERES.Undead.Name"}}</th><th>{{localize "PF1SPHERES.Undead.HD"}}</th>{{#if p.canHalve}}<th>{{localize "PF1SPHERES.Undead.Sustained"}}</th>{{/if}}<th></th></tr></thead>
+            <tbody>
+            {{#each p.minions as |m|}}
+                <tr>
+                    <td><a data-action="open" data-index="{{m.index}}" class="{{#if m.missing}}undead-missing{{/if}}">{{m.name}}</a></td>
+                    <td>{{m.counted}}{{#if m.half}} ({{m.hd}}){{/if}}</td>
+                    {{#if p.canHalve}}<td><input type="checkbox" name="half.{{m.index}}" {{#if m.half}}checked{{/if}} {{#unless ../../editable}}disabled{{/unless}}></td>{{/if}}
+                    <td>{{#if ../../editable}}<a data-action="remove" data-index="{{m.index}}" data-tooltip="PF1SPHERES.Undead.Remove"><i class="fas fa-trash"></i></a>{{/if}}</td>
+                </tr>
+            {{else}}
+                <tr><td colspan="4"><em>{{localize "PF1SPHERES.Undead.None"}}</em></td></tr>
+            {{/each}}
+            </tbody>
+        </table>
+        {{#if ../editable}}<button type="button" data-action="addTargets" data-pool="{{p.key}}"><i class="fas fa-crosshairs"></i> {{localize "PF1SPHERES.Undead.AddTargets"}}</button>{{/if}}
+    </fieldset>
+    {{else}}
+    <p class="hint">{{localize "PF1SPHERES.Undead.NoPools"}}</p>
+    {{/each}}
+    <div class="form-group stacked">
+        <label>{{localize "PF1SPHERES.Undead.Notes"}}</label>
+        <textarea name="notes" rows="3">{{notes}}</textarea>
+    </div>
+</section>

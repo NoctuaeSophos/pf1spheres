@@ -1,5 +1,5 @@
 _id: Sbep8WP1JHJi8Smf
-_key: '!items!Sbep8WP1JHJi8Smf'
+_key: "!items!Sbep8WP1JHJi8Smf"
 flags:
   pf1: {}
   pf1spheres:
@@ -23,14 +23,14 @@ system:
   links:
     children: []
     classAssociations:
-    - level: 1
-      name: Gifted Mythic Path
-      uuid: Compendium.pf1spheres.mythic.Item.fhM9yEJJMEADtc54
+      - level: 1
+        name: Gifted Mythic Path
+        uuid: Compendium.pf1spheres.mythic.Item.fhM9yEJJMEADtc54
   sources:
-  - id: PZO1126
-    pages: '14'
+    - id: PZO1126
+      pages: "14"
   subType: mythic
-  tag: ''
+  tag: ""
   tags:
-  - Mythic Path
+    - Mythic Path
 type: class

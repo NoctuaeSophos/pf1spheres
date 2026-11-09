@@ -7,6 +7,8 @@
 import type { ActorPF, PF1ActorSpheresData, SpheresTalentsRecord } from "./actor-data";
 import { SpheresActorSettings } from "./apps/SpheresActorSettings";
 import { hasLeadership, openLeadership } from "./supplements/leadership";
+import { hasUndeadPools, openUndead } from "./supplements/undead";
+import { corruptionItem, openCorruption } from "./supplements/corruption";
 import type { CombatSphere, ItemPF, MagicSphere, Sphere } from "./item-data";
 import { enforce, getGame, localize } from "./util";
 import { setSpellPoints } from "./actor";
@@ -41,7 +43,6 @@ import {
   parseImbuements,
   sequenceMax,
   squadronSize,
-  undeadHDLimit,
 } from "./automation/logic";
 
 const effectIdOf = (ev: JQuery.ClickEvent) =>
@@ -67,6 +68,23 @@ export const onActorSheetHeaderButtons = (
         icon: "fas fa-flag",
         label: localize("Leadership.Button"),
         onclick: (_) => openLeadership(actor),
+      });
+    }
+    // Not only Spheres features (see supplements/undead.ts and supplements/corruption.ts)
+    if (hasUndeadPools(actor)) {
+      buttons.unshift({
+        class: "pf1spheres-undead",
+        icon: "fas fa-skull",
+        label: localize("Undead.Button"),
+        onclick: (_) => openUndead(actor),
+      });
+    }
+    if (corruptionItem(actor)) {
+      buttons.unshift({
+        class: "pf1spheres-corruption",
+        icon: "fas fa-ghost",
+        label: localize("Corruption.Button"),
+        onclick: (_) => openCorruption(actor),
       });
     }
   }
@@ -340,30 +358,7 @@ const getAllyLists = (actor: ActorPF) => {
       names: names("squadron"),
     });
   }
-  // Reanimated undead count by Hit Dice against the Death caster's limit
-  if (a.items.some((i: any) => i.name === "Death Sphere")) {
-    const hd = (d: any) => Number(d?.system?.attributes?.hd?.total ?? 0) || 0;
-    const docs = (a.flags?.pf1spheres?.undead ?? []).map((u: string) => g.fromUuidSync(u));
-    lists.push({
-      key: "undead",
-      label: localize("Auto.Undead"),
-      unit: "hd",
-      // Temporary caster level boosts (buffs such as Draw Magic) don't raise the limit
-      max: undeadHDLimit(
-        (a.system.spheres?.cl?.death?.total ?? 0) -
-          [...(a.changes ?? [])]
-            .filter(
-              (c: any) =>
-                c.parent?.type === "buff" && ["spherecl", "sphereclDeath"].includes(c.target),
-            )
-            .reduce((sum: number, c: any) => sum + (Number(c.value) || 0), 0),
-        a.items.filter((i: any) => i.name === "Greater Reanimate").length,
-      ),
-      names: docs.map((d: any) => (d ? `${d.name} (${hd(d)} HD)` : "?")),
-      hd: docs.reduce((sum: number, d: any) => sum + hd(d), 0),
-    });
-  }
-  return lists.map((l: any) => ({ ...l, count: l.unit === "hd" ? l.hd : l.names.length }));
+  return lists.map((l) => ({ ...l, count: l.names.length }));
 };
 
 /** Sets an ally list from the user's targets, within its size limit */
@@ -378,18 +373,7 @@ const setAlliesFromTargets = async (actor: ActorPF, key: string) => {
     .map((t: any) => t.actor?.uuid)
     .filter((u: string) => u && u !== a.uuid);
   if (!uuids.length) return g.ui.notifications.warn(localize("Auto.AlliesNone"));
-  if ((list as any).unit === "hd") {
-    const total = [...g.game.user.targets]
-      .filter((t: any) => t.actor && t.actor.uuid !== a.uuid)
-      .reduce(
-        (sum: number, t: any) => sum + (Number(t.actor.system?.attributes?.hd?.total) || 0),
-        0,
-      );
-    if (total > list.max)
-      return g.ui.notifications.warn(
-        g.game.i18n.format("PF1SPHERES.Auto.UndeadTooMany", { max: list.max, total }),
-      );
-  } else if (uuids.length > list.max)
+  if (uuids.length > list.max)
     return g.ui.notifications.warn(
       g.game.i18n.format("PF1SPHERES.Auto.AlliesTooMany", { max: list.max, list: list.label }),
     );

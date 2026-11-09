@@ -5,6 +5,7 @@ flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    corruption: possessed
 folder: null
 img: icons/svg/item-bag.svg
 name: Possessed (corruption)
@@ -55,7 +56,8 @@ system:
       +2 for each earlier attempt that day). On a failure the corruption advances:
       at stage 1 your alignment shifts toward the spirit''s and it controls you until
       sunrise; at stage 2 your alignment changes; at stage 3 you become an NPC.</p><p>You
-      gain manifestations as your corruption grows, roughly one every 2 levels.</p><p><em>Source:
+      gain manifestations as your corruption grows, roughly one every 2 levels.</p><p>Track
+      the spirit with the Corruption button on the character sheet.</p><p><em>Source:
       Pathfinder RPG Horror Adventures.</em> <a href="https://aonprd.com/CorruptionsDisplay.aspx?ItemName=Possessed">Full
       text</a></p>'
   disabled: false
@@ -99,8 +101,8 @@ system:
   traitType: ""
   uses:
     autoDeductChargesCost: "1"
-    maxFormula: "5"
-    per: day
+    maxFormula: ""
+    per: null
     rechargeFormula: ""
     value: 0
   weaponProf: []

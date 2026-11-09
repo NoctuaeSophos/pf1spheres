@@ -1,0 +1,28 @@
+{{!--<!--
+SPDX-FileCopyrightText: 2026 NoctuaeSophos
+SPDX-License-Identifier: EUPL-1.2
+-->--}}
+<section class="corruption-panel">
+    <fieldset>
+        <legend>{{localize "PF1SPHERES.Corruption.Influence"}}: {{s.influence}} / {{max}}</legend>
+        <div class="corruption-pips">
+            {{#each pips}}<i class="{{#if this}}fas{{else}}far{{/if}} fa-circle"></i>{{/each}}
+            {{#if editable}}
+            <button type="button" data-action="less" data-tooltip="PF1SPHERES.Corruption.Less"><i class="fas fa-minus"></i></button>
+            <button type="button" data-action="more" data-tooltip="PF1SPHERES.Corruption.More"><i class="fas fa-plus"></i></button>
+            <button type="button" data-action="sunrise"><i class="fas fa-sun"></i> {{localize "PF1SPHERES.Corruption.Sunrise"}}</button>
+            {{/if}}
+        </div>
+        <p class="hint">{{localize "PF1SPHERES.Corruption.Feeds"}} {{triggers}}.</p>
+        <p class="{{#if full}}corruption-due{{else}}hint{{/if}}">{{localize "PF1SPHERES.Corruption.SaveDC"}}: <strong>{{dc}}</strong>
+            {{#if editable}}<button type="button" data-action="rollSave"><i class="fas fa-dice-d20"></i> {{localize "PF1SPHERES.Corruption.RollSave"}}</button>{{/if}}</p>
+    </fieldset>
+    <div class="form-group"><label>{{localize "PF1SPHERES.Corruption.ManifestationLevel"}}</label><div class="form-fields"><input type="number" name="manifestationLevel" value="{{s.manifestationLevel}}" min="0" step="1"></div></div>
+    <div class="form-group"><label>{{localize "PF1SPHERES.Corruption.Stage"}}</label><div class="form-fields"><select name="stage">{{#each stages as |o|}}<option value="{{o.n}}" {{#if o.selected}}selected{{/if}}>{{o.label}}</option>{{/each}}</select></div></div>
+    <div class="form-group"><label>{{localize "PF1SPHERES.Corruption.Attempts"}}</label><div class="form-fields"><input type="number" name="attempts" value="{{s.attempts}}" min="0" step="1"></div></div>
+    {{#if manifestations.length}}<p class="hint">{{localize "PF1SPHERES.Corruption.Manifestations"}}: {{#each manifestations}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</p>{{/if}}
+    <div class="form-group stacked">
+        <label>{{localize "PF1SPHERES.Corruption.Notes"}}</label>
+        <textarea name="notes" rows="3">{{notes}}</textarea>
+    </div>
+</section>

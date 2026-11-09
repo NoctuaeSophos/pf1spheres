@@ -1,5 +1,5 @@
 _id: Cw1pH85O8SCB6v1S
-_key: '!items!Cw1pH85O8SCB6v1S'
+_key: "!items!Cw1pH85O8SCB6v1S"
 effects: []
 flags:
   pf1: {}
@@ -11,7 +11,7 @@ img: icons/svg/item-bag.svg
 name: Sphere Arcanist
 sort: 0
 system:
-  alignment: ''
+  alignment: ""
   armorProf: []
   bab: low
   changeFlags:
@@ -64,10 +64,10 @@ system:
     swm: false
     umd: true
   contextNotes: []
-  customHD: ''
+  customHD: ""
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p>Spherecasting conversion of the Paizo arcanist: a High-Caster who reshapes
       part of her talent selection every day and burns an arcane reservoir to push
       her sphere effects and exploits.</p><p><strong>Role:</strong> adaptable scholar
@@ -85,7 +85,7 @@ system:
       <a href="http://spheresofpower.wikidot.com/sphere-arcanist">Full text</a></p>'
   fc:
     alt:
-      notes: ''
+      notes: ""
       value: 0
     hp:
       value: 0
@@ -101,36 +101,36 @@ system:
   links:
     children: []
     classAssociations:
-    - level: 1
-      name: Weapon and Armor Proficiency (Sphere Arcanist)
-      uuid: Compendium.pf1spheres.class-features.Item.znq4Zgh02SChs66g
-    - level: 1
-      name: Casting (Sphere Arcanist)
-      uuid: Compendium.pf1spheres.class-features.Item.FusD1IIszT5V6wr2
-    - level: 1
-      name: Spell Pool (Sphere Arcanist)
-      uuid: Compendium.pf1spheres.class-features.Item.NVVc7sa0sUsSrl33
-    - level: 1
-      name: Arcane Reservoir (Sphere Arcanist)
-      uuid: Compendium.pf1spheres.class-features.Item.GGmYlSse6xrivxaf
-    - level: 1
-      name: Moldable Talents
-      uuid: Compendium.pf1spheres.class-features.Item.73MzlpjrddMXWxPA
-    - level: 1
-      name: Arcanist Exploits (Sphere Arcanist)
-      uuid: Compendium.pf1spheres.class-features.Item.x5be8bZLZw2EmmKi
-    - level: 1
-      name: Consume Spells (Sphere Arcanist)
-      uuid: Compendium.pf1spheres.class-features.Item.qQiJ9xHjVZL1divq
-    - level: 2
-      name: Magic Talents (Sphere Arcanist)
-      uuid: Compendium.pf1spheres.class-features.Item.eIFaDIQt16w2WekO
-    - level: 11
-      name: Greater Exploits (Sphere Arcanist)
-      uuid: Compendium.pf1spheres.class-features.Item.0E31C9CPcCAQ2FTV
-    - level: 20
-      name: Magical Supremacy (Sphere Arcanist)
-      uuid: Compendium.pf1spheres.class-features.Item.HFajgq1mpkdQ2rGw
+      - level: 1
+        name: Weapon and Armor Proficiency (Sphere Arcanist)
+        uuid: Compendium.pf1spheres.class-features.Item.znq4Zgh02SChs66g
+      - level: 1
+        name: Casting (Sphere Arcanist)
+        uuid: Compendium.pf1spheres.class-features.Item.FusD1IIszT5V6wr2
+      - level: 1
+        name: Spell Pool (Sphere Arcanist)
+        uuid: Compendium.pf1spheres.class-features.Item.NVVc7sa0sUsSrl33
+      - level: 1
+        name: Arcane Reservoir (Sphere Arcanist)
+        uuid: Compendium.pf1spheres.class-features.Item.GGmYlSse6xrivxaf
+      - level: 1
+        name: Moldable Talents
+        uuid: Compendium.pf1spheres.class-features.Item.73MzlpjrddMXWxPA
+      - level: 1
+        name: Arcanist Exploits (Sphere Arcanist)
+        uuid: Compendium.pf1spheres.class-features.Item.x5be8bZLZw2EmmKi
+      - level: 1
+        name: Consume Spells (Sphere Arcanist)
+        uuid: Compendium.pf1spheres.class-features.Item.qQiJ9xHjVZL1divq
+      - level: 2
+        name: Magic Talents (Sphere Arcanist)
+        uuid: Compendium.pf1spheres.class-features.Item.eIFaDIQt16w2WekO
+      - level: 11
+        name: Greater Exploits (Sphere Arcanist)
+        uuid: Compendium.pf1spheres.class-features.Item.0E31C9CPcCAQ2FTV
+      - level: 20
+        name: Magical Supremacy (Sphere Arcanist)
+        uuid: Compendium.pf1spheres.class-features.Item.HFajgq1mpkdQ2rGw
   savingThrows:
     fort:
       value: low
@@ -141,10 +141,10 @@ system:
   scriptCalls: []
   skillsPerLevel: 2
   subType: base
-  tag: ''
+  tag: ""
   tags:
-  - Sphere Arcanist
-  wealth: ''
+    - Sphere Arcanist
+  wealth: ""
   weaponProf:
-  - simple
+    - simple
 type: class

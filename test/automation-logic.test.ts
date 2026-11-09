@@ -46,6 +46,14 @@ import {
   undeadHDLimit,
 } from "../src/module/automation/logic";
 import type { Grant } from "../src/module/automation/logic";
+import { minionHD, readMinions, undeadPools } from "../src/module/supplements/undead-logic";
+import {
+  addInfluence,
+  afterSave,
+  defaultCorruption,
+  possessedSaveDC,
+  sunrise,
+} from "../src/module/supplements/corruption-logic";
 import {
   cohortMaxLevel,
   followersAllowed,
@@ -420,5 +428,54 @@ describe("death sphere", () => {
     expect(undeadHDLimit(10, 0)).toBe(20);
     expect(undeadHDLimit(10, 1)).toBe(40);
     expect(undeadHDLimit(15, 2)).toBe(75);
+  });
+});
+
+describe("undead pools", () => {
+  it("lists the pools an actor has", () => {
+    const pools = undeadPools({
+      deathCL: 15,
+      greaterReanimate: 2,
+      animateDeadCL: 9,
+      commandUndeadLevel: 7,
+    });
+    expect(pools).toEqual([
+      { key: "reanimate", limit: 75 },
+      { key: "animateDead", limit: 36 },
+      { key: "commandUndead", limit: 7 },
+    ]);
+    expect(
+      undeadPools({
+        deathCL: null,
+        greaterReanimate: 0,
+        animateDeadCL: null,
+        commandUndeadLevel: null,
+      }),
+    ).toEqual([]);
+  });
+  it("counts a sustained undead at half its Hit Dice", () => {
+    expect(minionHD(10)).toBe(10);
+    expect(minionHD(7, true)).toBe(4);
+    expect(minionHD(1, true)).toBe(1);
+  });
+  it("reads the 0.9.11 list", () => {
+    expect(readMinions(["A", "B"]).minions).toEqual([
+      { uuid: "A", pool: "reanimate" },
+      { uuid: "B", pool: "reanimate" },
+    ]);
+  });
+});
+
+describe("possessed corruption", () => {
+  it("raises the save DC with each attempt and caps influence", () => {
+    const s = { ...defaultCorruption(), manifestationLevel: 2 };
+    expect(possessedSaveDC(s)).toBe(17);
+    expect(possessedSaveDC(afterSave(s, false))).toBe(19);
+    expect(addInfluence({ ...s, influence: 5 }).influence).toBe(5);
+    expect(afterSave(s, true).stage).toBe(1);
+    expect(sunrise({ ...s, influence: 4, attempts: 2 })).toMatchObject({
+      influence: 1,
+      attempts: 0,
+    });
   });
 });

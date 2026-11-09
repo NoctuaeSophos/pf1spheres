@@ -1,5 +1,5 @@
 _id: EymBe6udICvapSe1
-_key: '!items!EymBe6udICvapSe1'
+_key: "!items!EymBe6udICvapSe1"
 effects: []
 flags:
   pf1: {}
@@ -22,8 +22,8 @@ system:
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,34 +39,35 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p><strong>Prerequisites:</strong> Spherecasting (the casting class feature).</p><p>Gains
+    instructions: ""
+    unidentified: ""
+    value:
+      '<p><strong>Prerequisites:</strong> Spherecasting (the casting class feature).</p><p>Gains
       one moldable magic talent, which works like the sphere arcanist''s moldable
       talents: it can be swapped for a different sphere or talent whenever she rests
       to regain spell points.</p><p><em>Source: Blood and Portents (wiki tag [BaP]).</em>
       <a href="http://spheresofpower.wikidot.com/witch-hexes#toc9">Full text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -77,26 +78,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: classFeat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Hex
+    - Hex
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

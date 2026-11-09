@@ -40,6 +40,7 @@ import { getWeatherEffects } from "./weather/conditions";
 import { openCasterWeather } from "./weather/caster-app";
 import { registerSocket } from "./socket";
 import { registerAutomation, endEffect, getEffects } from "./automation/runtime";
+import { registerCorruption } from "./supplements/corruption";
 import { registerGrants, syncGrants } from "./automation/grants";
 import { onRenderActionSheet } from "./automation/action-sheet";
 import { buildBlastActions, openFormulae, rollMsbVsTargets } from "./automation/features";
@@ -137,6 +138,7 @@ Hooks.once("init", () => {
   registerSocket();
   registerWeather();
   registerAutomation();
+  registerCorruption();
   registerGrants();
 
   // Call hooks after derived config has been initialised

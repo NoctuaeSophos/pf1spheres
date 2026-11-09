@@ -1,5 +1,5 @@
 _id: aCTM2zZRJfHeZtjM
-_key: '!items!aCTM2zZRJfHeZtjM'
+_key: "!items!aCTM2zZRJfHeZtjM"
 effects: []
 flags:
   pf1: {}
@@ -11,11 +11,11 @@ img: icons/svg/item-bag.svg
 name: Sphere Druid
 sort: 0
 system:
-  alignment: ''
+  alignment: ""
   armorProf:
-  - lgt
-  - med
-  - shl
+    - lgt
+    - med
+    - shl
   bab: med
   changeFlags:
     heavyArmorFullSpeed: false
@@ -67,10 +67,10 @@ system:
     swm: true
     umd: false
   contextNotes: []
-  customHD: ''
+  customHD: ""
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p>Spherecasting conversion of the Paizo druid: a High-Caster guardian
       of the wild who leans on the Nature, Weather and Alteration spheres in place
       of druid spells and wild shape.</p><p><strong>Role:</strong> flexible nature
@@ -91,7 +91,7 @@ system:
       <a href="http://spheresofpower.wikidot.com/sphere-druid">Full text</a></p>'
   fc:
     alt:
-      notes: ''
+      notes: ""
       value: 0
     hp:
       value: 0
@@ -107,54 +107,54 @@ system:
   links:
     children: []
     classAssociations:
-    - level: 1
-      name: Weapon and Armor Proficiency (Sphere Druid)
-      uuid: Compendium.pf1spheres.class-features.Item.xvprpNqWjkKBybQQ
-    - level: 1
-      name: Casting (Sphere Druid)
-      uuid: Compendium.pf1spheres.class-features.Item.7KjcCCNeRBlTV9le
-    - level: 1
-      name: Spell Pool (Sphere Druid)
-      uuid: Compendium.pf1spheres.class-features.Item.xaGoceAI0kkYqFyM
-    - level: 1
-      name: Natural Magic
-      uuid: Compendium.pf1spheres.class-features.Item.81otPeLC5qCUpGD2
-    - level: 1
-      name: Bonus Languages (Sphere Druid)
-      uuid: Compendium.pf1spheres.class-features.Item.OHYXFPhzrC4swZSN
-    - level: 1
-      name: Nature Bond (Sphere Druid)
-      uuid: Compendium.pf1spheres.class-features.Item.jyAYcLZ6qVFh5dkT
-    - level: 1
-      name: Nature Sense (Sphere Druid)
-      uuid: Compendium.pf1spheres.class-features.Item.7X7CxRJIq7qW3zle
-    - level: 1
-      name: Wild Empathy (Sphere Druid)
-      uuid: Compendium.pf1spheres.class-features.Item.49BsepHutnopugK3
-    - level: 2
-      name: Magic Talents (Sphere Druid)
-      uuid: Compendium.pf1spheres.class-features.Item.jUSeS9DR1kaNZxbb
-    - level: 2
-      name: Woodland Stride (Sphere Druid)
-      uuid: Compendium.pf1spheres.class-features.Item.ixGLN7642dDTa6gm
-    - level: 3
-      name: Trackless Step (Sphere Druid)
-      uuid: Compendium.pf1spheres.class-features.Item.eAfLtskLlDNdhhrd
-    - level: 4
-      name: Resist Nature's Lure (Sphere Druid)
-      uuid: Compendium.pf1spheres.class-features.Item.JMaANCOydLHEdYWD
-    - level: 4
-      name: Wild Heart
-      uuid: Compendium.pf1spheres.class-features.Item.1ruZeR4SkfPQZ0RP
-    - level: 9
-      name: Venom Immunity (Sphere Druid)
-      uuid: Compendium.pf1spheres.class-features.Item.hHE8CASBEmGVSt1l
-    - level: 13
-      name: A Thousand Faces (Sphere Druid)
-      uuid: Compendium.pf1spheres.class-features.Item.VY3oPXc2kImUekYx
-    - level: 15
-      name: Timeless Body (Sphere Druid)
-      uuid: Compendium.pf1spheres.class-features.Item.coVriaA8u648c3Fg
+      - level: 1
+        name: Weapon and Armor Proficiency (Sphere Druid)
+        uuid: Compendium.pf1spheres.class-features.Item.xvprpNqWjkKBybQQ
+      - level: 1
+        name: Casting (Sphere Druid)
+        uuid: Compendium.pf1spheres.class-features.Item.7KjcCCNeRBlTV9le
+      - level: 1
+        name: Spell Pool (Sphere Druid)
+        uuid: Compendium.pf1spheres.class-features.Item.xaGoceAI0kkYqFyM
+      - level: 1
+        name: Natural Magic
+        uuid: Compendium.pf1spheres.class-features.Item.81otPeLC5qCUpGD2
+      - level: 1
+        name: Bonus Languages (Sphere Druid)
+        uuid: Compendium.pf1spheres.class-features.Item.OHYXFPhzrC4swZSN
+      - level: 1
+        name: Nature Bond (Sphere Druid)
+        uuid: Compendium.pf1spheres.class-features.Item.jyAYcLZ6qVFh5dkT
+      - level: 1
+        name: Nature Sense (Sphere Druid)
+        uuid: Compendium.pf1spheres.class-features.Item.7X7CxRJIq7qW3zle
+      - level: 1
+        name: Wild Empathy (Sphere Druid)
+        uuid: Compendium.pf1spheres.class-features.Item.49BsepHutnopugK3
+      - level: 2
+        name: Magic Talents (Sphere Druid)
+        uuid: Compendium.pf1spheres.class-features.Item.jUSeS9DR1kaNZxbb
+      - level: 2
+        name: Woodland Stride (Sphere Druid)
+        uuid: Compendium.pf1spheres.class-features.Item.ixGLN7642dDTa6gm
+      - level: 3
+        name: Trackless Step (Sphere Druid)
+        uuid: Compendium.pf1spheres.class-features.Item.eAfLtskLlDNdhhrd
+      - level: 4
+        name: Resist Nature's Lure (Sphere Druid)
+        uuid: Compendium.pf1spheres.class-features.Item.JMaANCOydLHEdYWD
+      - level: 4
+        name: Wild Heart
+        uuid: Compendium.pf1spheres.class-features.Item.1ruZeR4SkfPQZ0RP
+      - level: 9
+        name: Venom Immunity (Sphere Druid)
+        uuid: Compendium.pf1spheres.class-features.Item.hHE8CASBEmGVSt1l
+      - level: 13
+        name: A Thousand Faces (Sphere Druid)
+        uuid: Compendium.pf1spheres.class-features.Item.VY3oPXc2kImUekYx
+      - level: 15
+        name: Timeless Body (Sphere Druid)
+        uuid: Compendium.pf1spheres.class-features.Item.coVriaA8u648c3Fg
   savingThrows:
     fort:
       value: high
@@ -165,19 +165,19 @@ system:
   scriptCalls: []
   skillsPerLevel: 4
   subType: base
-  tag: ''
+  tag: ""
   tags:
-  - Sphere Druid
-  wealth: ''
+    - Sphere Druid
+  wealth: ""
   weaponProf:
-  - club
-  - dagger
-  - dart
-  - quarterstaff
-  - scimitar
-  - scythe
-  - sickle
-  - shortspear
-  - sling
-  - spear
+    - club
+    - dagger
+    - dart
+    - quarterstaff
+    - scimitar
+    - scythe
+    - sickle
+    - shortspear
+    - sling
+    - spear
 type: class

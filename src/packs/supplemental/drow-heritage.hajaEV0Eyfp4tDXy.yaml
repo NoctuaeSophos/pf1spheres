@@ -1,5 +1,5 @@
 _id: hajaEV0Eyfp4tDXy
-_key: '!items!hajaEV0Eyfp4tDXy'
+_key: "!items!hajaEV0Eyfp4tDXy"
 effects: []
 flags:
   pf1: {}
@@ -22,8 +22,8 @@ system:
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,34 +39,35 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p>You count as a drow for every race-related effect, including prerequisites.</p><p>Your
+    instructions: ""
+    unidentified: ""
+    value:
+      '<p>You count as a drow for every race-related effect, including prerequisites.</p><p>Your
       bonus languages are limited to the drow list instead of any language.</p><p><strong>Replaces:</strong>
       Languages (free choice of bonus languages).</p><p><em>Source: Blood of Shadows
       pg. 14.</em> <a href="https://www.aonprd.com/RacesDisplay.aspx?ItemName=Half-Elf">Full
       text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -77,26 +78,26 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: racial
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Half-Elf
+    - Half-Elf
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

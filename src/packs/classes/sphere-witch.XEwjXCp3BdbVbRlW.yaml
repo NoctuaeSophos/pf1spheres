@@ -1,5 +1,5 @@
 _id: XEwjXCp3BdbVbRlW
-_key: '!items!XEwjXCp3BdbVbRlW'
+_key: "!items!XEwjXCp3BdbVbRlW"
 effects: []
 flags:
   pf1: {}
@@ -11,7 +11,7 @@ img: icons/svg/item-bag.svg
 name: Sphere Witch
 sort: 0
 system:
-  alignment: ''
+  alignment: ""
   armorProf: []
   bab: low
   changeFlags:
@@ -64,10 +64,10 @@ system:
     swm: false
     umd: true
   contextNotes: []
-  customHD: ''
+  customHD: ""
   description:
-    instructions: ''
-    unidentified: ''
+    instructions: ""
+    unidentified: ""
     value: '<p>Spherecasting conversion of the Paizo witch: a High-Caster who draws
       power from a mysterious patron through her familiar and keeps the witch''s hexes.</p><p><strong>Role:</strong>
       versatile caster whose hexes debuff foes or support allies, while patron talents
@@ -84,7 +84,7 @@ system:
       text</a></p>'
   fc:
     alt:
-      notes: ''
+      notes: ""
       value: 0
     hp:
       value: 0
@@ -100,33 +100,33 @@ system:
   links:
     children: []
     classAssociations:
-    - level: 1
-      name: Weapon and Armor Proficiency (Sphere Witch)
-      uuid: Compendium.pf1spheres.class-features.Item.pSwytbzTp42PnbXe
-    - level: 1
-      name: Casting (Sphere Witch)
-      uuid: Compendium.pf1spheres.class-features.Item.iquNxUTrDhYWx2QH
-    - level: 1
-      name: Spell Pool (Sphere Witch)
-      uuid: Compendium.pf1spheres.class-features.Item.n9uxMieDOtGw0fIG
-    - level: 1
-      name: Magic Talents (Sphere Witch)
-      uuid: Compendium.pf1spheres.class-features.Item.qLkatWsniMHdYAsv
-    - level: 1
-      name: Hexes (Sphere Witch)
-      uuid: Compendium.pf1spheres.class-features.Item.HtkapZiS2yka686t
-    - level: 1
-      name: Witch's Familiar (Sphere Witch)
-      uuid: Compendium.pf1spheres.class-features.Item.3KmNQHHUJOTfgmZ5
-    - level: 1
-      name: Patron Magic
-      uuid: Compendium.pf1spheres.class-features.Item.LcJ9jwVM9vxPY2se
-    - level: 10
-      name: Major Hex (Sphere Witch)
-      uuid: Compendium.pf1spheres.class-features.Item.FsE9dYjDMYDcJ6aj
-    - level: 18
-      name: Grand Hex (Sphere Witch)
-      uuid: Compendium.pf1spheres.class-features.Item.jCOf2qcdnXCxVtj4
+      - level: 1
+        name: Weapon and Armor Proficiency (Sphere Witch)
+        uuid: Compendium.pf1spheres.class-features.Item.pSwytbzTp42PnbXe
+      - level: 1
+        name: Casting (Sphere Witch)
+        uuid: Compendium.pf1spheres.class-features.Item.iquNxUTrDhYWx2QH
+      - level: 1
+        name: Spell Pool (Sphere Witch)
+        uuid: Compendium.pf1spheres.class-features.Item.n9uxMieDOtGw0fIG
+      - level: 1
+        name: Magic Talents (Sphere Witch)
+        uuid: Compendium.pf1spheres.class-features.Item.qLkatWsniMHdYAsv
+      - level: 1
+        name: Hexes (Sphere Witch)
+        uuid: Compendium.pf1spheres.class-features.Item.HtkapZiS2yka686t
+      - level: 1
+        name: Witch's Familiar (Sphere Witch)
+        uuid: Compendium.pf1spheres.class-features.Item.3KmNQHHUJOTfgmZ5
+      - level: 1
+        name: Patron Magic
+        uuid: Compendium.pf1spheres.class-features.Item.LcJ9jwVM9vxPY2se
+      - level: 10
+        name: Major Hex (Sphere Witch)
+        uuid: Compendium.pf1spheres.class-features.Item.FsE9dYjDMYDcJ6aj
+      - level: 18
+        name: Grand Hex (Sphere Witch)
+        uuid: Compendium.pf1spheres.class-features.Item.jCOf2qcdnXCxVtj4
   savingThrows:
     fort:
       value: low
@@ -137,10 +137,10 @@ system:
   scriptCalls: []
   skillsPerLevel: 2
   subType: base
-  tag: ''
+  tag: ""
   tags:
-  - Sphere Witch
-  wealth: ''
+    - Sphere Witch
+  wealth: ""
   weaponProf:
-  - simple
+    - simple
 type: class

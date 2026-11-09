@@ -300,7 +300,7 @@ export const setInoculated = async (actor, uuids: string[]) =>
 
 /** Sets one of a character's ally lists (inoculated, squadron); the GM's client re-syncs zones and formations */
 export const setAllies = async (actor, key: string, uuids: string[]) => {
-  if (!["inoculated", "squadron", "undead"].includes(key)) return;
+  if (!["inoculated", "squadron"].includes(key)) return;
   await actor.setFlag(MODULE_ID, key, [...new Set(uuids)]);
 };
 

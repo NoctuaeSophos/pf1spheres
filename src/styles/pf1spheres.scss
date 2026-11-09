@@ -415,6 +415,31 @@
   }
 }
 
+.pf1spheres-undead {
+  .undead-list {
+    width: 100%;
+  }
+  .undead-over,
+  .undead-missing {
+    color: var(--color-level-error, #c0392b);
+  }
+}
+
+.pf1spheres-corruption {
+  .corruption-pips {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+    button {
+      flex: 0 0 auto;
+      width: auto;
+    }
+  }
+  .corruption-due {
+    color: var(--color-level-error, #c0392b);
+  }
+}
+
 /* Weather chart (src/module/weather/chart.ts): colours as variables so the chart follows the theme */
 .pf1spheres-weather {
   --pf1s-wx-cell: #f4f6f8;

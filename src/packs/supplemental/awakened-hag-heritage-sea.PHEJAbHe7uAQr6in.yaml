@@ -1,5 +1,5 @@
 _id: PHEJAbHe7uAQr6in
-_key: '!items!PHEJAbHe7uAQr6in'
+_key: "!items!PHEJAbHe7uAQr6in"
 effects: []
 flags:
   pf1: {}
@@ -22,8 +22,8 @@ system:
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,16 +39,17 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p><strong>Prerequisites:</strong> Iron Will or Mother''s Gift; changeling.</p><p><strong>General
+    instructions: ""
+    unidentified: ""
+    value:
+      '<p><strong>Prerequisites:</strong> Iron Will or Mother''s Gift; changeling.</p><p><strong>General
       benefit:</strong> +2 racial bonus on saves against arcane spells. You also gain
       a second ability set by your hag heritage.</p><p><strong>Sea-born (brine may)
       ability:</strong> you gain a swim speed matching your base land speed and need
@@ -61,18 +62,18 @@ system:
       text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -83,27 +84,27 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: feat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Changeling
-  - Racial Feat
+    - Changeling
+    - Racial Feat
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat

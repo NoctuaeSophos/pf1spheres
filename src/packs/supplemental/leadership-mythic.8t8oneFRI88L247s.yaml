@@ -1,5 +1,5 @@
 _id: 8t8oneFRI88L247s
-_key: '!items!8t8oneFRI88L247s'
+_key: "!items!8t8oneFRI88L247s"
 effects: []
 flags:
   pf1: {}
@@ -22,8 +22,8 @@ system:
   armorProf: []
   associations:
     classes: []
-  attackBonus: ''
-  attackName: ''
+  attackBonus: ""
+  attackName: ""
   attackNotes: []
   attackParts: []
   changeFlags:
@@ -39,16 +39,17 @@ system:
   changes: []
   classSkills: {}
   contextNotes: []
-  crOffset: ''
-  critConfirmBonus: ''
+  crOffset: ""
+  critConfirmBonus: ""
   damage:
     critParts: []
     nonCritParts: []
     parts: []
   description:
-    instructions: ''
-    unidentified: ''
-    value: '<p><strong>Prerequisites:</strong> Leadership, character level 7th, 2nd mythic tier.</p><p>Your
+    instructions: ""
+    unidentified: ""
+    value:
+      '<p><strong>Prerequisites:</strong> Leadership, character level 7th, 2nd mythic tier.</p><p>Your
       Leadership score increases by your mythic tier. Your cohort is mythic, at half
       your tier.</p><p>If the cohort dies, you can draw on your mythic source to replace
       them after 24 hours; you then have 1 fewer mythic power per day for the next
@@ -57,18 +58,18 @@ system:
       text</a></p>'
   disabled: false
   duration:
-    units: ''
+    units: ""
     value: null
   effectNotes: []
   flags:
     boolean: {}
     dictionary: {}
-  formula: ''
+  formula: ""
   formulaicAttacks:
     bonus:
-      formula: ''
+      formula: ""
     count:
-      formula: ''
+      formula: ""
     label: null
   inherited: false
   languages: []
@@ -79,27 +80,27 @@ system:
   racePoints: null
   save:
     dc: 0
-    description: ''
-    type: ''
+    description: ""
+    type: ""
   scriptCalls: []
   showInQuickbar: false
   simple: false
-  soundEffect: ''
+  soundEffect: ""
   subType: feat
   summons: false
-  tag: ''
+  tag: ""
   tags:
-  - Mythic Feat
-  - Rogue Genius Games
+    - Mythic Feat
+    - Rogue Genius Games
   target:
-    value: ''
-  traitCategory: ''
-  traitType: ''
+    value: ""
+  traitCategory: ""
+  traitType: ""
   uses:
-    autoDeductChargesCost: '1'
-    maxFormula: ''
+    autoDeductChargesCost: "1"
+    maxFormula: ""
     per: null
-    rechargeFormula: ''
+    rechargeFormula: ""
     value: 0
   weaponProf: []
 type: feat
