@@ -648,7 +648,7 @@ async function rollSavesForUser(msg) {
 let app = null;
 /** Opens (or brings forward) the GM weather panel for the viewed scene */
 export const openWeather = (scene: unknown = null) => {
-  if (!game.user?.isGM) return ui.notifications.warn(localize("Weather.GMOnly"));
+  // Anyone can look; the panel is read-only for players (WeatherApp)
   app ??= new WeatherApp();
   app.scene = scene ?? canvas?.scene ?? game.scenes.viewed;
   return app.render({ force: true });
