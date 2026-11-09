@@ -42,6 +42,7 @@ SPDX-License-Identifier: EUPL-1.2
         {{#if caster.mythicTalent}}<label class="checkbox"><input type="checkbox" name="mythicTalent" {{checked opts.mythicTalent}} {{#unless caster.mythicTalent.uses}}disabled{{/unless}}> {{localize "PF1SPHERES.Weather.OptMythic"}} ({{caster.mythicTalent.uses}})</label>{{/if}}
     </div>
 
+    {{#if snow.line}}<p class="hint">{{localize "PF1SPHERES.Weather.SnowOnGround"}}: {{snow.line}}</p>{{/if}}
     <div class="weather-conditions">
         <h4>{{localize "PF1SPHERES.Weather.Conditions"}}</h4>
         <p class="weather-labels">{{conditions}}</p>

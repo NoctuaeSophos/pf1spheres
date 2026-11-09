@@ -8,6 +8,9 @@ import {
   getSeverities,
   getWeatherEffects,
   normaliseWeather,
+  snowFall,
+  snowIntensity,
+  snowMovement,
   weatherRegion,
 } from "../src/module/weather/conditions";
 
@@ -109,5 +112,22 @@ describe("weather chart regions", () => {
   it("keeps snow and storm together where they overlap", () => {
     expect(region(-3, 2, 4)).toBe("snowstorm");
     expect(region(-3, 3, 5)).toBe("thundersnow");
+  });
+});
+
+describe("snow on the ground", () => {
+  it("reads the Weather sphere's snow as light, medium or heavy", () => {
+    expect(snowIntensity({ temperature: 0, humidity: 3 })).toBeNull();
+    expect(snowIntensity({ temperature: -3, humidity: 1 })).toBe("light");
+    expect(snowIntensity({ temperature: -3, humidity: 2 })).toBe("medium");
+    expect(snowIntensity({ temperature: -5, humidity: 4 })).toBe("heavy");
+  });
+  it("falls by the hour, carrying part hours over", () => {
+    expect(snowFall("medium", 3 * 3600 + 600, () => 4)).toEqual({ inches: 3, carry: 600 });
+    expect(snowFall("light", 3 * 3600, () => 4)).toEqual({ inches: 1, carry: 3600 });
+    expect(snowFall("heavy", 2 * 3600, () => 3)).toEqual({ inches: 6, carry: 0 });
+  });
+  it("costs extra movement from 2 inches and more from a foot", () => {
+    expect([0, 1, 2, 11, 12, 30].map(snowMovement)).toEqual([0, 0, 1, 1, 2, 2]);
   });
 });

@@ -32,6 +32,15 @@ SPDX-License-Identifier: EUPL-1.2
         {{/if}}
     </div>
 
+    <div class="form-group weather-snow">
+        <label for="pf1s-weather-snow">{{localize "PF1SPHERES.Weather.SnowOnGround"}}</label>
+        <div class="form-fields">
+            {{#if readonly}}<span>{{snow.depth}} {{localize "PF1SPHERES.Weather.Inches"}}</span>{{else}}<input type="number" id="pf1s-weather-snow" name="snowDepth" value="{{snow.depth}}" min="0" step="1"> {{localize "PF1SPHERES.Weather.Inches"}}
+            <button type="button" data-action="clearSnow">{{localize "PF1SPHERES.Weather.ClearSnow"}}</button>{{/if}}
+        </div>
+        <p class="hint">{{#if snow.line}}{{snow.line}} {{/if}}{{#if snow.falling}}{{localize (concat "PF1SPHERES.Weather.SnowFalling." snow.falling)}}{{else}}{{localize "PF1SPHERES.Weather.SnowNotFalling"}}{{/if}}</p>
+    </div>
+
     {{#if casters.length}}
         <div class="form-group">
             <label>{{localize "PF1SPHERES.Weather.ControlTitle"}}</label>

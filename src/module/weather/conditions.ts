@@ -308,3 +308,47 @@ export const weatherRegion = (effects: WeatherEffects): WeatherRegion | null => 
   if (s.aridity >= 2) return "arid";
   return null;
 };
+
+/* ---------- snow on the ground (Ultimate Wilderness pg. 167-168) ---------- */
+
+export type SnowIntensity = "light" | "medium" | "heavy";
+
+/**
+ * How hard it is snowing, if it is: the Weather sphere's snow severities read as Ultimate Wilderness's
+ * light (light frost), medium (snow) and heavy snow (heavy snow and worse).
+ *
+ * @param state - The weather
+ */
+export const snowIntensity = (state: Partial<WeatherState>): SnowIntensity | null => {
+  const sev = getSeverities(normaliseWeather(state));
+  if (sev.precipitation < 2 || sev.cold < 4) return null;
+  return sev.precipitation === 2 ? "light" : sev.precipitation === 3 ? "medium" : "heavy";
+};
+
+/**
+ * Snow that falls in a stretch of time: light 1 inch per 2 hours, medium 1 inch per hour, heavy 1d4
+ * inches per hour (rolled hour by hour). Time short of a whole step carries over.
+ *
+ * @param intensity - How hard it snows
+ * @param seconds - Time passed, plus any carried over
+ * @param d4 - Rolls a d4 (injected for tests)
+ * @returns Inches fallen and seconds left over
+ */
+export const snowFall = (
+  intensity: SnowIntensity,
+  seconds: number,
+  d4: () => number,
+): { inches: number; carry: number } => {
+  const step = intensity === "light" ? 7200 : 3600;
+  const steps = Math.floor(Math.max(0, seconds) / step);
+  let inches = 0;
+  for (let i = 0; i < steps; i++) inches += intensity === "heavy" ? d4() : 1;
+  return { inches, carry: Math.max(0, seconds) - steps * step };
+};
+
+/**
+ * Extra squares of movement to enter a snowy square: 1 from 2 inches, 2 from a foot (Ultimate Wilderness).
+ *
+ * @param depth - Snow on the ground, in inches
+ */
+export const snowMovement = (depth: number): number => (depth >= 12 ? 2 : depth >= 2 ? 1 : 0);

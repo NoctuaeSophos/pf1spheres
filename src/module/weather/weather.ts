@@ -9,10 +9,17 @@
 
 import { MODULE_ID, localize } from "../util";
 import { setSpellPoints } from "../actor";
-import { DEFAULT_WEATHER, getWeatherEffects, normaliseWeather } from "./conditions";
+import {
+  DEFAULT_WEATHER,
+  getWeatherEffects,
+  normaliseWeather,
+  snowFall,
+  snowIntensity,
+  snowMovement,
+} from "./conditions";
 import type { WeatherEffects, WeatherState } from "./conditions";
 import { castCost, getWeatherCaster, reduceWeather, validateCast } from "./caster";
-import { isGMWriter, registerSocketHandler, requestGM, userOwns } from "../socket";
+import { isGMWriter, registerSocketHandler, requestGM, serialised, userOwns } from "../socket";
 import { mountWeatherChart } from "./chart";
 import { openCasterWeather } from "./caster-app";
 
@@ -41,6 +48,10 @@ export interface SceneWeather extends WeatherState {
   controller: WeatherController | null;
   /** The weather before a caster took control, restored on release */
   natural: WeatherState | null;
+  /** Snow on the ground, in inches (Ultimate Wilderness) */
+  snowDepth: number;
+  /** Seconds of snowfall toward the next inch, carried between time changes */
+  snowCarry: number;
 }
 
 export const getSceneWeather = (scene): SceneWeather => {
@@ -51,8 +62,56 @@ export const getSceneWeather = (scene): SceneWeather => {
     lightningDC: Number(raw.lightningDC) || 15,
     controller: raw.controller?.actorUuid ? raw.controller : null,
     natural: raw.natural ? normaliseWeather(raw.natural) : null,
+    snowDepth: Math.max(0, Number(raw.snowDepth) || 0),
+    snowCarry: Math.max(0, Number(raw.snowCarry) || 0),
   };
 };
+
+/** What snow on the ground means for movement, as a sentence, or null when there is none */
+export const snowLine = (depth: number): string | null => {
+  if (!(depth > 0)) return null;
+  const extra = snowMovement(depth);
+  return extra
+    ? game.i18n.format("PF1SPHERES.Weather.SnowDepthMove", { depth, extra })
+    : game.i18n.format("PF1SPHERES.Weather.SnowDepth", { depth });
+};
+
+/**
+ * Adds the snow that fell on a scene over a stretch of time: light frost 1 inch per 2 hours, snow 1
+ * inch per hour, heavy snow and worse 1d4 inches per hour (Ultimate Wilderness). Runs on the GM's client.
+ * The GM is told when the depth starts costing more movement.
+ *
+ * @param scene - The scene
+ * @param seconds - Time passed
+ */
+async function accumulateSnow(scene, seconds: number) {
+  const raw = scene.getFlag(MODULE_ID, WEATHER_FLAG);
+  if (!raw) return;
+  const w = getSceneWeather(scene);
+  const intensity = snowIntensity(w);
+  if (!intensity) {
+    if (w.snowCarry) await scene.setFlag(MODULE_ID, WEATHER_FLAG, { snowCarry: 0 });
+    return;
+  }
+  const { inches, carry } = snowFall(intensity, w.snowCarry + seconds, () =>
+    Math.ceil(Math.random() * 4),
+  );
+  const depth = w.snowDepth + inches;
+  await scene.setFlag(MODULE_ID, WEATHER_FLAG, { snowDepth: depth, snowCarry: carry });
+  if (snowMovement(depth) > snowMovement(w.snowDepth)) {
+    await ChatMessage.create({
+      whisper: game.users.filter((u) => u.isGM).map((u) => u.id),
+      content: `<p><strong>${scene.name}</strong>: ${snowLine(depth)}</p>`,
+    });
+  }
+}
+
+const queueSnow = serialised(async () => {
+  const seconds = pendingSnowSeconds;
+  pendingSnowSeconds = 0;
+  for (const scene of game.scenes) await accumulateSnow(scene, seconds);
+});
+let pendingSnowSeconds = 0;
 
 /** Storm lightning for a scene: dice, DC and whether the controlling caster maximizes it */
 export const getLightning = (weather: SceneWeather, effects = getWeatherEffects(weather)) => {
@@ -91,6 +150,8 @@ const buffData = (
     notes.unshift(text);
   }
   const lines = [];
+  const snow = snowLine(getSceneWeather(scene).snowDepth);
+  if (snow) lines.push(snow);
   if (extra.controller)
     lines.push(
       game.i18n.format("PF1SPHERES.Weather.ControlledBy", { name: extra.controller.name }),
@@ -368,6 +429,7 @@ export class WeatherApp extends foundry.applications.api.HandlebarsApplicationMi
       release: WeatherApp.#onRelease,
       reset: WeatherApp.#onReset,
       openCaster: WeatherApp.#onOpenCaster,
+      clearSnow: WeatherApp.#onClearSnow,
     },
   };
 
@@ -396,6 +458,11 @@ export class WeatherApp extends foundry.applications.api.HandlebarsApplicationMi
       scene: this.scene,
       readonly,
       casters,
+      snow: {
+        depth: weather.snowDepth,
+        line: snowLine(weather.snowDepth),
+        falling: snowIntensity(weather),
+      },
       weather,
       sliders: weatherSliders(weather, effects, { wind: [1, 7], signed: [-6, 6] }),
       effects,
@@ -438,7 +505,14 @@ export class WeatherApp extends foundry.applications.api.HandlebarsApplicationMi
       ...normaliseWeather({ ...current, ...data }),
       apply: data.apply ?? current.apply,
       lightningDC: Number(data.lightningDC ?? current.lightningDC) || 15,
+      snowDepth:
+        data.snowDepth !== undefined ? Math.max(0, Number(data.snowDepth) || 0) : current.snowDepth,
     });
+    this.render();
+  }
+
+  static async #onClearSnow() {
+    await this.scene.setFlag(MODULE_ID, WEATHER_FLAG, { snowDepth: 0, snowCarry: 0 });
     this.render();
   }
 
@@ -654,6 +728,12 @@ export const registerWeather = () => {
     };
   });
   Hooks.on("pf1GetRollData", onGetRollData);
+  // Snow piles up on scenes as in-game time passes
+  Hooks.on("updateWorldTime", (_worldTime, delta) => {
+    if (!isGMWriter() || !(delta > 0)) return;
+    pendingSnowSeconds += delta;
+    queueSnow();
+  });
   registerSocketHandler("weather", handleRequest);
   registerSocketHandler("weather.saves", rollSavesForUser);
   Hooks.on("updateScene", (scene, changed) => {

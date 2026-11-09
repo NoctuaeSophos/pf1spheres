@@ -17,6 +17,7 @@ import {
   getSceneWeather,
   requestWeather,
   rollLightning,
+  snowLine,
   weatherSliders,
 } from "./weather";
 import { mountWeatherChart } from "./chart";
@@ -93,6 +94,7 @@ export class CasterWeatherApp extends foundry.applications.api.HandlebarsApplica
     const maxTargets = 1 + caster.extraMantleTargets;
     const bolt = mine ? getLightning(weather) : null;
     return {
+      snow: { line: snowLine(weather.snowDepth) },
       actor: this.actor,
       scene: this.scene,
       caster,

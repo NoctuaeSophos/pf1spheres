@@ -365,6 +365,17 @@
       "PerRound": "Storm Lord (twice): one strike per round, aimed by the caster.",
       "Chosen": "Storm Lord: the caster chooses where bolts land.",
       "NeedGM": "A GM must be logged in to change scene weather.",
+      "SnowOnGround": "Snow on the ground",
+      "Inches": "in.",
+      "ClearSnow": "Clear",
+      "SnowDepth": "{depth} in. of snow on the ground.",
+      "SnowDepthMove": "{depth} in. of snow: entering a square costs {extra} extra square(s) of movement.",
+      "SnowNotFalling": "Not snowing, so the depth holds (snow doesn't melt on its own; set it by hand).",
+      "SnowFalling": {
+        "light": "Light snow is falling: 1 in. every 2 hours of game time (Ultimate Wilderness).",
+        "medium": "Snow is falling: 1 in. per hour of game time (Ultimate Wilderness).",
+        "heavy": "Heavy snow is falling: 1d4 in. per hour of game time (Ultimate Wilderness)."
+      },
       "ChartLabel": "Weather chart: temperature across, humidity up. Arrow keys move the point.",
       "ChartHint": "Click or drag a point: temperature across, humidity up. 0 is normal weather and each step out is one severity, up to 7 at ±6. Shaded areas show the conditions at this wind strength.",
       "ChartReadonly": "The scene's weather now. Only the GM changes it here; a Control Weather caster uses their own panel.",
