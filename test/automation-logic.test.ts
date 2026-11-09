@@ -6,6 +6,7 @@
 
 import {
   addLinks,
+  applySequenceRole,
   blastDice,
   distanceFt,
   durationSeconds,
@@ -262,5 +263,20 @@ describe("prodigy imbuements", () => {
       { name: "Shatter", kind: "finish", requires: null, text: "Break things." },
     ]);
     expect(groups[1].entries[0].text).toBe("Teleport\u2019s cousin.");
+  });
+});
+
+describe("sequence parts", () => {
+  const none = { length: 0, linked: false, imbue: "" };
+  it("an opener starts a sequence at 1, or adds a link to a running one", () => {
+    expect(applySequenceRole(none, "opener", 6).length).toBe(1);
+    expect(applySequenceRole({ length: 3, linked: false, imbue: "x" }, "opener", 6).length).toBe(4);
+  });
+  it("a link only extends a running sequence, up to the maximum", () => {
+    expect(applySequenceRole(none, "link", 6).length).toBe(0);
+    expect(applySequenceRole({ length: 6, linked: false, imbue: "" }, "link", 6).length).toBe(6);
+  });
+  it("a finisher ends the sequence", () => {
+    expect(applySequenceRole({ length: 5, linked: true, imbue: "Life: Regenerate" }, "finisher", 6)).toEqual(none);
   });
 });

@@ -67,34 +67,30 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      “I can do that.”
+    value: "“I can do that.”
 
-      <p>Brilliant warriors capable of combining martial and magic techniques
-      into a seamless flow, bewildering allies and confounding foes with their
-      flashes of inspiration that grant them unforeseen capability.</p>
+      <p>Brilliant warriors capable of combining martial and magic techniques into a seamless flow, bewildering
+      allies and confounding foes with their flashes of inspiration that grant them unforeseen capability.</p>
 
-      <p><strong>Role:</strong> Prodigies are a diverse group, capable of
-      filling many roles.</p>
+      <p><strong>Role:</strong> Prodigies are a diverse group, capable of filling many roles.</p>
 
       <p><strong>Alignment:</strong> Any.</p>
 
       <p><strong>Hit Die:</strong> d8</p>
 
-      <p><strong>Starting Wealth:</strong> 3d6 x 10 gp (average 105 gp). In
-      addition, each character begins play with an outfit worth 10 gp or
-      less.</p>
+      <p><strong>Starting Wealth:</strong> 3d6 x 10 gp (average 105 gp). In addition, each character begins
+      play with an outfit worth 10 gp or less.</p>
 
       <p><strong>Starting Age:</strong> Intuitive.</p>
 
-      <p><strong>Class Skills:</strong> The prodigy&#8217;s class skills are
-      Acrobatics (Dex), Bluff (Cha), Climb (Str), Craft (Int), Diplomacy (Cha),
-      Intimidate (Cha), Knowledge (all) (Int), Perception (Wis), Perform (Cha),
-      Profession (Wis), Sense Motive (Wis), Spellcraft (Int), Use Magic Device
-      (Cha), and three other class skills of the prodigy&#8217;s choice, chosen
-      at character creation.</p>
+      <p><strong>Class Skills:</strong> The prodigy&#8217;s class skills are Acrobatics (Dex), Bluff (Cha),
+      Climb (Str), Craft (Int), Diplomacy (Cha), Intimidate (Cha), Knowledge (all) (Int), Perception (Wis),
+      Perform (Cha), Profession (Wis), Sense Motive (Wis), Spellcraft (Int), Use Magic Device (Cha), and
+      three other class skills of the prodigy&#8217;s choice, chosen at character creation.</p>
 
       <p><strong>Skill Ranks Per Level:</strong> 4 + Int modifier.</p>
+
+      "
   fc:
     alt:
       notes: ""
@@ -128,6 +124,15 @@ system:
       - level: 1
         name: Sequence
         uuid: Compendium.pf1spheres.class-features.Item.iGvTsm4MQ5GDPD3p
+      - level: 1
+        name: Finishers
+        uuid: Compendium.pf1spheres.class-features.Item.C8mSREvvjaBUbiOm
+      - level: 1
+        name: Link Components
+        uuid: Compendium.pf1spheres.class-features.Item.4BpYiiS0BJDnCZHd
+      - level: 1
+        name: Openers
+        uuid: Compendium.pf1spheres.class-features.Item.aDAgMm4HjLzMKaJ6
       - level: 1
         name: Integrated Techniques
         uuid: Compendium.pf1spheres.class-features.Item.eAsBbuEwHaRRn7QO

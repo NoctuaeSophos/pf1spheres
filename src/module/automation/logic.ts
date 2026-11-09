@@ -26,6 +26,10 @@ export interface ActionAutomation {
   mark?: { label?: string; attackerNote?: string; defenderNote?: string };
   /** When a creature fails a save rolled from this action's chat card */
   onFail?: FailEffects;
+  /** A prodigy sequence part: an opener starts (or extends) it, a link extends it, a finisher needs a length and ends it */
+  sequence?: { role?: "" | "opener" | "link" | "finisher"; min?: number };
+  /** The user's next attack roll this turn automatically threatens a critical (Executioner) */
+  threatNext?: boolean;
 }
 
 export interface FailEffects {
@@ -97,7 +101,9 @@ export const hasAutomation = (a: ActionAutomation | undefined | null): boolean =
         a.buff?.itemId ||
         a.zone?.enabled ||
         a.mark?.label ||
-        hasFailEffects(a.onFail)),
+        hasFailEffects(a.onFail) ||
+        a.sequence?.role ||
+        a.threatNext),
   );
 
 /**
@@ -510,4 +516,19 @@ export const parseImbuements = (html: string): { sphere: string; entries: ImbueE
     if (entries.length) out.push({ sphere: strip(head), entries });
   }
   return out;
+};
+
+/**
+ * A sequence after an action that is part of one: an opener starts a sequence of 1 (or adds a link to a
+ * running one), a link adds one only to a running sequence, and a finisher ends it.
+ *
+ * @param s - The sequence before
+ * @param role - The action's part
+ * @param max - The prodigy's maximum length
+ */
+export const applySequenceRole = (s: SequenceState, role: string | undefined, max: number): SequenceState => {
+  if (role === "finisher") return { length: 0, linked: false, imbue: "" };
+  if (role === "opener") return s.length > 0 ? addLinks(s, 1, max) : { ...s, length: Math.min(1, max), linked: true };
+  if (role === "link" && s.length > 0) return addLinks(s, 1, max);
+  return s;
 };

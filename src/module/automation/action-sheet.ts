@@ -113,6 +113,14 @@ export const onRenderActionSheet = (app, html) => {
         <div class="form-fields"><input type="text" data-pf1s="mark.defenderNote" value="${esc(a.mark?.defenderNote)}"></div>
         <p class="hint">${loc("MarkHint")}</p></div>
 
+      <h3 class="form-header">${loc("SequencePart")}</h3>
+      <div class="form-group"><label>${loc("SequencePart")}</label>
+        <div class="form-fields"><select data-pf1s="sequence.role">${opt("", loc("SequenceNone"), a.sequence?.role)}${opt("opener", loc("SequenceOpener"), a.sequence?.role)}${opt("link", loc("SequenceLink"), a.sequence?.role)}${opt("finisher", loc("SequenceFinisher"), a.sequence?.role)}</select></div></div>
+      <div class="form-group"><label>${loc("SequenceMin")}</label>
+        <div class="form-fields"><input type="number" min="1" step="1" data-pf1s="sequence.min" value="${a.sequence?.min ?? 1}"></div></div>
+      <div class="form-group"><label>${loc("ThreatNext")}</label>
+        <div class="form-fields"><input type="checkbox" data-pf1s="threatNext" ${a.threatNext ? "checked" : ""}></div></div>
+
       <h3 class="form-header">${loc("OnFail")}</h3>
       <p class="hint">${loc("OnFailHint")}</p>
       <div class="form-group"><label>${loc("FailConditions")}</label>

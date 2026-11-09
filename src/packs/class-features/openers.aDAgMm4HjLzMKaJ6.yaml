@@ -3,6 +3,11 @@ _key: "!items!aDAgMm4HjLzMKaJ6"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    automation:
+      pf1sopenseq0001:
+        sequence:
+          role: opener
 folder: null
 img: icons/svg/item-bag.svg
 name: Openers
@@ -16,7 +21,16 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: pf1sopenseq0001
+      name: Open a sequence
+      actionType: other
+      activation:
+        type: special
+      notes:
+        effect:
+          - "Use after the attack, critical hit, defeat, heal, maneuver or failed magic save that opens it:
+            the sequence starts at 1 link."
   armorProf: []
   associations:
     classes: []
@@ -46,45 +60,40 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>An opener begins a new sequence. A newly started sequence is one link
-      in length. The following are basic openers:</p>
+    value:
+      "<p>An opener begins a new sequence. A newly started sequence is one link in length. The following
+      are basic openers:</p>
 
       <ul>
 
-      <li><strong>Attack:</strong> Dealing damage to one or more hostile
-      creatures with an attack action, charge attack (performed as a standard or
-      full-round action), with a sphere ability with a casting time of a
-      standard action or greater, or with another ability with a standard action
-      or greater activation time.</li>
+      <li><strong>Attack:</strong> Dealing damage to one or more hostile creatures with an attack action,
+      charge attack (performed as a standard or full-round action), with a sphere ability with a casting
+      time of a standard action or greater, or with another ability with a standard action or greater
+      activation time.</li>
 
-      <li><strong>Critical Hit:</strong> Confirming a critical hit against a
-      hostile creature.</li>
+      <li><strong>Critical Hit:</strong> Confirming a critical hit against a hostile creature.</li>
 
-      <li><strong>Defeat:</strong> Reducing a hostile creature with a CR equal
-      to or greater than half the prodigy&#8217;s character level to 0 or fewer
-      hit points.</li>
+      <li><strong>Defeat:</strong> Reducing a hostile creature with a CR equal to or greater than half
+      the prodigy&#8217;s character level to 0 or fewer hit points.</li>
 
-      <li><strong>Heal:</strong> Restore hit points to an ally or remove ability
-      drain, ability damage, or the blinded, dazed, frightened, nauseated,
-      shaken, sickened, or stunned conditions with an ability that requires at
-      least a standard action.</li>
+      <li><strong>Heal:</strong> Restore hit points to an ally or remove ability drain, ability damage,
+      or the blinded, dazed, frightened, nauseated, shaken, sickened, or stunned conditions with an ability
+      that requires at least a standard action.</li>
 
-      <li><strong>Maneuver:</strong> Succeeding on a combat maneuver check
-      against a hostile creature.</li>
+      <li><strong>Maneuver:</strong> Succeeding on a combat maneuver check against a hostile creature.</li>
 
-      <li><strong>Magic Save:</strong> A hostile creature failing a save against
-      a magic sphere effect. This sphere effect must have a casting time of a
-      standard action or greater. This opener may only be used the first time
-      any hostile creature fails a save against that casting.</li>
+      <li><strong>Magic Save:</strong> A hostile creature failing a save against a magic sphere effect.
+      This sphere effect must have a casting time of a standard action or greater. This opener may only
+      be used the first time any hostile creature fails a save against that casting.</li>
 
-      <li><strong>Reflection:</strong> Successfully use the reflect spell class
-      feature.</li>
+      <li><strong>Reflection:</strong> Successfully use the reflect spell class feature.</li>
 
       </ul>
 
-      <p>Some abilities, such as possessing certain spheres, may grant
-      additional opener options. Such options have the (opener) tag.</p>
+      <p>Some abilities, such as possessing certain spheres, may grant additional opener options. Such
+      options have the (opener) tag.</p>
+
+      "
   disabled: false
   duration:
     units: ""

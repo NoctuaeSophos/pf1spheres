@@ -23,6 +23,7 @@ import {
   remainingSeconds,
   saveFailed,
   sequenceMax,
+  applySequenceRole,
   sequenceTurnStart,
   totalSpCost,
   zoneAffects,
@@ -491,6 +492,15 @@ function onPreActionUse(au) {
       return false;
     }
   }
+  // A finisher needs a sequence of at least its length
+  if (auto.sequence?.role === "finisher") {
+    const have = getSequence(actor).length;
+    const need = Math.max(1, Number(auto.sequence.min) || 1);
+    if (have < need) {
+      ui.notifications.warn(fmt("SequenceTooShort", { need, have }));
+      return false;
+    }
+  }
   // Buffs, areas and marks are written by the GM's client; without one, refuse before anything is paid
   const needsGM = auto.buff?.itemId || auto.zone?.enabled || auto.mark?.label;
   if (needsGM && !game.user.isGM && !game.users.activeGM) {
@@ -513,6 +523,14 @@ async function onPostActionUse(au) {
   const action = au.shared.action ?? au.action;
   const rd = au.shared.rollData ?? actor.getRollData();
   await spendResources(actor, { sp: state.sp, focus: state.focus });
+  if (auto.sequence?.role) {
+    const next = applySequenceRole(getSequence(actor), auto.sequence.role, sequenceMax(prodigyLevel(actor)));
+    await actor.update({ [`flags.${MODULE_ID}.sequence`]: next });
+  }
+  if (auto.threatNext) {
+    const c = game.combat?.started ? game.combat : null;
+    await actor.setFlag(MODULE_ID, "threatNext", { combatId: c?.id ?? null, round: c?.round ?? 0, turn: c?.turn ?? 0, time: game.time.worldTime });
+  }
 
   const wantsEffect =
     auto.effect?.enabled || auto.buff?.itemId || auto.zone?.enabled || auto.mark?.label;
@@ -947,6 +965,31 @@ function onRenderChatMessage(message, html) {
   }
 }
 
+/* ---------- next attack threatens (Executioner) ---------- */
+
+// Consumed in memory at once: a full attack rolls several attacks before the flag's removal lands
+const threatSpent = new Set<string>();
+
+/** The flag still counts only on the turn it was set (or, outside combat, within the same round of time) */
+const threatValid = (flag) => {
+  if (!flag) return false;
+  const c = flag.combatId ? game.combats.get(flag.combatId) : null;
+  if (c) return c.started && c.round === flag.round && c.turn === flag.turn;
+  return game.time.worldTime - (flag.time ?? 0) < 6;
+};
+
+function onPreAttackRoll(action, _config, _rollData, rollOptions) {
+  const actor = action?.actor;
+  const flag = actor?.flags?.[MODULE_ID]?.threatNext;
+  if (!flag || !actor.isOwner) return;
+  const key = `${actor.uuid}:${flag.time}:${flag.round}:${flag.turn}`;
+  if (threatSpent.has(key)) return;
+  threatSpent.add(key);
+  // The next attack roll threatens on any hit; the confirmation roll is made as normal
+  if (threatValid(flag)) rollOptions.critical = 1;
+  actor.unsetFlag(MODULE_ID, "threatNext").catch(() => {});
+}
+
 /* ---------- registration ---------- */
 
 export const registerAutomation = () => {
@@ -1009,6 +1052,7 @@ export const registerAutomation = () => {
     onRegionChanged(region, true).catch((err) => console.error(`${MODULE_ID} | zone region`, err)),
   );
   Hooks.on("pf1PreActorRollSave", onPreRollSave);
+  Hooks.on("pf1PreAttackRoll", onPreAttackRoll);
   Hooks.on("pf1ActorRollSave", (actor, result) => {
     onRollSave(actor, result).catch((err) => console.error(`${MODULE_ID} | failed save`, err));
   });
