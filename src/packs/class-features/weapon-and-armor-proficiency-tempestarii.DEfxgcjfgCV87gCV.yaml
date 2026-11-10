@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/equipment/adventuring-gear/clothes-ordinary.webp
 name: Weapon and Armor Proficiency (Tempestarii)
 sort: 0
 system:

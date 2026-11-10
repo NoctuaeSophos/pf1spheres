@@ -20,7 +20,7 @@ flags:
               when: lt(@spheres.alchemyRanks, 5)
     alchemical: true
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/blindpepper-bomb.webp
 name: Flashbangs
 sort: 0
 system:

@@ -7,7 +7,7 @@ flags:
     addedIn: fork
     sphere: study
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/spells/foresight.webp
 name: Predict Movements
 sort: 0
 system:

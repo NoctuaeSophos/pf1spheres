@@ -7,7 +7,7 @@ flags:
     addedIn: fork
     inoculations: true
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/vaccine.webp
 name: Inoculations
 sort: 0
 system:

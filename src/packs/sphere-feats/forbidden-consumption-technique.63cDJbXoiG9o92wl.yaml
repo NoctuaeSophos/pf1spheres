@@ -4,7 +4,7 @@ effects: []
 flags:
   pf1: {}
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/spells/horrifying-blood-loss.webp
 name: Forbidden Consumption Technique
 sort: 0
 system:

@@ -38,7 +38,7 @@ flags:
             type: untyped
     alchemical: true
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/equipment/held-items/bottled-air.webp
 name: Quintessence
 sort: 0
 system:

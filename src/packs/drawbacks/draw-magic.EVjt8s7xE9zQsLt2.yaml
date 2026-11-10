@@ -40,7 +40,7 @@ flags:
         img: icons/svg/aura.svg
         name: Draw Magic (+2)
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/spells/shadow-siphon.webp
 name: Draw Magic
 sort: 0
 system:

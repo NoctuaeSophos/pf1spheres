@@ -13,7 +13,7 @@ flags:
         sequence:
           role: link
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/equipment/adventuring-gear/chain.webp
 name: Link Components
 sort: 0
 system:

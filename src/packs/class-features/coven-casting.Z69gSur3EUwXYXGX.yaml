@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: icons/tools/cooking/cauldron-empty.webp
 name: Coven Casting
 sort: 0
 system:
