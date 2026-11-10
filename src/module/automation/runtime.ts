@@ -43,14 +43,24 @@ import {
   zoneAffects,
 } from "./logic";
 import type { ActionAutomation, SequenceState } from "./logic";
+import { NAMED_TEMPLATES, namedAutomation } from "../supplements/mythic-logic";
 
 const fmt = (key: string, data = {}) => game.i18n.format(`PF1SPHERES.Auto.${key}`, data);
 const loc = (key: string) => localize(`Auto.${key}`);
 
 /* ---------- settings storage ---------- */
 
-export const getAutomation = (item, actionId): ActionAutomation =>
-  foundry.utils.deepClone(item?.flags?.[MODULE_ID]?.automation?.[actionId] ?? {});
+export const getAutomation = (item, actionId): ActionAutomation => {
+  const own = item?.flags?.[MODULE_ID]?.automation?.[actionId];
+  if (own && Object.keys(own).length) return foundry.utils.deepClone(own);
+  // Another module's item this module automates by name (Krune's Deadly Dodge), unless pf1 already
+  // charges it from another item
+  if (item?.links?.charges) return {};
+  const actionName =
+    item?.actions?.get?.(actionId)?.name ??
+    item?.system?.actions?.find?.((a) => a._id === actionId)?.name;
+  return foundry.utils.deepClone(namedAutomation(item?.name, actionName) ?? {});
+};
 
 export const setAutomation = (item, actionId, data: ActionAutomation) =>
   item.update({ [`flags.${MODULE_ID}.automation.${actionId}`]: data });
@@ -100,7 +110,7 @@ export const spendResources = async (actor, { sp = 0, focus = "", mp = 0 } = {})
 
 /* ---------- mythic power ---------- */
 
-/** The actor's Mythic Power item (Krune's or this module's), whose uses are the mythic power pool */
+/** The actor's Mythic Power item (Krune's), whose uses are the mythic power pool */
 export const mythicPowerItem = (actor) =>
   actor?.items?.find(
     (i) => i.type === "feat" && /^mythic power$/i.test(i.name) && i.system?.uses?.per,
@@ -273,7 +283,8 @@ async function cleanupEffect(msg, user) {
 export const resolveBuff = (actor, item, ref: string | undefined) => {
   if (!ref) return null;
   if (ref.startsWith("tpl:")) {
-    const t = item?.flags?.[MODULE_ID]?.buffTemplates?.[ref.slice(4)];
+    const t =
+      item?.flags?.[MODULE_ID]?.buffTemplates?.[ref.slice(4)] ?? NAMED_TEMPLATES[ref.slice(4)];
     return t ? templateToItemData(t) : null;
   }
   return actor?.items.get(ref)?.toObject() ?? null;
