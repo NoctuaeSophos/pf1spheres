@@ -83,9 +83,9 @@ system:
   summons: false
   tag: ""
   tags:
-    - Mythic Tradition
     - Mythic
     - Mythic Flaw
+    - Mythic Tradition
   target:
     value: ""
   traitCategory: ""

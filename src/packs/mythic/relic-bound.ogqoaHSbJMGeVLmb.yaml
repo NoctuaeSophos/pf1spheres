@@ -88,8 +88,8 @@ system:
   summons: false
   tag: ""
   tags:
-    - Mythic Tradition Drawback
     - Mythic
+    - Mythic Tradition Drawback
   target:
     value: ""
   traitCategory: ""

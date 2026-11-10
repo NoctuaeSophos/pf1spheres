@@ -88,10 +88,11 @@ system:
   summons: false
   tag: ""
   tags:
-    - Mythic Class Feature
-    - Tempestarii
     - Mythic
     - Path Ability
+    - Universal
+    - Mythic Class Feature
+    - Tempestarii
   target:
     value: ""
   traitCategory: ""

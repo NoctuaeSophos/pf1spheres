@@ -98,8 +98,8 @@ system:
   summons: false
   tag: ""
   tags:
-    - Mythic Tradition
     - Mythic
+    - Mythic Tradition
   target:
     value: ""
   traitCategory: ""

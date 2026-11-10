@@ -88,10 +88,10 @@ system:
   summons: false
   tag: ""
   tags:
-    - Gifted
-    - Spheremaster
     - Mythic
     - Path Ability
+    - Gifted
+    - Spheremaster
   target:
     value: ""
   traitCategory: ""

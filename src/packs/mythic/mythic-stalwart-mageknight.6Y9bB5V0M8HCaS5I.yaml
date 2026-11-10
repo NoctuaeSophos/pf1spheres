@@ -105,10 +105,11 @@ system:
   summons: false
   tag: ""
   tags:
-    - Mythic Class Feature
-    - Mageknight
     - Mythic
     - Path Ability
+    - Universal
+    - Mythic Class Feature
+    - Mageknight
   target:
     value: ""
   traitCategory: ""

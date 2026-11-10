@@ -94,8 +94,8 @@ system:
   summons: false
   tag: ""
   tags:
-    - Mythic Tradition Boon
     - Mythic
+    - Mythic Tradition Boon
   target:
     value: ""
   traitCategory: ""

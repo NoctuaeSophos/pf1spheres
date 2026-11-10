@@ -86,8 +86,8 @@ system:
   summons: false
   tag: ""
   tags:
-    - Mythic Feat
     - Mythic
+    - Mythic Feat
   target:
     value: ""
   traitCategory: ""

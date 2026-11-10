@@ -109,9 +109,9 @@ system:
   summons: false
   tag: ""
   tags:
-    - Gifted
     - Mythic
     - Mythic Path
+    - Gifted
   target:
     value: ""
   traitCategory: ""

@@ -90,9 +90,9 @@ system:
   summons: false
   tag: ""
   tags:
+    - Mythic
     - Mythic Feat
     - Rogue Genius Games
-    - Mythic
   target:
     value: ""
   traitCategory: ""

@@ -112,10 +112,10 @@ system:
   summons: false
   tag: ""
   tags:
-    - Gifted
-    - Mythic Sphere Mastery
     - Mythic
     - Path Ability
+    - Universal
+    - Mythic Sphere Mastery
   target:
     value: ""
   traitCategory: ""

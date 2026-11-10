@@ -98,9 +98,10 @@ system:
   summons: false
   tag: ""
   tags:
-    - Mythic Sphere Talent
-    - Path Ability
     - Mythic
+    - Path Ability
+    - Universal
+    - Mythic Sphere Talent
   target:
     value: ""
   traitCategory: ""

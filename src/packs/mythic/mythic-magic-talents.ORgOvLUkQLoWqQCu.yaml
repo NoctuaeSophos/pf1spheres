@@ -91,9 +91,9 @@ system:
   summons: false
   tag: ""
   tags:
-    - Spheremaster
     - Mythic
     - Path Ability
+    - Spheremaster
   target:
     value: ""
   traitCategory: ""

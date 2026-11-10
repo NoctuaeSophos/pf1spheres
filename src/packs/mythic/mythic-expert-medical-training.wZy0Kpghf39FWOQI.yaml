@@ -90,10 +90,11 @@ system:
   summons: false
   tag: ""
   tags:
-    - Mythic Class Feature
-    - Scholar
     - Mythic
     - Path Ability
+    - Universal
+    - Mythic Class Feature
+    - Scholar
   target:
     value: ""
   traitCategory: ""

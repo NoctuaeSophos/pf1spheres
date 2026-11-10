@@ -105,8 +105,8 @@ system:
   summons: false
   tag: ""
   tags:
-    - Mythic Tradition Quality
     - Mythic
+    - Mythic Tradition Quality
   target:
     value: ""
   traitCategory: ""

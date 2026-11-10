@@ -107,10 +107,10 @@ system:
   summons: false
   tag: ""
   tags:
-    - Spheremaster
-    - Mythic Sphere Mastery
     - Mythic
     - Path Ability
+    - Universal
+    - Mythic Sphere Mastery
   target:
     value: ""
   traitCategory: ""
