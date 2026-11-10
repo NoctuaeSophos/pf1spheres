@@ -11,6 +11,8 @@ import {
   snowFall,
   snowIntensity,
   snowMovement,
+  endureFromText,
+  resistEnergyAmount,
   temperatureExposure,
   temperatureProtection,
   weatherRegion,
@@ -181,5 +183,42 @@ describe("protection from cold and heat", () => {
     expect(
       getWeatherEffects({ temperature: 3 }).contextNotes.some((n) => n.target === "fort"),
     ).toBe(true);
+  });
+  test("reads constant endure elements from descriptions", () => {
+    expect(
+      endureFromText(
+        "<p>The wearer gains the constant effects of @UUID[Compendium.pf1.spells.Item.x]{endure elements} and takes only half damage from vacuum.</p>",
+      ),
+    ).toBe("both");
+    expect(
+      endureFromText(
+        "gains endure elements as a constant spell-like ability, but only against cold temperatures.",
+      ),
+    ).toBe("cold");
+    expect(endureFromText("You can cast endure elements once per day.")).toBeNull();
+    const aridan = temperatureProtection([
+      { name: "Iridescent Spindle Ioun Stone", text: "the constant effects of endure elements" },
+    ]);
+    expect(aridan.heat).toMatchObject({ endure: true, source: "Iridescent Spindle Ioun Stone" });
+  });
+  test("energy spell buffs: resist energy by level, protection from energy as absorbing immunity", () => {
+    expect([1, 7, 11].map(resistEnergyAmount)).toEqual([10, 20, 30]);
+    const johnson = temperatureProtection(
+      [{ name: "Protection from Energy (Cold)", buff: true, level: 13 }],
+      { fire: 5 },
+    );
+    expect(johnson.cold).toMatchObject({ immune: true });
+    expect(temperatureExposure("cold", 7, johnson.cold)?.text).toBe(
+      "Cold: no effect, Protection from Energy, until it has absorbed 120 points.",
+    );
+    const resisted = temperatureProtection(
+      [{ name: "Resist Energy, Communal (Fire)", buff: true, level: 8 }],
+      { fire: 5 },
+    );
+    expect(resisted.heat?.resist).toBe(20);
+    // A spell item of the same name isn't a buff, so it grants nothing
+    expect(temperatureProtection([{ name: "Resist Energy (Fire)", level: 8 }]).heat?.resist).toBe(
+      0,
+    );
   });
 });

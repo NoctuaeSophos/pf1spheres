@@ -58,7 +58,9 @@ export interface TemperatureGuard {
   /** Cold (or fire) resistance */
   resist?: number;
   immune?: boolean;
-  /** What grants the protection, for the reminder */
+  /** What grants the immunity, when it isn't plain (Protection from Energy and how much it absorbs) */
+  immuneNote?: string;
+  /** What grants the endure elements effect, for the reminder */
   source?: string;
 }
 
@@ -83,28 +85,75 @@ const ENDURE_ITEMS: [RegExp, "cold" | "heat" | "both"][] = [
 ];
 
 /**
+ * Whether an item's description grants constant endure elements ("the constant effects of endure
+ * elements", "endure elements as a constant spell-like ability"), and against what.
+ */
+export const endureFromText = (text: string | undefined): "cold" | "heat" | "both" | null => {
+  const plain = (text ?? "")
+    .replace(/@UUID\[[^\]]*\]\{([^}]*)\}/g, "$1")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ");
+  const m = /constant[^.]{0,40}endure elements[^.]*|endure elements[^.]{0,40}constant[^.]*/i.exec(
+    plain,
+  );
+  if (!m) return null;
+  if (/only (?:against|vs\.?) cold/i.test(m[0])) return "cold";
+  if (/only (?:against|vs\.?) (?:heat|hot)/i.test(m[0])) return "heat";
+  return "both";
+};
+
+/** Resist Energy by caster level: 10, 20 from 7th, 30 from 11th */
+export const resistEnergyAmount = (level: number): number =>
+  level >= 11 ? 30 : level >= 7 ? 20 : 10;
+
+/** The energy named in a buff like "Resist Energy (Fire)" or "Protection from Energy, Communal (Cold)" */
+const energyBuff = (name: string): { kind: "resist" | "protect"; energy: string } | null => {
+  const m = /^(resist|protection from) energy\b[^(]*\((\w+)\)/i.exec(name ?? "");
+  return m
+    ? { kind: /^resist/i.test(m[1]) ? "resist" : "protect", energy: m[2].toLowerCase() }
+    : null;
+};
+
+/**
  * A creature's protection from Cold and Heat.
  *
- * @param items - Its active items: name, and the flags.pf1spheres.endureElements setting if any
+ * @param items - Its active items: name, the flags.pf1spheres.endureElements setting if any, its
+ *   description, and a buff's level
  * @param resist - Its cold and fire resistance
  * @param immune - Whether it is immune to cold or fire
  */
 export const temperatureProtection = (
-  items: { name: string; endure?: string }[],
+  items: { name: string; endure?: string; text?: string; level?: number; buff?: boolean }[],
   resist: { cold?: number; fire?: number } = {},
   immune: { cold?: boolean; fire?: boolean } = {},
 ): TemperatureProtection => {
   const covers = (kind: "cold" | "heat") =>
     items.find((i) => {
-      const what = i.endure || ENDURE_ITEMS.find(([re]) => re.test(i.name))?.[1];
+      const what =
+        i.endure || ENDURE_ITEMS.find(([re]) => re.test(i.name))?.[1] || endureFromText(i.text);
       return what === "both" || what === kind;
     })?.name;
   const guard = (kind: "cold" | "heat", energy: "cold" | "fire"): TemperatureGuard => {
     const endure = covers(kind);
+    const spells = items
+      .filter((i) => i.buff)
+      .map((i) => ({ ...energyBuff(i.name), level: Math.max(1, Number(i.level) || 1) }))
+      .filter((b) => b.energy === energy);
+    // Energy resistance doesn't stack: the spell's applies only if it is higher
+    const spellResist = Math.max(
+      0,
+      ...spells.filter((b) => b.kind === "resist").map((b) => resistEnergyAmount(b.level)),
+    );
+    const protect = spells.find((b) => b.kind === "protect");
     return {
       endure: Boolean(endure),
-      resist: Math.max(0, Number(resist[energy]) || 0),
-      immune: Boolean(immune[energy]),
+      resist: Math.max(0, Number(resist[energy]) || 0, spellResist),
+      immune: Boolean(immune[energy]) || Boolean(protect),
+      ...(protect && !immune[energy]
+        ? {
+            immuneNote: `Protection from Energy, until it has absorbed ${Math.min(120, 12 * protect.level)} points`,
+          }
+        : {}),
       ...(endure ? { source: endure } : {}),
     };
   };
@@ -202,7 +251,11 @@ export const temperatureExposure = (
   const name = kind === "cold" ? "Cold" : "Heat";
   const energy = kind === "cold" ? "cold" : "fire";
   const from = guard?.source ? ` (${guard.source})` : "";
-  if (guard?.immune) return { text: `${name}: no effect, immune to ${energy}.`, shielded: true };
+  if (guard?.immune)
+    return {
+      text: `${name}: no effect, ${guard.immuneNote ?? `immune to ${energy}`}.`,
+      shielded: true,
+    };
   if (guard?.endure && severity <= ENDURE_MAX[kind]) {
     const edge =
       kind === "cold" && severity === ENDURE_MAX.cold

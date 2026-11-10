@@ -138,10 +138,18 @@ export const isWeatherWriter = isGMWriter;
  */
 export const actorTemperatureProtection = (actor): TemperatureProtection => {
   const items = actor.items
+    // A known spell or a scroll protects no one until it is cast; its buff does
+    .filter((i) => !["spell", "consumable"].includes(i.type))
     .filter((i) =>
       i.type === "buff" ? i.system?.active : i.isActive !== false && !i.system?.disabled,
     )
-    .map((i) => ({ name: i.name, endure: i.flags?.[MODULE_ID]?.endureElements }));
+    .map((i) => ({
+      name: i.name,
+      endure: i.flags?.[MODULE_ID]?.endureElements,
+      text: i.system?.description?.value,
+      level: i.system?.level,
+      buff: i.type === "buff",
+    }));
   const eres = actor.system?.traits?.eres?.value ?? [];
   // Resistances of one type don't stack: the highest applies, plus any pf1 marks stackable
   const resist = (type: string) => {
