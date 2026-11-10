@@ -38,7 +38,9 @@ const config = defineConfig({
   build: {
     outDir: resolve("dist"),
     emptyOutDir: true,
-    sourcemap: true,
+    // No source map in the release: it was larger than the module itself; the code stays unminified,
+    // so error traces read without it
+    sourcemap: false,
     target: "es2022",
     minify: false,
     rollupOptions: {
