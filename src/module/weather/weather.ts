@@ -143,11 +143,15 @@ export const actorTemperatureProtection = (actor): TemperatureProtection => {
     )
     .map((i) => ({ name: i.name, endure: i.flags?.[MODULE_ID]?.endureElements }));
   const eres = actor.system?.traits?.eres?.value ?? [];
-  const resist = (type: string) =>
-    Math.max(
-      0,
-      ...eres.filter((r) => (r?.types ?? []).includes(type)).map((r) => Number(r.amount) || 0),
+  // Resistances of one type don't stack: the highest applies, plus any pf1 marks stackable
+  const resist = (type: string) => {
+    const of = eres.filter((r) => (r?.types ?? []).includes(type));
+    const amount = (r) => Number(r.amount) || 0;
+    return (
+      Math.max(0, ...of.filter((r) => !r.stackable).map(amount)) +
+      of.filter((r) => r.stackable).reduce((sum, r) => sum + amount(r), 0)
     );
+  };
   const di = actor.system?.traits?.di;
   const immune = (type: string) =>
     Boolean(
