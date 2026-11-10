@@ -120,26 +120,26 @@ system:
         name: Natural Magic
         uuid: Compendium.pf1spheres.class-features.Item.81otPeLC5qCUpGD2
       - level: 1
-        name: Bonus Languages (Sphere Druid)
-        uuid: Compendium.pf1spheres.class-features.Item.OHYXFPhzrC4swZSN
+        name: Bonus Languages (DRU)
+        uuid: Compendium.pf1.class-abilities.Item.HL53FUqkS4PZCMIK
       - level: 1
         name: Nature Bond (Sphere Druid)
         uuid: Compendium.pf1spheres.class-features.Item.jyAYcLZ6qVFh5dkT
       - level: 1
-        name: Nature Sense (Sphere Druid)
-        uuid: Compendium.pf1spheres.class-features.Item.7X7CxRJIq7qW3zle
+        name: Nature Sense
+        uuid: Compendium.pf1.class-abilities.Item.UJPlPj3RUKLvmKzM
       - level: 1
-        name: Wild Empathy (Sphere Druid)
-        uuid: Compendium.pf1spheres.class-features.Item.49BsepHutnopugK3
+        name: Wild Empathy
+        uuid: Compendium.pf1.class-abilities.Item.Yr8dfM2d8JEWoYkr
       - level: 2
         name: Magic Talents (Sphere Druid)
         uuid: Compendium.pf1spheres.class-features.Item.jUSeS9DR1kaNZxbb
       - level: 2
-        name: Woodland Stride (Sphere Druid)
-        uuid: Compendium.pf1spheres.class-features.Item.ixGLN7642dDTa6gm
+        name: Woodland Stride
+        uuid: Compendium.pf1.class-abilities.Item.5iXq1igb1Cq0qobT
       - level: 3
-        name: Trackless Step (Sphere Druid)
-        uuid: Compendium.pf1spheres.class-features.Item.eAfLtskLlDNdhhrd
+        name: Trackless Step
+        uuid: Compendium.pf1.class-abilities.Item.adslhIPLFgIaHBfh
       - level: 4
         name: Resist Nature's Lure (Sphere Druid)
         uuid: Compendium.pf1spheres.class-features.Item.JMaANCOydLHEdYWD
@@ -147,14 +147,14 @@ system:
         name: Wild Heart
         uuid: Compendium.pf1spheres.class-features.Item.1ruZeR4SkfPQZ0RP
       - level: 9
-        name: Venom Immunity (Sphere Druid)
-        uuid: Compendium.pf1spheres.class-features.Item.hHE8CASBEmGVSt1l
+        name: Venom Immunity
+        uuid: Compendium.pf1.class-abilities.Item.yzmKDxR63yS5fqlc
       - level: 13
-        name: A Thousand Faces (Sphere Druid)
-        uuid: Compendium.pf1spheres.class-features.Item.VY3oPXc2kImUekYx
+        name: A Thousand Faces
+        uuid: Compendium.pf1.class-abilities.Item.MXj2WoyW7vLxiVYw
       - level: 15
-        name: Timeless Body (Sphere Druid)
-        uuid: Compendium.pf1spheres.class-features.Item.coVriaA8u648c3Fg
+        name: Timeless Body
+        uuid: Compendium.pf1.class-abilities.Item.5JlthJkVGEHPZypG
   savingThrows:
     fort:
       value: high

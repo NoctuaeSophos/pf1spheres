@@ -126,8 +126,8 @@ system:
         name: Magic Talents (Sphere Arcanist)
         uuid: Compendium.pf1spheres.class-features.Item.eIFaDIQt16w2WekO
       - level: 11
-        name: Greater Exploits (Sphere Arcanist)
-        uuid: Compendium.pf1spheres.class-features.Item.0E31C9CPcCAQ2FTV
+        name: Greater Exploits
+        uuid: Compendium.pf1.class-abilities.Item.US5ZPnvMTejXFcBZ
       - level: 20
         name: Magical Supremacy (Sphere Arcanist)
         uuid: Compendium.pf1spheres.class-features.Item.HFajgq1mpkdQ2rGw
