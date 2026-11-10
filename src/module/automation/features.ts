@@ -9,13 +9,11 @@
 
 import { MODULE_ID, localize } from "../util";
 import {
-  blastDice,
   formulaeCapacity,
   formulaeCraftDC,
   formulaeDailyUses,
   neutralizerLimits,
   neutralizerResistance,
-  parseBlastType,
   salveFormula,
   targetMsd,
 } from "./logic";
@@ -32,110 +30,6 @@ const plain = (html) =>
 const hasTag = (item, tag) =>
   (item.system?.tags ?? []).some((t) => t.toLowerCase() === tag.toLowerCase());
 const rid = () => foundry.utils.randomID(16);
-
-/* ---------- destructive blast builder ---------- */
-
-const CL = "@spheres.cl.destruction.total";
-const SAVE_TYPE = [
-  [/fortitude/i, "fort"],
-  [/reflex/i, "ref"],
-  [/will/i, "will"],
-];
-
-/** True for actors with the Destruction sphere */
-export const isBlaster = (actor) =>
-  actor.items.some((i) => i.type === "feat" && i.name === "Destruction Sphere");
-
-/**
- * Builds destructive blast actions on the actor's Destruction Sphere item: a basic blast plus one
- * per (blast type) talent, each with its die, damage type, spell point cost and save rider, an
- * extra-spell-point option for full dice, and their (blast shape) talents listed. Rebuilding
- * replaces the actions it made last time and leaves hand-made actions alone.
- *
- * @param actor - The caster
- */
-export async function buildBlastActions(actor) {
-  const sphere = actor.items.find((i) => i.type === "feat" && i.name === "Destruction Sphere");
-  if (!sphere) return ui.notifications.warn(loc("NoDestruction"));
-  const feats = actor.items.filter(
-    (i) => i.type === "feat" && i.flags?.[MODULE_ID]?.sphere === "destruction",
-  );
-  const types = feats
-    .filter((i) => hasTag(i, "Blast Type"))
-    .map((i) => parseBlastType(i.name, plain(i.system.description.value)));
-  const shapes = feats.filter((i) => hasTag(i, "Blast Shape")).map((i) => i.name);
-  const basic = { name: loc("BasicBlast"), die: 6, damageType: "bludgeoning", sp: 0, rider: "" };
-
-  const prior = sphere.flags?.[MODULE_ID]?.generatedBlasts ?? [];
-  const kept = sphere.toObject().system.actions.filter((a) => !prior.includes(a._id));
-  const automation = foundry.utils.deepClone(sphere.flags?.[MODULE_ID]?.automation ?? {});
-  for (const id of prior) delete automation[id];
-
-  const made = [];
-  for (const t of [basic, ...types]) {
-    const id = rid();
-    const condId = rid();
-    const saveType = SAVE_TYPE.find(([re]) => re.test(t.rider))?.[1];
-    made.push({
-      _id: id,
-      name: t === basic ? loc("BasicBlast") : t.name,
-      actionType: "rsak",
-      touch: true,
-      img: sphere.img,
-      activation: { type: "standard", unchained: { type: "action", cost: 2 } },
-      range: { units: "close" },
-      duration: { units: "inst" },
-      ability: { attack: "dex", damage: "", critRange: 20, critMult: 2 },
-      damage: { parts: [{ formula: `(ceil(${CL} / 2))d${t.die}`, types: [t.damageType] }] },
-      ...(saveType
-        ? {
-            save: {
-              type: saveType,
-              dc: `10 + floor(${CL} / 2) + @spheres.cam`,
-              description: t.rider,
-            },
-          }
-        : {}),
-      conditionals: [
-        {
-          _id: condId,
-          name: loc("FullDice"),
-          default: false,
-          modifiers: [
-            {
-              _id: rid(),
-              formula: `(${CL} - ceil(${CL} / 2))d${t.die}`,
-              target: "damage",
-              subTarget: "allDamage",
-              type: "untyped",
-              critical: "normal",
-              damageType: [t.damageType],
-            },
-          ],
-        },
-      ],
-      notes: {
-        footer: [
-          loc("BlastNote"),
-          ...(t.rider ? [t.rider] : []),
-          ...(shapes.length ? [fmt("BlastShapes", { shapes: shapes.join(", ") })] : []),
-        ],
-      },
-    });
-    automation[id] = { sp: String(t.sp), condSp: { [condId]: 1 } };
-  }
-  await sphere.update({
-    "system.actions": [...kept, ...made],
-    [`flags.${MODULE_ID}.generatedBlasts`]: made.map((a) => a._id),
-    [`flags.${MODULE_ID}.automation`]: automation,
-  });
-  ui.notifications.info(
-    fmt("BlastsBuilt", {
-      count: made.length,
-      dice: blastDice(actor.system.spheres?.cl?.destruction?.total ?? 1),
-    }),
-  );
-}
 
 /* ---------- magic skill checks ---------- */
 
@@ -337,22 +231,32 @@ const formulaeItem = (talent, actor, opts) => {
         }),
       );
       break;
-    case "Neutralizer":
+    case "Neutralizer": {
       base.system.subType = "misc";
-      base.system.actions.push(
-        action(loc("Apply"), {
-          notes: {
-            footer: [
-              fmt("NeutralizerNote", {
-                er: neutralizerResistance(ranks),
-                energy: opts.energy || loc("ChooseEnergy"),
-                ...neutralizerLimits(opts.upgrades),
-              }),
-            ],
-          },
-        }),
-      );
+      const limits = neutralizerLimits(opts.upgrades);
+      const note = fmt("NeutralizerNote", {
+        er: neutralizerResistance(ranks),
+        energy: opts.energy || loc("ChooseEnergy"),
+        ...limits,
+      });
+      const a = action(loc("Apply"), { notes: { footer: [note] } });
+      base.system.actions.push(a);
+      // The resistance goes on the treated creature as a buff (its level is the amount) that ends with the paste
+      base.flags[MODULE_ID].buffTemplates = {
+        neutralizer: {
+          name: `${talent.name} (${opts.energy || loc("ChooseEnergy")})`,
+          img: talent.img,
+          description: `<p>${note}</p>`,
+          changes: [],
+          contextNotes: [],
+        },
+      };
+      automation[a._id] = {
+        effect: { enabled: true, duration: String(limits.minutes), units: "minute" },
+        buff: { itemId: "tpl:neutralizer", level: String(neutralizerResistance(ranks)) },
+      };
       break;
+    }
     case "Focusing Formula": {
       const a = action(loc("Drink"), {
         activation: { type: "move", unchained: { type: "action", cost: 1 } },

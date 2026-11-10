@@ -30,13 +30,7 @@ import {
   setImbue,
   setAllies,
 } from "./automation/runtime";
-import {
-  buildBlastActions,
-  isAlchemist,
-  isBlaster,
-  openFormulae,
-  rollMsbVsTargets,
-} from "./automation/features";
+import { isAlchemist, openFormulae, rollMsbVsTargets } from "./automation/features";
 import {
   formatRemaining,
   inspiredBonus,
@@ -590,7 +584,6 @@ const getSpheresData = (app: ActorSheetPF, actor: ActorPF): SpheresTemplateData 
     martialFocus: spheres.martialFocus === 1,
     weatherCaster: getWeatherCaster(actor as never) !== null,
     alchemist: isAlchemist(actor),
-    blaster: isBlaster(actor),
     effects: getEffects(actor).map((e) => ({
       ...e,
       remaining: formatRemaining(effectRemaining(e)),
@@ -740,7 +733,6 @@ const activateListeners = (app: ActorSheetPF, html: JQuery<HTMLElement>, actor: 
         ?.sheet?.render(true),
     );
   html.find(".pf1s-prepare-formulae").on("click", () => openFormulae(actor));
-  html.find(".pf1s-build-blasts").on("click", () => buildBlastActions(actor));
   html.find(".pf1s-msb-vs").on("click", () => rollMsbVsTargets(actor));
   html.find(".pf1s-effect-end").on("click", (ev) => endEffect(actor, effectIdOf(ev)));
   html.find(".pf1s-effect-persist").on("click", (ev) => persistEffect(actor, effectIdOf(ev)));
@@ -889,7 +881,6 @@ interface SpheresTemplateData {
   martialFocus: boolean;
   weatherCaster: boolean;
   alchemist: boolean;
-  blaster: boolean;
   effects: unknown[];
   marks: unknown[];
   sequence: unknown;

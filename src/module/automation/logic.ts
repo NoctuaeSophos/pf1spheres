@@ -403,58 +403,6 @@ export const formulaeDailyUses = (craftRanks: number, pam: number) =>
 /** Neutralizer energy resistance: 5 + 5 per 5 ranks */
 export const neutralizerResistance = (craftRanks: number) => 5 + 5 * Math.floor(craftRanks / 5);
 
-/* ---------- Destructive blast ---------- */
-
-export interface BlastType {
-  name: string;
-  die: number;
-  damageType: string;
-  sp: number;
-  rider: string;
-}
-
-const DAMAGE_WORDS: [RegExp, string][] = [
-  [/\belectricity\b/i, "electric"],
-  [/\bfire\b/i, "fire"],
-  [/\bcold\b/i, "cold"],
-  [/\bacid\b/i, "acid"],
-  [/\bsonic\b/i, "sonic"],
-  [/\bforce\b/i, "force"],
-  [/\bnegative energy\b/i, "negative"],
-  [/\bpositive energy\b/i, "positive"],
-  [/\bpiercing\b/i, "piercing"],
-  [/\bslashing\b/i, "slashing"],
-  [/\bnonlethal\b/i, "nonlethal"],
-];
-
-/**
- * Reads a (blast type) talent's description: damage die, damage type, spell point cost and rider.
- *
- * @param name - Talent name
- * @param text - Plain-text description
- */
-export const parseBlastType = (name: string, text: string): BlastType => {
-  const die = Number(/uses?\s+d(\d+)\s+instead of\s+d6/i.exec(text)?.[1] ?? 6);
-  const first = text.split(/(?<=\.)\s/)[0] ?? "";
-  const damageType =
-    DAMAGE_WORDS.find(([re]) => re.test(first))?.[1] ??
-    DAMAGE_WORDS.find(([re]) => re.test(text))?.[1] ??
-    "bludgeoning";
-  const sp = /spend (a|one|1) spell point/i.test(first)
-    ? 1
-    : /spend (two|2) spell points/i.test(first)
-      ? 2
-      : 0;
-  const rider = text
-    .split(/(?<=\.)\s/)
-    .filter((s) => /save|saving throw/i.test(s))
-    .join(" ");
-  return { name, die, damageType, sp, rider };
-};
-
-/** Basic destructive blast dice: one per odd caster level */
-export const blastDice = (casterLevel: number) => Math.max(1, Math.ceil(casterLevel / 2));
-
 /* ---------- Magic skill checks ---------- */
 
 /**

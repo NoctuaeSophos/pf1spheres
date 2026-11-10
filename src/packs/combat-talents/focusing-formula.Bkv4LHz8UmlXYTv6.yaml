@@ -5,9 +5,6 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: alchemy
-    automation:
-      M9y4wiPdCMC6yrs9:
-        focus: restore
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/alchemy.webp
 name: Focusing Formula
@@ -30,10 +27,6 @@ system:
         unchained:
           cost: 1
           type: action
-      notes:
-        footer:
-          - Drink it as a move action to regain martial focus, or give it to an ally within reach as a standard
-            action. Each +10 Craft DC adds a use.
   armorProf: []
   associations:
     classes: []

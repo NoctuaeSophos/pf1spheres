@@ -21,24 +21,12 @@ system:
   actions:
     - _id: 3P0hQ4j9Q4offzAj
       name: Salve
-      actionType: heal
+      actionType: other
       activation:
         type: standard
         unchained:
-          type: action
           cost: 2
-      range:
-        units: touch
-      damage:
-        parts:
-          - formula: (max(1, floor(@spheres.alchemyRanks / 2)))d8 + @spheres.pam
-            types:
-              - positive
-      notes:
-        footer:
-          - Heals yourself or a creature within your natural reach; stops bleeding, heals undead but not constructs.
-            Each creature can be healed by your salves [[max(1, floor(@spheres.alchemyRanks / 2)) + @spheres.pam]]
-            times a day. +5 healing for each +10 to the Craft DC.
+          type: action
   armorProf: []
   associations:
     classes: []

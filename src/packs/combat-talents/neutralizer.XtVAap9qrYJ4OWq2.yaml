@@ -5,25 +5,6 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: alchemy
-    buffTemplates:
-      neutralizer:
-        name: Neutralizer
-        img: icons/svg/aura.svg
-        description:
-          <p>Energy resistance equal to this buff's level against the energy chosen when the
-          neutralizer was made (acid, cold, electricity or fire; a second type at 10 Craft (alchemy) ranks).
-          It ends after two attacks of that energy or 10 minutes; a new neutralizer replaces it.</p>
-        changes: []
-        contextNotes: []
-    automation:
-      MzRHSlPx0AHVGkTm:
-        effect:
-          enabled: true
-          duration: "10"
-          units: minute
-        buff:
-          itemId: tpl:neutralizer
-          level: 5 + 5 * floor(@spheres.alchemyRanks / 5)
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/alchemy.webp
 name: Neutralizer
@@ -44,14 +25,8 @@ system:
       activation:
         type: standard
         unchained:
-          type: action
           cost: 2
-      range:
-        units: touch
-      notes:
-        footer:
-          - "Apply to yourself or a willing creature within reach. The buff's level is the energy resistance:
-            [[5 + 5 * floor(@spheres.alchemyRanks / 5)]]. Each +10 Craft DC adds an attack and 10 minutes."
+          type: action
   armorProf: []
   associations:
     classes: []

@@ -11,7 +11,6 @@ import {
   phalanxBonus,
   squadronSize,
   squadronTotemBonus,
-  blastDice,
   distanceFt,
   durationSeconds,
   fillNote,
@@ -30,7 +29,6 @@ import {
   saveFailed,
   inspiredBonus,
   neutralizerResistance,
-  parseBlastType,
   remainingSeconds,
   salveFormula,
   sequenceMax,
@@ -141,19 +139,6 @@ describe("alchemy", () => {
     expect(salveFormula(13, 6, 1)).toBe("6d8 + 11");
     expect(formulaeDailyUses(13, 6)).toBe(12);
     expect(neutralizerResistance(13)).toBe(15);
-  });
-});
-
-describe("destructive blast", () => {
-  test("parses a blast type", () => {
-    const shock = parseBlastType(
-      "Shock Blast",
-      "You may spend a spell point to have your destructive blast deal electricity damage. A shock blast uses d4 instead of d6 as its damage die. Any creature struck by the attack or that failed their Reflex saving throw if one was required must succeed at a Fortitude save or be dazed for 1 round.",
-    );
-    expect(shock).toMatchObject({ die: 4, damageType: "electric", sp: 1 });
-    expect(shock.rider).toMatch(/dazed/);
-    expect(blastDice(17)).toBe(9);
-    expect(blastDice(1)).toBe(1);
   });
 });
 

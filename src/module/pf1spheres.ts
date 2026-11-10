@@ -43,7 +43,7 @@ import { registerAutomation, endEffect, getEffects } from "./automation/runtime"
 import { registerCorruption } from "./supplements/corruption";
 import { registerGrants, syncGrants } from "./automation/grants";
 import { onRenderActionSheet } from "./automation/action-sheet";
-import { buildBlastActions, openFormulae, rollMsbVsTargets } from "./automation/features";
+import { openFormulae, rollMsbVsTargets } from "./automation/features";
 
 export { PF1S as config };
 
@@ -211,7 +211,6 @@ Hooks.once("setup", () => {
       automation: {
         effects: getEffects,
         endEffect,
-        buildBlastActions,
         openFormulae,
         rollMsbVsTargets,
       },
