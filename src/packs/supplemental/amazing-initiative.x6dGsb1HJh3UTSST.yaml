@@ -5,6 +5,9 @@ flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    automation:
+      P5G6h4zw5gVrDdIG:
+        mp: "1"
 folder: null
 img: icons/svg/item-bag.svg
 name: Amazing Initiative
@@ -18,7 +21,18 @@ system:
     damageMult: 1
   abilityType: ex
   acquired: false
-  actions: []
+  actions:
+    - _id: P5G6h4zw5gVrDdIG
+      name: Extra Action
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          type: free
+          cost: 1
+      notes:
+        footer:
+          - On your turn, take one additional standard action.
   armorProf: []
   associations:
     classes: []

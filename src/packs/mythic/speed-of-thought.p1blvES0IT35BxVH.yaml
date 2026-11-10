@@ -5,6 +5,10 @@ flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    automation:
+      3Tf5o5SJ2LaKGdvc:
+        mp: "1"
+        focus: expend
 folder: null
 img: icons/svg/item-bag.svg
 name: Speed of Thought

@@ -5,6 +5,9 @@ flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    automation:
+      NFNhZzATfLRC1jaq:
+        mp: "1"
 folder: null
 img: icons/svg/item-bag.svg
 name: Recuperation
@@ -18,7 +21,19 @@ system:
     damageMult: 1
   abilityType: ex
   acquired: false
-  actions: []
+  actions:
+    - _id: NFNhZzATfLRC1jaq
+      name: Short Rest
+      actionType: other
+      activation:
+        type: hour
+        cost: 1
+        unchained:
+          type: hour
+          cost: 1
+      notes:
+        footer:
+          - Rest 1 hour to recover hit points and regain uses as described.
   armorProf: []
   associations:
     classes: []

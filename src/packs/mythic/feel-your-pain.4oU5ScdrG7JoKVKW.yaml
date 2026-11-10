@@ -5,6 +5,15 @@ flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    automation:
+      CQ4hJhqAo0iEFJdE:
+        mp: "1"
+      exqLIfTT4BLwF9M4:
+        mp: "2"
+      cidEQrZGVVcEHCnb:
+        mp: "1"
+      3BLurXtEFOwrxlZK:
+        mp: "2"
 folder: null
 img: icons/svg/item-bag.svg
 name: Feel Your Pain
@@ -27,6 +36,42 @@ system:
         unchained:
           cost: 1
           type: free
+    - _id: exqLIfTT4BLwF9M4
+      name: Feel Your Pain (ally within 30 ft.)
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          type: free
+          cost: 1
+      notes:
+        footer:
+          - Take the condition from an ally within 30 ft. instead of an adjacent one.
+    - _id: cidEQrZGVVcEHCnb
+      name: Shake It Off (new save)
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          type: free
+          cost: 1
+      notes:
+        footer:
+          - "At the end of your turn, a new save against a transferred effect that has
+            a duration and allows a save (2 mythic power if the effect is mythic: spend
+            the second with this button again)."
+    - _id: 3BLurXtEFOwrxlZK
+      name: Shake It Off (end it)
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          type: free
+          cost: 1
+      notes:
+        footer:
+          - End a transferred effect that is instantaneous, permanent or allows no save,
+            after 1 minute (4 mythic power if the effect is mythic).
   armorProf: []
   associations:
     classes: []

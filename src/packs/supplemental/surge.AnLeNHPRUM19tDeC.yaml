@@ -5,6 +5,9 @@ flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    automation:
+      kb4BlPOBUS0PoAzO:
+        mp: "1"
 folder: null
 img: icons/svg/item-bag.svg
 name: Surge
@@ -18,7 +21,19 @@ system:
     damageMult: 1
   abilityType: su
   acquired: false
-  actions: []
+  actions:
+    - _id: kb4BlPOBUS0PoAzO
+      name: Surge
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          type: reaction
+          cost: 1
+      notes:
+        footer:
+          - "After seeing a d20 roll you just made, add the surge die: [[1d(6 + 2 * floor((@details.mythicTier
+            - 1) / 3))]]."
   armorProf: []
   associations:
     classes: []

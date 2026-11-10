@@ -5,6 +5,32 @@ flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    buffTemplates:
+      deadly-dodge:
+        name: Deadly Dodge
+        img: icons/svg/aura.svg
+        description: <p>+4 dodge bonus to AC until your next turn starts. A creature
+          that misses you in melee provokes an attack of opportunity from you; instead
+          of that attack you may have it reroll the attack against another creature
+          adjacent to you and within its reach.</p>
+        changes:
+          - formula: "4"
+            target: ac
+            type: dodge
+        contextNotes:
+          - text: "Deadly Dodge: a melee miss against you provokes, or is redirected
+              at an adjacent creature"
+            target: ac
+    automation:
+      5YHZqYhvX1YjEC2P:
+        mp: "1"
+        effect:
+          enabled: true
+          duration: "1"
+          units: round
+        buff:
+          itemId: tpl:deadly-dodge
+          self: true
 folder: null
 img: icons/svg/item-bag.svg
 name: Deadly Dodge
@@ -18,7 +44,20 @@ system:
     damageMult: 1
   abilityType: ex
   acquired: false
-  actions: []
+  actions:
+    - _id: 5YHZqYhvX1YjEC2P
+      name: Deadly Dodge
+      actionType: other
+      activation:
+        type: swift
+        unchained:
+          type: action
+          cost: 1
+      range:
+        units: personal
+      duration:
+        value: "1"
+        units: round
   armorProf: []
   associations:
     classes: []

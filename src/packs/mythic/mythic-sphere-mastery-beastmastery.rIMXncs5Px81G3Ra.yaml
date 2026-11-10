@@ -5,6 +5,9 @@ flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    automation:
+      QVnAbhaoELLHjEM2:
+        mp: "1"
 folder: null
 img: icons/svg/item-bag.svg
 name: Mythic Sphere Mastery (Beastmastery)
@@ -18,7 +21,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: QVnAbhaoELLHjEM2
+      name: Quick Taming
+      actionType: other
+      activation:
+        type: minute
+        cost: 1
+        unchained:
+          type: minute
+          cost: 1
+      notes:
+        footer:
+          - Try to tame an animal in 1 minute.
   armorProf: []
   associations:
     classes: []

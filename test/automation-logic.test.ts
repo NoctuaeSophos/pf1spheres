@@ -43,6 +43,9 @@ import {
   effectLabel,
   pinCasterLevels,
   pinCasterRefs,
+  mythicCost,
+  extendRecharge,
+  drainingDamage,
   withoutLabel,
   undeadHDLimit,
   killingCurseCount,
@@ -434,6 +437,23 @@ describe("wards and totems", () => {
       "2d10 + 2 * @abilities.con.mod",
     );
     expect(pinCasterRefs("@caster.nothing.here", look)).toBe("0");
+  });
+  it("prices mythic power, tripled while Recharge Required recharges", () => {
+    expect(mythicCost(1, false)).toBe(1);
+    expect(mythicCost(2, true)).toBe(6);
+    expect(hasAutomation({ mp: "1" })).toBe(true);
+    expect(hasAutomation({ mp: "0" })).toBe(false);
+    // A spend at world time 100 with 3 rounds rolled; a second at 106 adds 2 more rounds
+    expect(extendRecharge(0, 100, 3)).toBe(118);
+    expect(extendRecharge(118, 106, 2)).toBe(130);
+    expect(extendRecharge(50, 100, 1)).toBe(106);
+  });
+  it("drains 1 nonlethal + 1 per 5 caster levels", () => {
+    expect([1, 4, 5, 13, 20].map(drainingDamage)).toEqual([1, 1, 2, 3, 5]);
+  });
+  it("creates an always-on template buff switched on", () => {
+    expect(templateToItemData({ name: "A", active: true }).system.active).toBe(true);
+    expect(templateToItemData({ name: "B" }).system.active).toBe(false);
   });
   it("counts temporary hit points as automation", () => {
     expect(hasAutomation({ tempHp: { formula: "@attributes.bab.total" } })).toBe(true);

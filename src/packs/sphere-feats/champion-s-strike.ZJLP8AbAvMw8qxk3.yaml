@@ -3,6 +3,30 @@ _key: "!items!ZJLP8AbAvMw8qxk3"
 effects: []
 flags:
   pf1: {}
+  pf1spheres:
+    buffTemplates:
+      champions-strike:
+        name: Champion's Strike (Imbued Strike)
+        img: icons/svg/aura.svg
+        active: true
+        description: "<p>Imbued Strike is always in effect: weapons deal extra damage
+          (+1, +1 per 5 magic skill bonus, maximum +5) and count as magic for damage
+          reduction. With an attack action that has one target and one attack roll,
+          that bonus rises 100% per +5 base attack bonus. Don't also use Imbued Strike's
+          own buff, which doesn't stack with this.</p>"
+        changes:
+          - formula: min(5, 1 + floor(@spheres.msb.total / 5))
+            target: wdamage
+            type: untyped
+        contextNotes:
+          - text: "Champion's Strike: your weapons count as magic against damage reduction"
+            target: attack
+          - text: "Champion's Strike: with an attack action that has one target and
+              one attack roll, imbued strike deals +[[min(5, 1 + floor(@spheres.msb.total
+              / 5)) * floor(@attributes.bab.total / 5)]] more damage"
+            target: wdamage
+    grantItems:
+      - champions-strike
 folder: null
 img: icons/svg/item-bag.svg
 name: Champion’s Strike
@@ -46,15 +70,15 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p><strong>Prerequisite:</strong> Arcane Strike or Imbued Strike.</p>
+    value: "<p><strong>Prerequisite:</strong> Arcane Strike or Imbued Strike.</p>
 
-      <p><strong>Benefit:</strong> Your arcane strike or imbued strike is in
-      effect at all times without you needing to take an action to activate it.
-      In addition, when you use this ability with an attack action that only
-      affects one target and has only one attack roll, the bonus on damage rolls
-      for your strike is increased 100% for every +5 base attack bonus you
-      possess.</p>
+      <p><strong>Benefit:</strong> Your arcane strike or imbued strike is in effect
+      at all times without you needing to take an action to activate it. In addition,
+      when you use this ability with an attack action that only affects one target
+      and has only one attack roll, the bonus on damage rolls for your strike is increased
+      100% for every +5 base attack bonus you possess.</p>
+
+      "
   disabled: false
   duration:
     units: ""

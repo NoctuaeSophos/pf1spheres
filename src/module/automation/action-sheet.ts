@@ -61,6 +61,8 @@ export const onRenderActionSheet = (app, html) => {
       <div class="form-group"><label>${loc("SpCost")}</label>
         <div class="form-fields"><input type="text" data-pf1s="sp" value="${esc(a.sp)}" placeholder="0"></div>
         <p class="hint">${loc("SpCostHint")}</p></div>
+      <div class="form-group"><label>${loc("MpCost")}</label>
+        <div class="form-fields"><input type="text" data-pf1s="mp" value="${esc(a.mp)}" placeholder="0"></div></div>
       ${conds
         .map(
           (c) => `<div class="form-group"><label>${loc("CondSp")}: ${esc(c.name)}</label>

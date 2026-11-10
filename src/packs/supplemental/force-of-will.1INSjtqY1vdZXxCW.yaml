@@ -5,6 +5,9 @@ flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    automation:
+      4HBrBF5zuatgm9LW:
+        mp: "1"
 folder: null
 img: icons/svg/item-bag.svg
 name: Force of Will
@@ -18,7 +21,18 @@ system:
     damageMult: 1
   abilityType: ex
   acquired: false
-  actions: []
+  actions:
+    - _id: 4HBrBF5zuatgm9LW
+      name: Force of Will
+      actionType: other
+      activation:
+        type: immediate
+        unchained:
+          type: reaction
+          cost: 1
+      notes:
+        footer:
+          - "Force a reroll of a d20 just rolled: your own, or a non-mythic creature's."
   armorProf: []
   associations:
     classes: []

@@ -27,6 +27,9 @@ import {
   parseConditions,
   pinCasterLevels,
   pinCasterRefs,
+  mythicCost,
+  extendRecharge,
+  drainingDamage,
   templateToItemData,
   remainingSeconds,
   saveFailed,
@@ -86,13 +89,86 @@ function* allActors() {
 
 /* ---------- spell points and martial focus ---------- */
 
-export const spendResources = async (actor, { sp = 0, focus = "" } = {}) => {
+export const spendResources = async (actor, { sp = 0, focus = "", mp = 0 } = {}) => {
   const upd = {};
   if (sp > 0) await setSpellPoints(actor, (actor.system.spheres?.spellPoints?.value ?? 0) - sp);
+  if (mp > 0) await spendMythicPower(actor, mp);
   if (focus === "expend") upd[`flags.${MODULE_ID}.martialFocus`] = false;
   if (focus === "restore") upd[`flags.${MODULE_ID}.martialFocus`] = true;
   if (Object.keys(upd).length) await actor.update(upd);
 };
+
+/* ---------- mythic power ---------- */
+
+/** The actor's Mythic Power item (Krune's or this module's), whose uses are the mythic power pool */
+export const mythicPowerItem = (actor) =>
+  actor?.items?.find(
+    (i) => i.type === "feat" && /^mythic power$/i.test(i.name) && i.system?.uses?.per,
+  ) ?? null;
+
+const hasRechargeRequired = (actor) =>
+  actor?.items?.some(
+    (i) =>
+      i.type === "feat" &&
+      /^recharge required\b/i.test(i.name) &&
+      i.isActive !== false &&
+      !i.system?.disabled,
+  );
+
+/** Whether Recharge Required (Variant) is tripling mythic power costs right now */
+export const rechargeActive = (actor) =>
+  hasRechargeRequired(actor) &&
+  (Number(actor.flags?.[MODULE_ID]?.mythicRecharge) || 0) > game.time.worldTime;
+
+async function spendMythicPower(actor, mp: number) {
+  const source = mythicPowerItem(actor);
+  if (!source) return;
+  await source.update({
+    "system.uses.value": Math.max(0, (Number(source.system.uses?.value) || 0) - mp),
+  });
+  if (!hasRechargeRequired(actor)) return;
+  const rounds = (await new Roll("1d4").evaluate()).total;
+  const until = extendRecharge(
+    actor.flags?.[MODULE_ID]?.mythicRecharge,
+    game.time.worldTime,
+    rounds,
+  );
+  await actor.setFlag(MODULE_ID, "mythicRecharge", until);
+  await ChatMessage.create({
+    speaker: ChatMessage.getSpeaker({ actor }),
+    whisper: game.users
+      .filter((u) => u.isGM || actor.testUserPermission(u, "OWNER"))
+      .map((u) => u.id),
+    content: `<p>${fmt("RechargeWindow", { rounds, total: Math.round((until - game.time.worldTime) / 6) })}</p>`,
+  });
+}
+
+/* ---------- Draining Casting ---------- */
+
+/** Spending spell points with Draining Casting deals nonlethal damage that DR and immunity don't stop */
+function onPoolPreUpdate(item, changed, options) {
+  if (!item.flags?.[MODULE_ID]?.spellPool) return;
+  const next = foundry.utils.getProperty(changed, "system.uses.value");
+  if (next !== undefined) options.pf1sPoolBefore = Number(item.system.uses?.value) || 0;
+}
+
+async function onPoolUpdate(item, changed, options, userId) {
+  if (userId !== game.user.id || options.pf1sPoolBefore === undefined) return;
+  const next = Number(foundry.utils.getProperty(changed, "system.uses.value"));
+  if (!(next < options.pf1sPoolBefore)) return;
+  const actor = item.actor;
+  const drawback = actor?.items.find(
+    (i) => i.type === "feat" && /^draining casting\b/i.test(i.name) && !i.system?.disabled,
+  );
+  if (!drawback) return;
+  const n = drainingDamage(actor.system.spheres?.cl?.total ?? 0);
+  const hp = actor.system.attributes?.hp;
+  await actor.update({ "system.attributes.hp.nonlethal": (Number(hp?.nonlethal) || 0) + n });
+  await ChatMessage.create({
+    speaker: ChatMessage.getSpeaker({ actor }),
+    content: `<p>${fmt("DrainingCasting", { name: actor.token?.name ?? actor.name, n })}</p>`,
+  });
+}
 
 /* ---------- tracked sphere effects ---------- */
 
@@ -740,6 +816,24 @@ function onPreActionUse(au) {
     ui.notifications.warn(fmt("NotEnoughSP", { cost: sp, value: pool }));
     return false;
   }
+  // Mythic power, from the Mythic Power item; Recharge Required (Variant) triples it for a while
+  let mp = 0;
+  const mpBase = auto.mp?.trim() ? evalFormula(auto.mp, au.shared.rollData) : 0;
+  if (mpBase > 0) {
+    const source = mythicPowerItem(actor);
+    if (!source) {
+      ui.notifications.warn(loc("NoMythicPower"));
+      return false;
+    }
+    const tripled = rechargeActive(actor);
+    mp = mythicCost(mpBase, tripled);
+    const have = Number(source.system.uses?.value) || 0;
+    if (mp > have) {
+      ui.notifications.warn(fmt("NotEnoughMP", { cost: mp, value: have }));
+      return false;
+    }
+    if (tripled) notes.push({ text: loc("RechargeTripled") });
+  }
   const focus = actor.flags?.[MODULE_ID]?.martialFocus === true;
   let focusMode = auto.focus ?? "";
   let spForFocus = 0;
@@ -784,7 +878,8 @@ function onPreActionUse(au) {
     ui.notifications.warn(localize("NeedGM"));
     return false;
   }
-  au.shared.pf1spheres = { sp: sp + spForFocus, focus: focusMode, auto };
+  au.shared.pf1spheres = { sp: sp + spForFocus, focus: focusMode, mp, auto };
+  if (mp) notes.push({ text: fmt("SpentMP", { cost: mp }) });
   if (sp) notes.push({ text: fmt("SpentSP", { cost: sp }) });
   if (spForFocus) notes.push({ text: fmt("SpentSPForFocus", { cost: spForFocus }) });
   if (focusMode === "expend") notes.push({ text: loc("ExpendsFocus") });
@@ -799,7 +894,7 @@ async function onPostActionUse(au) {
   const item = au.item;
   const action = au.shared.action ?? au.action;
   const rd = au.shared.rollData ?? actor.getRollData();
-  await spendResources(actor, { sp: state.sp, focus: state.focus });
+  await spendResources(actor, { sp: state.sp, focus: state.focus, mp: state.mp ?? 0 });
   if (auto.sequence?.role) {
     const next = applySequenceRole(
       getSequence(actor),
@@ -1414,6 +1509,12 @@ function onPreAttackRoll(action, _config, _rollData, rollOptions) {
 export const registerAutomation = () => {
   registerSocketHandler("auto.cleanup", cleanupEffect);
   registerSocketHandler("auto.buff", applyBuff);
+  Hooks.on("preUpdateItem", onPoolPreUpdate);
+  Hooks.on("updateItem", (item, changed, options, userId) => {
+    onPoolUpdate(item, changed, options, userId).catch((err) =>
+      console.error(`${MODULE_ID} | draining casting`, err),
+    );
+  });
   registerSocketHandler("auto.tempHp", applyTempHp);
   registerSocketHandler("auto.zone", async (msg, user) => {
     await createZone(msg, user);

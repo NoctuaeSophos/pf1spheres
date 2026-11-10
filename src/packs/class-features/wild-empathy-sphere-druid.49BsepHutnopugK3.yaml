@@ -18,7 +18,24 @@ system:
     damageMult: 1
   abilityType: ex
   acquired: false
-  actions: []
+  actions:
+    - _id: iHAK44lb7OLIvrVI
+      name: Wild Empathy
+      actionType: other
+      activation:
+        type: minute
+        cost: 1
+        unchained:
+          type: minute
+          cost: 1
+      range:
+        units: ft
+        value: "30"
+      notes:
+        footer:
+          - "Wild empathy check: [[1d20 + @classes.sphereDruid.level + @abilities.cha.mod]]
+            (-4 against a magical beast with Intelligence 1 or 2). Domestic animals start
+            indifferent, wild ones usually unfriendly."
   armorProf: []
   associations:
     classes: []

@@ -5,6 +5,9 @@ flags:
   pf1: {}
   pf1spheres:
     sphere: lancer
+    automation:
+      r7BZ1px3qqsjdCIB:
+        focus: restore
 folder: null
 img: modules/pf1spheres/assets/icons/spheres/lancer.webp
 name: Focusing Finale
@@ -18,7 +21,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: r7BZ1px3qqsjdCIB
+      name: Focusing Finale
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          type: free
+          cost: 1
+      notes:
+        footer:
+          - When you remove your weapon from an impaled creature (Bloody Rip included),
+            regain your martial focus.
   armorProf: []
   associations:
     classes: []
@@ -48,9 +63,10 @@ system:
   description:
     instructions: ""
     unidentified: ""
-    value: >
-      <p>Whenever you remove your weapon from an impaled creature, you may
-      regain your martial focus.</p>
+    value: "<p>Whenever you remove your weapon from an impaled creature, you may regain
+      your martial focus.</p>
+
+      "
   disabled: false
   duration:
     units: ""

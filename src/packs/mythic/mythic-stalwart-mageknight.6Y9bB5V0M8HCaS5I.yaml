@@ -5,6 +5,9 @@ flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    automation:
+      qCjOZCTP4xtZkkJS:
+        mp: "1"
 folder: null
 img: icons/svg/item-bag.svg
 name: Mythic Stalwart (Mageknight)
@@ -18,7 +21,19 @@ system:
     damageMult: 1
   abilityType: na
   acquired: false
-  actions: []
+  actions:
+    - _id: qCjOZCTP4xtZkkJS
+      name: Mythic Stalwart
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          type: free
+          cost: 1
+      notes:
+        footer:
+          - When you fail a Fortitude or Will save against an effect that still affects
+            you on a success, succeed instead.
   armorProf: []
   associations:
     classes: []

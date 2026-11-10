@@ -5,6 +5,9 @@ flags:
   pf1: {}
   pf1spheres:
     addedIn: fork
+    automation:
+      XHJX6nsBvBqJd0ss:
+        mp: "1"
 folder: null
 img: icons/svg/item-bag.svg
 name: Mythic Sphere Mastery (Time)

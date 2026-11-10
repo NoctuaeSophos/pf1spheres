@@ -38,7 +38,9 @@ system:
     seeInvisibility: false
   changes: []
   classSkills: {}
-  contextNotes: []
+  contextNotes:
+    - text: "Awakened Hag Heritage: +2 racial bonus on saves against arcane spells"
+      target: allSavingThrows
   crOffset: ""
   critConfirmBonus: ""
   damage:

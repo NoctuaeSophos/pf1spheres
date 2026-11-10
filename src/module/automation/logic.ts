@@ -12,6 +12,8 @@
 export interface ActionAutomation {
   /** Spell point cost formula */
   sp?: string;
+  /** Mythic power cost formula, drawn from the actor's Mythic Power item */
+  mp?: string;
   /** Extra spell points per selected conditional id */
   condSp?: Record<string, number>;
   /** Martial focus: required, expended, or restored by this action */
@@ -135,6 +137,7 @@ export const hasAutomation = (a: ActionAutomation | undefined | null): boolean =
         a.sequence?.role ||
         a.threatNext ||
         a.tempHp?.formula?.trim() ||
+        (a.mp && a.mp.trim() !== "" && a.mp.trim() !== "0") ||
         Number(a.minHD) > 0),
   );
 
@@ -157,6 +160,30 @@ export const totalSpCost = (
       (Number(base) || 0) + selected.reduce((s, id) => s + (Number(condSp?.[id]) || 0), 0),
     ),
   );
+
+/**
+ * Mythic power cost: tripled while Recharge Required (Variant) is recharging.
+ *
+ * @param base - The evaluated cost
+ * @param tripled - Whether the recharge period is running
+ */
+export const mythicCost = (base: number, tripled: boolean): number =>
+  Math.max(0, Math.floor(Number(base) || 0)) * (tripled ? 3 : 1);
+
+/**
+ * Recharge Required (Variant): each expenditure adds another 1d4-round period of tripled costs.
+ *
+ * @param until - World time the current period ends (0 or past when none)
+ * @param now - Current world time
+ * @param rounds - The rolled rounds to add
+ * @returns The new end time
+ */
+export const extendRecharge = (until: number, now: number, rounds: number): number =>
+  Math.max(Number(until) || 0, now) + Math.max(0, rounds) * 6;
+
+/** Draining Casting: 1 nonlethal damage, +1 per 5 caster levels, each time spell points are spent */
+export const drainingDamage = (casterLevel: number): number =>
+  1 + Math.floor(Math.max(0, Number(casterLevel) || 0) / 5);
 
 /** Duration in seconds, or null for "until ended" */
 export const durationSeconds = (value: number, units: DurationUnit | undefined): number | null =>
@@ -449,6 +476,8 @@ export interface BuffTemplate {
   description?: string;
   changes?: { formula: string; target: string; type?: string; operator?: string }[];
   contextNotes?: { text: string; target: string }[];
+  /** Created switched on (an always-on feature buff, such as Champion's Strike's) */
+  active?: boolean;
 }
 
 /**
@@ -463,7 +492,7 @@ export const templateToItemData = (t: BuffTemplate) => ({
   img: t.img || "icons/svg/aura.svg",
   system: {
     subType: "temp",
-    active: false,
+    active: t.active === true,
     description: { value: t.description ?? "" },
     changes: (t.changes ?? []).map((c, i) => ({
       _id: `pf1stpl${String(i).padStart(9, "0")}`,
