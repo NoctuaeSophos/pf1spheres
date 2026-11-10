@@ -145,28 +145,47 @@
 
     .talent.grid {
       margin: 0rem;
-      grid-template-areas: "image name activation use controls";
-      grid-template-columns: 1.5rem 1fr minmax(3rem, 4rem) 1rem 100px;
+      grid-template-areas: "image name activation use";
+      grid-template-columns: 1.5rem 1fr minmax(3rem, 4rem) auto;
+      align-items: center;
       background-color: rgba(255, 255, 255, 0.1);
 
       &:nth-child(2n + 1) {
         background-color: rgba(255, 255, 255, 0);
       }
 
+      // The icon posts the talent to chat: a speech bubble over the picture on hover, as on pf1's lists
       .talent-icon {
+        position: relative;
+        width: 24px;
         height: 24px;
+        cursor: pointer;
         > img {
+          width: 24px;
+          height: 24px;
           border: none;
         }
-        > img:last-child {
+        > i {
           display: none;
+          position: absolute;
+          inset: 0;
+          align-items: center;
+          justify-content: center;
+          border-radius: 3px;
+          background: rgba(0, 0, 0, 0.55);
+          color: #fff;
+          font-size: 12px;
         }
-        &:hover img:last-child {
-          display: grid;
+        &:hover > i {
+          display: flex;
         }
-        &:hover img:first-child {
-          display: none;
-        }
+      }
+
+      .talent-use {
+        display: flex;
+        gap: 0.4rem;
+        justify-content: flex-end;
+        padding-right: 0.3rem;
       }
 
       .talent-tag {

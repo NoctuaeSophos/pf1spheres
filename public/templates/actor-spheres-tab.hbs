@@ -141,7 +141,7 @@ SPDX-License-Identifier: EUPL-1.2
                     <!-- Individual talent-->
                     {{#each sphere.talents as |talent|}}
                         <li class="talent grid item" data-item-id="{{ talent.id }}">
-                            <div class="talent-icon">
+                            <div class="talent-icon" data-tooltip="PF1.DisplayInChat">
                                 <img src="{{ talent.img }}" alt="Sphere icon for {{ talent.name }}"/>
                                 <i class="fas fa-comment"></i>
                             </div>
