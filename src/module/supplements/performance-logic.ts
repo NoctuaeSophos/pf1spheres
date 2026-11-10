@@ -41,18 +41,11 @@ const tpl = (
   contextNotes: notes,
 });
 
+/** Buffs pf1 and pf-content already have, applied as they are instead of a copy of our own */
+const PF1_INSPIRE_COURAGE = "Compendium.pf1.buffs.Item.3p34GJemfcLdKckV";
+const PF_CONTENT_INSPIRE_HEROICS = "Compendium.pf-content.pf-buffs.Item.5lQmzt3oPWtrZ1Y7";
+
 export const PERFORMANCE_TEMPLATES: Record<string, BuffTemplate> = {
-  "inspire-courage": tpl(
-    "Inspire Courage",
-    "Bardic performance: a morale bonus on saves against charm and fear, and a competence bonus on attack and weapon damage rolls (+1, +1 more at 5th, 11th and 17th bard level).",
-    [ch(COURAGE, "attack", "competence"), ch(COURAGE, "wdamage", "competence")],
-    [
-      {
-        text: `Inspire Courage: +[[${COURAGE}]] morale on saves against charm and fear`,
-        target: "allSavingThrows",
-      },
-    ],
-  ),
   "inspire-courage-defense": tpl(
     "Inspire Courage (Inspired Defense)",
     "Bardic performance with the marshal's Inspired Defense: the save bonus applies to all saves; a competence bonus on attack and weapon damage rolls.",
@@ -86,11 +79,6 @@ export const PERFORMANCE_TEMPLATES: Record<string, BuffTemplate> = {
     "Inspire Greatness",
     "Bardic performance: 2 bonus Hit Dice (d10s) with their temporary hit points, which count for Hit Dice dependent effects, a +2 competence bonus on attack rolls and +1 competence on Fortitude saves.",
     [ch("2", "attack", "competence"), ch("1", "fort", "competence")],
-  ),
-  "inspire-heroics": tpl(
-    "Inspire Heroics",
-    "Bardic performance: a +4 morale bonus on saving throws and a +4 dodge bonus to AC.",
-    [ch("4", "allSavingThrows", "morale"), ch("4", "ac", "dodge")],
   ),
   "dirge-of-doom": tpl(
     "Shaken (Dirge of Doom)",
@@ -142,7 +130,11 @@ const perf = (
 
 const buff = (key: string, extra: Partial<NonNullable<ActionAutomation["buff"]>> = {}) => ({
   effect: { enabled: true },
-  buff: { itemId: `tpl:${key}`, level: "@classes.bard.level", ...extra },
+  buff: {
+    itemId: key.startsWith("Compendium.") ? key : `tpl:${key}`,
+    level: "@classes.bard.level",
+    ...extra,
+  },
 });
 const ft30 = { range: { units: "ft", value: "30" } };
 const grant = (key: string, ...variants: GrantVariant[]): Grant => ({
@@ -194,7 +186,7 @@ export const PERFORMANCE_GRANTS: Grant[] = [
     ),
     perf(
       "Inspire Courage",
-      buff("inspire-courage", { self: true }),
+      buff(PF1_INSPIRE_COURAGE, { self: true }),
       "Target the allies who can hear you; you are included.",
       {},
       ["Inspire Courage"],
@@ -284,7 +276,7 @@ export const PERFORMANCE_GRANTS: Grant[] = [
     "inspire-heroics",
     perf(
       "Inspire Heroics",
-      buff("inspire-heroics"),
+      buff(PF_CONTENT_INSPIRE_HEROICS),
       "Target yourself or allies within 30 ft. who can see and hear you: one, plus one per three bard levels beyond 15th.",
       ft30,
       ["Inspire Heroics"],

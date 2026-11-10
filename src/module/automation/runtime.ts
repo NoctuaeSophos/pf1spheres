@@ -280,8 +280,13 @@ async function cleanupEffect(msg, user) {
  *
  * @returns Buff item data, or null
  */
-export const resolveBuff = (actor, item, ref: string | undefined) => {
+export const resolveBuff = async (actor, item, ref: string | undefined) => {
   if (!ref) return null;
+  // A buff another module already supplies (pf1's Inspire Courage), used as it is rather than copied
+  if (ref.startsWith("Compendium.")) {
+    const doc = await fromUuid(ref);
+    return doc?.type === "buff" ? doc.toObject() : null;
+  }
   if (ref.startsWith("tpl:")) {
     const t =
       item?.flags?.[MODULE_ID]?.buffTemplates?.[ref.slice(4)] ?? NAMED_TEMPLATES[ref.slice(4)];
@@ -333,17 +338,24 @@ const casterLookup = (rd) => (path: string) =>
  * message names the item and the reference, never the buff data, so it can't have the GM create
  * arbitrary items on creatures the player doesn't own.
  */
-const trustedBuff = (caster, msg) => {
+const trustedBuff = async (caster, msg) => {
   const item = msg.itemUuid ? fromUuidSync(msg.itemUuid) : null;
   if (!item || item.actor?.uuid !== caster?.uuid) return null;
-  const data = resolveBuff(caster, item, msg.buffRef);
+  // A compendium buff only when the item's own settings name it
+  if (String(msg.buffRef ?? "").startsWith("Compendium.")) {
+    const named = Object.values(item.flags?.[MODULE_ID]?.automation ?? {}).some(
+      (a: any) => a?.buff?.itemId === msg.buffRef || a?.onFail?.buffId === msg.buffRef,
+    );
+    if (!named) return null;
+  }
+  const data = await resolveBuff(caster, item, msg.buffRef);
   return data?.type === "buff" ? data : null;
 };
 
 async function applyBuff(msg, user) {
   const caster = fromUuidSync(msg.casterUuid);
   if (!userOwns(user, caster)) return;
-  const source = trustedBuff(caster, msg);
+  const source = await trustedBuff(caster, msg);
   if (!source) return;
   for (const uuid of msg.targetUuids ?? []) {
     const target = fromUuidSync(uuid);
@@ -457,7 +469,7 @@ async function createZone(msg, user) {
     casterDisposition: msg.casterDisposition,
     casterUuid: caster.uuid,
     buffUuid: msg.buffUuid ?? null,
-    buffData: trustedBuff(caster, msg),
+    buffData: await trustedBuff(caster, msg),
     level: msg.level,
     effectId: msg.effectId,
     regionId: region?.id ?? null,
@@ -970,7 +982,7 @@ async function onPostActionUse(au) {
   const level = auto.buff?.level?.trim()
     ? Math.max(1, evalFormula(auto.buff.level, rd))
     : Math.max(1, (sphere ? rd.spheres?.cl?.[sphere]?.total : null) ?? rd.spheres?.cl?.total ?? 1);
-  const buff = resolveBuff(actor, item, auto.buff?.itemId);
+  const buff = await resolveBuff(actor, item, auto.buff?.itemId);
   const token = attackerDoc(au, actor);
   const targets = au.shared.targets ?? [];
 
@@ -1413,7 +1425,7 @@ async function applyFailedSave(msg, user) {
     const names = applied.map((id) => pf1.registry.conditions.get(id).name).join(", ");
     lines.push(fmt("FailConditionsApplied", { conditions: names, rounds }));
   }
-  const source = resolveBuff(caster, item, fail.buffId);
+  const source = await resolveBuff(caster, item, fail.buffId);
   // A performance's buff ends with the performance: tie it to the caster's latest effect from this action
   const until = fail.whileEffect
     ? getEffects(caster)

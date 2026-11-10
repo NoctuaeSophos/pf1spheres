@@ -27,7 +27,8 @@ describe("bardic performances", () => {
       byKey("inspire-courage"),
       names("Inspire Courage", "Inspired Defense"),
     );
-    expect(plain?.automation?.buff?.itemId).toBe("tpl:inspire-courage");
+    // pf1's own Inspire Courage buff, not a copy
+    expect(plain?.automation?.buff?.itemId).toBe("Compendium.pf1.buffs.Item.3p34GJemfcLdKckV");
     expect(marshal?.automation?.buff?.itemId).toBe("tpl:inspire-courage-defense");
     expect(pickVariant(byKey("inspire-courage-mythic"), names("Inspire Courage"))).toBeNull();
   });
@@ -35,7 +36,8 @@ describe("bardic performances", () => {
     for (const g of PERFORMANCE_GRANTS)
       for (const v of g.variants)
         for (const ref of [v.automation?.buff?.itemId, v.automation?.onFail?.buffId])
-          if (ref) expect(PERFORMANCE_TEMPLATES[ref.slice(4)], `${g.key} ${ref}`).toBeTruthy();
+          if (ref && !ref.startsWith("Compendium."))
+            expect(PERFORMANCE_TEMPLATES[ref.slice(4)], `${g.key} ${ref}`).toBeTruthy();
   });
   it("keeps competence and the dirge off the bard himself", () => {
     expect(byKey("inspire-competence").variants[0].automation?.buff?.others).toBe(true);
