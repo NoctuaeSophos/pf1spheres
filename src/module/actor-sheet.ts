@@ -9,7 +9,7 @@ import { SpheresActorSettings } from "./apps/SpheresActorSettings";
 import { hasLeadership, openLeadership } from "./supplements/leadership";
 import { hasUndeadPools, openUndead } from "./supplements/undead";
 import { corruptionItem, openCorruption } from "./supplements/corruption";
-import type { CombatSphere, ItemPF, MagicSphere, Sphere } from "./item-data";
+import type { ItemPF, Sphere } from "./item-data";
 import { enforce, getGame, localize } from "./util";
 import { setSpellPoints } from "./actor";
 import { renderPf1sTemplate } from "./preloadTemplates";
@@ -115,6 +115,17 @@ export const onActorSheetRender: (
   const renderedTemplate = getRenderedSpheresTab(renderData);
   const spheresBody = body.append($(renderedTemplate));
   activateListeners(app, spheresBody, actor);
+  // Talents listed under their spheres leave Features too (a setting); lists left empty go with them
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  if ((game as any).settings.get("pf1spheres", "talentsOnSpheresTab")) {
+    const feats = html.find(".tab[data-tab='feats']");
+    for (const sphere of renderData.allSpheres)
+      for (const t of sphere.talents) feats.find(`.item[data-item-id='${t.id}']`).remove();
+    for (const list of ["combatTalent", "magicTalent", "skillTalent"]) {
+      const ol = feats.find(`ol.item-list[data-list='${list}']`);
+      if (ol.length && !ol.find("li.item").length) ol.remove();
+    }
+  }
   // Traditions, their members and loose drawbacks are shown on the Spheres tab instead of crowding Features
   for (const g of renderData.drawbacks) {
     for (const d of g.items)
@@ -519,7 +530,7 @@ const getSpheresData = (app: ActorSheetPF, actor: ActorPF): SpheresTemplateData 
     const sphere = item.flags.pf1spheres?.sphere;
     if (
       item.type === "feat" &&
-      ["combatTalent", "magicTalent"].includes(item.system.subType) &&
+      ["combatTalent", "magicTalent", "skillTalent"].includes(item.system.subType) &&
       sphere
     ) {
       talents[sphere] ??= [];
@@ -552,6 +563,22 @@ const getSpheresData = (app: ActorSheetPF, actor: ActorPF): SpheresTemplateData 
       talents: ownedTalents[sphere] ?? [],
       talentCounts: spheres.talents[sphere],
       hasTalents: Boolean(ownedTalents[sphere]?.length),
+      expandTalents: Boolean(app.spheresTab.expandedSpheres[sphere] ?? false),
+    }),
+  );
+
+  // Skill spheres (Spheres of Guile) have talents but no caster level or base attack bonus
+  const sphereSkills = Object.keys(pf1s.config.skillSpheres).map(
+    (sphere): SphereData => ({
+      sphere,
+      tooltipId: "",
+      label: pf1s.config.skillSpheres[sphere as keyof typeof pf1s.config.skillSpheres].label,
+      levelLabel: "",
+      total: "",
+      icon: CONFIG.Item.documentClass.DEFAULT_ICON,
+      talents: ownedTalents[sphere as Sphere] ?? [],
+      talentCounts: spheres.talents[sphere as Sphere],
+      hasTalents: Boolean(ownedTalents[sphere as Sphere]?.length),
       expandTalents: Boolean(app.spheresTab.expandedSpheres[sphere] ?? false),
     }),
   );
@@ -589,7 +616,9 @@ const getSpheresData = (app: ActorSheetPF, actor: ActorPF): SpheresTemplateData 
     allyLists: getAllyLists(actor),
     sphereCLs,
     sphereBabs,
-    allSpheres: [...sphereCLs, ...sphereBabs].sort((a, b) => a.sphere.localeCompare(b.sphere)),
+    allSpheres: [...sphereCLs, ...sphereBabs, ...sphereSkills].sort((a, b) =>
+      a.sphere.localeCompare(b.sphere),
+    ),
   };
 };
 
@@ -641,6 +670,14 @@ const activateListeners = (app: ActorSheetPF, html: JQuery<HTMLElement>, actor: 
   html
     .find(".talent .talent-icon")
     .on("click", (ev) => talentOf(actor, ev.currentTarget as HTMLElement)?.displayCard?.());
+  // Edit and delete as on pf1's own lists (delete asks first unless shift is held)
+  html
+    .find(".talent .pf1s-talent-edit")
+    .on("click", (ev) => talentOf(actor, ev.currentTarget as HTMLElement)?.sheet?.render(true));
+  html
+    .find(".talent .pf1s-talent-delete")
+    // @ts-expect-error pf1's handler reads the row's item id from the event
+    .on("click", pf1.applications.actor.ActorSheetPF.prototype._onItemDelete.bind(app));
   html
     .find(".talent .talent-roll")
     .on("click", (ev) => talentOf(actor, ev.currentTarget as HTMLElement)?.use?.({ ev }));
@@ -862,11 +899,12 @@ interface SpheresTemplateData {
 }
 
 interface SphereData {
-  sphere: MagicSphere | CombatSphere;
+  sphere: Sphere;
   tooltipId: string;
   label: string;
   levelLabel: string;
-  total: number;
+  /** Caster level or base attack bonus; blank for skill spheres, which have neither */
+  total: number | "";
   icon: string;
   talents: TalentTemplateData[];
   hasTalents: boolean;
