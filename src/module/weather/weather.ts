@@ -16,8 +16,9 @@ import {
   snowFall,
   snowIntensity,
   snowMovement,
+  temperatureProtection,
 } from "./conditions";
-import type { WeatherEffects, WeatherState } from "./conditions";
+import type { TemperatureProtection, WeatherEffects, WeatherState } from "./conditions";
 import { castCost, getWeatherCaster, reduceWeather, validateCast } from "./caster";
 import { isGMWriter, registerSocketHandler, requestGM, serialised, userOwns } from "../socket";
 import { mountWeatherChart } from "./chart";
@@ -130,6 +131,37 @@ export const getLightning = (weather: SceneWeather, effects = getWeatherEffects(
 /** Only one client (the active GM) writes weather, so updates never race */
 export const isWeatherWriter = isGMWriter;
 
+/**
+ * What protects an actor from Cold and Heat: constant Endure Elements effects (by name, or an item
+ * flagged pf1spheres.endureElements: "cold" | "heat" | "both"), and its cold and fire resistance and
+ * immunity as pf1 prepared them.
+ */
+export const actorTemperatureProtection = (actor): TemperatureProtection => {
+  const items = actor.items
+    .filter((i) =>
+      i.type === "buff" ? i.system?.active : i.isActive !== false && !i.system?.disabled,
+    )
+    .map((i) => ({ name: i.name, endure: i.flags?.[MODULE_ID]?.endureElements }));
+  const eres = actor.system?.traits?.eres?.value ?? [];
+  const resist = (type: string) =>
+    Math.max(
+      0,
+      ...eres.filter((r) => (r?.types ?? []).includes(type)).map((r) => Number(r.amount) || 0),
+    );
+  const di = actor.system?.traits?.di;
+  const immune = (type: string) =>
+    Boolean(
+      di?.total?.has?.(type) ||
+        (Array.isArray(di?.total) && di.total.includes(type)) ||
+        (di?.base ?? []).includes?.(type),
+    );
+  return temperatureProtection(
+    items,
+    { cold: resist("cold"), fire: resist("fire") },
+    { cold: immune("cold"), fire: immune("fire") },
+  );
+};
+
 const hasAtmospheric = (actor) =>
   actor.items.some((i) => i.type === "feat" && i.name === "Atmospheric Imbuement");
 
@@ -209,10 +241,13 @@ export async function syncSceneWeather(scene) {
   const weather = getSceneWeather(scene);
   const sceneEffects = getWeatherEffects(weather);
   const storm = sceneEffects.severities.precipitation >= 4 && sceneEffects.severities.wind >= 4;
-  const byMantle = new Map([[0, sceneEffects]]);
-  const effectsFor = (steps: number) => {
-    if (!byMantle.has(steps)) byMantle.set(steps, getWeatherEffects(reduceWeather(weather, steps)));
-    return byMantle.get(steps);
+  // Effects per mantle and protection: creatures differ only in those, so most share one
+  const cache = new Map();
+  const effectsFor = (steps: number, protection: TemperatureProtection) => {
+    const key = JSON.stringify([steps, protection]);
+    if (!cache.has(key))
+      cache.set(key, getWeatherEffects(reduceWeather(weather, steps), protection));
+    return cache.get(key);
   };
   const seen = new Set();
   for (const token of scene.tokens) {
@@ -228,7 +263,10 @@ export async function syncSceneWeather(scene) {
     // A linked actor is only "in" the active scene; tokens left on other maps don't bring their weather along
     const here = !token.actorLink || scene.active || !game.scenes.active;
     const mantle = token.getFlag(MODULE_ID, MANTLE_FLAG);
-    const effects = effectsFor(Math.max(0, Number(mantle?.steps) || 0));
+    const effects = effectsFor(
+      Math.max(0, Number(mantle?.steps) || 0),
+      actorTemperatureProtection(actor),
+    );
     const atmospheric = storm && hasAtmospheric(actor);
     const hasEffects =
       atmospheric ||
@@ -756,5 +794,24 @@ export const registerWeather = () => {
   });
   Hooks.on("deleteToken", (token) => {
     clearTokenWeather(token).catch((err) => console.error(`${MODULE_ID} | weather cleanup`, err));
+  });
+  // Protection from Cold and Heat comes and goes with items (Endure Elements, resistance gear) and traits
+  const onActorChange = (actor) => {
+    if (!(actor instanceof Actor) || !isWeatherWriter()) return;
+    for (const scene of game.scenes) {
+      if (!getSceneWeather(scene).apply) continue;
+      if (scene.tokens.some((t) => t.actor === actor || (t.actorLink && t.actorId === actor.id)))
+        queueSceneWeather(scene);
+    }
+  };
+  const onItemChange = (item) => {
+    if (item.getFlag?.(MODULE_ID, BUFF_FLAG)) return;
+    onActorChange(item.parent);
+  };
+  Hooks.on("createItem", onItemChange);
+  Hooks.on("updateItem", onItemChange);
+  Hooks.on("deleteItem", onItemChange);
+  Hooks.on("updateActor", (actor, changed) => {
+    if (changed.system?.traits) onActorChange(actor);
   });
 };

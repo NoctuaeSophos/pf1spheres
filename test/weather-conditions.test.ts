@@ -11,6 +11,8 @@ import {
   snowFall,
   snowIntensity,
   snowMovement,
+  temperatureExposure,
+  temperatureProtection,
   weatherRegion,
 } from "../src/module/weather/conditions";
 
@@ -129,5 +131,55 @@ describe("snow on the ground", () => {
   });
   it("costs extra movement from 2 inches and more from a foot", () => {
     expect([0, 1, 2, 11, 12, 30].map(snowMovement)).toEqual([0, 0, 1, 1, 2, 2]);
+  });
+});
+
+describe("protection from cold and heat", () => {
+  // Misae: Iceplant (endure elements), Cold Flesh (cold only), cold resistance 10
+  const misae = temperatureProtection(
+    [{ name: "Cold Flesh" }, { name: "Iceplant" }, { name: "Hex" }],
+    { cold: 10 },
+  );
+  const coldNote = (temperature: number, protection = misae) =>
+    getWeatherEffects({ temperature }, protection).notes.find((n) => n.startsWith("Cold:"));
+
+  test("finds endure elements effects by name or flag, and resistance and immunity", () => {
+    expect(misae.cold).toEqual({ endure: true, resist: 10, immune: false, source: "Cold Flesh" });
+    expect(misae.heat).toEqual({ endure: true, resist: 0, immune: false, source: "Iceplant" });
+    const coldOnly = temperatureProtection([{ name: "Cold Flesh" }]);
+    expect(coldOnly.heat?.endure).toBe(false);
+    const flagged = temperatureProtection([{ name: "Ring of Climate", endure: "heat" }]);
+    expect(flagged.heat).toMatchObject({ endure: true, source: "Ring of Climate" });
+    expect(temperatureProtection([], {}, { fire: true }).heat?.immune).toBe(true);
+  });
+  test("endure elements covers Cold up to 5 and Heat up to 4", () => {
+    const endure = { endure: true };
+    for (const s of [3, 4]) expect(temperatureExposure("cold", s, endure)?.shielded).toBe(true);
+    expect(temperatureExposure("cold", 5, endure)?.text).toContain("below -50 °F");
+    expect(temperatureExposure("cold", 6, endure)?.shielded).toBe(false);
+    expect(temperatureExposure("heat", 4, endure)?.shielded).toBe(true);
+    expect(temperatureExposure("heat", 5, endure)?.shielded).toBe(false);
+    expect(temperatureExposure("cold", 2, endure)).toBeNull();
+  });
+  test("resistance is subtracted from each roll, and absorbs them when it beats the largest", () => {
+    expect(temperatureExposure("cold", 6, { resist: 10 })).toMatchObject({ shielded: true });
+    expect(temperatureExposure("cold", 7, { resist: 10 })?.text).toContain(
+      "is subtracted from each roll",
+    );
+    expect(temperatureExposure("heat", 3, { resist: 5 })?.shielded).toBe(true);
+    expect(temperatureExposure("heat", 5, { resist: 5 })?.shielded).toBe(false);
+    expect(temperatureExposure("cold", 7, { immune: true })?.text).toContain("immune to cold");
+  });
+  test("a creature's buff reflects its protection", () => {
+    expect(coldNote(-3)).toContain("no effect, Endure Elements (Cold Flesh)");
+    // Arctic: past endure elements, but cold resistance 10 beats each 1d6 and 1d4
+    expect(coldNote(-5)).toContain("Cold resistance 10 absorbs every one");
+    expect(coldNote(-6)).toContain("is subtracted from each roll");
+    expect(coldNote(-3, {})).toContain("Fortitude save every 10 minutes");
+    const hot = getWeatherEffects({ temperature: 3 }, misae);
+    expect(hot.contextNotes.some((n) => n.target === "fort")).toBe(false);
+    expect(
+      getWeatherEffects({ temperature: 3 }).contextNotes.some((n) => n.target === "fort"),
+    ).toBe(true);
   });
 });

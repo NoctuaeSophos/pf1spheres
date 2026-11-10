@@ -51,6 +51,66 @@ export interface WeatherEffects {
   lightningDice: number;
 }
 
+/** What shields one creature from Cold or Heat */
+export interface TemperatureGuard {
+  /** Endure Elements or a constant effect like it */
+  endure?: boolean;
+  /** Cold (or fire) resistance */
+  resist?: number;
+  immune?: boolean;
+  /** What grants the protection, for the reminder */
+  source?: string;
+}
+
+export interface TemperatureProtection {
+  cold?: TemperatureGuard;
+  heat?: TemperatureGuard;
+}
+
+/**
+ * The highest severity Endure Elements covers: it keeps a creature comfortable from -50 °F to 140 °F,
+ * which reaches into Cold 5 (below -20 °F) and is the top of Heat 4 (above 110 °F).
+ */
+export const ENDURE_MAX = { cold: 5, heat: 4 };
+
+/** Items that work as constant Endure Elements, by name, and which temperatures they cover */
+const ENDURE_ITEMS: [RegExp, "cold" | "heat" | "both"][] = [
+  [/^endure elements\b/i, "both"],
+  // Witch hex: constant endure elements
+  [/^iceplant\b/i, "both"],
+  // Winter witch: endure elements against cold only
+  [/^cold flesh\b/i, "cold"],
+];
+
+/**
+ * A creature's protection from Cold and Heat.
+ *
+ * @param items - Its active items: name, and the flags.pf1spheres.endureElements setting if any
+ * @param resist - Its cold and fire resistance
+ * @param immune - Whether it is immune to cold or fire
+ */
+export const temperatureProtection = (
+  items: { name: string; endure?: string }[],
+  resist: { cold?: number; fire?: number } = {},
+  immune: { cold?: boolean; fire?: boolean } = {},
+): TemperatureProtection => {
+  const covers = (kind: "cold" | "heat") =>
+    items.find((i) => {
+      const what = i.endure || ENDURE_ITEMS.find(([re]) => re.test(i.name))?.[1];
+      return what === "both" || what === kind;
+    })?.name;
+  const guard = (kind: "cold" | "heat", energy: "cold" | "fire"): TemperatureGuard => {
+    const endure = covers(kind);
+    return {
+      endure: Boolean(endure),
+      resist: Math.max(0, Number(resist[energy]) || 0),
+      immune: Boolean(immune[energy]),
+      ...(endure ? { source: endure } : {}),
+    };
+  };
+  return { cold: guard("cold", "cold"), heat: guard("heat", "fire") };
+};
+
 export const DEFAULT_WEATHER: WeatherState = { wind: 1, temperature: 0, humidity: 0 };
 
 const clamp = (value: number, min: number, max: number) =>
@@ -106,6 +166,9 @@ const COLD_EXPOSURE = [
   "1d6 lethal cold damage every round (no save), and a Fortitude save each round (DC 15, +1 per previous check) or 1d4 nonlethal cold damage.",
   "3d6 lethal cold damage every round, no save (10d6 if encased in ice).",
 ];
+/** The largest single damage roll at each severity (cold: 1d6, then 1d6 and 1d4, then 3d6) */
+const COLD_MAX_ROLL = [0, 0, 6, 6, 6, 6, 18];
+const HEAT_MAX_ROLL = [0, 0, 4, 4, 6, 6, 18];
 const HEAT_EXPOSURE = [
   "",
   "",
@@ -122,7 +185,57 @@ const HEAT_EXPOSURE = [
  * @param input - Slider state, normalised before use
  * @returns Labels, Changes, context notes and reminders
  */
-export const getWeatherEffects = (input: Partial<WeatherState>): WeatherEffects => {
+/**
+ * The reminder for Cold or Heat at a severity, given what protects the creature. Endure Elements removes
+ * the steps it covers, immunity removes all of them, and resistance is subtracted from each damage roll
+ * (the Weather sphere calls this cold or fire damage).
+ *
+ * @returns The reminder, and whether nothing can get through, or null when the severity does nothing
+ */
+export const temperatureExposure = (
+  kind: "cold" | "heat",
+  severity: number,
+  guard?: TemperatureGuard,
+): { text: string; shielded: boolean } | null => {
+  const base = (kind === "cold" ? COLD_EXPOSURE : HEAT_EXPOSURE)[severity - 1];
+  if (!base) return null;
+  const name = kind === "cold" ? "Cold" : "Heat";
+  const energy = kind === "cold" ? "cold" : "fire";
+  const from = guard?.source ? ` (${guard.source})` : "";
+  if (guard?.immune) return { text: `${name}: no effect, immune to ${energy}.`, shielded: true };
+  if (guard?.endure && severity <= ENDURE_MAX[kind]) {
+    const edge =
+      kind === "cold" && severity === ENDURE_MAX.cold
+        ? " It stops protecting below -50 °F, the coldest part of this step."
+        : "";
+    return { text: `${name}: no effect, Endure Elements${from}.${edge}`, shielded: true };
+  }
+  const after =
+    kind === "cold"
+      ? " Damaged creatures are fatigued (frostbitten) until warmed. A cold weather outfit counts as 1 severity lower."
+      : " Damaged creatures are fatigued (heatstroke) until cooled. Heavy clothing or armor: -4 on these saves.";
+  const resist = Math.max(0, Math.floor(Number(guard?.resist) || 0));
+  if (resist > 0) {
+    const all = resist >= (kind === "cold" ? COLD_MAX_ROLL : HEAT_MAX_ROLL)[severity - 1];
+    return all
+      ? {
+          text: `${name}: ${base} ${capitalise(energy)} resistance ${resist} absorbs every one of these rolls.`,
+          shielded: true,
+        }
+      : {
+          text: `${name}: ${base} ${capitalise(energy)} resistance ${resist} is subtracted from each roll.${after}`,
+          shielded: false,
+        };
+  }
+  return { text: `${name}: ${base}${after}`, shielded: false };
+};
+
+const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+export const getWeatherEffects = (
+  input: Partial<WeatherState>,
+  protection: TemperatureProtection = {},
+): WeatherEffects => {
   const state = normaliseWeather(input);
   const sev = getSeverities(state);
   const labels: string[] = [];
@@ -202,16 +315,12 @@ export const getWeatherEffects = (input: Partial<WeatherState>): WeatherEffects 
   ][Math.max(sev.wind, sev.precipitation >= 4 ? sev.precipitation : 0) - 1];
   if (flames) notes.push(flames);
 
-  // Temperature exposure
-  if (COLD_EXPOSURE[sev.cold - 1]) {
-    notes.push(
-      `Cold: ${COLD_EXPOSURE[sev.cold - 1]} Damaged creatures are fatigued (frostbitten) until warmed. A cold weather outfit counts as 1 severity lower.`,
-    );
-  }
-  if (HEAT_EXPOSURE[sev.heat - 1]) {
-    notes.push(
-      `Heat: ${HEAT_EXPOSURE[sev.heat - 1]} Damaged creatures are fatigued (heatstroke) until cooled. Heavy clothing or armor: -4 on these saves.`,
-    );
+  // Temperature exposure, as it reaches this creature
+  const cold = temperatureExposure("cold", sev.cold, protection.cold);
+  if (cold) notes.push(cold.text);
+  const heat = temperatureExposure("heat", sev.heat, protection.heat);
+  if (heat) notes.push(heat.text);
+  if (heat && !heat.shielded) {
     contextNotes.push({
       text: "Weather: -4 on heat saves in heavy clothing or armor",
       target: "fort",
