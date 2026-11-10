@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/features/classes/familiar.webp
 name: Animal Training, Small
 sort: 0
 system:

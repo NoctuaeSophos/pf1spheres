@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf1/icons/skills/violet_23.jpg
 name: Venom Immunity (Sphere Druid)
 sort: 0
 system:

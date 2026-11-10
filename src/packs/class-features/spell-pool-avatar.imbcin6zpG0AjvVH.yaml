@@ -7,7 +7,7 @@ flags:
     spellPoolFeature: true
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/features/classes/wellspring-magic.webp
 name: Spell Pool (Avatar)
 sort: 0
 system:

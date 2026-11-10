@@ -9,7 +9,7 @@ flags:
           0o1C6xc4sohdmM0L: 1
   pf1: {}
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/spells/necrotic-radiation.webp
 name: Necrotic Heart
 sort: 0
 system:

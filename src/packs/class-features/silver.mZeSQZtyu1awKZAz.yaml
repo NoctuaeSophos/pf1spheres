@@ -33,7 +33,7 @@ flags:
                 note: "Targeted dispel magic (no choosing the effect): dispel check [[1d20 + min(10, @classes.scholar.level)]]."
     alchemical: true
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/equipment/materials/silver-ingot.webp
 name: Silver
 sort: 0
 system:

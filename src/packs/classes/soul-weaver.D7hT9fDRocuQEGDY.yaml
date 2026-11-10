@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     casterProgression: high
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/spells/shepherd-of-souls.webp
 name: Soul Weaver
 sort: 0
 system:

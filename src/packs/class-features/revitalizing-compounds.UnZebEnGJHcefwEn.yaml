@@ -7,7 +7,7 @@ flags:
     addedIn: fork
     alchemical: true
 folder: null
-img: icons/svg/item-bag.svg
+img: icons/commodities/materials/powder-teal.webp
 name: Revitalizing Compounds
 sort: 0
 system:

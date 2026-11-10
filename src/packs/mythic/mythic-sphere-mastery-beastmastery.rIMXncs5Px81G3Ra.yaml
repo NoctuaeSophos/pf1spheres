@@ -9,7 +9,7 @@ flags:
       QVnAbhaoELLHjEM2:
         mp: "1"
 folder: null
-img: icons/svg/item-bag.svg
+img: modules/pf1spheres/assets/icons/spheres/beastmastery.webp
 name: Mythic Sphere Mastery (Beastmastery)
 sort: 0
 system:

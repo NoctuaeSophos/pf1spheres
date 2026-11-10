@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     squadronCommander: true
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf1/icons/items/inventory/badge-banner.jpg
 name: Squadron Commander
 sort: 0
 system:

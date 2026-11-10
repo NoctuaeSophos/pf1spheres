@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: icons/equipment/chest/robe-layered-red.webp
 name: Magic Wardrobe
 sort: 0
 system:

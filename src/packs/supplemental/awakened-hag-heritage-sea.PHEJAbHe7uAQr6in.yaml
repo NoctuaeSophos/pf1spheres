@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/features/classes/hag.webp
 name: Awakened Hag Heritage (Sea)
 sort: 0
 system:

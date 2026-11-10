@@ -4,7 +4,7 @@ effects: []
 flags:
   pf1: {}
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp
 name: Casting (Prodigy)
 sort: 0
 system:

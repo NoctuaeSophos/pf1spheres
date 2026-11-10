@@ -28,7 +28,7 @@ flags:
     grantItems:
       - champions-strike
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/features/classes/master-strike.webp
 name: Champion’s Strike
 sort: 0
 system:

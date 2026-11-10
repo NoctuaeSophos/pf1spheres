@@ -9,7 +9,7 @@ flags:
           hkqdlm7tOtHWnsCG: 1
   pf1: {}
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf1/icons/feats/improved-counterspell.jpg
 name: Counterspell
 sort: 0
 system:

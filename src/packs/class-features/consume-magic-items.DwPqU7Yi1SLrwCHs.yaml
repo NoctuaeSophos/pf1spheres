@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf1/icons/items/jewelry/amulet-blue.jpg
 name: Consume Magic Items
 sort: 0
 system:

@@ -10,7 +10,7 @@ flags:
       noRequire: true
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/equipment/shields/precious-material-shields/silver-shield.webp
 name: Mystic Guardianship
 sort: 0
 system:

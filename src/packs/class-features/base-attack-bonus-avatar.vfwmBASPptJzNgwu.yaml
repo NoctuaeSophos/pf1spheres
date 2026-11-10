@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: icons/skills/melee/strikes-sword-scimitar.webp
 name: Base Attack Bonus (Avatar)
 sort: 0
 system:

@@ -63,7 +63,7 @@ flags:
           self: true
           level: "@details.mythicTier"
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/features/feats/defensive-instincts.webp
 name: Combat Instincts
 sort: 0
 system:

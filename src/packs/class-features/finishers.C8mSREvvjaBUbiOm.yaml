@@ -25,7 +25,7 @@ flags:
           role: finisher
           min: 1
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/features/classes/exemplary-finisher.webp
 name: Finishers
 sort: 0
 system:

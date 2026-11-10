@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf1/icons/skills/water_07.jpg
 name: A Thousand Faces (Sphere Druid)
 sort: 0
 system:

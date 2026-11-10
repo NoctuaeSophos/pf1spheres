@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf1/icons/skills/weapon_44.jpg
 name: Studied Technique
 sort: 0
 system:

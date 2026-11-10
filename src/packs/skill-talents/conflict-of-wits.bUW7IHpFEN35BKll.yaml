@@ -7,7 +7,7 @@ flags:
     addedIn: fork
     sphere: study
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/features/classes/wit-style.webp
 name: Conflict Of Wits
 sort: 0
 system:

@@ -35,7 +35,7 @@ flags:
               (inoculated only)"
             target: allSavingThrows
 folder: null
-img: icons/svg/item-bag.svg
+img: icons/magic/life/heart-glowing-red.webp
 name: Regenerative Mists
 sort: 0
 system:

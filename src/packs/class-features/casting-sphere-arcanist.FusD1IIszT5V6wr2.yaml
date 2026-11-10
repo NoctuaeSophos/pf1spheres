@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf1/icons/spells/runes-blue-2.jpg
 name: Casting (Sphere Arcanist)
 sort: 0
 system:

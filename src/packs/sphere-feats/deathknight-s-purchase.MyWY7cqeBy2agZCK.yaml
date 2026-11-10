@@ -10,7 +10,7 @@ flags:
           formula: floor(@details.level.value / 2) + (max(1, @spheres.necrosis))d6
   pf1: {}
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf1/icons/skills/violet_17.jpg
 name: Deathknight’s Purchase
 sort: 0
 system:

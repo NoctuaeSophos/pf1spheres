@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf1/icons/spells/wind-grasp-air-3.jpg
 name: Consume Spells (Sphere Arcanist)
 sort: 0
 system:

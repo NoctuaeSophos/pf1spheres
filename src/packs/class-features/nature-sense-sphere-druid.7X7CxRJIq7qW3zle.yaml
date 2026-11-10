@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: icons/consumables/plants/leaf-serrated-pink.webp
 name: Nature Sense (Sphere Druid)
 sort: 0
 system:

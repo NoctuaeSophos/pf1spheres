@@ -29,7 +29,7 @@ flags:
           itemId: tpl:imbued-strike
           self: true
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf1/icons/feats/arcane-strike.jpg
 name: Imbued Strike
 sort: 0
 system:

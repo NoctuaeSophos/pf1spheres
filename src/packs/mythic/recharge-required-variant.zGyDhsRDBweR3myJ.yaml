@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: icons/commodities/tech/tube-chamber-lightning.webp
 name: Recharge Required (Variant)
 sort: 0
 system:

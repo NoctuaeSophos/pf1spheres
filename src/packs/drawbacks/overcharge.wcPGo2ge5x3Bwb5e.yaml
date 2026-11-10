@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/conditions-2/fatigued.webp
 name: Overcharge
 sort: 0
 system:

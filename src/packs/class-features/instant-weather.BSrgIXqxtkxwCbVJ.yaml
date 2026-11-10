@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: icons/magic/lightning/bolt-cloud-sky-white.webp
 name: Instant Weather
 sort: 0
 system:

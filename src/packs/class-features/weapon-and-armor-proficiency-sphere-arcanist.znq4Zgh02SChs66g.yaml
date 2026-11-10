@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf1/icons/feats/simple-weapon-proficiency.jpg
 name: Weapon and Armor Proficiency (Sphere Arcanist)
 sort: 0
 system:

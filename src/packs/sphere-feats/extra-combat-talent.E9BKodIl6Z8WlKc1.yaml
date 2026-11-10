@@ -4,7 +4,7 @@ effects: []
 flags:
   pf1: {}
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/abilities/blue-fist-in-the-air.webp
 name: Extra Combat Talent
 sort: 0
 system:

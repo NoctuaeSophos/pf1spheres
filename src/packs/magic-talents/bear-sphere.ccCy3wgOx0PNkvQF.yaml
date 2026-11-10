@@ -7,7 +7,7 @@ flags:
     addedIn: fork
     sphere: bear
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/spells/animal-form-bear.webp
 name: Bear Sphere
 sort: 0
 system:

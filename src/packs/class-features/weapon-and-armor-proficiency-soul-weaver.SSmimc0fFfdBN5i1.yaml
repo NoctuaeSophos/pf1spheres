@@ -4,7 +4,7 @@ effects: []
 flags:
   pf1: {}
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf1/icons/feats/simple-weapon-proficiency.jpg
 name: Weapon and Armor Proficiency (Soul Weaver)
 sort: 0
 system:

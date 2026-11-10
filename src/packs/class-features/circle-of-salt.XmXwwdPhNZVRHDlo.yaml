@@ -33,7 +33,7 @@ flags:
                 note: "Targeted dispel magic (no choosing the effect): dispel check [[1d20 + min(10, @classes.scholar.level)]]."
     alchemical: true
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/equipment/alchemical-items/alchemical-tools/aurifying-salts.webp
 name: Circle of Salt
 sort: 0
 system:

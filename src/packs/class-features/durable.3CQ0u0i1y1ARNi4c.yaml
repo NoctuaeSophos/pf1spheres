@@ -4,7 +4,7 @@ effects: []
 flags:
   pf1: {}
 folder: null
-img: icons/svg/item-bag.svg
+img: icons/tools/smithing/anvil.webp
 name: Durable
 sort: 0
 system:

@@ -22,7 +22,7 @@ flags:
               focus: expend
     alchemical: true
 folder: null
-img: icons/svg/item-bag.svg
+img: icons/commodities/flowers/flower-grey-orange.webp
 name: Howling Herbology
 sort: 0
 system:

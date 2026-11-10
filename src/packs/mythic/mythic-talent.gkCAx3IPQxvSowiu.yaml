@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf1/icons/spells/beam-eerie-2.jpg
 name: Mythic Talent
 sort: 0
 system:

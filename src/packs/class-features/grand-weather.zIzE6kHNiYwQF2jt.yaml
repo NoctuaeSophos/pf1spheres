@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: icons/magic/air/weather-clouds-rain.webp
 name: Grand Weather
 sort: 0
 system:

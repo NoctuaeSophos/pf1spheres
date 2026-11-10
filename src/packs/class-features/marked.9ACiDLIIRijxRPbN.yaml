@@ -19,7 +19,7 @@ flags:
             "Aridan's mark: -2 on your saves against his spells, spell-like and sphere abilities;
             he has +2 against yours."
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/conditions-2/status_marked.webp
 name: Marked
 sort: 0
 system:

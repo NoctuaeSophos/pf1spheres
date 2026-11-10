@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/abilities/green-scythe-dipped-in-liquid.webp
 name: Poisoncraft
 sort: 0
 system:

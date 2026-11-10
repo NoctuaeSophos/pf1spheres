@@ -9,7 +9,7 @@ flags:
       DSKFQs1DxBA9RelO:
         mp: "1"
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/features/classes/alchemical-mastery.webp
 name: Mythic Sphere Mastery (Alchemy)
 sort: 0
 system:

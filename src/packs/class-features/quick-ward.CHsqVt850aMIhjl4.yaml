@@ -9,7 +9,7 @@ flags:
       0xzI2Ock7U98xoBL:
         sp: "1"
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/spells/protective-ward.webp
 name: Quick Ward
 sort: 0
 system:

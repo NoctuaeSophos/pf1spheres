@@ -7,7 +7,7 @@ flags:
     addedIn: fork
     corruption: possessed
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf1/icons/skills/affliction_03.jpg
 name: Possessed (corruption)
 sort: 0
 system:

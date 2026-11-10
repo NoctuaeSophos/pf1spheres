@@ -4,7 +4,7 @@ effects: []
 flags:
   pf1: {}
 folder: null
-img: icons/svg/item-bag.svg
+img: icons/magic/light/beam-rays-blue.webp
 name: Imbue Sequence
 sort: 0
 system:

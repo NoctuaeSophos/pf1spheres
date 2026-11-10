@@ -9,7 +9,7 @@ flags:
       xOPbbNcRV7vZgGEF:
         mp: "1"
 folder: null
-img: icons/svg/item-bag.svg
+img: modules/pf1spheres/assets/icons/spheres/nature.webp
 name: Mythic Sphere Mastery (Nature)
 sort: 0
 system:

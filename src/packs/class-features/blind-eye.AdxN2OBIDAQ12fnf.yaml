@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: icons/creatures/eyes/humanoid-single-blind.webp
 name: Blind Eye
 sort: 0
 system:

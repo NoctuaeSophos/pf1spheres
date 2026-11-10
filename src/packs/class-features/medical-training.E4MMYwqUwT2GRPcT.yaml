@@ -4,7 +4,7 @@ effects: []
 flags:
   pf1: {}
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf2e/icons/equipment/adventuring-gear/healers-kit.webp
 name: Medical Training
 sort: 0
 system:

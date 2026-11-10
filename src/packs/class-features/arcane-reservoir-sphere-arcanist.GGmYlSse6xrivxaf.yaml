@@ -6,7 +6,7 @@ flags:
   pf1spheres:
     addedIn: fork
 folder: null
-img: icons/svg/item-bag.svg
+img: systems/pf1/icons/spells/runes-orange-3.jpg
 name: Arcane Reservoir (Sphere Arcanist)
 sort: 0
 system:

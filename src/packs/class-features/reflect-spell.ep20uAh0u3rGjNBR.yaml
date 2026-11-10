@@ -4,7 +4,7 @@ effects: []
 flags:
   pf1: {}
 folder: null
-img: icons/svg/item-bag.svg
+img: icons/magic/defensive/shield-barrier-deflect-gold.webp
 name: Reflect Spell
 sort: 0
 system:
