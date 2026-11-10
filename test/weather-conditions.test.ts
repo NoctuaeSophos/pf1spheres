@@ -196,6 +196,15 @@ describe("protection from cold and heat", () => {
       ),
     ).toBe("cold");
     expect(endureFromText("You can cast endure elements once per day.")).toBeNull();
+    const misae = temperatureProtection([
+      {
+        name: "Witch (Winter Witch)",
+        text: "endure elements as a constant spell-like ability, but only against cold temperatures",
+      },
+      { name: "Cold Flesh" },
+    ]);
+    expect(misae.cold?.source).toBe("Cold Flesh");
+    expect(misae.heat?.endure).toBe(false);
     const aridan = temperatureProtection([
       { name: "Iridescent Spindle Ioun Stone", text: "the constant effects of endure elements" },
     ]);

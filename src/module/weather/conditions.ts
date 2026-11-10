@@ -127,12 +127,15 @@ export const temperatureProtection = (
   resist: { cold?: number; fire?: number } = {},
   immune: { cold?: boolean; fire?: boolean } = {},
 ): TemperatureProtection => {
-  const covers = (kind: "cold" | "heat") =>
-    items.find((i) => {
-      const what =
-        i.endure || ENDURE_ITEMS.find(([re]) => re.test(i.name))?.[1] || endureFromText(i.text);
-      return what === "both" || what === kind;
-    })?.name;
+  // A flagged or known item names the source before one found by its description (Cold Flesh before
+  // the archetype that summarises it)
+  const covers = (kind: "cold" | "heat") => {
+    const fits = (what: string | null | undefined) => what === "both" || what === kind;
+    return (
+      items.find((i) => fits(i.endure || ENDURE_ITEMS.find(([re]) => re.test(i.name))?.[1])) ??
+      items.find((i) => fits(endureFromText(i.text)))
+    )?.name;
+  };
   const guard = (kind: "cold" | "heat", energy: "cold" | "fire"): TemperatureGuard => {
     const endure = covers(kind);
     const spells = items
