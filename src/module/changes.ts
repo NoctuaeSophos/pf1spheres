@@ -179,7 +179,7 @@ export const onAddDefaultChanges = (actor: ActorPF, changes: ItemChange[]): Defa
   const { ItemChange, pushNSourceInfo, pushPSourceInfo } = getChangeHelpers(actor);
 
   // Generate array with all change data and source info
-  const defaultChangeData = getDefaultChanges();
+  const defaultChangeData = getDefaultChanges(castsSpheres(actor));
 
   // Add Casting Ability Modifier to Concentration and `@spheres.cam` shortcut
   const abilityChanges = (
@@ -213,8 +213,20 @@ export const onAddDefaultChanges = (actor: ActorPF, changes: ItemChange[]): Defa
   return changeData;
 };
 
-/** Returns DefaultChangeData applicable to every single actor, regardless of actor data */
-const getDefaultChanges = (): DefaultChangeData => ({
+/**
+ * Whether the actor has a Spheres casting class or a magic sphere. Every other actor (most monsters and
+ * NPCs) has no caster level in any sphere, so it skips the per-sphere caster level changes: they made
+ * up most of this module's work when a world prepares its actors.
+ */
+const castsSpheres = (actor: ActorPF): boolean =>
+  actor.items.some(
+    (item) =>
+      (item.type === "class" && Boolean(item.flags.pf1spheres?.casterProgression)) ||
+      (item.flags.pf1spheres?.sphere ?? "") in pf1s.config.magicSpheres,
+  );
+
+/** Returns DefaultChangeData applicable to every actor; per-sphere caster levels only for casters */
+const getDefaultChanges = (casts: boolean): DefaultChangeData => ({
   changes: [
     // Push ModCap to Total change
     {
@@ -223,7 +235,7 @@ const getDefaultChanges = (): DefaultChangeData => ({
       modifier: "untyped",
     },
     // For every magic sphere, determine CL from base + general HD capped + sphere specific HD capped
-    ...Object.keys(pf1s.config.magicSpheres).map(
+    ...(casts ? Object.keys(pf1s.config.magicSpheres) : []).map(
       (sphere): ItemChangeCreateData => ({
         formula: `min(@attributes.hd.total, @spheres.cl.base + @spheres.cl.modCap + @spheres.cl.${sphere}.modCap)`,
         target: `spherecl${sphere.capitalize()}`,

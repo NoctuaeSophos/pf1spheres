@@ -14,6 +14,7 @@
  */
 
 import { MODULE_ID, localize } from "../util";
+import { perPreparation } from "../actor-cache";
 import {
   POSSESSED_MAX_INFLUENCE,
   POSSESSED_TRIGGERS,
@@ -175,7 +176,7 @@ export const registerCorruption = () => {
   // @corruption.manifestationLevel and the rest, for manifestations that grow with it (Unrestrained)
   Hooks.on("pf1GetRollData", (doc, result) => {
     if (!(doc instanceof Actor)) return;
-    const item = corruptionItem(doc);
+    const item = perPreparation(doc, "corruption.item", () => corruptionItem(doc));
     if (item) result.corruption = stateOf(item);
   });
   Hooks.on("pf1ActorRest", (actor) => {

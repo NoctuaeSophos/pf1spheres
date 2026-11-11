@@ -125,4 +125,18 @@ describe("Test default changes handling", () => {
       },
     });
   });
+
+  test("An actor with no Spheres casting skips the per-sphere caster levels", () => {
+    const monster = getFakeActor();
+    (monster.items as unknown as { clear(): void }).clear();
+    const monsterChanges: ItemChange[] = [];
+    onAddDefaultChanges(monster, monsterChanges);
+
+    const targets = monsterChanges.map(
+      (c) => (c as unknown as { data: { target: string } }).data.target,
+    );
+    expect(targets.some((t) => /^spherecl[A-Z]/.test(t))).toBe(false);
+    // Its general caster level, MSB, MSD and sphere BAB still come from the default changes
+    expect(targets).toEqual(expect.arrayContaining(["~spherecl", "msb", "msd", "~spherebabBase"]));
+  });
 });

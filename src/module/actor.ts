@@ -18,6 +18,7 @@ import { getActorHelpers } from "./actor-util";
 import { getGame, localize } from "./util";
 import type { ItemPF } from "./item-data";
 import { isTalent } from "./item-util";
+import { clearPreparationCache } from "./actor-cache";
 
 /**
  * Hooks into the preparation of base data for Actors, setting base values
@@ -29,6 +30,8 @@ import { isTalent } from "./item-util";
  * @param actor - The actor whose data gets prepared
  */
 export const onActorBasePreparation = (actor: ActorPF): void => {
+  clearPreparationCache(actor);
+
   // Do not interact with basic actors, whose data can/should be empty
   if (actor.type === "basic") return;
 

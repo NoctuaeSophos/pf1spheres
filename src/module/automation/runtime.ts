@@ -9,6 +9,7 @@
 
 import { MODULE_ID, localize } from "../util";
 import { setSpellPoints } from "../actor";
+import { perPreparation } from "../actor-cache";
 import { isGMWriter, registerSocketHandler, requestGM, serialised, userOwns } from "../socket";
 import {
   SEQUENCE_BREAKERS,
@@ -1552,25 +1553,31 @@ export const registerAutomation = () => {
   });
   Hooks.on("pf1GetRollData", (doc, result) => {
     if (!(doc instanceof Actor)) return;
-    // Craft (alchemy) ranks, for abilities that improve with them (flashbangs at 5)
+    // pf1 asks for roll data hundreds of times per preparation, so the item scans run once per preparation
+    const scan = perPreparation(doc, "runtime.rollData", () => ({
+      // Craft (alchemy) ranks, for abilities that improve with them (flashbangs at 5)
+      alchemyRanks:
+        Object.values(doc.system?.skills?.crf?.subSkills ?? {}).find((sk) =>
+          /alchem/i.test(sk?.name ?? ""),
+        )?.rank ?? 0,
+      crypticClass: doc.items?.find((i) => i.flags?.[MODULE_ID]?.crypticClassLevel)?.flags[
+        MODULE_ID
+      ].crypticClassLevel,
+      // Necrosis feats scale with how many the character has
+      necrosis:
+        doc.items?.filter((i) => i.type === "feat" && (i.system?.tags ?? []).includes("Necrosis"))
+          .length ?? 0,
+    }));
     result.spheres ??= {};
-    result.spheres.alchemyRanks =
-      Object.values(doc.system?.skills?.crf?.subSkills ?? {}).find((sk) =>
-        /alchem/i.test(sk?.name ?? ""),
-      )?.rank ?? 0;
+    result.spheres.alchemyRanks = scan.alchemyRanks;
     // Ghastly Powers: a class level serves as the caster level for Cryptic Strike
     const deathCL = doc.system?.spheres?.cl?.death?.total ?? 0;
-    const cryptic = doc.items?.find((i) => i.flags?.[MODULE_ID]?.crypticClassLevel);
     result.spheres.crypticCL = Math.max(
       deathCL,
-      cryptic ? doc.classes?.[cryptic.flags[MODULE_ID].crypticClassLevel]?.level ?? 0 : 0,
+      scan.crypticClass ? doc.classes?.[scan.crypticClass]?.level ?? 0 : 0,
     );
-    // Necrosis feats scale with how many the character has
-    result.spheres.necrosis =
-      doc.items?.filter((i) => i.type === "feat" && (i.system?.tags ?? []).includes("Necrosis"))
-        .length ?? 0;
+    result.spheres.necrosis = scan.necrosis;
     const seq = getSequence(doc);
-    result.spheres ??= {};
     result.spheres.sequence = {
       length: seq.length,
       active: seq.length > 0 ? 1 : 0,
