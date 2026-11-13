@@ -1,0 +1,105 @@
+_id: lDc8WZw6eo7zpek1
+_key: "!items!lDc8WZw6eo7zpek1"
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+folder: null
+img: modules/pf1spheres/assets/icons/spheres/berserker.webp
+name: Mythic Sphere Mastery (Berserker)
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions: []
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ""
+  attackName: ""
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes:
+    - text:
+        "Mythic Sphere Mastery (Berserker): a brutal strike that expends martial focus deals +2 x mythic
+        tier more damage (2 x (BAB + tier) in all)."
+      target: meleeWeapon
+  crOffset: ""
+  critConfirmBonus: ""
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ""
+    unidentified: ""
+    value: '<p><strong>Prerequisites:</strong> Berserker sphere.</p><p>You gain one Berserker talent you do not already have.</p><p>While berserking, you may take an extra -4 penalty to AC to gain additional temporary hit points equal to your base attack bonus (at most twice your mythic tier from this ability).</p><p>Add your mythic tier to your base attack bonus when working out a brutal strike''s extra damage (so expending martial focus adds 2 &times; (base attack bonus + tier)).</p><p>When using an (adrenaline) talent, you may instead lower your AC in steps of 2, even if the talent would not normally lower it, for a +1 increase per step to that talent''s bonuses (maximum +5).</p><p><em>Source: Mythic Spheres.</em> <a href="http://spheresofpower.wikidot.com/mythic-spheres#toc334">Full text</a></p>'
+  disabled: false
+  duration:
+    units: ""
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ""
+  formulaicAttacks:
+    bonus:
+      formula: ""
+    count:
+      formula: ""
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ""
+    type: ""
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ""
+  subType: mythic
+  summons: false
+  tag: ""
+  tags:
+    - Mythic
+    - Path Ability
+    - Universal
+    - Mythic Sphere Mastery
+  target:
+    value: ""
+  traitCategory: ""
+  traitType: ""
+  uses:
+    autoDeductChargesCost: "1"
+    maxFormula: ""
+    per: null
+    rechargeFormula: ""
+    value: 0
+  weaponProf: []
+type: feat
