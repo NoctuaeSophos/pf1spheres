@@ -1,0 +1,122 @@
+_id: QpvuTZiNaFll5kQo
+_key: "!items!QpvuTZiNaFll5kQo"
+effects: []
+flags:
+  pf1: {}
+  pf1spheres:
+    addedIn: fork
+    automation:
+      GyCfKnoQ1vnMT47I:
+        mp: "1"
+        focus: restore
+      sKG3pU4Xfu592ZGs:
+        focus: restore
+folder: null
+img: systems/pf2e/icons/spells/synaptic-pulse.webp
+name: Mythic Martial Focus
+sort: 0
+system:
+  ability:
+    attack: null
+    critMult: 2
+    critRange: 20
+    damage: null
+    damageMult: 1
+  abilityType: na
+  acquired: false
+  actions:
+    - _id: GyCfKnoQ1vnMT47I
+      name: Regain Martial Focus (first use today)
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+    - _id: sKG3pU4Xfu592ZGs
+      name: Regain Martial Focus (later use)
+      actionType: other
+      activation:
+        type: free
+        unchained:
+          cost: 1
+          type: free
+  armorProf: []
+  associations:
+    classes: []
+  attackBonus: ""
+  attackName: ""
+  attackNotes: []
+  attackParts: []
+  changeFlags:
+    heavyArmorFullSpeed: false
+    immuneToMorale: false
+    loseDexToAC: false
+    lowLightVision: false
+    mediumArmorFullSpeed: false
+    noHeavyEncumbrance: false
+    noMediumEncumbrance: false
+    seeInDarkness: false
+    seeInvisibility: false
+  changes: []
+  classSkills: {}
+  contextNotes: []
+  crOffset: ""
+  critConfirmBonus: ""
+  damage:
+    critParts: []
+    nonCritParts: []
+    parts: []
+  description:
+    instructions: ""
+    unidentified: ""
+    value: '<p><strong>Universal, 1st tier</strong> (practitioner class feature).</p><p>Once per day as a free action, you can spend 1 mythic power to regain your martial focus instantly, even if you already regained it this round (an exception to the once-per-round limit). At 3rd and 6th tier you can do this one more time per day; only the first use each day costs mythic power.</p><p><em>Source: Mythic Spheres.</em> <a href="http://spheresofpower.wikidot.com/mythic-spheres#toc417">Full text</a></p>'
+  disabled: false
+  duration:
+    units: ""
+    value: null
+  effectNotes: []
+  flags:
+    boolean: {}
+    dictionary: {}
+  formula: ""
+  formulaicAttacks:
+    bonus:
+      formula: ""
+    count:
+      formula: ""
+    label: null
+  inherited: false
+  languages: []
+  links:
+    charges: []
+    children: []
+  nonlethal: false
+  racePoints: null
+  save:
+    dc: 0
+    description: ""
+    type: ""
+  scriptCalls: []
+  showInQuickbar: false
+  simple: false
+  soundEffect: ""
+  subType: mythic
+  summons: false
+  tag: ""
+  tags:
+    - Mythic
+    - Path Ability
+    - Universal
+  target:
+    value: ""
+  traitCategory: ""
+  traitType: ""
+  uses:
+    autoDeductChargesCost: "1"
+    maxFormula: 1 + floor(@details.mythicTier / 3)
+    per: day
+    rechargeFormula: ""
+    value: 0
+  weaponProf: []
+type: feat
