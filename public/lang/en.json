@@ -412,7 +412,13 @@
       "NothingToPrepare": "Pick at least one formulae.",
       "TooManyFormulae": "You can hold {max} prepared; {prepared} already are.",
       "PreparedChat": "Prepared {count} formulae in {batches} batches ({minutes} minutes, {lab} with a lab):",
-      "NoFormulae": "This character knows no (formulae) talents."
+      "NoFormulae": "This character knows no (formulae) talents.",
+      "DeathlessActing": "{name}: acting as if disabled (Deathless). Staggered; a move action is free, but each standard action (or other strenuous action, such as a quickened spell) costs 1 HP after it's done. Dies at {limit} HP. Losing martial focus ends this.",
+      "DeathlessFallUnconscious": "Fall unconscious instead",
+      "DeathlessDown": "{name}: chose to fall unconscious (Deathless not used).",
+      "DeathlessFocusLost": "{name}: lost martial focus below 0 HP; Deathless ends and normal unconscious/dying handling resumes.",
+      "DeathlessDead": "{name}: dead at {limit} HP (Deathless).",
+      "DeathlessNotActing": "{name} isn't acting through Deathless right now."
     },
     "Weather": {
       "Title": "Weather",

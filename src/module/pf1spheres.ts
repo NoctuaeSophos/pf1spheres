@@ -42,6 +42,7 @@ import { registerSocket } from "./socket";
 import { registerAutomation, endEffect, getEffects } from "./automation/runtime";
 import { registerCorruption } from "./supplements/corruption";
 import { registerGrants, syncGrants } from "./automation/grants";
+import { registerDeathless } from "./automation/deathless";
 import { onRenderActionSheet } from "./automation/action-sheet";
 import { openFormulae, rollMsbVsTargets } from "./automation/features";
 
@@ -140,6 +141,7 @@ Hooks.once("init", () => {
   registerAutomation();
   registerCorruption();
   registerGrants();
+  registerDeathless();
 
   // Call hooks after derived config has been initialised
   Hooks.callAll("pf1spheresPostInit");
